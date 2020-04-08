@@ -38,7 +38,6 @@ protected void onCreate(@Nullable Bundle savedInstanceState) {
 	frag.setEnterTransition(enterFade);
 
 	new Handler().postDelayed(() -> {
-
 		View logo = findViewById(R.id.hover_bg1);
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) ft.addSharedElement(logo, logo.getTransitionName());
