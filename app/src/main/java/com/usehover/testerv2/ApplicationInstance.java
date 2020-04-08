@@ -2,8 +2,9 @@ package com.usehover.testerv2;
 
 import android.app.Application;
 
-import com.sylversky.fontreplacer.FontReplacer;
-import com.sylversky.fontreplacer.Replacer;
+import com.usehover.testerv2.engine.fonts.FontReplacer;
+import com.usehover.testerv2.engine.fonts.Replacer;
+
 
 public class ApplicationInstance extends Application {
 @Override
