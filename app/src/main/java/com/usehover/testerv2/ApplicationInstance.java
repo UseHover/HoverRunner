@@ -12,9 +12,10 @@ public void onCreate() {
 	super.onCreate();
 
 	Replacer replacer = FontReplacer.Build(getApplicationContext());
-	replacer.setDefaultFont("Gibson-Regular.ttf");
-	replacer.setBoldFont("Gibson-semibold.ttf");
-	replacer.setItalicFont("Gibson-RegularItalic.ttf");
+	replacer.setDefaultFont("Gibson-Regular.otf");
+	replacer.setBoldFont("Gibson-Semibold.otf");
+	replacer.setItalicFont("Gibson-SemiBoldItalic.otf");
+	replacer.setThinFont("Gibson-Light.otf");
 	replacer.applyFont();
 
 }

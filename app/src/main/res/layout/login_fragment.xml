@@ -20,9 +20,23 @@
 	    android:layout_width="match_parent"
 	    android:layout_weight="1"
 	    android:background="@color/colorPrimaryDark"
+	    android:padding="@dimen/activity_horizontal_margin"
+	    android:orientation="vertical"
 	    android:layout_height="0dp">
 
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Email"
+		    android:layout_marginTop="@dimen/activity_vertical_margin"
+		    android:textColor="@color/colorHoverWhite"
+		    android:textSize="@dimen/text_16"
+		    android:textStyle="bold"/>
 
+		<EditText
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/colorHoverWhite"/>
 
 	</LinearLayout>
 </LinearLayout>
