@@ -28,6 +28,7 @@ public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, 
 			textView.setText(s);
 		}
 	});
+
 	return root;
 }
 }

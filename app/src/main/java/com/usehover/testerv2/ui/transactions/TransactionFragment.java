@@ -30,6 +30,7 @@ public View onCreateView(@NonNull LayoutInflater inflater,
 			textView.setText(s);
 		}
 	});
+
 	return root;
 }
 }

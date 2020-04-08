@@ -31,6 +31,7 @@ public View onCreateView(@NonNull LayoutInflater inflater,
 	textView.setOnClickListener(v -> {
 	startActivity(new Intent(getActivity(), LoginActivity.class));
 	});
+
 	return root;
 }
 }
