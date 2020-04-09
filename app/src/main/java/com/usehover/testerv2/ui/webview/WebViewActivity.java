@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class WebViewActivity extends AppCompatActivity {
 
-@SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint("SetJavaScriptEnabled")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

@@ -18,19 +18,19 @@ import com.usehover.testerv2.ui.login.LoginActivity;
 
 public class ActionsFragment extends Fragment {
 
-private ActionsViewModel actionsViewModel;
+    private ActionsViewModel actionsViewModel;
 
-public View onCreateView(@NonNull LayoutInflater inflater,
-						 ViewGroup container, Bundle savedInstanceState) {
-	actionsViewModel = ViewModelProviders.of(this).get(ActionsViewModel.class);
-	View root = inflater.inflate(R.layout.fragment_actions, container, false);
-	final TextView textView = root.findViewById(R.id.text_actions);
-	actionsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        actionsViewModel = ViewModelProviders.of(this).get(ActionsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_actions, container, false);
+        final TextView textView = root.findViewById(R.id.text_actions);
+        actionsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-	textView.setOnClickListener(v -> {
-	startActivity(new Intent(getActivity(), LoginActivity.class));
-	});
+        textView.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+        });
 
-	return root;
-}
+        return root;
+    }
 }
