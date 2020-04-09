@@ -8,4 +8,6 @@
 	<dimen name="editText_stroke_size">2dp</dimen>
 	<dimen name="editText_corner">2dp</dimen>
 	<dimen name="editText_inter_spacing">32dp</dimen>
+	<dimen name="actionTextSize">23sp</dimen>
+	<dimen name="actionRightSideTextSize">16sp</dimen>
 </resources>

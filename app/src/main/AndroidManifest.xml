@@ -20,6 +20,7 @@
 		</activity>
 		<activity android:name=".ui.login.LoginActivity" />
 		<activity android:name=".ui.webview.WebViewActivity" />
-	</application>
+        <activity android:name=".ui.actions.filter.ActionFilterActivity" />
+    </application>
 
 </manifest>

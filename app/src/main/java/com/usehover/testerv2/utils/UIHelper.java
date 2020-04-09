@@ -7,12 +7,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
 public class UIHelper {
-	public void setTextUnderline(TextView textView, String cs) {
+	public static void setTextUnderline(TextView textView, String cs) {
 		SpannableString content = new SpannableString(cs);
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 		textView.setText(content);
@@ -34,5 +36,7 @@ public class UIHelper {
 		if(string == null) return  false;
 		return string.length() < 40 && string.length() >5 && !string.contains(" ");
 	}
+
+
 
 }
