@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.usehover.testerv2.engine.fonts;
+package com.usehover.testerv2.utils.fonts;
 
 import android.content.Context;
 import android.graphics.Typeface;

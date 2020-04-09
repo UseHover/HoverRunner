@@ -2,8 +2,8 @@ package com.usehover.testerv2;
 
 import android.app.Application;
 
-import com.usehover.testerv2.engine.fonts.FontReplacer;
-import com.usehover.testerv2.engine.fonts.Replacer;
+import com.usehover.testerv2.utils.fonts.FontReplacer;
+import com.usehover.testerv2.utils.fonts.Replacer;
 
 
 public class ApplicationInstance extends Application {

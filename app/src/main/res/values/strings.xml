@@ -8,4 +8,10 @@
 	<string name="login_image_transition">image_transition</string>
 	<string name="custom_font_error">Cannot set custom font</string>
 	<string name="custom_font_err_msg">At least one default font must be set</string>
+	<string name="email_string">Email</string>
+	<string name="email_hint">e.g. email@ilovehover.com</string>
+	<string name="password">Password</string>
+	<string name="password_hint">Enter your password</string>
+	<string name="signIn">Sign in</string>
+	<string name="forgot_password"><u>Forgot password</u></string>
 </resources>

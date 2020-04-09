@@ -1,4 +1,4 @@
-package com.usehover.testerv2.engine.fonts;
+package com.usehover.testerv2.utils.fonts;
 
 public interface Replacer {
     void setDefaultFont(String defaultFontAsset);

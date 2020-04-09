@@ -8,6 +8,7 @@
 	<color name="colorGreen">#05EB8F</color>
 	<color name="colorMainGrey">#B1B2B6</color>
 	<color name="colorSecondaryGrey">#F1F1F4</color>
+	<color name="colorTextHint">#54575D</color>
 	<color name="colorHoverWhite">#F1F1F4</color>
 	<color name="colorPureWhite">#FFFFFF</color>
 
