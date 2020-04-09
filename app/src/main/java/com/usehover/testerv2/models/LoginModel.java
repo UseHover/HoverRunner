@@ -1,7 +1,5 @@
 package com.usehover.testerv2.models;
 
-import com.usehover.testerv2.api.HoverEnums;
-
 public class LoginModel {
     private HoverEnums status;
     private String message;

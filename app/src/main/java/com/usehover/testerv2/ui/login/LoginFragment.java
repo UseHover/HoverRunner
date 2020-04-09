@@ -14,18 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
-import com.usehover.testerv2.api.HoverEnums;
-import com.usehover.testerv2.ui.actions.ActionsViewModel;
 import com.usehover.testerv2.ui.webview.WebViewActivity;
 import com.usehover.testerv2.utils.UIHelper;
 
 import java.util.Objects;
 
-import static com.usehover.testerv2.api.HoverEnums.LOGIN_ERROR;
-import static com.usehover.testerv2.api.HoverEnums.LOGIN_SUCCESS;
 
 public class LoginFragment extends Fragment {
     private LoginViewModel loginViewModel;
@@ -57,10 +52,10 @@ public class LoginFragment extends Fragment {
                 progressDialog.cancel();
             }
             switch (modelResult.getStatus()) {
-                case LOGIN_ERROR:
+                case ERROR:
                     UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), modelResult.getMessage());
                     break;
-                case LOGIN_SUCCESS:
+                case SUCCESS:
                     startActivity(new Intent(getActivity(), MainActivity.class));
                     if (getActivity() != null)
                         getActivity().finishAffinity();
