@@ -17,4 +17,5 @@
 	<string name="signIn">Sign in</string>
 	<string name="forgot_password">Forgot password</string>
 	<string name="loadingText">Loading…</string>
+	<string name="loggin_in_text">Logging in, please wait…</string>
 </resources>

@@ -21,12 +21,6 @@ import static org.junit.Assert.*;
 @RunWith(JUnit4.class)
 public class UtilsTest {
 
-	private UIHelper uiHelper;
-
-	@Before
-	public void setup() {
-		uiHelper = new UIHelper();
-	}
 @Test
 public void addition_isCorrect() {
 	assertEquals(4, 2 + 2);
@@ -35,25 +29,25 @@ public void addition_isCorrect() {
 @Test
 public void test_validateEmail() {
 	String testEmail = "djaljdfhadjfadljfa@dafda";
-	assertFalse(uiHelper.validateEmail(testEmail));
+	assertFalse(UIHelper.validateEmail(testEmail));
 
 	String testEmail2 = "akinpeluocom@gmail.com";
-	assertTrue(uiHelper.validateEmail(testEmail2));
+	assertTrue(UIHelper.validateEmail(testEmail2));
 
 }
 
 @Test
 public void test_validatePassword(){
 	String testPassword = "asdfdwhthwy~@#4234=-+|>,?&*(./sdfadfadf";
-	assertTrue(uiHelper.validatePassword(testPassword));
+	assertTrue(UIHelper.validatePassword(testPassword));
 
 	String testPassword3 = "djfa dadf saf ";
-	assertFalse(uiHelper.validatePassword(testPassword3));
+	assertFalse(UIHelper.validatePassword(testPassword3));
 
 	String testPassword2 = "dadfdasdfdsasdfdsadsfdasdfdsdfasdfdsadfdasdfdsdfasdfdsadfdsadfdasd";
-	assertFalse(uiHelper.validatePassword(testPassword2));
+	assertFalse(UIHelper.validatePassword(testPassword2));
 
 	String testPassword4 = "1234";
-	assertFalse(uiHelper.validatePassword(testPassword4));
+	assertFalse(UIHelper.validatePassword(testPassword4));
 }
 }

@@ -22,8 +22,7 @@ private ActionsViewModel actionsViewModel;
 
 public View onCreateView(@NonNull LayoutInflater inflater,
 						 ViewGroup container, Bundle savedInstanceState) {
-	actionsViewModel =
-			ViewModelProviders.of(this).get(ActionsViewModel.class);
+	actionsViewModel = ViewModelProviders.of(this).get(ActionsViewModel.class);
 	View root = inflater.inflate(R.layout.fragment_actions, container, false);
 	final TextView textView = root.findViewById(R.id.text_actions);
 	actionsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
