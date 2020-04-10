@@ -5,32 +5,30 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.usehover.testerv2.api.Apis;
-import com.usehover.testerv2.enums.ActionEnums;
-import com.usehover.testerv2.enums.FullActionResult;
-import com.usehover.testerv2.enums.HoverEnums;
-import com.usehover.testerv2.models.ActionsModel;
-
-import java.util.List;
+import com.usehover.testerv2.enums.StatusEnums;
+import com.usehover.testerv2.models.FullActionResult;
+import com.usehover.testerv2.enums.HomeEnums;
 
 public class ActionsViewModel extends ViewModel {
 
-    private MutableLiveData<HoverEnums> filterStatus;
+    private MutableLiveData<HomeEnums> filterStatus;
     private MutableLiveData<FullActionResult> homeActions;
 
     public ActionsViewModel() {
         filterStatus = new MutableLiveData<>();
+        filterStatus.setValue(HomeEnums.FILTER_OFF);
+
         homeActions =  new MutableLiveData<>();
-        filterStatus.setValue(HoverEnums.FILTER_OFF);
-        homeActions.setValue(new FullActionResult(ActionEnums.LOADING, null));
+        homeActions.setValue(new FullActionResult(StatusEnums.LOADING, null));
     }
 
-    LiveData<HoverEnums> getText() {
+    LiveData<HomeEnums> getText() {
         return filterStatus;
     }
-    LiveData<FullActionResult> getActionsList() {return homeActions;}
+    LiveData<FullActionResult> loadActionsObs() {return homeActions;}
 
     void setFilterOn() {
-        filterStatus.postValue(HoverEnums.FILTER_ON);
+        filterStatus.postValue(HomeEnums.FILTER_ON);
     }
     void getAllActions() { homeActions.postValue(new Apis().doGetAllActionsWorkManager()); }
 }

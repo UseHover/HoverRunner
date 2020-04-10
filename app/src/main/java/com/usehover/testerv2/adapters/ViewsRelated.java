@@ -1,7 +1,6 @@
-package com.usehover.testerv2.utils;
+package com.usehover.testerv2.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,10 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
-import com.usehover.testerv2.enums.ActionEnums;
+import com.usehover.testerv2.enums.StatusEnums;
 
 public class ViewsRelated {
-    private static final int INITIAL_ITEMS_FETCH = 20;
+    private static final int INITIAL_ITEMS_FETCH = 30;
 
     public static LinearLayoutManager setMainLinearManagers(Context context) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -23,20 +22,31 @@ public class ViewsRelated {
         return  linearLayoutManager;
     }
 
-    public static int getActionIconDrawable(ActionEnums enums) {
-        if (enums == ActionEnums.PENDING)
+     static int getActionIconDrawable(StatusEnums enums) {
+        if (enums == StatusEnums.PENDING)
             return R.drawable.ic_warning_yellow_24dp;
         return R.drawable.ic_error_red_24dp;
     }
 
-    public static class ActionListItemView extends RecyclerView.ViewHolder {
-        public TextView actionIdText, actionTitleText;
-        public ImageView iconImage;
-        public ActionListItemView(@NonNull View itemView) {
+    static class ActionListItemView extends RecyclerView.ViewHolder {
+         TextView actionIdText, actionTitleText;
+         ImageView iconImage;
+         ActionListItemView(@NonNull View itemView) {
             super(itemView);
             actionIdText = itemView.findViewById(R.id.actionIdText_Id);
             actionTitleText = itemView.findViewById(R.id.actionTitle_Id);
             iconImage = itemView.findViewById(R.id.actionIconStatus);
         }
     }
+
+    static class TransactionListItemView extends  RecyclerView.ViewHolder {
+        TextView date, content;
+        TransactionListItemView(@NonNull View itemView) {
+            super(itemView);
+            date = itemView.findViewById(R.id.transaction_date_id);
+            content = itemView.findViewById(R.id.transaction_content_id);
+        }
+    }
+
+
 }

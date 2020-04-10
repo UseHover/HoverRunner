@@ -1,6 +1,6 @@
 package com.usehover.testerv2.enums;
 
-public enum HoverEnums {
+public enum HomeEnums {
     DEFAULT,
     ERROR,
     FILTER_ON,

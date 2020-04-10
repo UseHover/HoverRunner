@@ -1,17 +1,17 @@
 package com.usehover.testerv2.models;
 
-import com.usehover.testerv2.enums.HoverEnums;
+import com.usehover.testerv2.enums.HomeEnums;
 
 public class LoginModel {
-    private HoverEnums status;
+    private HomeEnums status;
     private String message;
 
-    public LoginModel(HoverEnums status, String message) {
+    public LoginModel(HomeEnums status, String message) {
         this.status = status;
         this.message = message;
     }
 
-    public HoverEnums getStatus() {
+    public HomeEnums getStatus() {
         return status;
     }
 

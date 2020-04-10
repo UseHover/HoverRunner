@@ -10,26 +10,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HoverAdapters;
-import com.usehover.testerv2.enums.ActionEnums;
-import com.usehover.testerv2.interfaces.HomeActionsOnClickListener;
-import com.usehover.testerv2.models.ActionsModel;
+import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.ui.actions.filter.ActionFilterActivity;
 import com.usehover.testerv2.ui.login.LoginActivity;
 import com.usehover.testerv2.utils.UIHelper;
-import com.usehover.testerv2.utils.ViewsRelated;
+import com.usehover.testerv2.adapters.ViewsRelated;
 
-import java.util.List;
-
-public class ActionsFragment extends Fragment implements HomeActionsOnClickListener {
+public class ActionsFragment extends Fragment implements CustomOnClickListener {
 
 
     private ActionsViewModel actionsViewModel;
@@ -53,7 +46,7 @@ public class ActionsFragment extends Fragment implements HomeActionsOnClickListe
 
         //CALL THE FILTER FUNCTION
         filterText.setOnClickListener(v -> {
-            Intent i = new Intent(getActivity(), ActionFilterActivity.class);
+            Intent i = new Intent(getActivity(), LoginActivity.class);
             startActivityForResult(i, FILTER_RESULT);
         });
 
@@ -71,11 +64,13 @@ public class ActionsFragment extends Fragment implements HomeActionsOnClickListe
                 case FILTER_OFF: filterText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
                     break;
                 case FILTER_ON: filterText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    filterText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dot_purple_24dp, 0,0,0);
+                    filterText.setCompoundDrawablePadding(8);
                     break;
             }
         });
 
-        actionsViewModel.getActionsList().observe(getViewLifecycleOwner(), fullActionResult -> {
+        actionsViewModel.loadActionsObs().observe(getViewLifecycleOwner(), fullActionResult -> {
             switch (fullActionResult.getActionEnum()){
                 case LOADING:
                     if(homeActionsRecyclerView.getVisibility() == View.VISIBLE)homeActionsRecyclerView.setVisibility(View.GONE);
@@ -112,7 +107,7 @@ public class ActionsFragment extends Fragment implements HomeActionsOnClickListe
 
 
     @Override
-    public void onHomeActionClickListener(String actionId) {
+    public void customClickListener(Object data) {
 
     }
 }

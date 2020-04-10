@@ -1,50 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="@color/colorPrimaryDark"
 		android:orientation="vertical"
-		android:padding="@dimen/activity_horizontal_margin"
+		android:layout_marginBottom="55dp"
 		tools:context=".ui.actions.ActionsFragment">
 
 	<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="0dp"
+			android:orientation="vertical"
+			android:layout_weight="1"
+			android:paddingTop="@dimen/activity_vertical_margin"
+			>
 
-			android:layout_gravity="center_vertical"
-			android:gravity="center_vertical"
-			android:orientation="horizontal">
-
-		<TextView
-				android:id="@+id/text_actions"
-				android:layout_width="0dp"
+		<LinearLayout
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:textAlignment="textStart"
-				android:textStyle="bold"
-				android:textSize="@dimen/actionTextSize"
-				android:textColor="@color/colorHoverWhite"
-				android:text="@string/title_actions"
-				android:layout_weight="1"
-				/>
+				android:layout_gravity="center_vertical"
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
 
-		<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textColor="@color/colorHoverWhite"
-				android:textSize="@dimen/actionRightSideTextSize"
-				android:textStyle="bold"
-				android:layout_gravity="center"
-				android:gravity="center"
-				android:id="@+id/actionFilter_id"
-				android:text="@string/filter_text"/>
+			<TextView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:textAlignment="textStart"
+					android:textStyle="bold"
+					android:textSize="@dimen/actionTextSize"
+					android:textColor="@color/colorHoverWhite"
+					android:text="@string/title_actions"
+					android:layout_weight="1"
+					/>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/colorHoverWhite"
+					android:textSize="@dimen/actionRightSideTextSize"
+					android:textStyle="bold"
+					android:layout_gravity="center"
+					android:gravity="center"
+					android:id="@+id/actionFilter_id"
+					android:text="@string/filter_text"/>
+
+		</LinearLayout>
+
+		<include layout="@layout/recycler_view_state" android:visibility="gone"/>
+		<include layout="@layout/general_recycler_view"
+				android:visibility="gone"/>
 
 	</LinearLayout>
-
-	<include layout="@layout/recycler_view_state" android:visibility="gone"/>
-	<include layout="@layout/general_recycler_view"
-			android:visibility="gone"/>
-
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/colorPrimary"
+			android:textAlignment="center"
+			android:paddingVertical="10dp"
+			android:textStyle="bold"
+			android:textSize="@dimen/text_16"
+			android:id="@+id/testAllActions_id"
+			android:text="@string/testAllActions"/>
 
 </LinearLayout>

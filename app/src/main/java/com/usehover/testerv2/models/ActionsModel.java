@@ -1,13 +1,13 @@
 package com.usehover.testerv2.models;
 
-import com.usehover.testerv2.enums.ActionEnums;
+import com.usehover.testerv2.enums.StatusEnums;
 
 public class ActionsModel {
 
     private String actionId, actionTitle;
-    private ActionEnums actionEnum;
+    private StatusEnums actionEnum;
 
-    public ActionsModel(String actionId, String actionTitle, ActionEnums actionEnum) {
+    public ActionsModel(String actionId, String actionTitle, StatusEnums actionEnum) {
         this.actionId = actionId;
         this.actionTitle = actionTitle;
         this.actionEnum = actionEnum;
@@ -21,7 +21,7 @@ public class ActionsModel {
         return actionTitle;
     }
 
-    public ActionEnums getActionEnum() {
+    public StatusEnums getActionEnum() {
         return actionEnum;
     }
 }

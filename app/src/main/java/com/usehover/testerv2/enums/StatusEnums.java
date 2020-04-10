@@ -1,6 +1,6 @@
 package com.usehover.testerv2.enums;
 
-public enum ActionEnums {
+public enum StatusEnums {
     PENDING,
     UNSUCCESSFUL,
     SUCCESS,

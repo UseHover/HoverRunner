@@ -13,7 +13,7 @@ public class ApplicationInstance extends Application {
 
 		Replacer replacer = FontReplacer.Build(getApplicationContext());
 		replacer.setDefaultFont("Gibson-Regular.otf");
-		replacer.setBoldFont("Gibson-Semibold.otf");
+		replacer.setBoldFont("Gibson-Bold.otf");
 		replacer.setItalicFont("Gibson-SemiBoldItalic.otf");
 		replacer.setThinFont("Gibson-Light.otf");
 		replacer.applyFont();

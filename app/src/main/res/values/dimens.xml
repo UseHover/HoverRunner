@@ -6,6 +6,7 @@
 	<dimen name="editText_box_margin_horiz">21dp</dimen>
 	<dimen name="editText_box_margin_vert">13dp</dimen>
 	<dimen name="editText_stroke_size">2dp</dimen>
+	<dimen name="editText_initial_stroke">1dp</dimen>
 	<dimen name="editText_corner">2dp</dimen>
 	<dimen name="editText_inter_spacing">32dp</dimen>
 	<dimen name="actionTextSize">23sp</dimen>

@@ -1,5 +1,6 @@
 package com.usehover.testerv2.adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
-import com.usehover.testerv2.enums.ActionEnums;
-import com.usehover.testerv2.interfaces.HomeActionsOnClickListener;
+import com.usehover.testerv2.enums.StatusEnums;
+import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.models.ActionsModel;
+import com.usehover.testerv2.models.TransactionModels;
 import com.usehover.testerv2.utils.UIHelper;
-import com.usehover.testerv2.utils.ViewsRelated;
 
 import java.util.List;
 public class HoverAdapters {
@@ -20,12 +21,12 @@ public class HoverAdapters {
 
         private List<ActionsModel> actionsModel;
         private boolean showStatus;
-        private HomeActionsOnClickListener homeActionsOnClickListener;
+        private CustomOnClickListener customOnClickListener;
 
-        public HomeActionRecyclerAdapter(List<ActionsModel> actionsModel, boolean showStatus, HomeActionsOnClickListener homeActionsOnClickListener) {
+        public HomeActionRecyclerAdapter(List<ActionsModel> actionsModel, boolean showStatus, CustomOnClickListener customOnClickListener) {
             this.actionsModel = actionsModel;
             this.showStatus = showStatus;
-            this.homeActionsOnClickListener = homeActionsOnClickListener;
+            this.customOnClickListener = customOnClickListener;
         }
 
 
@@ -44,10 +45,10 @@ public class HoverAdapters {
 
 
             if (showStatus) {
-                if (model.getActionEnum() != ActionEnums.SUCCESS)
+                if (model.getActionEnum() != StatusEnums.SUCCESS)
                     holder.iconImage.setImageResource(ViewsRelated.getActionIconDrawable(model.getActionEnum()));
             }
-            holder.itemView.setOnClickListener(v -> homeActionsOnClickListener.onHomeActionClickListener(model.getActionId()));
+            holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(model.getActionId()));
 
         }
          @Override
@@ -64,6 +65,59 @@ public class HoverAdapters {
         public int getItemCount() {
             if (actionsModel == null) return 0;
             return actionsModel.size();
+        }
+    }
+
+
+    public static class TransactionRecyclerAdapter extends RecyclerView.Adapter<ViewsRelated.TransactionListItemView> {
+
+         private List<TransactionModels> transactionModelsList;
+         private CustomOnClickListener customOnClickListener;
+         private int colorPending, colorFailed;
+
+        public TransactionRecyclerAdapter(List<TransactionModels> transactionModelsList, CustomOnClickListener customOnClickListener, int colorPending, int colorFailed) {
+            this.transactionModelsList = transactionModelsList;
+            this.customOnClickListener = customOnClickListener;
+            this.colorPending = colorPending;
+            this.colorFailed = colorFailed;
+        }
+
+        @NonNull
+        @Override
+        public ViewsRelated.TransactionListItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_list_items, parent, false);
+            return new ViewsRelated.TransactionListItemView(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewsRelated.TransactionListItemView holder, int position) {
+            TransactionModels transactionModels = transactionModelsList.get(position);
+            holder.date.setText(transactionModels.getDate());
+            holder.content.setText(transactionModels.getCaption());
+
+            if(transactionModels.getStatusEnums() != StatusEnums.SUCCESS) {
+                holder.date.setCompoundDrawablesWithIntrinsicBounds(ViewsRelated.getActionIconDrawable(transactionModels.getStatusEnums()), 0,0,0);
+                holder.date.setCompoundDrawablePadding(8);
+                holder.date.setTextColor(transactionModels.getStatusEnums() == StatusEnums.PENDING ? colorPending : colorFailed );
+            }
+
+            holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(transactionModels.getTransaction_id()));
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
+
+        @Override
+        public int getItemCount() {
+            if (transactionModelsList == null) return 0;
+            return transactionModelsList.size();
         }
     }
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.usehover.testerv2.api.Apis;
-import com.usehover.testerv2.enums.HoverEnums;
+import com.usehover.testerv2.enums.HomeEnums;
 import com.usehover.testerv2.models.LoginModel;
 
 public class LoginViewModel extends ViewModel {
@@ -13,7 +13,7 @@ public class LoginViewModel extends ViewModel {
 
 	public LoginViewModel() {
 		modelResult = new MutableLiveData<>();
-		modelResult.setValue(new LoginModel(HoverEnums.DEFAULT, null));
+		modelResult.setValue(new LoginModel(HomeEnums.DEFAULT, null));
 	}
 
 	LiveData<LoginModel> getModelResult() { return modelResult; }

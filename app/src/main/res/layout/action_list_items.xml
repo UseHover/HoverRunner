@@ -3,9 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent" 
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
+        android:paddingTop="8dp"
         android:layout_marginTop="2.5dp"
-        android:layout_marginBottom="2.5dp"
         android:background="@color/colorPrimaryDark">
 
     <TextView
@@ -13,6 +12,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/actionIdText_Id"
             android:textSize="@dimen/text_16"
+            android:paddingHorizontal="@dimen/activity_vertical_margin"
             android:layout_marginEnd="38dp"
             android:textColor="@color/colorHoverWhite"
             android:textStyle="bold"/>
@@ -23,7 +23,7 @@
             android:id="@+id/actionTitle_Id"
             android:layout_below="@id/actionIdText_Id"
             android:textSize="@dimen/text_16"
-            android:inputType="textCapSentences"
+            android:paddingHorizontal="@dimen/activity_vertical_margin"
             android:textColor="@color/colorHoverWhite"
             android:layout_marginEnd="38dp"
             android:textStyle="bold"/>
@@ -34,8 +34,16 @@
             android:id="@+id/actionIconStatus"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
+            android:paddingHorizontal="@dimen/activity_vertical_margin"
             android:contentDescription="@string/action_icon_status_description"
             />
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2.5dp"
+            android:layout_below="@id/actionTitle_Id"
+            android:background="@color/lineColor"/>
 
 </RelativeLayout>

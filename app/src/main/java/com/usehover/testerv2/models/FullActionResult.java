@@ -1,19 +1,19 @@
-package com.usehover.testerv2.enums;
+package com.usehover.testerv2.models;
 
-import com.usehover.testerv2.models.ActionsModel;
+import com.usehover.testerv2.enums.StatusEnums;
 
 import java.util.List;
 
 public class FullActionResult {
-    private ActionEnums actionEnum;
+    private StatusEnums actionEnum;
     private List<ActionsModel> actionsModelList;
 
-    public FullActionResult(ActionEnums actionEnum, List<ActionsModel> actionsModelList) {
+    public FullActionResult(StatusEnums actionEnum, List<ActionsModel> actionsModelList) {
         this.actionEnum = actionEnum;
         this.actionsModelList = actionsModelList;
     }
 
-    public ActionEnums getActionEnum() {
+    public StatusEnums getActionEnum() {
         return actionEnum;
     }
 

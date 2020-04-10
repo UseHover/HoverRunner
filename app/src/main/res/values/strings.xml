@@ -19,5 +19,6 @@
 	<string name="loadingText">Loading…</string>
 	<string name="loggin_in_text">Logging in, please wait…</string>
 	<string name="filter_text">Filter</string>
+	<string name="testAllActions">Test all actions</string>
 	<string name="action_icon_status_description">Action status after it was ran</string>
 </resources>
