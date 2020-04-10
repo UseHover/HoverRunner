@@ -96,7 +96,7 @@ public class HoverAdapters {
             holder.content.setText(transactionModels.getCaption());
 
             if(transactionModels.getStatusEnums() != StatusEnums.SUCCESS) {
-                holder.date.setCompoundDrawablesWithIntrinsicBounds(ViewsRelated.getActionIconDrawable(transactionModels.getStatusEnums()), 0,0,0);
+                holder.date.setCompoundDrawablesWithIntrinsicBounds(0,0,ViewsRelated.getActionIconDrawable(transactionModels.getStatusEnums()), 0);
                 holder.date.setCompoundDrawablePadding(8);
                 holder.date.setTextColor(transactionModels.getStatusEnums() == StatusEnums.PENDING ? colorPending : colorFailed );
             }
