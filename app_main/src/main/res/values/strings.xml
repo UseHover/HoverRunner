@@ -35,4 +35,6 @@
 	<string name="sim1">SIM 1</string>
 	<string name="sim2">SIM 2</string>
 	<string name="refresh_app_data">Refresh app data</string>
+	<string name="no_sim_found">No sim detected</string>
+	<string name="app_data_refreshed">App data refreshed</string>
 </resources>
