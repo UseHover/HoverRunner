@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" 
+        android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:layout_marginTop="2.5dp"
         android:background="@color/colorPrimaryDark">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
 
     <TextView
             android:layout_width="wrap_content"
@@ -27,7 +32,6 @@
             android:textColor="@color/colorHoverWhite"
             android:layout_marginEnd="38dp"
             android:textStyle="bold"/>
-
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,13 +41,14 @@
             android:paddingHorizontal="@dimen/activity_vertical_margin"
             android:contentDescription="@string/action_icon_status_description"
             />
+    </RelativeLayout>
 
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="2.5dp"
-            android:layout_below="@id/actionTitle_Id"
+            android:id="@+id/divider"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/lineColor"/>
 
-</RelativeLayout>
+</LinearLayout>

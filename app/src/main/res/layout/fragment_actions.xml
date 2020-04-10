@@ -32,6 +32,7 @@
 					android:textSize="@dimen/actionTextSize"
 					android:textColor="@color/colorHoverWhite"
 					android:text="@string/title_actions"
+					android:paddingHorizontal="@dimen/activity_vertical_margin"
 					android:layout_weight="1"
 					/>
 
@@ -43,6 +44,7 @@
 					android:textStyle="bold"
 					android:layout_gravity="center"
 					android:gravity="center"
+					android:paddingHorizontal="@dimen/activity_vertical_margin"
 					android:id="@+id/actionFilter_id"
 					android:text="@string/filter_text"/>
 
