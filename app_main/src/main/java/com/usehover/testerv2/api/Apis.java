@@ -8,6 +8,7 @@ import com.usehover.testerv2.enums.HomeEnums;
 import com.usehover.testerv2.models.FullTransactionResult;
 import com.usehover.testerv2.models.LoadSimModel;
 import com.usehover.testerv2.models.LoginModel;
+import com.usehover.testerv2.utils.CustomNetworkUtil;
 import com.usehover.testerv2.utils.UIHelper;
 
 import java.util.Random;
@@ -16,10 +17,11 @@ public class Apis {
 	public final static int PROD_ENV = 0, DEBUG_ENV = 1, TEST_ENV = 2;
 	private static final String INVALID_EMAIL = "Invalid email format";
 	private static final String INVALID_PASSWORD = "Invalid password format";
+	public static final String NO_NETWORK = "Internet connection not found";
 
 	public LoginModel doLoginWorkManager(String email, String password) {
-		if(!UIHelper.validateEmail(email)) return new LoginModel(HomeEnums.ERROR, INVALID_EMAIL);
-		if(!UIHelper.validatePassword(password)) return new LoginModel(HomeEnums.ERROR, INVALID_PASSWORD);
+		if(!UIHelper.validateEmail(email)) return new LoginModel(HomeEnums.ERROR_EMAIL, INVALID_EMAIL);
+		if(!UIHelper.validatePassword(password)) return new LoginModel(HomeEnums.PASSWORD_ERROR, INVALID_PASSWORD);
 
 		return new LoginModel(HomeEnums.SUCCESS, "Login successful");
 	}
