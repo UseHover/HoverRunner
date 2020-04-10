@@ -28,6 +28,7 @@
 		<activity android:name=".ui.webview.WebViewActivity" />
         <activity android:name=".ui.actions.filter.ActionFilterActivity" />
 		<activity android:name=".ui.transactions.filter.TransactionFilterActivity" />
+		<activity android:name=".ui.action_details.ActionDetailsActivity" />
 	</application>
 
 </manifest>
