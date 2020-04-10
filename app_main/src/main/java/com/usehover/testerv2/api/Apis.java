@@ -21,7 +21,7 @@ public class Apis {
 
 	public LoginModel doLoginWorkManager(String email, String password) {
 		if(!UIHelper.validateEmail(email)) return new LoginModel(HomeEnums.ERROR_EMAIL, INVALID_EMAIL);
-		if(!UIHelper.validatePassword(password)) return new LoginModel(HomeEnums.PASSWORD_ERROR, INVALID_PASSWORD);
+		if(!UIHelper.validatePassword(password)) return new LoginModel(HomeEnums.ERROR_PASSWORD, INVALID_PASSWORD);
 
 		return new LoginModel(HomeEnums.SUCCESS, "Login successful");
 	}

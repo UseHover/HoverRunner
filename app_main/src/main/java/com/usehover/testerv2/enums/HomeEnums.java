@@ -3,7 +3,7 @@ package com.usehover.testerv2.enums;
 public enum HomeEnums {
     DEFAULT,
     ERROR_EMAIL,
-    PASSWORD_ERROR,
+    ERROR_PASSWORD,
     ERROR,
     FILTER_ON,
     FILTER_OFF,

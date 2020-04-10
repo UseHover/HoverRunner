@@ -6,15 +6,15 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 
-import com.usehover.testerv2.enums.NetworkStatusEnum;
+import com.usehover.testerv2.enums.PassageEnum;
 
 public class CustomNetworkUtil {
     private Context context;
     public CustomNetworkUtil(Context context) {
         this.context = context;
     }
-    public NetworkStatusEnum isNetworkAvailable() {
-        if(context == null)  return NetworkStatusEnum.OFFLINE;
+    public PassageEnum isNetworkAvailable() {
+        if(context == null)  return PassageEnum.REJECT;
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (connectivityManager != null) {
@@ -23,11 +23,11 @@ public class CustomNetworkUtil {
                 NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
                 if (capabilities != null) {
                     if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                        return NetworkStatusEnum.ONLINE;
+                        return PassageEnum.ACCEPT;
                     } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                        return NetworkStatusEnum.ONLINE;
+                        return PassageEnum.ACCEPT;
                     }  else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)){
-                        return NetworkStatusEnum.ONLINE;
+                        return PassageEnum.ACCEPT;
                     }
                 }
             }
@@ -36,12 +36,12 @@ public class CustomNetworkUtil {
                 try {
                     NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
                     if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
-                        return NetworkStatusEnum.ONLINE;
+                        return PassageEnum.ACCEPT;
                     }
                 } catch (Exception e) {
                 }
             }
         }
-        return NetworkStatusEnum.OFFLINE;
+        return PassageEnum.REJECT;
     }
 }

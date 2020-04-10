@@ -16,7 +16,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
+import com.usehover.testerv2.api.Apis;
+import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.ui.webview.WebViewActivity;
+import com.usehover.testerv2.utils.CustomNetworkUtil;
 import com.usehover.testerv2.utils.UIHelper;
 
 import java.util.Objects;
@@ -37,7 +40,7 @@ public class LoginFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
 
-        new UIHelper().setTextUnderline(forgotPassword, Objects.requireNonNull(getContext()).getString(R.string.forgot_password));
+        UIHelper.setTextUnderline(forgotPassword, Objects.requireNonNull(getContext()).getString(R.string.forgot_password));
 
         forgotPassword.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), WebViewActivity.class);
@@ -52,6 +55,10 @@ public class LoginFragment extends Fragment {
                 progressDialog.cancel();
             }
             switch (modelResult.getStatus()) {
+                case ERROR_EMAIL:
+                    break;
+                case ERROR_PASSWORD:
+                    break;
                 case ERROR:
                     UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), modelResult.getMessage());
                     break;
@@ -66,8 +73,11 @@ public class LoginFragment extends Fragment {
         EditText emailEdit = view.findViewById(R.id.emailEditId);
         EditText passwordEdit = view.findViewById(R.id.passwordEditId);
         view.findViewById(R.id.signinButton).setOnClickListener(v -> {
-            if (!progressDialog.isShowing()) progressDialog.show();
-            loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString());
+            if(new CustomNetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
+                if (!progressDialog.isShowing()) progressDialog.show();
+                loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString());
+            }
+            else UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), Apis.NO_NETWORK);
         });
 
         return view;

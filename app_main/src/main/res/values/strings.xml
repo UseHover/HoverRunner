@@ -18,7 +18,7 @@
 	<string name="forgot_password">Forgot password</string>
 	<string name="loadingText">Loading…</string>
 	<string name="loggin_in_text">Logging in, please wait…</string>
-	<string name="filter_text">Filter, another here</string>
+	<string name="filter_text">Filter</string>
 	<string name="testAllActions">Test all actions</string>
 	<string name="testing_mode">Testing mode</string>
 	<string name="normal">Normal</string>
