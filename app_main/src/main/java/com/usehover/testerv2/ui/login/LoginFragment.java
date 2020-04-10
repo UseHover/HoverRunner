@@ -86,10 +86,10 @@ public class LoginFragment extends Fragment {
                     UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), modelResult.getMessage());
                     break;
                 case SUCCESS:
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    intent.putExtra("doFakeLogin", 1);
-                    startActivity(intent);
-                    if (getActivity() != null) getActivity().finishAffinity();
+                    MainActivity.LoginYes = 1;
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    if (getActivity() != null)
+                        getActivity().finishAffinity();
                     break;
             }
         });

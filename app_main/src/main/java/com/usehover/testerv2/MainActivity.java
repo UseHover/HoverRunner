@@ -15,20 +15,18 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
+	public static int LoginYes = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		try{
-			if(getIntent().getExtras().getInt("dofakeLogin", 0) == 0) {
+
+			if(LoginYes == 0) {
 				if (new Apis().allowIntoMainActivity() == PassageEnum.REJECT) {
 					startActivity(new Intent(this, LoginActivity.class));
 					finish();
 				}
 			}
-		}catch (Exception e){
-			startActivity(new Intent(this, LoginActivity.class));
-			finish();
-		}
+
 
 
 		setContentView(R.layout.activity_main);
