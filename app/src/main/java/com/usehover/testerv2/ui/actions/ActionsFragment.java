@@ -86,7 +86,10 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
                     if(emptyStateText.getVisibility() == View.VISIBLE) emptyStateText.setVisibility(View.GONE);
                     if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
                     if(homeActionsRecyclerView.getVisibility() != View.VISIBLE) homeActionsRecyclerView.setVisibility(View.VISIBLE);
-                    homeActionsRecyclerView.setAdapter(new HoverAdapters.HomeActionRecyclerAdapter(fullActionResult.getActionsModelList(), true, this));
+                    homeActionsRecyclerView.setAdapter(new HoverAdapters.HomeActionRecyclerAdapter(fullActionResult.getActionsModelList(), true,
+                            this,
+                            getResources().getColor(R.color.colorYellow),
+                            getResources().getColor(R.color.colorRed)));
                     break;
             }
         });

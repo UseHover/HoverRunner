@@ -89,7 +89,8 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 					homeTransactionsRecyclerView.setAdapter(new HoverAdapters.TransactionRecyclerAdapter(fullActionResult.getTransactionModelsList(),
 							this,
 							getResources().getColor(R.color.colorYellow),
-							getResources().getColor(R.color.colorRed)));
+							getResources().getColor(R.color.colorRed),
+							getResources().getColor(R.color.colorGreen)));
 					break;
 			}
 		});

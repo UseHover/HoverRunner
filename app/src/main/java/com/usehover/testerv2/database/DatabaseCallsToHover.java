@@ -17,7 +17,7 @@ public class DatabaseCallsToHover {
         for(int i =0; i<50; i++) {
             String randomId = String.valueOf(new Random().nextInt(1000000));
             String randomSentence = newSentence(5);
-            actionsModelList.add(new ActionsModel(randomId, randomSentence, randomStatus(new Random().nextInt(3))));
+            actionsModelList.add(new ActionsModel(randomId, randomSentence, randomStatus(new Random().nextInt(4))));
         }
 
         return actionsModelList;
@@ -36,7 +36,7 @@ public class DatabaseCallsToHover {
 
 
     private StatusEnums randomStatus(int id) {
-        StatusEnums[] statusEnums = {StatusEnums.PENDING, StatusEnums.SUCCESS, StatusEnums.UNSUCCESSFUL};
+        StatusEnums[] statusEnums = {StatusEnums.PENDING, StatusEnums.SUCCESS, StatusEnums.UNSUCCESSFUL, StatusEnums.NOT_YET_RUN};
         return statusEnums[id];
     }
     private String newSentence(int words) {

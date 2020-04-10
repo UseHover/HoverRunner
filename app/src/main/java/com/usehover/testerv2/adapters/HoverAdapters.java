@@ -22,11 +22,14 @@ public class HoverAdapters {
         private List<ActionsModel> actionsModel;
         private boolean showStatus;
         private CustomOnClickListener customOnClickListener;
+        private int colorPending, colorFailed;
 
-        public HomeActionRecyclerAdapter(List<ActionsModel> actionsModel, boolean showStatus, CustomOnClickListener customOnClickListener) {
+        public HomeActionRecyclerAdapter(List<ActionsModel> actionsModel, boolean showStatus, CustomOnClickListener customOnClickListener, int colorPending, int colorFailed) {
             this.actionsModel = actionsModel;
             this.showStatus = showStatus;
             this.customOnClickListener = customOnClickListener;
+            this.colorPending = colorPending;
+            this.colorFailed = colorFailed;
         }
 
 
@@ -41,11 +44,15 @@ public class HoverAdapters {
         public void onBindViewHolder(@NonNull ViewsRelated.ActionListItemView holder, int position) {
             ActionsModel model = actionsModel.get(position);
             UIHelper.setTextUnderline(holder.actionIdText, model.getActionId());
+            if(model.getActionEnum() == StatusEnums.PENDING)
+                holder.actionIdText.setTextColor(colorPending);
+            else if(model.getActionEnum() == StatusEnums.UNSUCCESSFUL)
+                holder.actionIdText.setTextColor(colorFailed);
             holder.actionTitleText.setText(model.getActionTitle());
 
 
             if (showStatus) {
-                if (model.getActionEnum() != StatusEnums.SUCCESS)
+                if (model.getActionEnum() != StatusEnums.NOT_YET_RUN)
                     holder.iconImage.setImageResource(ViewsRelated.getActionIconDrawable(model.getActionEnum()));
             }
             holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(model.getActionId()));
@@ -73,13 +80,14 @@ public class HoverAdapters {
 
          private List<TransactionModels> transactionModelsList;
          private CustomOnClickListener customOnClickListener;
-         private int colorPending, colorFailed;
+         private int colorPending, colorFailed, colorSuccess;
 
-        public TransactionRecyclerAdapter(List<TransactionModels> transactionModelsList, CustomOnClickListener customOnClickListener, int colorPending, int colorFailed) {
+        public TransactionRecyclerAdapter(List<TransactionModels> transactionModelsList, CustomOnClickListener customOnClickListener, int colorPending, int colorFailed, int colorSuccess) {
             this.transactionModelsList = transactionModelsList;
             this.customOnClickListener = customOnClickListener;
             this.colorPending = colorPending;
             this.colorFailed = colorFailed;
+            this.colorSuccess = colorSuccess;
         }
 
         @NonNull
@@ -95,10 +103,11 @@ public class HoverAdapters {
             holder.date.setText(transactionModels.getDate());
             holder.content.setText(transactionModels.getCaption());
 
-            if(transactionModels.getStatusEnums() != StatusEnums.SUCCESS) {
+            if(transactionModels.getStatusEnums() != StatusEnums.NOT_YET_RUN) {
                 holder.date.setCompoundDrawablesWithIntrinsicBounds(0,0,ViewsRelated.getActionIconDrawable(transactionModels.getStatusEnums()), 0);
                 holder.date.setCompoundDrawablePadding(8);
-                holder.date.setTextColor(transactionModels.getStatusEnums() == StatusEnums.PENDING ? colorPending : colorFailed );
+                holder.date.setTextColor(transactionModels.getStatusEnums() == StatusEnums.PENDING ?
+                        colorPending : transactionModels.getStatusEnums() == StatusEnums.UNSUCCESSFUL ? colorFailed : colorSuccess);
             }
 
             holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(transactionModels.getTransaction_id()));
