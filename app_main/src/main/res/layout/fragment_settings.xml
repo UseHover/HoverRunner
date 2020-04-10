@@ -161,7 +161,6 @@
 				android:textColor="@color/colorSecondaryGrey"
 				android:textSize="@dimen/text_14"
 				android:id="@+id/sim2_content" />
-
 	</LinearLayout>
 
 	<TextView

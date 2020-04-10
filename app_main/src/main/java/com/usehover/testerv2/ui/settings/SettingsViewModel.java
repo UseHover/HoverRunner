@@ -27,6 +27,9 @@ public class SettingsViewModel extends ViewModel {
 
 	LiveData<Integer> loadCurrentModeObs() { return modeType; }
 	LiveData<LoadSimModel> loadSimsObs() {return loadSimModel; }
+	void getSims() {
+		loadSimModel.postValue(new Apis().getSimsOnDevice());
+	}
 	void updateMode(int pos) {
 		switch (pos) {
 			case R.id.mode_normal: new Apis().updateTestMode(Apis.PROD_ENV);

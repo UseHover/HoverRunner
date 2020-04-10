@@ -46,7 +46,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
 
         //CALL THE FILTER FUNCTION
         filterText.setOnClickListener(v -> {
-            Intent i = new Intent(getActivity(), LoginActivity.class);
+            Intent i = new Intent(getActivity(), ActionFilterActivity.class);
             startActivityForResult(i, FILTER_RESULT);
         });
 

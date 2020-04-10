@@ -31,6 +31,7 @@ public class SettingsFragment extends Fragment {
 		TextView sim1 = root.findViewById(R.id.sim1_content);
 		TextView sim2 = root.findViewById(R.id.sim2_content);
 
+		UIHelper.setTextUnderline(root.findViewById(R.id.contact_support), getResources().getString(R.string.contact_support));
 		radioGroup.setOnCheckedChangeListener((group, checkedId) -> settingsViewModel.updateMode(checkedId));
 
 		settingsViewModel.loadCurrentModeObs().observe(getViewLifecycleOwner(), mode-> {
@@ -49,6 +50,8 @@ public class SettingsFragment extends Fragment {
 			new Apis().refreshAppData();
 			UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.app_data_refreshed));
 		});
+
+		settingsViewModel.getSims();
 
 
 		return root;

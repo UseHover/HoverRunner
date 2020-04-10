@@ -2,6 +2,7 @@ package com.usehover.testerv2.api;
 
 import com.usehover.testerv2.database.DatabaseCallsToHover;
 import com.usehover.testerv2.enums.ModesEnum;
+import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.FullActionResult;
 import com.usehover.testerv2.enums.HomeEnums;
@@ -15,8 +16,8 @@ import java.util.Random;
 
 public class Apis {
 	public final static int PROD_ENV = 0, DEBUG_ENV = 1, TEST_ENV = 2;
-	private static final String INVALID_EMAIL = "Invalid email format";
-	private static final String INVALID_PASSWORD = "Invalid password format";
+	private static final String INVALID_EMAIL = "Invalid email format, please enter correct email and try again";
+	private static final String INVALID_PASSWORD = "Invalid password format. Ensure password has a minimum of 5 letters";
 	public static final String NO_NETWORK = "Internet connection not found";
 
 	public LoginModel doLoginWorkManager(String email, String password) {
@@ -46,5 +47,9 @@ public class Apis {
 
 	public void refreshAppData() {
 
+	}
+
+	public PassageEnum allowIntoMainActivity() {
+		return PassageEnum.REJECT;
 	}
 }
