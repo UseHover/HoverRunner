@@ -18,9 +18,11 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(new Apis().allowIntoMainActivity() == PassageEnum.REJECT) {
-			startActivity(new Intent(this, LoginActivity.class));
-			finish();
+		if(getIntent().getExtras().getInt("dofakeLogin", 0) == 0) {
+			if (new Apis().allowIntoMainActivity() == PassageEnum.REJECT) {
+				startActivity(new Intent(this, LoginActivity.class));
+				finish();
+			}
 		}
 
 		setContentView(R.layout.activity_main);
