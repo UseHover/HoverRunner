@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,12 +18,16 @@ import com.usehover.testerv2.R;
 public class SettingsFragment extends Fragment {
 
 	private SettingsViewModel settingsViewModel;
+	private RadioGroup radioGroup;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_settings, container, false);
+		radioGroup = root.findViewById(R.id.myRadioGroup);
 
-
+		radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+			// find which radio button is selected where int is in format: R.id.mode_normal
+		});
 		return root;
 	}
 }

@@ -18,7 +18,21 @@
 	<string name="forgot_password">Forgot password</string>
 	<string name="loadingText">Loading…</string>
 	<string name="loggin_in_text">Logging in, please wait…</string>
-	<string name="filter_text">Filter</string>
+	<string name="filter_text">Filter, another here</string>
 	<string name="testAllActions">Test all actions</string>
+	<string name="testing_mode">Testing mode</string>
+	<string name="normal">Normal</string>
+	<string name="normal_toolTip">USSD sessions run in the background</string>
+	<string name="Debug">Debug</string>
+	<string name="debug_toolTip">Watch USSD sessions as they happen</string>
+	<string name="no_sim">No SIM</string>
+	<string name="no_sim_toolTip">When you do not have the correct SIM for the service you want to test</string>
+	<string name="sim_cards">SIM cards</string>
 	<string name="action_icon_status_description">Action status after it was ran</string>
+	<string name="sim_tooltip">Don’t see the correct SIM? Try removing it and re-inserting it. If that doesn\’t work, contact support.</string>
+	<string name="contact_support">Contact support</string>
+	<string name="refresh">Refresh</string>
+	<string name="sim1">SIM 1</string>
+	<string name="sim2">SIM 2</string>
+	<string name="refresh_app_data">Refresh app data</string>
 </resources>
