@@ -34,7 +34,7 @@ public class UIHelper {
 	}
 	public static boolean validatePassword (String string) {
 		if(string == null) return  false;
-		return string.length() < 40 && string.length() >5 && !string.contains(" ");
+		return string.length() < 40 && string.length() >4 && !string.contains(" ");
 	}
 
 
