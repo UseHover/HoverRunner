@@ -4,6 +4,7 @@ import com.usehover.testerv2.database.DatabaseCallsToHover;
 import com.usehover.testerv2.enums.ModesEnum;
 import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.enums.StatusEnums;
+import com.usehover.testerv2.models.ActionDetailsModels;
 import com.usehover.testerv2.models.FullActionResult;
 import com.usehover.testerv2.enums.HomeEnums;
 import com.usehover.testerv2.models.FullTransactionResult;
@@ -37,6 +38,10 @@ public class Apis {
 
 	public FullTransactionResult doGetAllTransactionsWorkManager() {
 		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getAllTransactionsFromHover());
+	}
+
+	public ActionDetailsModels doGetSpecificActionDetailsById(String actionId){
+	return new DatabaseCallsToHover().getActionDetailsById(actionId);
 	}
 
 	public LoadSimModel getSimsOnDevice() {

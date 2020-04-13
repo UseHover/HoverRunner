@@ -88,6 +88,181 @@
                 />
     </LinearLayout>
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="25dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_14"
+                android:text="@string/operators"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondaryGrey"
+                android:textSize="@dimen/text_14"
+                android:id="@+id/operators_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="8dp"
+            android:layout_marginHorizontal="25dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_14"
+                android:text="@string/steps"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondaryGrey"
+                android:textSize="@dimen/text_14"
+                android:id="@+id/steps_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="8dp"
+            android:layout_marginHorizontal="25dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_14"
+                android:text="@string/parsers"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondaryGrey"
+                android:textSize="@dimen/text_14"
+                android:lineSpacingExtra="10dp"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/parsers_content" />
+
+    </LinearLayout>
 
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="8dp"
+            android:layout_marginHorizontal="25dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_14"
+                android:text="@string/title_transactions"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondaryGrey"
+                android:textSize="@dimen/text_14"
+                android:id="@+id/transactionNo_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="8dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="58dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGreen"
+                android:textSize="@dimen/text_14"
+                android:text="@string/success_label"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondaryGrey"
+                android:textSize="@dimen/text_14"
+                android:id="@+id/successCount_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="8dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="58dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorYellow"
+                android:textSize="@dimen/text_14"
+                android:text="@string/pending_label"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondaryGrey"
+                android:textSize="@dimen/text_14"
+                android:id="@+id/pendingCount_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="8dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="58dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/text_14"
+                android:text="@string/failed_label"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondaryGrey"
+                android:textSize="@dimen/text_14"
+                android:id="@+id/failedCount_content" />
+
+    </LinearLayout>
 </LinearLayout>

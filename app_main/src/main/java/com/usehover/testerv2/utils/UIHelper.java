@@ -2,8 +2,12 @@ package com.usehover.testerv2.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.Window;
@@ -13,9 +17,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.usehover.testerv2.interfaces.ParserClickListener;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class UIHelper {
 	public static void setTextUnderline(TextView textView, String cs) {
@@ -32,6 +41,40 @@ public class UIHelper {
 		window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 		window.setStatusBarColor(color);
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.O)
+	public static void makeEachTextLinks(final String text, final TextView tv, ParserClickListener clickListener) {
+				if (text == null || tv == null) {
+						return;
+					}
+				final SpannableString ss = new SpannableString(text);
+				final String[] items = text.split(", ");
+				int start = 0, end;
+				for ( String item : items) {
+						end = start + item.length();
+					if (start < end) {
+								ss.setSpan(new UnderlineSpan(), start, end, 0);
+								ss.setSpan(new MyClickableSpan(item, clickListener), start, end, 0);
+								ss.setSpan(new ForegroundColorSpan(Color.WHITE), start,end, 0);
+							}
+						start += item.length() + 2;//comma and space in the original text ;)
+					}
+				tv.setMovementMethod(LinkMovementMethod.getInstance());
+				tv.setText(ss, TextView.BufferType.SPANNABLE);
+			}
+
+	private static class MyClickableSpan extends ClickableSpan {
+		private final String mText;
+		private final ParserClickListener clickListener;
+		private MyClickableSpan(final String text, ParserClickListener clickListener) {
+			this.mText = text;
+			this.clickListener = clickListener;
+		}
+		@Override
+		public void onClick(final View widget) {
+			clickListener.onClickParser(mText.replace(" ", "").trim());
+		}
 	}
 
 	public static void showHoverToast(Context context, @Nullable View view, String message) {

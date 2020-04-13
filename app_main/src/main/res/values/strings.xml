@@ -8,6 +8,7 @@
 
 	<string name="simon_content_desc">Hover_background</string>
 	<string name="login_image_transition">image_transition</string>
+	<string name="action_trans_icon">action_trans_icon</string>
 	<string name="custom_font_error">Cannot set custom font</string>
 	<string name="custom_font_err_msg">At least one default font must be set</string>
 	<string name="email_string">Email</string>
@@ -50,5 +51,15 @@
 
 	<string name="successStatus_title">This action works.</string>
 	<string name="unrunStatus_title">This action is yet to be run on this device.</string>
+	
+	<string name="operators">Operators</string>
+	<string name="steps">Steps</string>
+	<string name="parsers">Parsers</string>
+	<string name="success_label">Success</string>
+	<string name="pending_label">Pending</string>
+	<string name="failed_label">Failed</string>
+	
+	<string name="testing_variables">Testing variables</string>
+	<string name="testing_variables_desc">We submit these values whenever you test this action.</string>
 
 </resources>
