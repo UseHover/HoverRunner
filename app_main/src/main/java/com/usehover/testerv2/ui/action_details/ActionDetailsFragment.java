@@ -31,6 +31,8 @@ public class ActionDetailsFragment extends Fragment {
         TextView toolText = view.findViewById(R.id.actionDetails_toolbarText);
         TextView subtoolText = view.findViewById(R.id.actionDetails_subtoolText);
         TextView descTitle = view.findViewById(R.id.actionDetails_statusTitle);
+        TextView descTitle2 = view.findViewById(R.id.actionDetails_statusTitle2);
+
         TextView descContent = view.findViewById(R.id.actionDetails_statusDesc);
         TextView descLink = view.findViewById(R.id.actionDetails_statusLink);
         LinearLayout topLayout = view.findViewById(R.id.actionDetailsTopLayoutId);
@@ -48,7 +50,7 @@ public class ActionDetailsFragment extends Fragment {
 
                 descTitle.setText(getResources().getString(R.string.pendingStatus_title));
                 descTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning_black_24dp, 0,0,0);
-                descTitle.setCompoundDrawablePadding(16);
+                descTitle.setCompoundDrawablePadding(32);
                 descContent.setText(getResources().getString(R.string.pendingStatus_desc));
                 UIHelper.setTextUnderline(descLink,getResources().getString(R.string.pendingStatus_linkText));
                 descLink.setOnClickListener(v -> {
@@ -66,7 +68,7 @@ public class ActionDetailsFragment extends Fragment {
 
                 descTitle.setText(getResources().getString(R.string.failedStatus_title));
                 descTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_error_black_24dp, 0,0,0);
-                descTitle.setCompoundDrawablePadding(16);
+                descTitle.setCompoundDrawablePadding(32);
                 descContent.setText(getResources().getString(R.string.failedStatus_desc));
                 UIHelper.setTextUnderline(descLink,getResources().getString(R.string.failedStatus_linkText));
                 descLink.setOnClickListener(v -> {
@@ -84,13 +86,14 @@ public class ActionDetailsFragment extends Fragment {
 
                 descTitle.setText(getResources().getString(R.string.pendingStatus_title));
                 descTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_circle_black_24dp, 0,0,0);
-                descTitle.setCompoundDrawablePadding(16);
+                descTitle.setCompoundDrawablePadding(32);
                 descContent.setVisibility(View.GONE);
                 descLink.setVisibility(View.GONE);
                 break;
             default:
+                descTitle.setVisibility(View.GONE);
+                descTitle2.setVisibility(View.VISIBLE);
                 UIHelper.changeStatusBarColor(getActivity(), getResources().getColor(R.color.colorSecondaryGrey));
-                descTitle.setPadding(42,0,0,0);
         }
 
 

@@ -51,6 +51,18 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/unrunStatus_title"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:layout_marginStart="42dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/text_13"
+                android:id="@+id/actionDetails_statusTitle2"
+                />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/actionDetails_statusDesc"
                 android:text="@string/pendingStatus_desc"
                 android:textColor="@color/colorPrimaryDark"
