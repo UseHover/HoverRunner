@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorSecondaryGrey"
-            android:paddingVertical="16dp"
+            android:paddingTop="16dp"
             android:id="@+id/actionDetailsTopLayoutId"
             android:paddingHorizontal="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
@@ -84,7 +84,7 @@
                 android:visibility="gone"
                 android:drawableEnd="@drawable/ic_open_in_new_black_15dp"
                 android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="24dp"
                 />
     </LinearLayout>
 
@@ -93,8 +93,9 @@
             android:background="@color/colorPrimaryDark"
             android:paddingTop="8dp"
             android:layout_marginTop="32dp"
-            android:layout_marginHorizontal="25dp"
+            android:layout_marginHorizontal="16dp"
             android:orientation="horizontal"
+            android:layout_marginBottom="4dp"
             android:layout_height="wrap_content">
 
         <TextView
@@ -117,8 +118,9 @@
             android:layout_width="match_parent"
             android:background="@color/colorPrimaryDark"
             android:paddingTop="8dp"
-            android:layout_marginHorizontal="25dp"
+            android:layout_marginHorizontal="16dp"
             android:orientation="horizontal"
+            android:layout_marginBottom="4dp"
             android:layout_height="wrap_content">
 
         <TextView
@@ -141,8 +143,9 @@
             android:layout_width="match_parent"
             android:background="@color/colorPrimaryDark"
             android:paddingTop="8dp"
-            android:layout_marginHorizontal="25dp"
+            android:layout_marginHorizontal="16dp"
             android:orientation="horizontal"
+            android:layout_marginBottom="4dp"
             android:layout_height="wrap_content">
 
         <TextView
@@ -170,7 +173,7 @@
             android:layout_width="match_parent"
             android:background="@color/colorPrimaryDark"
             android:paddingTop="8dp"
-            android:layout_marginHorizontal="25dp"
+            android:layout_marginHorizontal="16dp"
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content">
@@ -196,7 +199,7 @@
             android:background="@color/colorPrimaryDark"
             android:paddingTop="8dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginStart="58dp"
+            android:layout_marginStart="56dp"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
 
@@ -221,7 +224,7 @@
             android:background="@color/colorPrimaryDark"
             android:paddingTop="8dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginStart="58dp"
+            android:layout_marginStart="56dp"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
 
@@ -246,7 +249,7 @@
             android:background="@color/colorPrimaryDark"
             android:paddingTop="8dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginStart="58dp"
+            android:layout_marginStart="56dp"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
 
@@ -265,4 +268,37 @@
                 android:id="@+id/failedCount_content" />
 
     </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:textColor="@color/colorHoverWhite"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:textSize="@dimen/text_16"
+            android:text="@string/testing_variables"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            />
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/testing_variables_desc"
+            android:textColor="@color/colorHoverWhite"
+            android:textSize="@dimen/text_14"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            />
+
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:id="@+id/action_variables_listView"/>
+
 </LinearLayout>

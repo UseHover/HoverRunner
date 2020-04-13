@@ -43,7 +43,6 @@ public class UIHelper {
 		window.setStatusBarColor(color);
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.O)
 	public static void makeEachTextLinks(final String text, final TextView tv, ParserClickListener clickListener) {
 				if (text == null || tv == null) {
 						return;
@@ -76,6 +75,8 @@ public class UIHelper {
 			clickListener.onClickParser(mText.replace(" ", "").trim());
 		}
 	}
+
+
 
 	public static void showHoverToast(Context context, @Nullable View view, String message) {
 		if(view == null) showHoverToastV2(context, message);

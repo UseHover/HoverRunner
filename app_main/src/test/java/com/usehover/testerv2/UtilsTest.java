@@ -1,13 +1,21 @@
 package com.usehover.testerv2;
 
+import com.google.gson.JsonArray;
+import com.usehover.testerv2.models.StreamlinedStepsModel;
 import com.usehover.testerv2.utils.UIHelper;
+import com.usehover.testerv2.utils.Utils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.*;
@@ -50,4 +58,6 @@ public class UtilsTest {
 		String testPassword4 = "1234";
 		assertFalse(UIHelper.validatePassword(testPassword4));
 	}
+
+
 }
