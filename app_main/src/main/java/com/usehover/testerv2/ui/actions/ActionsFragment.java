@@ -16,7 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HoverAdapters;
+import com.usehover.testerv2.api.Apis;
+import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
+import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
 import com.usehover.testerv2.ui.actions.filter.ActionFilterActivity;
 import com.usehover.testerv2.ui.login.LoginActivity;
 import com.usehover.testerv2.utils.UIHelper;
@@ -110,7 +113,13 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
 
 
     @Override
-    public void customClickListener(Object data) {
+    public void customClickListener(Object... data) {
+        assert data!=null;
 
+        Intent i = new Intent(getActivity(), ActionDetailsActivity.class);
+        i.putExtra(Apis.ACTION_ID, (String) data[0]);
+        i.putExtra(Apis.ACTION_TITLE, (String) data[1]);
+        i.putExtra(Apis.ACTION_STATUS, (StatusEnums) data[2]);
+        startActivity(i);
     }
 }

@@ -19,6 +19,10 @@ public class Apis {
 	private static final String INVALID_EMAIL = "Invalid email format, please enter correct email and try again";
 	private static final String INVALID_PASSWORD = "Invalid password format. Ensure password has a minimum of 5 letters";
 	public static final String NO_NETWORK = "Internet connection not found";
+	public static final String ACTION_ID = "action_id";
+	public static final String ACTION_TITLE = "action_title";
+	public static final String ACTION_STATUS = "actionStatus";
+
 
 	public LoginModel doLoginWorkManager(String email, String password) {
 		if(!UIHelper.validateEmail(email)) return new LoginModel(HomeEnums.ERROR_EMAIL, INVALID_EMAIL);

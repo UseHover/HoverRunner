@@ -110,7 +110,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 	}
 
 	@Override
-	public void customClickListener(Object data) {
+	public void customClickListener(Object... data) {
 
 	}
 }

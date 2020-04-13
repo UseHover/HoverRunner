@@ -22,8 +22,6 @@ public class SettingsFragment extends Fragment {
 	private SettingsViewModel settingsViewModel;
 	private RadioGroup radioGroup;
 
-
-
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_settings, container, false);
@@ -52,7 +50,6 @@ public class SettingsFragment extends Fragment {
 		});
 
 		settingsViewModel.getSims();
-
 
 		return root;
 	}

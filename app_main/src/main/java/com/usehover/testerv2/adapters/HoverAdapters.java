@@ -55,7 +55,11 @@ public class HoverAdapters {
                 if (model.getActionEnum() != StatusEnums.NOT_YET_RUN)
                     holder.iconImage.setImageResource(ViewsRelated.getActionIconDrawable(model.getActionEnum()));
             }
-            holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(model.getActionId()));
+            holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(
+                    model.getActionId(),
+                    model.getActionTitle(),
+                    model.getActionEnum()
+                    ));
 
         }
          @Override
@@ -110,7 +114,10 @@ public class HoverAdapters {
                         colorPending : transactionModels.getStatusEnums() == StatusEnums.UNSUCCESSFUL ? colorFailed : colorSuccess);
             }
 
-            holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(transactionModels.getTransaction_id()));
+            holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(
+                    transactionModels.getTransaction_id(),
+                    transactionModels.getCaption(),
+                    transactionModels.getStatusEnums()));
         }
 
         @Override

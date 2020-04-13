@@ -1,9 +1,13 @@
 package com.usehover.testerv2.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +22,15 @@ public class UIHelper {
 		SpannableString content = new SpannableString(cs);
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 		textView.setText(content);
+	}
+
+	public static void changeStatusBarColor(final Activity activity, final int color) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+			return;
+
+		final Window window = activity.getWindow();
+		window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+		window.setStatusBarColor(color);
 	}
 
 	public static void showHoverToast(Context context, @Nullable View view, String message) {

@@ -14,14 +14,16 @@ import com.usehover.testerv2.R;
 import java.util.Objects;
 
 public class WebViewActivity extends AppCompatActivity {
+    public static final String TITLE = "title";
+    public static final String URL = "url";
 
     @SuppressLint("SetJavaScriptEnabled")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-        String title = Objects.requireNonNull(getIntent().getExtras()).getString("title");
-        String url = getIntent().getExtras().getString("url");
+        String title = Objects.requireNonNull(getIntent().getExtras()).getString(TITLE);
+        String url = getIntent().getExtras().getString(URL);
 
         setContentView(R.layout.webview);
         new Handler().postDelayed(() -> findViewById(R.id.fakeLoading).setVisibility(View.GONE), 2000);
