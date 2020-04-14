@@ -66,5 +66,15 @@
 	<string name="recent_transactions">Recent transactions</string>
 	<string name="view_all">View all</string>
 	<string name="zero_transactions">No transactions yet</string>
+	
+	<string name="parser_type">Type</string>
+	<string name="parser_action">Action</string>
+	<string name="parser_actionID">ActionID</string>
+	<string name="parser_category">Category</string>
+	<string name="parser_status">Status</string>
+	<string name="parser_created">Created</string>
+	<string name="parser_sender">Sender</string>
+	<string name="parser_regex">Regex</string>
+	
 
 </resources>

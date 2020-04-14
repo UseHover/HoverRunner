@@ -24,7 +24,6 @@ import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.interfaces.ParserClickListener;
 import com.usehover.testerv2.interfaces.VariableEditinterface;
-import com.usehover.testerv2.ui.transactions.TransactionActivity;
 import com.usehover.testerv2.ui.webview.WebViewActivity;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;

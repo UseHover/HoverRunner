@@ -1,7 +1,6 @@
 package com.usehover.testerv2.api;
 
 import com.usehover.testerv2.database.DatabaseCallsToHover;
-import com.usehover.testerv2.enums.ModesEnum;
 import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.ActionDetailsModels;
@@ -10,7 +9,6 @@ import com.usehover.testerv2.enums.HomeEnums;
 import com.usehover.testerv2.models.FullTransactionResult;
 import com.usehover.testerv2.models.LoadSimModel;
 import com.usehover.testerv2.models.LoginModel;
-import com.usehover.testerv2.utils.CustomNetworkUtil;
 import com.usehover.testerv2.utils.UIHelper;
 
 import java.util.Random;

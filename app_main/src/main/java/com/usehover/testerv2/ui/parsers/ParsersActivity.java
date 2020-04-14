@@ -1,4 +1,4 @@
-package com.usehover.testerv2.ui.transactions;
+package com.usehover.testerv2.ui.parsers;
 
 import android.os.Bundle;
 
@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.usehover.testerv2.R;
 
-public class TransactionActivity extends AppCompatActivity {
+public class ParsersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.transaction_activity);
+        setContentView(R.layout.parsers_activity);
+
     }
 }
