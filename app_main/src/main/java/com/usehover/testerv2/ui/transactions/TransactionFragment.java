@@ -12,22 +12,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HoverAdapters;
+import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.ui.actions.filter.ActionFilterActivity;
 import com.usehover.testerv2.utils.UIHelper;
-import com.usehover.testerv2.adapters.ViewsRelated;
 
 
 public class TransactionFragment extends Fragment implements CustomOnClickListener {
 
-	private TransactionViewModel transactionViewModel;
-
 	private static final int FILTER_RESULT_TRANSACTION = 301;
+	private TransactionViewModel transactionViewModel;
 	private TextView filterText, emptyStateText;
 	private ProgressBar progressBar;
 	private RecyclerView homeTransactionsRecyclerView;
@@ -103,6 +101,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 		if (requestCode == FILTER_RESULT_TRANSACTION) {
 			if (resultCode == Activity.RESULT_OK) {
 				String newText = data.getStringExtra("idn");
+				assert newText != null;
 				if (newText.equals("enteredTextValue")) {
 					transactionViewModel.setFilterOn();
 				}

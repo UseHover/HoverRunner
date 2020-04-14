@@ -43,8 +43,8 @@ public class Apis {
 	return new DatabaseCallsToHover().getActionDetailsById(actionId);
 	}
 
-	public FullTransactionResult doGetTransactionsByActionIdWorkManager() {
-		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getTransactionByActionIdFromHover());
+	public FullTransactionResult doGetTransactionsByActionIdWorkManager(String actionId) {
+		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getTransactionByActionIdFromHover(actionId));
 	}
 
 	public ParsersInfoModel getParsersInfoById(String parserId) {

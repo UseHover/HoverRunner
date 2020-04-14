@@ -1,14 +1,11 @@
 package com.usehover.testerv2.ui.settings;
 
-import android.content.SharedPreferences;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.api.Apis;
-import com.usehover.testerv2.enums.ModesEnum;
 import com.usehover.testerv2.models.LoadSimModel;
 
 public class SettingsViewModel extends ViewModel {

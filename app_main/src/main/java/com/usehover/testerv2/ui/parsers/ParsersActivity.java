@@ -14,9 +14,7 @@ public class ParsersActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try{
-            parserId = getIntent().getExtras().getString(PARSER_EXTRA);
-        }catch (Exception e) {}
+        if(getIntent().getExtras() !=null) parserId = getIntent().getExtras().getString(PARSER_EXTRA);
 
         setContentView(R.layout.parsers_activity);
     }

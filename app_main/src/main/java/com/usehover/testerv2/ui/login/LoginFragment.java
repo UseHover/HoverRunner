@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
@@ -37,7 +36,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.login_fragment, container, false);
         TextView forgotPassword = view.findViewById(R.id.forgotPassword_text);
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage(getContext().getString(R.string.loggin_in_text));
+        progressDialog.setMessage(getResources().getString(R.string.loggin_in_text));
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
 
@@ -83,7 +82,7 @@ public class LoginFragment extends Fragment {
 
                     break;
                 case ERROR:
-                    UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), modelResult.getMessage());
+                    UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null , modelResult.getMessage());
                     break;
                 case SUCCESS:
                     MainActivity.LoginYes = 1;
@@ -102,7 +101,7 @@ public class LoginFragment extends Fragment {
                 undoErrorView(passwordEdit, errorPasswordText, passwordLabel);
                 loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString());
             }
-            else UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), Apis.NO_NETWORK);
+            else UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null, Apis.NO_NETWORK);
         });
 
         return view;

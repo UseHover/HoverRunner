@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.MainActivity;
@@ -61,7 +60,9 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
 
         toolText.setText(ActionDetailsActivity.actionId);
         subtoolText.setText(ActionDetailsActivity.actionTitle);
-        toolText.setOnClickListener(v -> getActivity().finish());
+        toolText.setOnClickListener(v -> {
+            if(getActivity() !=null) getActivity().finish();
+        });
 
         switch (ActionDetailsActivity.statusEnums) {
             case PENDING:
@@ -147,10 +148,13 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         TextView recentTransText = view.findViewById(R.id.recentTransa_id);
         TextView viewAllText = view.findViewById(R.id.viewAll_id);
         viewAllText.setOnClickListener(v -> {
-            Intent i = new Intent(getContext(), MainActivity.class);
-            i.putExtra("navigate", true);
-            startActivity(i);
-            getActivity().finishAffinity();
+            if(getActivity() !=null) {
+                Intent i = new Intent(getContext(), MainActivity.class);
+                i.putExtra("navigate", true);
+                startActivity(i);
+                getActivity().finishAffinity();
+            }
+
         });
         RecyclerView transacRecyclerView = view.findViewById(R.id.action_transac_recyclerView);
         transacRecyclerView.setLayoutManager(ViewsRelated.setMainLinearManagers(getContext()));

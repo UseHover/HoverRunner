@@ -62,7 +62,7 @@ public class DatabaseCallsToHover {
 
     }
 
-    public  List<TransactionModels> getTransactionByActionIdFromHover() {
+    public  List<TransactionModels> getTransactionByActionIdFromHover(String actionId) {
         List<TransactionModels> transactionModelsList = new ArrayList<>();
         for(int i=0; i<20; i++) {
             String randomDate = new Date().toString();

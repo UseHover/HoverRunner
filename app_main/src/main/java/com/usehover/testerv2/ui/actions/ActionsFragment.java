@@ -12,19 +12,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HoverAdapters;
+import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
 import com.usehover.testerv2.ui.actions.filter.ActionFilterActivity;
-import com.usehover.testerv2.ui.login.LoginActivity;
 import com.usehover.testerv2.utils.UIHelper;
-import com.usehover.testerv2.adapters.ViewsRelated;
 
 public class ActionsFragment extends Fragment implements CustomOnClickListener {
 
@@ -105,6 +103,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
         if (requestCode == FILTER_RESULT) {
             if (resultCode == Activity.RESULT_OK) {
                 String newText = data.getStringExtra("idn");
+                assert newText != null;
                 if (newText.equals("enteredTextValue")) {
                     actionsViewModel.setFilterOn();
                 }

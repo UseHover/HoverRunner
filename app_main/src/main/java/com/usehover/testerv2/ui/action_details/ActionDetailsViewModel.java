@@ -5,10 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.usehover.testerv2.api.Apis;
-import com.usehover.testerv2.enums.HomeEnums;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.ActionDetailsModels;
-import com.usehover.testerv2.models.FullActionResult;
 import com.usehover.testerv2.models.FullTransactionResult;
 
 public class ActionDetailsViewModel extends ViewModel {
