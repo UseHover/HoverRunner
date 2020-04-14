@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +33,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 	private RecyclerView homeTransactionsRecyclerView;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		transactionViewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
+		transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_transactions, container, false);
 
 		filterText  = root.findViewById(R.id.transactionFilter_id);

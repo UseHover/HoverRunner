@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -122,7 +123,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         }
 
         RecyclerView variablesRecyclerView = view.findViewById(R.id.action_variables_recyclerView);
-        actionDetailsViewModel = ViewModelProviders.of(this).get(ActionDetailsViewModel.class);
+        actionDetailsViewModel = new ViewModelProvider(this).get(ActionDetailsViewModel.class);
         actionDetailsViewModel.loadActionDetailsObs().observe(getViewLifecycleOwner(), model-> {
             if(model !=null) {
                 operatorsText.setText(model.getOperators());

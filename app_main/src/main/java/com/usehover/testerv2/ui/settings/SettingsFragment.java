@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.usehover.testerv2.R;
@@ -23,7 +24,7 @@ public class SettingsFragment extends Fragment {
 	private RadioGroup radioGroup;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
+		settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_settings, container, false);
 		radioGroup = root.findViewById(R.id.myRadioGroup);
 		TextView sim1 = root.findViewById(R.id.sim1_content);

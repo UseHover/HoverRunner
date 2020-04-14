@@ -47,7 +47,7 @@ public class ParsersFragment extends Fragment implements CustomOnClickListener {
 
 
 
-        ParsersViewModel parsersViewModel = ViewModelProviders.of(this).get(ParsersViewModel.class);
+        ParsersViewModel parsersViewModel = new ViewModelProvider(this).get(ParsersViewModel.class);
         parsersViewModel.loadParserInfoObs().observe(getViewLifecycleOwner(), parsersInfoModel -> {
             if(parsersInfoModel !=null) {
                 typeText.setText(parsersInfoModel.getParser_type());

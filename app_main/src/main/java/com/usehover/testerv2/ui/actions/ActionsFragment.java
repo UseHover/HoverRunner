@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +36,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
     private RecyclerView homeActionsRecyclerView;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        actionsViewModel = ViewModelProviders.of(this).get(ActionsViewModel.class);
+        actionsViewModel = new ViewModelProvider(this).get(ActionsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_actions, container, false);
         filterText  = root.findViewById(R.id.actionFilter_id);
         progressBar = root.findViewById(R.id.progress_state_1);
