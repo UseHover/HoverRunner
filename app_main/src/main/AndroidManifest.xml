@@ -30,6 +30,7 @@
 		<activity android:name=".ui.transactions.filter.TransactionFilterActivity" />
 		<activity android:name=".ui.action_details.ActionDetailsActivity" />
 		<activity android:name=".ui.parsers.ParsersActivity" />
+		<activity android:name=".ui.transactionDetails.TransactionDetailsActivity" />
 	</application>
 
 </manifest>
