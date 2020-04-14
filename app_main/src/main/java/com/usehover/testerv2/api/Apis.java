@@ -18,7 +18,7 @@ import java.util.Random;
 public class Apis {
 	public final static int PROD_ENV = 0, DEBUG_ENV = 1, TEST_ENV = 2;
 	private static final String INVALID_EMAIL = "Invalid email format, please enter correct email and try again";
-	private static final String INVALID_PASSWORD = "Invalid password format. Ensure password has a minimum of 5 letters";
+	private static final String INVALID_PASSWORD = "Invalid password format. Ensure password has a minimum of 5 letters with no space";
 	public static final String NO_NETWORK = "Internet connection not found";
 	public static final String ACTION_ID = "action_id";
 	public static final String ACTION_TITLE = "action_title";
