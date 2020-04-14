@@ -9,6 +9,7 @@ import com.usehover.testerv2.enums.HomeEnums;
 import com.usehover.testerv2.models.FullTransactionResult;
 import com.usehover.testerv2.models.LoadSimModel;
 import com.usehover.testerv2.models.LoginModel;
+import com.usehover.testerv2.models.ParsersInfoModel;
 import com.usehover.testerv2.utils.UIHelper;
 
 import java.util.Random;
@@ -45,6 +46,11 @@ public class Apis {
 	public FullTransactionResult doGetTransactionsByActionIdWorkManager() {
 		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getTransactionByActionIdFromHover());
 	}
+
+	public ParsersInfoModel getParsersInfoById(String parserId) {
+		return new DatabaseCallsToHover().getParserInfoByIdFromHover(parserId);
+	}
+
 	public LoadSimModel getSimsOnDevice() {
 		return new LoadSimModel("MTN NIGERIA", "SAFARICOM KE");
 	}

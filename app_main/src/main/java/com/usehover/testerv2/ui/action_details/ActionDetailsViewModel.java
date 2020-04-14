@@ -11,12 +11,12 @@ import com.usehover.testerv2.models.ActionDetailsModels;
 import com.usehover.testerv2.models.FullActionResult;
 import com.usehover.testerv2.models.FullTransactionResult;
 
-public class ActionDetailsLiveModel extends ViewModel {
+public class ActionDetailsViewModel extends ViewModel {
 
     private MutableLiveData<ActionDetailsModels> actionDetailsModel;
     private MutableLiveData<FullTransactionResult> actionTransactions;
 
-    public ActionDetailsLiveModel() {
+    public ActionDetailsViewModel() {
         actionDetailsModel =  new MutableLiveData<>();
         actionTransactions = new MutableLiveData<>();
     }

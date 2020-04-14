@@ -4,6 +4,7 @@ import com.maximeroussy.invitrode.WordGenerator;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.ActionDetailsModels;
 import com.usehover.testerv2.models.ActionsModel;
+import com.usehover.testerv2.models.ParsersInfoModel;
 import com.usehover.testerv2.models.StreamlinedStepsModel;
 import com.usehover.testerv2.models.TransactionModels;
 import com.usehover.testerv2.utils.Dummy;
@@ -71,6 +72,22 @@ public class DatabaseCallsToHover {
         }
         return transactionModelsList;
     }
+
+    public ParsersInfoModel getParserInfoByIdFromHover(String parserId) {
+        ParsersInfoModel parsersInfoModel = new ParsersInfoModel();
+        parsersInfoModel.setParser_action("Send Money to GTBank");
+        parsersInfoModel.setParser_actionID("343323423");
+        parsersInfoModel.setParser_category("Confirmed");
+        parsersInfoModel.setParser_created("12/12/12");
+        parsersInfoModel.setParser_regex(".*continue");
+        parsersInfoModel.setParser_sender("YourCrew MTN");
+        parsersInfoModel.setParser_status("Success");
+        parsersInfoModel.setParser_type("SMS");
+
+        return parsersInfoModel;
+    }
+
+
 
 
     private StatusEnums randomStatus(int id) {

@@ -34,7 +34,7 @@ import java.util.TimerTask;
 public class ActionDetailsFragment extends Fragment implements ParserClickListener, CustomOnClickListener, VariableEditinterface {
 
     private Timer timer= new Timer();
-    private ActionDetailsLiveModel actionDetailsLiveModel;
+    private ActionDetailsViewModel actionDetailsViewModel;
 
     @Nullable
     @Override
@@ -121,8 +121,8 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         }
 
         RecyclerView variablesRecyclerView = view.findViewById(R.id.action_variables_recyclerView);
-        actionDetailsLiveModel = ViewModelProviders.of(this).get(ActionDetailsLiveModel.class);
-        actionDetailsLiveModel.loadActionDetailsObs().observe(getViewLifecycleOwner(), model-> {
+        actionDetailsViewModel = ViewModelProviders.of(this).get(ActionDetailsViewModel.class);
+        actionDetailsViewModel.loadActionDetailsObs().observe(getViewLifecycleOwner(), model-> {
             if(model !=null) {
                 operatorsText.setText(model.getOperators());
                 if(model.getStreamlinedStepsModel() !=null) stepsText.setText(model.getStreamlinedStepsModel().getFullUSSDCodeStep());
@@ -153,7 +153,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         RecyclerView transacRecyclerView = view.findViewById(R.id.action_transac_recyclerView);
         transacRecyclerView.setLayoutManager(ViewsRelated.setMainLinearManagers(getContext()));
 
-        actionDetailsLiveModel.loadActionTransactionsObs().observe(getViewLifecycleOwner(), transactions-> {
+        actionDetailsViewModel.loadActionTransactionsObs().observe(getViewLifecycleOwner(), transactions-> {
             switch (transactions.getEnums()) {
                 case LOADING: recentTransText.setText(getResources().getString(R.string.loadingText));
                     break;
@@ -177,8 +177,8 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
     @Override
     public void onResume() {
         super.onResume();
-        actionDetailsLiveModel.getDetails(ActionDetailsActivity.actionId);
-        actionDetailsLiveModel.getActionTrans(ActionDetailsActivity.actionId);
+        actionDetailsViewModel.getDetails(ActionDetailsActivity.actionId);
+        actionDetailsViewModel.getActionTrans(ActionDetailsActivity.actionId);
 
     }
 
