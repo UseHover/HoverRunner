@@ -51,6 +51,12 @@ public class Apis {
 		return new DatabaseCallsToHover().getParserInfoByIdFromHover(parserId);
 	}
 
+	public FullTransactionResult getTransactionsByParserId(String parserId) {
+		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getTransactionByParserIdFromHover(parserId));
+	}
+
+
+
 	public LoadSimModel getSimsOnDevice() {
 		return new LoadSimModel("MTN NIGERIA", "SAFARICOM KE");
 	}

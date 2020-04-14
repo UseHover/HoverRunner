@@ -19,6 +19,7 @@ public class ActionDetailsViewModel extends ViewModel {
     public ActionDetailsViewModel() {
         actionDetailsModel =  new MutableLiveData<>();
         actionTransactions = new MutableLiveData<>();
+        actionTransactions.setValue(new FullTransactionResult(StatusEnums.LOADING, null));
     }
 
     LiveData<ActionDetailsModels> loadActionDetailsObs() {return actionDetailsModel;}

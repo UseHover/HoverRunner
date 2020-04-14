@@ -87,6 +87,18 @@ public class DatabaseCallsToHover {
         return parsersInfoModel;
     }
 
+    public  List<TransactionModels> getTransactionByParserIdFromHover(String parserId) {
+        List<TransactionModels> transactionModelsList = new ArrayList<>();
+        for(int i=0; i<20; i++) {
+            String randomDate = new Date().toString();
+            String randomSentence = newSentence(10);
+            transactionModelsList.add(new TransactionModels(String.valueOf(i), randomDate, randomSentence, randomStatus(new Random().nextInt(3))));
+
+        }
+        return transactionModelsList;
+    }
+
+
 
 
 
