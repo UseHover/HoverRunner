@@ -44,6 +44,9 @@ public class Apis {
 	return new DatabaseCallsToHover().getActionDetailsById(actionId);
 	}
 
+	public FullTransactionResult doGetTransactionsByActionIdWorkManager() {
+		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getTransactionByActionIdFromHover());
+	}
 	public LoadSimModel getSimsOnDevice() {
 		return new LoadSimModel("MTN NIGERIA", "SAFARICOM KE");
 	}

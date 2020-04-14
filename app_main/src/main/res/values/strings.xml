@@ -62,4 +62,8 @@
 	<string name="testing_variables">Testing variables</string>
 	<string name="testing_variables_desc">We submit these values whenever you test this action.</string>
 
+	<string name="recent_transactions">Recent transactions</string>
+	<string name="view_all">View all</string>
+	<string name="zero_transactions">No transactions yet</string>
+
 </resources>

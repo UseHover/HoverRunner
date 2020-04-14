@@ -16,12 +16,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
+import com.usehover.testerv2.adapters.HoverAdapters;
 import com.usehover.testerv2.adapters.VariableAdapter;
 import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.interfaces.ParserClickListener;
 import com.usehover.testerv2.interfaces.VariableEditinterface;
+import com.usehover.testerv2.ui.transactions.TransactionActivity;
 import com.usehover.testerv2.ui.webview.WebViewActivity;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
@@ -32,6 +35,7 @@ import java.util.TimerTask;
 public class ActionDetailsFragment extends Fragment implements ParserClickListener, CustomOnClickListener, VariableEditinterface {
 
     private Timer timer= new Timer();
+    private ActionDetailsLiveModel actionDetailsLiveModel;
 
     @Nullable
     @Override
@@ -118,7 +122,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         }
 
         RecyclerView variablesRecyclerView = view.findViewById(R.id.action_variables_recyclerView);
-        ActionDetailsLiveModel actionDetailsLiveModel = ViewModelProviders.of(this).get(ActionDetailsLiveModel.class);
+        actionDetailsLiveModel = ViewModelProviders.of(this).get(ActionDetailsLiveModel.class);
         actionDetailsLiveModel.loadActionDetailsObs().observe(getViewLifecycleOwner(), model-> {
             if(model !=null) {
                 operatorsText.setText(model.getOperators());
@@ -138,7 +142,35 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 ));
             }
         });
-        actionDetailsLiveModel.getDetails(ActionDetailsActivity.actionId);
+
+        TextView recentTransText = view.findViewById(R.id.recentTransa_id);
+        TextView viewAllText = view.findViewById(R.id.viewAll_id);
+        viewAllText.setOnClickListener(v -> {
+            Intent i = new Intent(getContext(), MainActivity.class);
+            i.putExtra("navigate", true);
+            startActivity(i);
+            getActivity().finishAffinity();
+        });
+        RecyclerView transacRecyclerView = view.findViewById(R.id.action_transac_recyclerView);
+        transacRecyclerView.setLayoutManager(ViewsRelated.setMainLinearManagers(getContext()));
+
+        actionDetailsLiveModel.loadActionTransactionsObs().observe(getViewLifecycleOwner(), transactions-> {
+            switch (transactions.getEnums()) {
+                case LOADING: recentTransText.setText(getResources().getString(R.string.loadingText));
+                    break;
+                case EMPTY: recentTransText.setText(getResources().getString(R.string.zero_transactions));
+                    break;
+                case HAS_DATA:
+                    viewAllText.setVisibility(View.VISIBLE);
+                    transacRecyclerView.setAdapter(new HoverAdapters.TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
+                            this,
+                            getResources().getColor(R.color.colorYellow),
+                            getResources().getColor(R.color.colorRed),
+                            getResources().getColor(R.color.colorGreen)));
+                    break;
+            }
+        });
+
 
         return  view;
     }
@@ -146,6 +178,8 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
     @Override
     public void onResume() {
         super.onResume();
+        actionDetailsLiveModel.getDetails(ActionDetailsActivity.actionId);
+        actionDetailsLiveModel.getActionTrans(ActionDetailsActivity.actionId);
 
     }
 

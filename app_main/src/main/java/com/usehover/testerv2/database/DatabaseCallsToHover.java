@@ -61,6 +61,17 @@ public class DatabaseCallsToHover {
 
     }
 
+    public  List<TransactionModels> getTransactionByActionIdFromHover() {
+        List<TransactionModels> transactionModelsList = new ArrayList<>();
+        for(int i=0; i<20; i++) {
+            String randomDate = new Date().toString();
+            String randomSentence = newSentence(10);
+            transactionModelsList.add(new TransactionModels(String.valueOf(i), randomDate, randomSentence, randomStatus(new Random().nextInt(3))));
+
+        }
+        return transactionModelsList;
+    }
+
 
     private StatusEnums randomStatus(int id) {
         StatusEnums[] statusEnums = {StatusEnums.PENDING, StatusEnums.SUCCESS, StatusEnums.UNSUCCESSFUL, StatusEnums.NOT_YET_RUN};
