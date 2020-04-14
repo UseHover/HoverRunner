@@ -1,7 +1,10 @@
 package com.usehover.testerv2.models;
 
+import com.usehover.testerv2.enums.StatusEnums;
+
 public class ParsersInfoModel {
-    private String parser_type, parser_action,parser_actionID, parser_category,parser_status,parser_created, parser_sender, parser_regex;
+    private String parser_type, parser_action,parser_actionID, parser_category, parser_created, parser_sender, parser_regex;
+    private StatusEnums statusEnums;
 
     public String getParser_type() {
         return parser_type;
@@ -35,12 +38,12 @@ public class ParsersInfoModel {
         this.parser_category = parser_category;
     }
 
-    public String getParser_status() {
-        return parser_status;
+    public StatusEnums getStatusEnums() {
+        return statusEnums;
     }
 
-    public void setParser_status(String parser_status) {
-        this.parser_status = parser_status;
+    public void setStatusEnums(StatusEnums statusEnums) {
+        this.statusEnums = statusEnums;
     }
 
     public String getParser_created() {

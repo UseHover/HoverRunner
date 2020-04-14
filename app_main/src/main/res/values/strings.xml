@@ -59,6 +59,7 @@
 	<string name="success_label">Success</string>
 	<string name="pending_label">Pending</string>
 	<string name="failed_label">Failed</string>
+	<string name="not_yet_run">Not yet run</string>
 	
 	<string name="testing_variables">Testing variables</string>
 	<string name="testing_variables_desc">We submit these values whenever you test this action.</string>

@@ -9,7 +9,7 @@ import com.usehover.testerv2.R;
 
 public class ParsersActivity extends AppCompatActivity {
     static String parserId;
-    static String PARSER_EXTRA = "parser_extra";
+    public static String PARSER_EXTRA = "parser_extra";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -24,6 +24,7 @@ import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.interfaces.ParserClickListener;
 import com.usehover.testerv2.interfaces.VariableEditinterface;
+import com.usehover.testerv2.ui.parsers.ParsersActivity;
 import com.usehover.testerv2.ui.webview.WebViewActivity;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
@@ -189,7 +190,9 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
 
     @Override
     public void onClickParser(String str) {
-        UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), str);
+        Intent intent = new Intent(getActivity(), ParsersActivity.class);
+        intent.putExtra(ParsersActivity.PARSER_EXTRA, str);
+        startActivity(intent);
     }
 
     @Override

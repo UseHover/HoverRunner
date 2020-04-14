@@ -81,7 +81,7 @@ public class DatabaseCallsToHover {
         parsersInfoModel.setParser_created("12/12/12");
         parsersInfoModel.setParser_regex(".*continue");
         parsersInfoModel.setParser_sender("YourCrew MTN");
-        parsersInfoModel.setParser_status("Success");
+        parsersInfoModel.setStatusEnums(randomStatus(new Random().nextInt(4)));
         parsersInfoModel.setParser_type("SMS");
 
         return parsersInfoModel;

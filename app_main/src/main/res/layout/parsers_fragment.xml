@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/colorPrimaryDark"
+    >
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingVertical="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
@@ -15,9 +21,8 @@
             android:drawablePadding="@dimen/activity_horizontal_margin"
             android:textColor="@color/colorHoverWhite"
             android:textSize="@dimen/actionTextSize"
-            android:text="769734637"
             android:paddingHorizontal="@dimen/activity_horizontal_margin"
-            android:id="@+id/actionDetails_toolbarText"/>
+            android:id="@+id/parserDetails_toolbarText"/>
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -65,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorSecondaryGrey"
                 android:textSize="@dimen/text_14"
+                android:textStyle="bold"
                 android:id="@+id/parser_action_content" />
 
     </LinearLayout>
@@ -89,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorSecondaryGrey"
                 android:textSize="@dimen/text_14"
+                android:textStyle="bold"
                 android:id="@+id/parser_actionId_content" />
 
     </LinearLayout>
@@ -243,3 +250,4 @@
             android:id="@+id/parser_transac_recyclerView"/>
 
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>
