@@ -161,6 +161,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 case EMPTY: recentTransText.setText(getResources().getString(R.string.zero_transactions));
                     break;
                 case HAS_DATA:
+                    recentTransText.setText(getResources().getString(R.string.recent_transactions));
                     viewAllText.setVisibility(View.VISIBLE);
                     transacRecyclerView.setAdapter(new HoverAdapters.TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
                             this,
