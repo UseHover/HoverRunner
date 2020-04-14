@@ -1,11 +1,11 @@
 package com.usehover.testerv2.models;
 
 public class ActionDetailsModels {
-    private String operators, steps, parsers, transactionsNo, successNo, pendingNo, failedNo;
-
-    public ActionDetailsModels(String operators, String steps, String parsers, String transactionsNo, String successNo, String pendingNo, String failedNo) {
+    private String operators,  parsers, transactionsNo, successNo, pendingNo, failedNo;
+    private StreamlinedStepsModel streamlinedStepsModel;
+    public ActionDetailsModels(String operators,  String parsers, String transactionsNo, String successNo, String pendingNo, String failedNo) {
         this.operators = operators;
-        this.steps = steps;
+
         this.parsers = parsers;
         this.transactionsNo = transactionsNo;
         this.successNo = successNo;
@@ -17,8 +17,12 @@ public class ActionDetailsModels {
         return operators;
     }
 
-    public String getSteps() {
-        return steps;
+    public StreamlinedStepsModel getStreamlinedStepsModel() {
+        return streamlinedStepsModel;
+    }
+
+    public void setStreamlinedStepsModel(StreamlinedStepsModel streamlinedStepsModel) {
+        this.streamlinedStepsModel = streamlinedStepsModel;
     }
 
     public String getParsers() {

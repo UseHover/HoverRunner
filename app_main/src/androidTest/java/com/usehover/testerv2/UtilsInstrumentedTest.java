@@ -6,6 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.usehover.testerv2.models.StreamlinedStepsModel;
+import com.usehover.testerv2.utils.Dummy;
 import com.usehover.testerv2.utils.Utils;
 
 import org.json.JSONArray;
@@ -37,7 +38,7 @@ public void useAppContext() {
 	@Test
 	public void test_streamlineStepsFromRaw() throws JSONException {
 		String rootCode = "*737#";
-		String rawArray =  FreeLoaders.getStringTwo();
+		String rawArray =  Dummy.getStringTwo();
 		JSONArray jsonArray = new JSONArray(rawArray);
 		List<String> labels = Arrays.asList("Amount", "IUC", "TestLabel", "pin");
 		List<String> desc = Arrays.asList("Amount of subcription",

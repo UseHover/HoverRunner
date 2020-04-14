@@ -4,7 +4,13 @@ import com.maximeroussy.invitrode.WordGenerator;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.ActionDetailsModels;
 import com.usehover.testerv2.models.ActionsModel;
+import com.usehover.testerv2.models.StreamlinedStepsModel;
 import com.usehover.testerv2.models.TransactionModels;
+import com.usehover.testerv2.utils.Dummy;
+import com.usehover.testerv2.utils.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,13 +42,23 @@ public class DatabaseCallsToHover {
     }
 
     public ActionDetailsModels getActionDetailsById(String actionId) {
-        return new ActionDetailsModels(
-                "MTN NIGERIA, AIRTEL KE, AIRTEL NG", "*737*3*3*PIN#",
+        StreamlinedStepsModel streamlinedStepsModel = null;
+        try {
+            streamlinedStepsModel = Utils.getStreamlinedStepsStepsFromRaw("*737#", new JSONArray(Dummy.getStringTwo()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ActionDetailsModels actionDetailsModels = new ActionDetailsModels(
+                "MTN NIGERIA, AIRTEL KE, AIRTEL NG",
                 "123456, 434556, 32345, 678787566, 534232, 6575575, 42323534, 345365456, 45464556",
                 "15",
                 "4",
                 "4",
                 "3");
+        actionDetailsModels.setStreamlinedStepsModel(streamlinedStepsModel);
+        return actionDetailsModels;
+
     }
 
 

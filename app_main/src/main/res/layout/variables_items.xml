@@ -2,7 +2,7 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:orientation="vertical">
 
@@ -10,7 +10,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/email_string"
-            android:id="@+id/email_label_id"
+            android:id="@+id/variable_label_id"
             android:textColor="@color/colorHoverWhite"
             android:textSize="@dimen/text_16"
             android:textStyle="bold"/>
@@ -28,7 +28,7 @@
             android:textColorHint="@color/colorTextHint"
             android:layout_marginTop="8dp"
             android:maxLines="1"
-            android:id="@+id/emailEditId"
+            android:id="@+id/variableEditId"
             android:autofillHints="@string/email_hint"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorHoverWhite"

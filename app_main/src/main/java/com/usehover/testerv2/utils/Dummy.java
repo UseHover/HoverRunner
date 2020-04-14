@@ -1,7 +1,7 @@
-package com.usehover.testerv2;
+package com.usehover.testerv2.utils;
 
-class FreeLoaders {
-   static String getStringTwo() {
+public class Dummy {
+    public static String getStringTwo() {
         return "[{'value': '8','is_param': false, 'description':'menu entrance'}, "
                 + "{'value': 'Amount','is_param':true, 'description':'Amount of subcription'}, "
                 + "{'value': 'IUC','is_param':true, 'description':'Enter your IUC number'}, "

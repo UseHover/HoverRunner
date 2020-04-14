@@ -14,15 +14,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
+import com.usehover.testerv2.adapters.VariableAdapter;
+import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.interfaces.ParserClickListener;
-import com.usehover.testerv2.ui.actions.ActionsViewModel;
+import com.usehover.testerv2.interfaces.VariableEditinterface;
 import com.usehover.testerv2.ui.webview.WebViewActivity;
 import com.usehover.testerv2.utils.UIHelper;
+import com.usehover.testerv2.utils.Utils;
 
-public class ActionDetailsFragment extends Fragment implements ParserClickListener, CustomOnClickListener {
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class ActionDetailsFragment extends Fragment implements ParserClickListener, CustomOnClickListener, VariableEditinterface {
+
+    private Timer timer= new Timer();
 
     @Nullable
     @Override
@@ -108,22 +117,36 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 descTitle.setVisibility(View.GONE);
         }
 
-
+        RecyclerView variablesRecyclerView = view.findViewById(R.id.action_variables_recyclerView);
         ActionDetailsLiveModel actionDetailsLiveModel = ViewModelProviders.of(this).get(ActionDetailsLiveModel.class);
         actionDetailsLiveModel.loadActionDetailsObs().observe(getViewLifecycleOwner(), model-> {
             if(model !=null) {
                 operatorsText.setText(model.getOperators());
-                stepsText.setText(model.getSteps());
+                if(model.getStreamlinedStepsModel() !=null) stepsText.setText(model.getStreamlinedStepsModel().getFullUSSDCodeStep());
                 UIHelper.makeEachTextLinks(model.getParsers(), parsersText, this);
                 transacText.setText(model.getTransactionsNo());
                 successText.setText(model.getSuccessNo());
                 pendingText.setText(model.getPendingNo());
                 failureText.setText(model.getFailedNo());
+
+                variablesRecyclerView.setLayoutManager(ViewsRelated.setMainLinearManagers(view.getContext()));
+                variablesRecyclerView.setAdapter(new VariableAdapter(
+                        ActionDetailsActivity.actionId,
+                        model.getStreamlinedStepsModel(),
+                        this,
+                        Utils.getInitialVariableData(getContext(), ActionDetailsActivity.actionId)
+                ));
             }
         });
         actionDetailsLiveModel.getDetails(ActionDetailsActivity.actionId);
 
         return  view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     @Override
@@ -134,5 +157,13 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
     @Override
     public void onClickParser(String str) {
         UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), str);
+    }
+
+    @Override
+    public void onEditStringChanged(String label, String newValue) {
+        timer.cancel();
+        timer = new Timer();long DELAY = 2000;
+        timer.schedule(new TimerTask() {@Override public void run() {
+            if(getContext() !=null) Utils.saveActionVariable(getContext(), label, newValue); }}, DELAY);
     }
 }

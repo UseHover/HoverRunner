@@ -18,9 +18,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.interfaces.ParserClickListener;
 
 import java.util.Arrays;
@@ -83,6 +85,7 @@ public class UIHelper {
 		else Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
 	}
 	public static void showHoverToastV2(Context context, String message) {
+		if(context == null) context = ApplicationInstance.getContext();
 		Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 	}
 
