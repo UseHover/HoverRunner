@@ -22,7 +22,7 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
 
     private ArrayList<TransactionDetailsInfoModels> modelsArrayList;
     private CustomOnClickListener customOnClickListener;
-    private String actionId = "";
+    private String actionId = ""; private String actionName="";
 
     private int colorRed, colorYellow, colorGreen;
     
@@ -33,7 +33,9 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
         for(TransactionDetailsInfoModels models : modelsArrayList) {
             if(models.getLabel().equals("ActionID")) {
                 actionId = models.getValue();
-                return;
+            }
+            if(models.getLabel().equals("Action")) {
+                actionName = models.getValue();
             }
         }
     }
@@ -74,8 +76,8 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
     if(infoModels.isClickable()) {
         UIHelper.setTextUnderline(holder.value, infoModels.getValue());
         if(infoModels.getLabel().contains("Action"))
-            holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(actionId, ClickTypeEnum.CLICK_ACTION));
-        else holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(infoModels.getValue(), ClickTypeEnum.CLICK_PARSER));
+            holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_ACTION, actionName, actionId, infoModels.getStatusEnums() ));
+        else holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_PARSER,  infoModels.getValue() ));
     }
     else holder.value.setText(infoModels.getLabel());
 
