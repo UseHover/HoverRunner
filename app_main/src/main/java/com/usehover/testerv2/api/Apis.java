@@ -12,6 +12,7 @@ import com.usehover.testerv2.models.LoadSimModel;
 import com.usehover.testerv2.models.LoginModel;
 import com.usehover.testerv2.models.ParsersInfoModel;
 import com.usehover.testerv2.models.TransactionDetailsInfoModels;
+import com.usehover.testerv2.models.TransactionDetailsMessagesModel;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
 
@@ -61,6 +62,19 @@ public class Apis {
 
 	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsInfoById(TransactionDetailsDataType type, String transactionId) {
 		return new DatabaseCallsToHover().getTransactionDetailsByIdFromHover(type, transactionId);
+	}
+	public ArrayList<TransactionDetailsMessagesModel> getMessagesOfTransactionById(String transactionId) {
+		String[][] result = new DatabaseCallsToHover().getTransactionMessagesByIdFromHover(transactionId);
+		String[] enteredValues = result[0];
+		String[] ussdMessages = result[1];
+		int largestSize = Math.max(enteredValues.length, ussdMessages.length);
+		ArrayList<TransactionDetailsMessagesModel> messagesModels = new ArrayList<>(largestSize);
+		for(int i=0; i < largestSize; i++) {
+			messagesModels.add(new TransactionDetailsMessagesModel(
+					enteredValues[i] != null ? enteredValues[i] : "",
+					ussdMessages[i] != null  ? ussdMessages[i]  : ""));
+		}
+		return messagesModels;
 	}
 
 

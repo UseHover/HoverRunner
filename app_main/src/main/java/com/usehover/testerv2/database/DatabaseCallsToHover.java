@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class DatabaseCallsToHover {
     public List<ActionsModel> getAllActionsFromHover() {
-        List<ActionsModel> actionsModelList = new ArrayList<>();
+        List<ActionsModel> actionsModelList = new ArrayList<>(50);
 
         for(int i =0; i<50; i++) {
             String randomId = String.valueOf(new Random().nextInt(1000000));
@@ -35,7 +35,7 @@ public class DatabaseCallsToHover {
     }
 
     public  List<TransactionModels> getAllTransactionsFromHover() {
-        List<TransactionModels> transactionModelsList = new ArrayList<>();
+        List<TransactionModels> transactionModelsList = new ArrayList<>(50);
         for(int i=0; i<50; i++) {
             String randomDate = new Date().toString();
             String randomSentence = newSentence(10);
@@ -66,7 +66,7 @@ public class DatabaseCallsToHover {
     }
 
     public  List<TransactionModels> getTransactionByActionIdFromHover(String actionId) {
-        List<TransactionModels> transactionModelsList = new ArrayList<>();
+        List<TransactionModels> transactionModelsList = new ArrayList<>(20);
         for(int i=0; i<20; i++) {
             String randomDate = new Date().toString();
             String randomSentence = newSentence(10);
@@ -129,8 +129,10 @@ public class DatabaseCallsToHover {
         return dataTransacArrayList;
     }
 
-    public ArrayList<TransactionDetailsMessagesModel> getTransactionMessagesByIdFromHover(String transactionId) {
-        return null;
+    public String[][] getTransactionMessagesByIdFromHover(String transactionId) {
+        String[] enteredValues = {"*123#", "8", "6", "(pin)"};
+        String[] ussdMessages = {"This is message one", "Hey, here's for message two", "Here's for message three", "This happens after user enters pin if required to"};
+        return new String[][]{enteredValues, ussdMessages};
     }
 
     public ParsersInfoModel getParserInfoByIdFromHover(String parserId) {
@@ -148,7 +150,7 @@ public class DatabaseCallsToHover {
     }
 
     public  List<TransactionModels> getTransactionByParserIdFromHover(String parserId) {
-        List<TransactionModels> transactionModelsList = new ArrayList<>();
+        List<TransactionModels> transactionModelsList = new ArrayList<>(20);
         for(int i=0; i<20; i++) {
             String randomDate = new Date().toString();
             String randomSentence = newSentence(10);
