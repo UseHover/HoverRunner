@@ -65,9 +65,16 @@ public class Apis {
 		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getTransactionByParserIdFromHover(parserId));
 	}
 
-	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsInfoById(TransactionDetailsDataType type, String transactionId) {
-		return new DatabaseCallsToHover().getTransactionDetailsByIdFromHover(type, transactionId);
+	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsAboutById(String transactionId) {
+		return new DatabaseCallsToHover().getTransactionDetailsAbout(transactionId);
 	}
+	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsDebugInfoById(String transactionId) {
+		return new DatabaseCallsToHover().getTransactionsDetailsDebug(transactionId);
+	}
+	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsDeviceById(String transactionId) {
+		return new DatabaseCallsToHover().getTransactionDetailsDevice(transactionId);
+	}
+
 	public ArrayList<TransactionDetailsMessagesModel> getMessagesOfTransactionById(String transactionId) {
 		String[][] result = new DatabaseCallsToHover().getTransactionMessagesByIdFromHover(transactionId);
 		String[] enteredValues = result[0];

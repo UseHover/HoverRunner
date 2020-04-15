@@ -60,6 +60,7 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
     TransactionDetailsInfoModels infoModels = modelsArrayList.get(position);
     
     holder.label.setText(infoModels.getLabel());
+
     if(infoModels.getLabel().equals("Status")) {
         switch (infoModels.getStatusEnums()) {
             case UNSUCCESSFUL:
@@ -79,7 +80,7 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
             holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_ACTION, actionName, actionId, infoModels.getStatusEnums() ));
         else holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_PARSER,  infoModels.getValue() ));
     }
-    else holder.value.setText(infoModels.getLabel());
+    else holder.value.setText(infoModels.getValue());
 
     }
 

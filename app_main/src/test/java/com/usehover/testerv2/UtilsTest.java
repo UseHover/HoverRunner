@@ -49,6 +49,9 @@ public class UtilsTest {
 		String testPassword = "asdfdwhthwy~@#4234=-+|>,?&*(./sdfadfadf";
 		assertTrue(Utils.validatePassword(testPassword));
 
+		String testPassword5 = "AsdfDwhthwy~@#4234=-+|>,?&*(./sdfadfadf";
+		assertTrue(Utils.validatePassword(testPassword5));
+
 		String testPassword3 = "djfa dadf saf ";
 		assertFalse(Utils.validatePassword(testPassword3));
 

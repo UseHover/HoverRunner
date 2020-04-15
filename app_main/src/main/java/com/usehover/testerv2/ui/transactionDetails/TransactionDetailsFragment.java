@@ -21,7 +21,6 @@ import com.usehover.testerv2.adapters.TransactionMessagesRecyclerAdapter;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.ClickTypeEnum;
 import com.usehover.testerv2.enums.StatusEnums;
-import com.usehover.testerv2.enums.TransactionDetailsDataType;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
 import com.usehover.testerv2.ui.parsers.ParsersActivity;
@@ -121,18 +120,18 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
             if(model !=null) {
                 aboutInfoRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model,
                         this,
-                        R.color.colorRed,
-                        R.color.colorYellow,
-                        R.color.colorGreen));
+                        getResources().getColor(R.color.colorRed),
+                        getResources().getColor(R.color.colorYellow),
+                        getResources().getColor(R.color.colorGreen)));
             }
         });
 
-        transactionDetailsViewModel.loadDeviceModelsObs().observe(getViewLifecycleOwner(), model-> {
-            if(model !=null) aboutInfoRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model, this));
+        transactionDetailsViewModel.loadDeviceModelsObs().observe(getViewLifecycleOwner(), model2-> {
+            if(model2 !=null) deviceRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model2, this));
         });
 
-        transactionDetailsViewModel.loadDebugInfoModelsObs().observe(getViewLifecycleOwner(), model-> {
-            if(model !=null) aboutInfoRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model, this));
+        transactionDetailsViewModel.loadDebugInfoModelsObs().observe(getViewLifecycleOwner(), model3-> {
+            if(model3 !=null) debugInfoRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model3, this));
         });
 
         transactionDetailsViewModel.loadMessagesModelObs().observe(getViewLifecycleOwner(), model->{
