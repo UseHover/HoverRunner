@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HoverAdapters;
+import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
 import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.ui.actions.filter.ActionFilterActivity;
@@ -85,7 +86,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 					if(emptyStateText.getVisibility() == View.VISIBLE) emptyStateText.setVisibility(View.GONE);
 					if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
 					if(homeTransactionsRecyclerView.getVisibility() != View.VISIBLE) homeTransactionsRecyclerView.setVisibility(View.VISIBLE);
-					homeTransactionsRecyclerView.setAdapter(new HoverAdapters.TransactionRecyclerAdapter(fullActionResult.getTransactionModelsList(),
+					homeTransactionsRecyclerView.setAdapter(new TransactionRecyclerAdapter(fullActionResult.getTransactionModelsList(),
 							this,
 							getResources().getColor(R.color.colorYellow),
 							getResources().getColor(R.color.colorRed),

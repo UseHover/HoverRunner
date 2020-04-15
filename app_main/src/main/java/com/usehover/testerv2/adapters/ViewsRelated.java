@@ -31,25 +31,9 @@ public class ViewsRelated {
         else return R.drawable.ic_check_circle_green_24dp;
     }
 
-    static class ActionListItemView extends RecyclerView.ViewHolder {
-         TextView actionIdText, actionTitleText;
-         ImageView iconImage;
-         ActionListItemView(@NonNull View itemView) {
-            super(itemView);
-            actionIdText = itemView.findViewById(R.id.actionIdText_Id);
-            actionTitleText = itemView.findViewById(R.id.actionTitle_Id);
-            iconImage = itemView.findViewById(R.id.actionIconStatus);
-        }
-    }
 
-    static class TransactionListItemView extends  RecyclerView.ViewHolder {
-        TextView date, content;
-        TransactionListItemView(@NonNull View itemView) {
-            super(itemView);
-            date = itemView.findViewById(R.id.transaction_date_id);
-            content = itemView.findViewById(R.id.transaction_content_id);
-        }
-    }
+
+
 
 
 

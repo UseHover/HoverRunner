@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HoverAdapters;
+import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
 import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.StatusEnums;
@@ -102,7 +103,7 @@ public class ParsersFragment extends Fragment implements CustomOnClickListener {
                     break;
                 case HAS_DATA:
                         recentTransText.setText(getResources().getString(R.string.recent_transactions));
-                        parserTransactionRecyclerView.setAdapter(new HoverAdapters.TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
+                        parserTransactionRecyclerView.setAdapter(new TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
                             this,
                             getResources().getColor(R.color.colorYellow),
                             getResources().getColor(R.color.colorRed),
