@@ -24,9 +24,14 @@ public class Apis {
 	private static final String INVALID_EMAIL = "Invalid email format, please enter correct email and try again";
 	private static final String INVALID_PASSWORD = "Invalid password format. Ensure password has a minimum of 5 letters with no space";
 	public static final String NO_NETWORK = "Internet connection not found";
+
 	public static final String ACTION_ID = "action_id";
 	public static final String ACTION_TITLE = "action_title";
 	public static final String ACTION_STATUS = "actionStatus";
+
+	public static final String TRANS_ID = "trans_id";
+	public static final String TRANS_DATE = "trans_date";
+	public static final String TRANS_STATUS = "trans_status";
 
 
 	public LoginModel doLoginWorkManager(String email, String password) {

@@ -16,9 +16,9 @@ public class ActionsViewModel extends ViewModel {
 
     public ActionsViewModel() {
         filterStatus = new MutableLiveData<>();
-        filterStatus.setValue(HomeEnums.FILTER_OFF);
-
         homeActions =  new MutableLiveData<>();
+
+        filterStatus.setValue(HomeEnums.FILTER_OFF);
         homeActions.setValue(new FullActionResult(StatusEnums.LOADING, null));
     }
 

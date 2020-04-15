@@ -52,7 +52,7 @@ public  class TransactionRecyclerAdapter extends RecyclerView.Adapter<Transactio
 
             holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(
                     transactionModels.getTransaction_id(),
-                    transactionModels.getCaption(),
+                    transactionModels.getDate(),
                     transactionModels.getStatusEnums()));
         }
 

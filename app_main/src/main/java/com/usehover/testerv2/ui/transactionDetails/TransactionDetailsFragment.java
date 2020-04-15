@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.TransactionDetailsRecyclerAdapter;
+import com.usehover.testerv2.adapters.TransactionMessagesRecyclerAdapter;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.ClickTypeEnum;
 import com.usehover.testerv2.enums.StatusEnums;
@@ -110,6 +111,11 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
         debugInfoRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
         messagesRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
 
+        aboutInfoRecyclerView.setHasFixedSize(true);
+        debugInfoRecyclerView.setHasFixedSize(true);
+        debugInfoRecyclerView.setHasFixedSize(true);
+        messagesRecyclerView.setHasFixedSize(true);
+
         TransactionDetailsViewModel transactionDetailsViewModel = new ViewModelProvider(this).get(TransactionDetailsViewModel.class);
         transactionDetailsViewModel.loadAboutInfoModelsObs().observe(getViewLifecycleOwner(), model->{
             if(model !=null) {
@@ -122,18 +128,21 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
         });
 
         transactionDetailsViewModel.loadDeviceModelsObs().observe(getViewLifecycleOwner(), model-> {
-            if(model !=null)
-                aboutInfoRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model, this));
+            if(model !=null) aboutInfoRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model, this));
         });
 
         transactionDetailsViewModel.loadDebugInfoModelsObs().observe(getViewLifecycleOwner(), model-> {
-            if(model !=null)
-                aboutInfoRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model, this));
+            if(model !=null) aboutInfoRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model, this));
+        });
+
+        transactionDetailsViewModel.loadMessagesModelObs().observe(getViewLifecycleOwner(), model->{
+            if(model !=null) messagesRecyclerView.setAdapter(new TransactionMessagesRecyclerAdapter(model));
         });
 
         transactionDetailsViewModel.getAboutInfoModels(TransactionDetailsActivity.transactionId);
         transactionDetailsViewModel.getDebugInfoModels(TransactionDetailsActivity.transactionId);
         transactionDetailsViewModel.getDeviceModels(TransactionDetailsActivity.transactionId);
+        transactionDetailsViewModel.getMessagesModels(TransactionDetailsActivity.transactionId);
 
         return view;
     }

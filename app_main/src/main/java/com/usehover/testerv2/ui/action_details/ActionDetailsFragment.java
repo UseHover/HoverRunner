@@ -20,10 +20,13 @@ import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
 import com.usehover.testerv2.adapters.VariableRecyclerAdapter;
+import com.usehover.testerv2.api.Apis;
+import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.interfaces.ParserClickListener;
 import com.usehover.testerv2.interfaces.VariableEditinterface;
 import com.usehover.testerv2.ui.parsers.ParsersActivity;
+import com.usehover.testerv2.ui.transactionDetails.TransactionDetailsActivity;
 import com.usehover.testerv2.ui.webview.WebViewActivity;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
@@ -190,7 +193,11 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
 
     @Override
     public void customClickListener(Object... data) {
-
+        Intent i = new Intent(getActivity(), TransactionDetailsActivity.class);
+        i.putExtra(Apis.TRANS_ID, (String) data[0]);
+        i.putExtra(Apis.TRANS_DATE, (String) data[1]);
+        i.putExtra(Apis.TRANS_STATUS, (StatusEnums) data[2]);
+        startActivity(i);
     }
 
     @Override

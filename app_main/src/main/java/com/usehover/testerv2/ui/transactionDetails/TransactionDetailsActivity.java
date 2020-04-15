@@ -17,9 +17,9 @@ public class TransactionDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getIntent().getExtras() !=null) {
-            transactionId = getIntent().getExtras().getString(Apis.ACTION_ID);
-            transactionDate = getIntent().getExtras().getString(Apis.ACTION_TITLE);
-            transactionStatusEnums = (StatusEnums) getIntent().getExtras().get(Apis.ACTION_STATUS);
+            transactionId = getIntent().getExtras().getString(Apis.TRANS_ID);
+            transactionDate = getIntent().getExtras().getString(Apis.TRANS_DATE);
+            transactionStatusEnums = (StatusEnums) getIntent().getExtras().get(Apis.TRANS_STATUS);
         }
         setContentView(R.layout.transaction_details_activity);
     }
