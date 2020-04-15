@@ -29,12 +29,12 @@ public class TransactionDetailsViewModel extends ViewModel {
     LiveData<ArrayList<TransactionDetailsInfoModels>> loadDeviceModelsObs() {return deviceModels; }
     LiveData<ArrayList<TransactionDetailsInfoModels>> loadDebugInfoModelsObs() {return debugInfoModels; }
 
-    void getAboutInfoModels() {aboutInfoModels.postValue
-            (new Apis().getTransactionDetailsInfoById(TransactionDetailsDataType.ABOUT));}
+    void getAboutInfoModels(String transactionId) {aboutInfoModels.postValue
+            (new Apis().getTransactionDetailsInfoById(TransactionDetailsDataType.ABOUT, transactionId));}
 
-    void getDeviceModels() {aboutInfoModels.postValue
-            (new Apis().getTransactionDetailsInfoById(TransactionDetailsDataType.DEVICE));}
+    void getDeviceModels(String transactionId) {aboutInfoModels.postValue
+            (new Apis().getTransactionDetailsInfoById(TransactionDetailsDataType.DEVICE, transactionId));}
 
-    void getDebugInfoModels() {aboutInfoModels.postValue
-            (new Apis().getTransactionDetailsInfoById(TransactionDetailsDataType.DEBUG_INFO));}
+    void getDebugInfoModels(String transactionId) {aboutInfoModels.postValue
+            (new Apis().getTransactionDetailsInfoById(TransactionDetailsDataType.DEBUG_INFO, transactionId));}
 }

@@ -52,6 +52,11 @@
 
 	<string name="successStatus_title">This action works.</string>
 	<string name="unrunStatus_title">This action is yet to be run on this device.</string>
+
+	<string name="transaction_det_failed">This transaction failed</string>
+	<string name="transaction_det_pending">This transaction is pending</string>
+	<string name="transaction_det_success">This transaction worked</string>
+
 	
 	<string name="operators">Operators</string>
 	<string name="steps">Steps</string>

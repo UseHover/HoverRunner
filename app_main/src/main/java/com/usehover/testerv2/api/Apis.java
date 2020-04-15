@@ -59,8 +59,8 @@ public class Apis {
 		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getTransactionByParserIdFromHover(parserId));
 	}
 
-	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsInfoById(TransactionDetailsDataType type) {
-		return new DatabaseCallsToHover().getTransactionDetailsByIdFromHover(type);
+	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsInfoById(TransactionDetailsDataType type, String transactionId) {
+		return new DatabaseCallsToHover().getTransactionDetailsByIdFromHover(type, transactionId);
 	}
 
 

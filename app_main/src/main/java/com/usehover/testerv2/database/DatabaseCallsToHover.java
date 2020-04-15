@@ -75,7 +75,7 @@ public class DatabaseCallsToHover {
         return transactionModelsList;
     }
 
-    public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsByIdFromHover(TransactionDetailsDataType type) {
+    public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsByIdFromHover(TransactionDetailsDataType type, String transactionId) {
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
         switch (type) {
             case ABOUT:

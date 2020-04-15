@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorSecondaryGrey"
                 android:paddingVertical="16dp"
-                android:id="@+id/actionDetailsTopLayoutId"
+                android:id="@+id/transactionDetailsTopLayoutId"
                 android:paddingHorizontal="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
             <TextView
@@ -28,15 +28,15 @@
                     android:drawableStart="@drawable/ic_arrow_back_black_24dp"
                     android:drawablePadding="@dimen/activity_horizontal_margin"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/actionTextSize"
-                    android:id="@+id/actionDetails_toolbarText"/>
+                    android:textSize="@dimen/transactionTextSize"
+                    android:id="@+id/transactionDetails_toolbarText"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
                     android:textSize="@dimen/text_13"
-                    android:id="@+id/actionDetails_subtoolText"
+                    android:id="@+id/transactionDetails_subtoolText"
                     android:textColor="@color/colorPrimaryDark"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
                     />
@@ -49,7 +49,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_13"
-                    android:id="@+id/actionDetails_statusTitle"
+                    android:id="@+id/transactionDetails_statusTitle"
                     />
 
             <TextView
@@ -61,13 +61,13 @@
                     android:layout_marginStart="42dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_13"
-                    android:id="@+id/actionDetails_statusTitle2"
+                    android:id="@+id/transactionDetails_statusTitle2"
                     />
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/actionDetails_statusDesc"
+                    android:id="@+id/transactionDetails_statusDesc"
                     android:text="@string/pendingStatus_desc"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_13"
@@ -79,7 +79,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/actionDetails_statusLink"
+                    android:id="@+id/transactionDetails_statusLink"
                     android:text="@string/pendingStatus_linkText"
                     android:textStyle="bold"
                     android:textSize="@dimen/text_13"
