@@ -12,6 +12,7 @@ import com.usehover.testerv2.R;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.models.TransactionModels;
+import com.usehover.testerv2.utils.UIHelper;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public  class TransactionRecyclerAdapter extends RecyclerView.Adapter<Transactio
             holder.content.setText(transactionModels.getCaption());
 
             if(transactionModels.getStatusEnums() != StatusEnums.NOT_YET_RUN) {
-                holder.date.setCompoundDrawablesWithIntrinsicBounds(0,0,ViewsRelated.getActionIconDrawable(transactionModels.getStatusEnums()), 0);
+                holder.date.setCompoundDrawablesWithIntrinsicBounds(0,0, UIHelper.getActionIconDrawable(transactionModels.getStatusEnums()), 0);
                 holder.date.setCompoundDrawablePadding(8);
                 holder.date.setTextColor(transactionModels.getStatusEnums() == StatusEnums.PENDING ?
                         colorPending : transactionModels.getStatusEnums() == StatusEnums.UNSUCCESSFUL ? colorFailed : colorSuccess);

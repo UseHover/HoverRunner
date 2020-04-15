@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
+import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
 import com.usehover.testerv2.adapters.VariableRecyclerAdapter;
-import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.interfaces.ParserClickListener;
 import com.usehover.testerv2.interfaces.VariableEditinterface;
@@ -134,7 +134,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 pendingText.setText(model.getPendingNo());
                 failureText.setText(model.getFailedNo());
 
-                variablesRecyclerView.setLayoutManager(ViewsRelated.setMainLinearManagers(view.getContext()));
+                variablesRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(view.getContext()));
                 variablesRecyclerView.setAdapter(new VariableRecyclerAdapter(
                         ActionDetailsActivity.actionId,
                         model.getStreamlinedStepsModel(),
@@ -156,7 +156,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
 
         });
         RecyclerView transacRecyclerView = view.findViewById(R.id.action_transac_recyclerView);
-        transacRecyclerView.setLayoutManager(ViewsRelated.setMainLinearManagers(getContext()));
+        transacRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
 
         actionDetailsViewModel.loadActionTransactionsObs().observe(getViewLifecycleOwner(), transactions-> {
             switch (transactions.getEnums()) {
@@ -167,7 +167,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 case HAS_DATA:
                     recentTransText.setText(getResources().getString(R.string.recent_transactions));
                     viewAllText.setVisibility(View.VISIBLE);
-                    transacRecyclerView.setAdapter(new HoverAdapters.TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
+                    transacRecyclerView.setAdapter(new TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
                             this,
                             getResources().getColor(R.color.colorYellow),
                             getResources().getColor(R.color.colorRed),

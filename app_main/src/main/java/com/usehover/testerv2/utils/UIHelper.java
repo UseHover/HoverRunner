@@ -16,12 +16,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.usehover.testerv2.ApplicationInstance;
+import com.usehover.testerv2.R;
+import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.ParserClickListener;
 
 public class UIHelper {
+	private static final int INITIAL_ITEMS_FETCH = 30;
+
+	public static LinearLayoutManager setMainLinearManagers(Context context) {
+		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+		linearLayoutManager.setInitialPrefetchItemCount(INITIAL_ITEMS_FETCH);
+		linearLayoutManager.setSmoothScrollbarEnabled(true);
+		return  linearLayoutManager;
+	}
+
+	public static int getActionIconDrawable(StatusEnums enums) {
+		if (enums == StatusEnums.PENDING)
+			return R.drawable.ic_warning_yellow_24dp;
+		else if (enums == StatusEnums.UNSUCCESSFUL)
+			return R.drawable.ic_error_red_24dp;
+		else return R.drawable.ic_check_circle_green_24dp;
+	}
+
 	public static void setTextUnderline(TextView textView, String cs) {
 		SpannableString content = new SpannableString(cs);
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);

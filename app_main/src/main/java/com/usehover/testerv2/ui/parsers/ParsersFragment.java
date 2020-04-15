@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
-import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
@@ -90,7 +89,7 @@ public class ParsersFragment extends Fragment implements CustomOnClickListener {
 
         TextView recentTransText = view.findViewById(R.id.recentTransa_id);
         RecyclerView parserTransactionRecyclerView = view.findViewById(R.id.parser_transac_recyclerView);
-        parserTransactionRecyclerView.setLayoutManager(ViewsRelated.setMainLinearManagers(getContext()));
+        parserTransactionRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
 
         parsersViewModel.loadParsersTransactionsObs().observe(getViewLifecycleOwner(), transactions-> {
             switch (transactions.getEnums()) {

@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HomeActionRecyclerAdapter;
-import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
@@ -41,7 +40,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
         emptyStateText = root.findViewById(R.id.empty_text_1);
 
         homeActionsRecyclerView = root.findViewById(R.id.recyclerViewId);
-        homeActionsRecyclerView.setLayoutManager(ViewsRelated.setMainLinearManagers(getContext()));
+        homeActionsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
 
 
         UIHelper.setTextUnderline(filterText, getResources().getString(R.string.filter_text));

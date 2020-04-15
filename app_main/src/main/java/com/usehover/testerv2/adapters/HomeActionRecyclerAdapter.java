@@ -53,7 +53,7 @@ public  class HomeActionRecyclerAdapter extends RecyclerView.Adapter<HomeActionR
 
             if (showStatus) {
                 if (model.getActionEnum() != StatusEnums.NOT_YET_RUN)
-                    holder.iconImage.setImageResource(ViewsRelated.getActionIconDrawable(model.getActionEnum()));
+                    holder.iconImage.setImageResource(UIHelper.getActionIconDrawable(model.getActionEnum()));
             }
             holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(
                     model.getActionId(),

@@ -21,6 +21,7 @@ public class Utils {
 
     private static final String SHARED_PREFS = "_testerV2";
 
+
     private static SharedPreferences getSharedPrefs(Context context) {
         return context.getSharedPreferences(getPackage(context) + SHARED_PREFS, Context.MODE_PRIVATE);
     }

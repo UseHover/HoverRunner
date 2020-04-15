@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
-import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.ui.actions.filter.ActionFilterActivity;
 import com.usehover.testerv2.utils.UIHelper;
@@ -39,7 +38,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 		emptyStateText = root.findViewById(R.id.empty_text_1);
 
 		homeTransactionsRecyclerView= root.findViewById(R.id.recyclerViewId);
-		homeTransactionsRecyclerView.setLayoutManager(ViewsRelated.setMainLinearManagers(getContext()));
+		homeTransactionsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
 
 		UIHelper.setTextUnderline(filterText, getResources().getString(R.string.filter_text));
 
