@@ -35,10 +35,8 @@ public class UIHelper {
 	}
 
 	public static int getActionIconDrawable(StatusEnums enums) {
-		if (enums == StatusEnums.PENDING)
-			return R.drawable.ic_warning_yellow_24dp;
-		else if (enums == StatusEnums.UNSUCCESSFUL)
-			return R.drawable.ic_error_red_24dp;
+		if (enums == StatusEnums.PENDING) return R.drawable.ic_warning_yellow_24dp;
+		else if (enums == StatusEnums.UNSUCCESSFUL) return R.drawable.ic_error_red_24dp;
 		else return R.drawable.ic_check_circle_green_24dp;
 	}
 
