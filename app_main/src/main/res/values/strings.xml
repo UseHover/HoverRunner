@@ -63,6 +63,9 @@
 	
 	<string name="testing_variables">Testing variables</string>
 	<string name="testing_variables_desc">We submit these values whenever you test this action.</string>
+	<string name="device">Device</string>
+	<string name="debug_info">Debug info</string>
+	<string name="messages">Messages</string>
 
 	<string name="recent_transactions">Recent transactions</string>
 	<string name="view_all">View all</string>
@@ -76,6 +79,15 @@
 	<string name="parser_created">Created</string>
 	<string name="parser_sender">Sender</string>
 	<string name="parser_regex">Regex</string>
+	
+	<string name="transac_details_status">Status</string>
+	<string name="transac_details_action">Action</string>
+	<string name="transac_details_actionId">ActionID</string>
+	<string name="transac_details_time">Time</string>
+	<string name="transac_details_transId">Transaction ID</string>
+	<string name="transac_details_result">Result</string>
+	<string name="tranac_details_category">Category</string>
+	<string name="transac_details_operator">Operator</string>
 	
 
 </resources>
