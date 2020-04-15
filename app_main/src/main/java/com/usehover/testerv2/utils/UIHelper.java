@@ -14,7 +14,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -58,9 +57,7 @@ public class UIHelper {
 	}
 
 	public static void makeEachTextLinks(final String text, final TextView tv, ParserClickListener clickListener) {
-				if (text == null || tv == null) {
-						return;
-					}
+				if (text == null || tv == null) { return; }
 				final SpannableString ss = new SpannableString(text);
 				final String[] items = text.split(", ");
 				int start = 0, end;
@@ -80,6 +77,7 @@ public class UIHelper {
 	private static class MyClickableSpan extends ClickableSpan {
 		private final String mText;
 		private final ParserClickListener clickListener;
+
 		private MyClickableSpan(final String text, ParserClickListener clickListener) {
 			this.mText = text;
 			this.clickListener = clickListener;

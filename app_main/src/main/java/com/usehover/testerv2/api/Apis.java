@@ -3,6 +3,7 @@ package com.usehover.testerv2.api;
 import com.usehover.testerv2.database.DatabaseCallsToHover;
 import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.enums.StatusEnums;
+import com.usehover.testerv2.enums.TransactionDetailsDataType;
 import com.usehover.testerv2.models.ActionDetailsModels;
 import com.usehover.testerv2.models.FullActionResult;
 import com.usehover.testerv2.enums.HomeEnums;
@@ -10,9 +11,11 @@ import com.usehover.testerv2.models.FullTransactionResult;
 import com.usehover.testerv2.models.LoadSimModel;
 import com.usehover.testerv2.models.LoginModel;
 import com.usehover.testerv2.models.ParsersInfoModel;
+import com.usehover.testerv2.models.TransactionDetailsInfoModels;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Apis {
@@ -54,6 +57,10 @@ public class Apis {
 
 	public FullTransactionResult getTransactionsByParserId(String parserId) {
 		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getTransactionByParserIdFromHover(parserId));
+	}
+
+	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsInfByTransactionId(TransactionDetailsDataType type) {
+		return new DatabaseCallsToHover().getTransactionDetailsByIdFromHover(type);
 	}
 
 
