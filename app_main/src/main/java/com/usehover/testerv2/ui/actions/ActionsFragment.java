@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HomeActionRecyclerAdapter;
-import com.usehover.testerv2.adapters.HoverAdapters;
 import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.StatusEnums;

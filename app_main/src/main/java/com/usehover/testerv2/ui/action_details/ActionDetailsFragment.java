@@ -18,8 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
-import com.usehover.testerv2.adapters.HoverAdapters;
-import com.usehover.testerv2.adapters.VariableAdapter;
+import com.usehover.testerv2.adapters.VariableRecyclerAdapter;
 import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.interfaces.ParserClickListener;
@@ -136,7 +135,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 failureText.setText(model.getFailedNo());
 
                 variablesRecyclerView.setLayoutManager(ViewsRelated.setMainLinearManagers(view.getContext()));
-                variablesRecyclerView.setAdapter(new VariableAdapter(
+                variablesRecyclerView.setAdapter(new VariableRecyclerAdapter(
                         ActionDetailsActivity.actionId,
                         model.getStreamlinedStepsModel(),
                         this,

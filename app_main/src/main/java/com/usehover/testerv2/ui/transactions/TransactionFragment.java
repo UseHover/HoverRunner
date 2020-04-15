@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.usehover.testerv2.R;
-import com.usehover.testerv2.adapters.HoverAdapters;
 import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
 import com.usehover.testerv2.adapters.ViewsRelated;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;

@@ -18,13 +18,13 @@ import com.usehover.testerv2.models.StreamlinedStepsModel;
 import java.util.Map;
 import java.util.Objects;
 
-public  class VariableAdapter extends  RecyclerView.Adapter<VariableAdapter.VariableItemListView> {
+public  class VariableRecyclerAdapter extends  RecyclerView.Adapter<VariableRecyclerAdapter.VariableItemListView> {
          private StreamlinedStepsModel stepsModel;
          private VariableEditinterface editinterface;
          private Map<String, String> initialData;
          private String actionId;
 
-        public VariableAdapter(String actionId, StreamlinedStepsModel stepsModel, VariableEditinterface editinterface,  Map<String, String> initialData) {
+        public VariableRecyclerAdapter(String actionId, StreamlinedStepsModel stepsModel, VariableEditinterface editinterface, Map<String, String> initialData) {
             this.stepsModel = stepsModel;
             this.editinterface = editinterface;
             this.initialData = initialData;
