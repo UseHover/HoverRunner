@@ -8,9 +8,9 @@ import android.os.Build;
 
 import com.usehover.testerv2.enums.PassageEnum;
 
-public class CustomNetworkUtil {
+public class NetworkUtil {
     private Context context;
-    public CustomNetworkUtil(Context context) {
+    public NetworkUtil(Context context) {
         this.context = context;
     }
     public PassageEnum isNetworkAvailable() {

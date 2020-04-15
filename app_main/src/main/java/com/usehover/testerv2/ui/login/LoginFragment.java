@@ -19,7 +19,7 @@ import com.usehover.testerv2.R;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.ui.webview.WebViewActivity;
-import com.usehover.testerv2.utils.CustomNetworkUtil;
+import com.usehover.testerv2.utils.NetworkUtil;
 import com.usehover.testerv2.utils.UIHelper;
 
 import java.util.Objects;
@@ -95,7 +95,7 @@ public class LoginFragment extends Fragment {
 
 
         view.findViewById(R.id.signinButton).setOnClickListener(v -> {
-            if(new CustomNetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
+            if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
                 if (!progressDialog.isShowing()) progressDialog.show();
                 undoErrorView(emailEdit, errorEmailText, emailLabel);
                 undoErrorView(passwordEdit, errorPasswordText, passwordLabel);

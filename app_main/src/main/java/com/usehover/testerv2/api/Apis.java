@@ -11,6 +11,7 @@ import com.usehover.testerv2.models.LoadSimModel;
 import com.usehover.testerv2.models.LoginModel;
 import com.usehover.testerv2.models.ParsersInfoModel;
 import com.usehover.testerv2.utils.UIHelper;
+import com.usehover.testerv2.utils.Utils;
 
 import java.util.Random;
 
@@ -25,8 +26,8 @@ public class Apis {
 
 
 	public LoginModel doLoginWorkManager(String email, String password) {
-		if(!UIHelper.validateEmail(email)) return new LoginModel(HomeEnums.ERROR_EMAIL, INVALID_EMAIL);
-		if(!UIHelper.validatePassword(password)) return new LoginModel(HomeEnums.ERROR_PASSWORD, INVALID_PASSWORD);
+		if(!Utils.validateEmail(email)) return new LoginModel(HomeEnums.ERROR_EMAIL, INVALID_EMAIL);
+		if(!Utils.validatePassword(password)) return new LoginModel(HomeEnums.ERROR_PASSWORD, INVALID_PASSWORD);
 
 		return new LoginModel(HomeEnums.SUCCESS, "Login successful");
 	}

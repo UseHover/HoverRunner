@@ -2,7 +2,7 @@ package com.usehover.testerv2;
 
 import com.google.gson.JsonArray;
 import com.usehover.testerv2.models.StreamlinedStepsModel;
-import com.usehover.testerv2.utils.UIHelper;
+import com.usehover.testerv2.utils.Utils;
 import com.usehover.testerv2.utils.Utils;
 
 import org.json.JSONArray;
@@ -37,26 +37,26 @@ public class UtilsTest {
 	@Test
 	public void test_validateEmail() {
 		String testEmail = "djaljdfhadjfadljfa@dafda";
-		assertFalse(UIHelper.validateEmail(testEmail));
+		assertFalse(Utils.validateEmail(testEmail));
 
 		String testEmail2 = "akinpeluocom@gmail.com";
-		assertTrue(UIHelper.validateEmail(testEmail2));
+		assertTrue(Utils.validateEmail(testEmail2));
 
 	}
 
 	@Test
 	public void test_validatePassword(){
 		String testPassword = "asdfdwhthwy~@#4234=-+|>,?&*(./sdfadfadf";
-		assertTrue(UIHelper.validatePassword(testPassword));
+		assertTrue(Utils.validatePassword(testPassword));
 
 		String testPassword3 = "djfa dadf saf ";
-		assertFalse(UIHelper.validatePassword(testPassword3));
+		assertFalse(Utils.validatePassword(testPassword3));
 
 		String testPassword2 = "dadfdasdfdsasdfdsadsfdasdfdsdfasdfdsadfdasdfdsdfasdfdsadfdsadfdasd";
-		assertFalse(UIHelper.validatePassword(testPassword2));
+		assertFalse(Utils.validatePassword(testPassword2));
 
 		String testPassword4 = "1234";
-		assertFalse(UIHelper.validatePassword(testPassword4));
+		assertFalse(Utils.validatePassword(testPassword4));
 	}
 
 
