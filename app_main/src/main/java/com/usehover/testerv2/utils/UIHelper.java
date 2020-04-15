@@ -43,6 +43,7 @@ public class UIHelper {
 	public static void setTextUnderline(TextView textView, String cs) {
 		SpannableString content = new SpannableString(cs);
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+		content.setSpan(android.graphics.Typeface.BOLD, 0, content.length(), 0);
 		textView.setText(content);
 	}
 
