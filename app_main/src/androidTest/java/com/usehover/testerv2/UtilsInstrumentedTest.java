@@ -54,4 +54,16 @@ public void useAppContext() {
 		Assert.assertEquals(s1.getStepVariableLabel(), s2.getStepVariableLabel());
 		Assert.assertEquals(s1.getFullUSSDCodeStep(), s2.getFullUSSDCodeStep());
 	}
+	@Test
+	public void test_USSDJSONArrayToStringArray() throws JSONException {
+		JSONArray ussdMessages = new JSONArray();
+		ussdMessages.put("tobi");
+		ussdMessages.put("jerry");
+		ussdMessages.put("yomi");
+
+		String[] stringList = Utils.convertNormalJSONArrayToStringArray(ussdMessages);
+		Assert.assertEquals(stringList[0], ussdMessages.get(0));
+		Assert.assertEquals(stringList[1], ussdMessages.get(1));
+		Assert.assertEquals(stringList[2], ussdMessages.get(2));
+	}
 }

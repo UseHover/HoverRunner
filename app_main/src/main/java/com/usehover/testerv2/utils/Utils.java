@@ -12,9 +12,11 @@ import com.usehover.testerv2.models.StreamlinedStepsModel;
 import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Utils {
@@ -101,5 +103,12 @@ public class Utils {
         return string.length() < 40 && string.length() >4 && !string.contains(" ");
     }
 
+    public static String[] convertNormalJSONArrayToStringArray(JSONArray arr) throws JSONException {
+        String[] list = new String[arr.length()];
+        for(int i = 0; i < arr.length(); i++){
+            list[i] = arr.getString(i);
+        }
+        return list;
+    }
 
 }

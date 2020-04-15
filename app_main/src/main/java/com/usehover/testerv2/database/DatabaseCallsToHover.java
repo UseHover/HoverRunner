@@ -8,6 +8,7 @@ import com.usehover.testerv2.models.ActionsModel;
 import com.usehover.testerv2.models.ParsersInfoModel;
 import com.usehover.testerv2.models.StreamlinedStepsModel;
 import com.usehover.testerv2.models.TransactionDetailsInfoModels;
+import com.usehover.testerv2.models.TransactionDetailsMessagesModel;
 import com.usehover.testerv2.models.TransactionModels;
 import com.usehover.testerv2.utils.Dummy;
 import com.usehover.testerv2.utils.Utils;
@@ -126,6 +127,10 @@ public class DatabaseCallsToHover {
                 break;
         }
         return dataTransacArrayList;
+    }
+
+    public ArrayList<TransactionDetailsMessagesModel> getTransactionMessagesByIdFromHover(String transactionId) {
+        return null;
     }
 
     public ParsersInfoModel getParserInfoByIdFromHover(String parserId) {

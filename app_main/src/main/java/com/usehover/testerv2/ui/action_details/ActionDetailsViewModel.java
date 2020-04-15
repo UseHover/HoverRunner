@@ -23,6 +23,6 @@ public class ActionDetailsViewModel extends ViewModel {
     LiveData<ActionDetailsModels> loadActionDetailsObs() {return actionDetailsModel;}
     LiveData<FullTransactionResult> loadActionTransactionsObs() {return actionTransactions; }
     void getDetails(String actionId) {actionDetailsModel.postValue(new Apis().doGetSpecificActionDetailsById(actionId));}
-    void getActionTrans(String actionId) {actionTransactions.postValue(new Apis().doGetTransactionsByActionIdWorkManager());}
+    void getActionTrans(String actionId) {actionTransactions.postValue(new Apis().doGetTransactionsByActionIdWorkManager(actionId));}
 
 }

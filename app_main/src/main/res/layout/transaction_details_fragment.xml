@@ -28,7 +28,7 @@
                     android:drawableStart="@drawable/ic_arrow_back_black_24dp"
                     android:drawablePadding="@dimen/activity_horizontal_margin"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/transactionTextSize"
+                    android:textSize="@dimen/actionTextSize"
                     android:id="@+id/transactionDetails_toolbarText"/>
 
             <TextView

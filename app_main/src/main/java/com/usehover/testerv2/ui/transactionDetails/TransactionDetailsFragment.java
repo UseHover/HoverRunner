@@ -108,6 +108,7 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
         aboutInfoRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
         deviceRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
         debugInfoRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
+        messagesRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
 
         TransactionDetailsViewModel transactionDetailsViewModel = new ViewModelProvider(this).get(TransactionDetailsViewModel.class);
         transactionDetailsViewModel.loadAboutInfoModelsObs().observe(getViewLifecycleOwner(), model->{
@@ -118,7 +119,6 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
                         R.color.colorYellow,
                         R.color.colorGreen));
             }
-
         });
 
         transactionDetailsViewModel.loadDeviceModelsObs().observe(getViewLifecycleOwner(), model-> {
