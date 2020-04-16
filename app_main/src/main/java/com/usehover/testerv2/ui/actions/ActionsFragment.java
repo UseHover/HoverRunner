@@ -31,8 +31,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
     private TextView filterText, emptyStateText;
     private ProgressBar progressBar;
     private RecyclerView homeActionsRecyclerView;
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         actionsViewModel = new ViewModelProvider(this).get(ActionsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_actions, container, false);
         filterText  = root.findViewById(R.id.actionFilter_id);
