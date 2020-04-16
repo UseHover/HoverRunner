@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+  >
+<androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:paddingHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_height="match_parent">
+        >
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -30,6 +38,7 @@
                     android:text="@string/title_filter"
                     android:layout_weight="1"
                     android:drawablePadding="8dp"
+                    android:id="@+id/actionFilterBackId"
                     android:drawableStart="@drawable/ic_arrow_back_white_24dp"
                     />
 
@@ -42,7 +51,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:paddingHorizontal="@dimen/activity_vertical_margin"
-                    android:id="@+id/actionFilter_id"
+                    android:id="@+id/reset_id"
                     android:text="@string/reset"/>
 
         </LinearLayout>
@@ -99,7 +108,7 @@
                 android:paddingRight="@dimen/editText_box_margin_horiz"
                 android:paddingTop="@dimen/editText_box_margin_vert"
                 android:paddingBottom="@dimen/editText_box_margin_vert"
-                android:text="From <account creation> to <today>"
+                android:text="@string/from_account_creation_to_today"
                 android:textColorHint="@color/colorTextHint"
                 android:layout_marginTop="8dp"
                 android:maxLines="1"
@@ -303,7 +312,7 @@
                 android:layout_height="wrap_content"
                 android:checked="false"
                 app:buttonTint="@color/colorPrimary"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="52dp"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:id="@+id/checkbox_sim"
                 android:text="@string/sim_checkbox"
@@ -316,3 +325,14 @@
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textAlignment="center"
+            android:paddingVertical="10dp"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_16"
+            android:id="@+id/testAllActions_id"
+            android:text="Show 9 actions"/>
+</LinearLayout>

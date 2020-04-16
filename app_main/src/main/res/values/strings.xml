@@ -109,6 +109,7 @@
 	<string name="transac_details_result">Result</string>
 	<string name="tranac_details_category">Category</string>
 	<string name="transac_details_operator">Operator</string>
-	
+	<string name="from_account_creation_to_today"><![CDATA[From <account creation> to <today>]]></string>
+
 
 </resources>

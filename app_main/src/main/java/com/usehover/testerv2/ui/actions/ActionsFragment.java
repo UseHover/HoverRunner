@@ -113,7 +113,6 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
     @Override
     public void customClickListener(Object... data) {
         assert data!=null;
-
         Intent i = new Intent(getActivity(), ActionDetailsActivity.class);
         i.putExtra(Apis.ACTION_ID, (String) data[0]);
         i.putExtra(Apis.ACTION_TITLE, (String) data[1]);
