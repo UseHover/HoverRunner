@@ -279,6 +279,7 @@
             android:paddingVertical="10dp"
             android:textStyle="bold"
             android:textSize="@dimen/text_16"
+            android:textColor="@color/colorPrimaryDark"
             android:id="@+id/showActions_id"
             android:text="Show 9 actions"/>
 </LinearLayout>

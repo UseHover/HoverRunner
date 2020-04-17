@@ -27,7 +27,7 @@ public class TransactionFilterFragment extends Fragment {
 
         TextView datePickerView = view.findViewById(R.id.dateRangeEditId);
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
-        MaterialDatePicker picker = builder.setTheme(R.style.DateTheme).setTitleText("Select Range").build();
+        MaterialDatePicker picker = builder.setTitleText(getResources().getString(R.string.selected_range)).build();
 
         picker.addOnPositiveButtonClickListener(selection -> {
             Pair<Long, Long> datePairs = (Pair<Long, Long>) selection;

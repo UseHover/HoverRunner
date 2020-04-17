@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">TesterV2</string>
+	<string name="app_name">Hover TesterV2</string>
 	<string name="title_actions">Actions</string>
 	<string name="title_transactions">Transactions</string>
 	<string name="title_settings">Settings</string>
@@ -112,6 +112,7 @@
 	<string name="transac_details_operator">Operator</string>
 	<string name="from_account_creation_to_today"><![CDATA[From <account creation> to <today>]]></string>
 	<string name="hint_choose_actions">Choose actions</string>
+	<string name="selected_range">Selected range</string>
 
 
 </resources>

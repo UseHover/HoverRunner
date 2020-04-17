@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.usehover.testerv2.R;
@@ -29,14 +30,18 @@ public class ActionFilterFragment extends Fragment {
         toolText.setOnClickListener(v -> getActivity().finish());
 
         TextView datePickerView = view.findViewById(R.id.dateRangeEditId);
-        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
-        MaterialDatePicker picker = builder.setTheme(R.style.DateTheme).setTitleText("Select Range").build();
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+        builder.setCalendarConstraints(constraintsBuilder.build());
 
+        MaterialDatePicker<?> picker = builder.setTitleText(getResources().getString(R.string.selected_range)).build();
         picker.addOnPositiveButtonClickListener(selection -> {
             Pair<Long, Long> datePairs = (Pair<Long, Long>) selection;
             UIHelper.showHoverToastV2(getContext(), String.valueOf(datePairs.first+" AND "+datePairs.second));
 
         });
+
+
         datePickerView.setOnClickListener(v -> {
             picker.show(getParentFragmentManager(), picker.toString());
         });
