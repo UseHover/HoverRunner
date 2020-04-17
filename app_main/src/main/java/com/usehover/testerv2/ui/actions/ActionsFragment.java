@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.usehover.testerv2.Fakesdk;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HomeActionRecyclerAdapter;
 import com.usehover.testerv2.api.Apis;
@@ -28,9 +29,13 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
 
     private ActionsViewModel actionsViewModel;
     private static final int FILTER_RESULT = 300;
+    private static final int TEST_ALL_RESULT = 301;
     private TextView filterText, emptyStateText;
     private ProgressBar progressBar;
     private RecyclerView homeActionsRecyclerView;
+    int counter = 0;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         actionsViewModel = new ViewModelProvider(this).get(ActionsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_actions, container, false);
@@ -48,6 +53,11 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
         filterText.setOnClickListener(v -> {
             Intent i = new Intent(getActivity(), ActionFilterActivity.class);
             startActivityForResult(i, FILTER_RESULT);
+        });
+
+        root.findViewById(R.id.testAllActions_id).setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), Fakesdk.class);
+            startActivityForResult(i, TEST_ALL_RESULT);
         });
 
         //GET ALL ACTIONS
@@ -105,6 +115,13 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
                 if (newText.equals("enteredTextValue")) {
                     actionsViewModel.setFilterOn();
                 }
+            }
+        }
+        else if (requestCode == TEST_ALL_RESULT) {
+            if(counter  < 4) {
+                counter = counter +1;
+                Intent i = new Intent(getActivity(), Fakesdk.class);
+                startActivityForResult(i, TEST_ALL_RESULT);
             }
         }
     }

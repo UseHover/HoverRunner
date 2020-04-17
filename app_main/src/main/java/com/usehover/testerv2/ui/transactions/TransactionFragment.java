@@ -21,6 +21,7 @@ import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.ui.actions.filter.ActionFilterActivity;
 import com.usehover.testerv2.ui.transactionDetails.TransactionDetailsActivity;
+import com.usehover.testerv2.ui.transactions.filter.TransactionFilterActivity;
 import com.usehover.testerv2.utils.UIHelper;
 
 
@@ -47,7 +48,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 
 		//CALL THE FILTER FUNCTION
 		filterText.setOnClickListener(v -> {
-			Intent i = new Intent(getActivity(), ActionFilterActivity.class);
+			Intent i = new Intent(getActivity(), TransactionFilterActivity.class);
 			startActivityForResult(i, FILTER_RESULT_TRANSACTION);
 		});
 

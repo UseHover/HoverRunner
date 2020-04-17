@@ -1,10 +1,9 @@
-package com.usehover.testerv2.ui.actions.filter;
+package com.usehover.testerv2.ui.transactions.filter;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,18 +12,16 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.utils.UIHelper;
 
-public class ActionFilterFragment extends Fragment {
-
+public class TransactionFilterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.action_filter_fragment, container, false);
+        View view = inflater.inflate(R.layout.transaction_filter_fragment, container, false);
 
-        TextView toolText = view.findViewById(R.id.actionFilterBackId);
+        TextView toolText = view.findViewById(R.id.transactionFilterBackId);
         TextView resetText = view.findViewById(R.id.reset_id);
         toolText.setOnClickListener(v -> getActivity().finish());
 
@@ -45,15 +42,4 @@ public class ActionFilterFragment extends Fragment {
 
         return view;
     }
-
-
-    private View.OnFocusChangeListener focusListener = new View.OnFocusChangeListener() {
-        public void onFocusChange(View v, boolean hasFocus) {
-            if (hasFocus){
-                //focusedView = v;
-            } else {
-               // focusedView  = null;
-            }
-        }
-    };
 }

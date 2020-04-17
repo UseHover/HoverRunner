@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.usehover.testerv2.Fakesdk;
 import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
@@ -65,6 +66,12 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         toolText.setOnClickListener(v -> {
             if(getActivity() !=null) getActivity().finish();
         });
+
+        view.findViewById(R.id.testSingle_id).setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), Fakesdk.class);
+            startActivityForResult(i, 301);
+        });
+
 
         switch (ActionDetailsActivity.statusEnums) {
             case PENDING:

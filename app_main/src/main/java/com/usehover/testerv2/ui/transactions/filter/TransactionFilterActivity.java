@@ -8,16 +8,12 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.usehover.testerv2.R;
+
 public class TransactionFilterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        new Handler().postDelayed(() -> {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("idn", "enteredTextValue");
-            setResult(Activity.RESULT_OK, resultIntent);
-            finish();
-        }, 2000);
+        setContentView(R.layout.transaction_filter_activity);
     }
 }
