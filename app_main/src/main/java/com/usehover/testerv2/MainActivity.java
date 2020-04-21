@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hover.sdk.api.Hover;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.ui.login.LoginActivity;
@@ -19,8 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 
+		super.onCreate(savedInstanceState);
+		Hover.initialize(this);
 			if(LoginYes == 0) {
 				if (new Apis().allowIntoMainActivity() == PassageEnum.REJECT) {
 					startActivity(new Intent(this, LoginActivity.class));

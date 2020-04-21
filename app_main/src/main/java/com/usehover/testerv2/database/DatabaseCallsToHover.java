@@ -1,76 +1,136 @@
 package com.usehover.testerv2.database;
 
-import com.maximeroussy.invitrode.WordGenerator;
+import android.os.Build;
+
+import com.hover.sdk.BuildConfig;
+import com.hover.sdk.actions.HoverAction;
+import com.hover.sdk.api.Hover;
+import com.hover.sdk.parsers.HoverParser;
+import com.hover.sdk.transactions.Transaction;
+import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.enums.StatusEnums;
-import com.usehover.testerv2.enums.TransactionDetailsDataType;
 import com.usehover.testerv2.models.ActionDetailsModels;
 import com.usehover.testerv2.models.ActionsModel;
 import com.usehover.testerv2.models.ParsersInfoModel;
 import com.usehover.testerv2.models.StreamlinedStepsModel;
 import com.usehover.testerv2.models.TransactionDetailsInfoModels;
-import com.usehover.testerv2.models.TransactionDetailsMessagesModel;
 import com.usehover.testerv2.models.TransactionModels;
-import com.usehover.testerv2.utils.Dummy;
 import com.usehover.testerv2.utils.Utils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 public class DatabaseCallsToHover {
-    public List<ActionsModel> getAllActionsFromHover() {
-        List<ActionsModel> actionsModelList = new ArrayList<>(50);
+    private List<Transaction> transactionListByActionId;
 
-        for(int i =0; i<50; i++) {
-            String randomId = String.valueOf(new Random().nextInt(1000000));
-            String randomSentence = newSentence(5);
-            actionsModelList.add(new ActionsModel(randomId, randomSentence, randomStatus(new Random().nextInt(4))));
+    public List<ActionsModel> getAllActionsFromHover() {
+        List<HoverAction> actionList = Hover.getAllActions(ApplicationInstance.getContext());
+        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext());
+
+        List<ActionsModel> actionsModelList = new ArrayList<>(actionList.size());
+        Map<String, String> actionsWithStatus = new HashMap<>();
+        for(Transaction transaction : transactionList) {
+            actionsWithStatus.put(transaction.actionId, transaction.status);
+        }
+
+
+        for(HoverAction action : actionList) {
+            String status = actionsWithStatus.get(action.id);
+            ActionsModel tempModel = new ActionsModel(action.id,
+                    action.name,
+                    (status == null) ? StatusEnums.NOT_YET_RUN : Utils.getStatusByString(status));
+            actionsModelList.add(tempModel);
         }
 
         return actionsModelList;
     }
 
     public  List<TransactionModels> getAllTransactionsFromHover() {
-        List<TransactionModels> transactionModelsList = new ArrayList<>(50);
-        for(int i=0; i<50; i++) {
-            String randomDate = new Date().toString();
-            String randomSentence = newSentence(10);
-            transactionModelsList.add(new TransactionModels(String.valueOf(i), randomDate, randomSentence, randomStatus(new Random().nextInt(3))));
+        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext());
+        List<TransactionModels> transactionModelsList = new ArrayList<>(transactionList.size());
+
+        for(Transaction transaction : transactionList) {
+            String lastUSSDMessage = "empty";
+            try {
+                lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
+            } catch (JSONException ignored) {}
+            TransactionModels transactionModels = new TransactionModels(transaction.uuid,
+                    Utils.formatDate(transaction.updatedTimestamp),
+                    lastUSSDMessage,
+                    Utils.getStatusByString(transaction.status));
+
+            transactionModelsList.add(transactionModels);
 
         }
         return transactionModelsList;
     }
 
     public ActionDetailsModels getActionDetailsById(String actionId) {
-        StreamlinedStepsModel streamlinedStepsModel = null;
+        //Putting into try and catch to prevent Runtime errors.
         try {
-            streamlinedStepsModel = Utils.getStreamlinedStepsStepsFromRaw("*737#", new JSONArray(Dummy.getStringTwo()));
-        } catch (JSONException e) {
-            e.printStackTrace();
+            transactionListByActionId = Hover.getTransactionByActionId(ApplicationInstance.getContext(), actionId);
+        }catch (Exception e) {transactionListByActionId = new ArrayList<>();}
+
+        List<HoverParser> hoverParsersList = new ArrayList<>();
+        try {
+            hoverParsersList = Hover.getParsersByActionId(ApplicationInstance.getContext(), actionId);
+        }catch (Exception ignored) {};
+        HoverAction hoverAction = Hover.getActionById(ApplicationInstance.getContext(), actionId);
+
+
+        StringBuilder parsers = new StringBuilder();
+        for(HoverParser hoverParser : hoverParsersList) {
+            parsers.append(", ").append(hoverParser.serverId);
         }
+        String totalTransaction = "0";
+        int successNo = 0;
+        int pendingNo = 0;
+        int failedNo = 0;
+        if(transactionListByActionId.size() > 0) {
+            totalTransaction = String.valueOf(transactionListByActionId.size());
+            for(Transaction transaction : transactionListByActionId) {
+                if(transaction.status.equals(Utils.HOVER_TRANSAC_SUCCEEDED)) successNo = successNo + 1;
+                else if(transaction.status.equals(Utils.HOVER_TRANSAC_PENDING)) pendingNo = pendingNo + 1;
+                else failedNo = failedNo + 1;
+            }
+        }
+        StreamlinedStepsModel streamlinedStepsModel = Utils.getStreamlinedStepsStepsFromRaw(hoverAction.rootCode, hoverAction.steps);
+
 
         ActionDetailsModels actionDetailsModels = new ActionDetailsModels(
-                "MTN NIGERIA, AIRTEL KE, AIRTEL NG",
-                "123456, 434556, 32345, 678787566, 534232, 6575575, 42323534, 345365456, 45464556",
-                "15",
-                "4",
-                "4",
-                "3");
+                hoverAction.networkName,
+                parsers.toString(),
+                totalTransaction,
+                String.valueOf(successNo),
+                String.valueOf(pendingNo),
+                String.valueOf(failedNo));
         actionDetailsModels.setStreamlinedStepsModel(streamlinedStepsModel);
         return actionDetailsModels;
 
     }
 
     public  List<TransactionModels> getTransactionByActionIdFromHover(String actionId) {
-        List<TransactionModels> transactionModelsList = new ArrayList<>(20);
-        for(int i=0; i<20; i++) {
-            String randomDate = new Date().toString();
-            String randomSentence = newSentence(10);
-            transactionModelsList.add(new TransactionModels(String.valueOf(i), randomDate, randomSentence, randomStatus(new Random().nextInt(3))));
+        if(transactionListByActionId == null)
+            try{
+                transactionListByActionId = Hover.getTransactionByActionId(ApplicationInstance.getContext(), actionId);
+            } catch (Exception e) {transactionListByActionId = new ArrayList<>();};
+
+        List<TransactionModels> transactionModelsList = new ArrayList<>(transactionListByActionId.size());
+        for(Transaction transaction : transactionListByActionId) {
+            String lastUSSDMessage = "empty";
+            try {
+                lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
+            } catch (JSONException ignored) {}
+            TransactionModels transactionModels = new TransactionModels(transaction.uuid,
+                    Utils.formatDate(transaction.updatedTimestamp),
+                    lastUSSDMessage,
+                    Utils.getStatusByString(transaction.status));
+
+            transactionModelsList.add(transactionModels);
 
         }
         return transactionModelsList;
@@ -78,100 +138,144 @@ public class DatabaseCallsToHover {
 
 
     public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsAbout(String transactionId) {
+        Transaction transaction = Hover.getTransactionById(ApplicationInstance.getContext(), transactionId);
+        HoverAction action = Hover.getActionById(ApplicationInstance.getContext(), transaction.actionId);
+        String lastUSSDMessage = "empty";
+        try {
+            lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
+        } catch (JSONException ignored) {}
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Status", "Success",
-                StatusEnums.SUCCESS, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Action", "Safaricom airtime Balance",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Status", transaction.status,
+                Utils.getStatusByString(transaction.status), false));
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Action", action.name,
                 null, true));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("ActionID", "2521b88d",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("ActionID", action.id,
                 null, true));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Time", "11/11/11 at 11:11",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Time", Utils.formatDate(transaction.updatedTimestamp),
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("TransactionId", "e493fee9-2537-43ba-836b-ey329175b0d4",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("TransactionId", transaction.uuid,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Result", "Your balance is Ksh 0.00 valid until 2019-11-15. Ziada Points 2507 valid until 2020-03-20",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Result", lastUSSDMessage,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Category", "Succeed",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Category", transaction.category,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Operator", "Safaricom LTD",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Operator", action.networkName,
                 null, false));
         return dataTransacArrayList;
     }
 
     public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsDevice(String transactionId) {
+        Transaction transaction = Hover.getTransactionById(ApplicationInstance.getContext(), transactionId);
+        HoverAction action = Hover.getActionById(ApplicationInstance.getContext(), transaction.actionId);
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        String osVersionName = Build.VERSION.CODENAME;
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Transactions", "4",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Transactions", Utils.envValueToString(transaction.env),
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Device ID", "20bf04dd07c9d33f",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Device ID", com.hover.sdk.utils.Utils.getDeviceId(ApplicationInstance.getContext()),
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Brand", "Samsung",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Brand", manufacturer,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Brand", "j4primeltedx/SM-J415F",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Model", model,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Android ver.", "9",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Android ver.", osVersionName,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("App ver.", "1.0(1)",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("App ver.", Utils.TESTER_VERSION,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("SDK ver.", "1.4.5-androidx",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("SDK ver.", BuildConfig.VERSION_NAME,
                 null, false));
         return dataTransacArrayList;
     }
     public ArrayList<TransactionDetailsInfoModels> getTransactionsDetailsDebug(String transactionId){
+        Transaction transaction = Hover.getTransactionById(ApplicationInstance.getContext(), transactionId);
+        HoverAction action = Hover.getActionById(ApplicationInstance.getContext(), transaction.actionId);
+        StringBuilder parsers = new StringBuilder();
+        try {
+            String[] parserList = Utils.convertNormalJSONArrayToStringArray(transaction.matchedParsers);
+            for(String string : parserList) {
+                parsers.append(", ").append(string);
+            }
+        } catch (JSONException ignored) {}
+
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Input extras", "None",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Input extras", transaction.input_extras.toString(),
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Matched parsers", "256106",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Matched parsers", parsers.toString(),
                 null, true));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Parsed variables", "None",
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Parsed variables", transaction.parsed_variables.toString(),
                 null, false));
         return dataTransacArrayList;
     }
 
     public String[][] getTransactionMessagesByIdFromHover(String transactionId) {
-        String[] enteredValues = {"*123#", "8", "6", "(pin)"};
-        String[] ussdMessages = {"This is message one", "Hey, here's for message two", "Here's for message three", "This happens after user enters pin if required to"};
+        Transaction transaction = Hover.getTransactionById(ApplicationInstance.getContext(), transactionId);
+        HoverAction action = Hover.getActionById(ApplicationInstance.getContext(), transaction.actionId);
+        String[] rootCode = {action.rootCode};
+        String[] tempEnteredValues = {};
+        try {
+            tempEnteredValues = Utils.convertNormalJSONArrayToStringArray(transaction.enteredValues);
+        } catch (JSONException ignored) {}
+
+        int aLen = rootCode.length;
+        int bLen = tempEnteredValues.length;
+        String[] enteredValues = new String[aLen + bLen];
+        System.arraycopy(rootCode, 0, enteredValues , 0, aLen);
+        System.arraycopy(tempEnteredValues, 0, enteredValues , aLen, bLen);
+
+        String[] ussdMessages = {};
+        try {
+            ussdMessages = Utils.convertNormalJSONArrayToStringArray(transaction.ussdMessages);
+        } catch (JSONException ignored) {}
         return new String[][]{enteredValues, ussdMessages};
     }
 
     public ParsersInfoModel getParserInfoByIdFromHover(String parserId) {
+        HoverParser hoverParser = Hover.getParserByParserId(ApplicationInstance.getContext(), parserId);
+        HoverAction action = Hover.getActionById(ApplicationInstance.getContext(), hoverParser.actionId);
+
         ParsersInfoModel parsersInfoModel = new ParsersInfoModel();
-        parsersInfoModel.setParser_action("Send Money to GTBank");
-        parsersInfoModel.setParser_actionID("343323423");
-        parsersInfoModel.setParser_category("Confirmed");
-        parsersInfoModel.setParser_created("12/12/12");
-        parsersInfoModel.setParser_regex(".*continue");
-        parsersInfoModel.setParser_sender("YourCrew MTN");
-        parsersInfoModel.setStatusEnums(randomStatus(new Random().nextInt(4)));
-        parsersInfoModel.setParser_type("SMS");
+        parsersInfoModel.setParser_action(action.name);
+        parsersInfoModel.setParser_actionID(action.id);
+        parsersInfoModel.setParser_category(hoverParser.status);
+        parsersInfoModel.setParser_created("None");
+        parsersInfoModel.setParser_regex(hoverParser.regex);
+        parsersInfoModel.setParser_sender(hoverParser.senderNumber);
+        parsersInfoModel.setStatusEnums(Utils.getStatusByString(hoverParser.status));
+        parsersInfoModel.setParser_type(action.transportType);
 
         return parsersInfoModel;
     }
 
     public  List<TransactionModels> getTransactionByParserIdFromHover(String parserId) {
-        List<TransactionModels> transactionModelsList = new ArrayList<>(20);
-        for(int i=0; i<20; i++) {
-            String randomDate = new Date().toString();
-            String randomSentence = newSentence(10);
-            transactionModelsList.add(new TransactionModels(String.valueOf(i), randomDate, randomSentence, randomStatus(new Random().nextInt(3))));
+        //List<HoverAction> actionList = Hover.getAllActions(ApplicationInstance.getContext());
+        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext());
+        List<Transaction> subList = new ArrayList<>();
+        for(Transaction transaction : transactionList) {
+            String[] parserList = {};
+            try {
+                parserList = Utils.convertNormalJSONArrayToStringArray(transaction.matchedParsers);
+            } catch (JSONException ignored) {}
+
+            for(String string : parserList) {
+                if(string.equals(parserId)) subList.add(transaction);
+            }
+        }
+
+        List<TransactionModels> transactionModelsList = new ArrayList<>(subList.size());
+        for(Transaction transaction :subList) {
+            String lastUSSDMessage = "empty";
+            try {
+                lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
+            } catch (JSONException ignored) {}
+
+            TransactionModels transactionModels = new TransactionModels(transaction.uuid,
+                    Utils.formatDate(transaction.updatedTimestamp),
+                    lastUSSDMessage,
+                    Utils.getStatusByString(transaction.status));
+            transactionModelsList.add(transactionModels);
 
         }
         return transactionModelsList;
-    }
-
-
-
-
-
-    private StatusEnums randomStatus(int id) {
-        StatusEnums[] statusEnums = {StatusEnums.PENDING, StatusEnums.SUCCESS, StatusEnums.UNSUCCESSFUL, StatusEnums.NOT_YET_RUN};
-        return statusEnums[id];
-    }
-    private String newSentence(int words) {
-        WordGenerator generator = new WordGenerator();
-        StringBuilder newWord = new StringBuilder();
-        for(int i=0; i< words; i++) {
-            newWord.append(generator.newWord(5).toLowerCase()).append(" ");
-        }
-        return newWord.toString();
     }
 }

@@ -15,6 +15,10 @@
 	    android:name=".ApplicationInstance"
 	    android:supportsRtl="true"
 	    android:theme="@style/myHoverTheme">
+		<meta-data
+				android:name="com.hover.ApiKey"
+				android:value="847346e4e73beb57a1186f69fedfbfb4"/>
+
 		<activity
 		    android:name=".MainActivity"
 		    android:label="@string/app_name">

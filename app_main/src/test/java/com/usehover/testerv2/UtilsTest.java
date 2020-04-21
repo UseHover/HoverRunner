@@ -15,6 +15,7 @@ import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -62,6 +63,11 @@ public class UtilsTest {
 		assertFalse(Utils.validatePassword(testPassword4));
 	}
 
+	@Test
+	public void test_formatDate() {
+		String expectedFormat = "21:35:50 (WAT) Apr 20, 2020";
+		Assert.assertEquals(expectedFormat, Utils.formatDate(Long.valueOf("1587414950910")));
+	}
 
 
 }

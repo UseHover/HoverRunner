@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.ActionVariablesDBModel;
 import com.usehover.testerv2.models.RawStepsModel;
 import com.usehover.testerv2.models.StreamlinedStepsModel;
@@ -14,13 +15,19 @@ import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Utils {
 
+    public final static String TESTER_VERSION = "1.0 (1)";
+    public final static String HOVER_TRANSAC_FAILED = "failed";
+    public final static String HOVER_TRANSAC_PENDING = "pending";
+    public final static String HOVER_TRANSAC_SUCCEEDED = "succeeded";
     private static final String SHARED_PREFS = "_testerV2";
 
 
@@ -104,11 +111,48 @@ public class Utils {
     }
 
     public static String[] convertNormalJSONArrayToStringArray(JSONArray arr) throws JSONException {
+        if(arr == null) return new String[]{};
         String[] list = new String[arr.length()];
         for(int i = 0; i < arr.length(); i++){
             list[i] = arr.getString(i);
         }
         return list;
+    }
+    public static StatusEnums getStatusByString(String status) {
+        StatusEnums statusEnums;
+        switch (status) {
+            case HOVER_TRANSAC_FAILED : statusEnums = StatusEnums.UNSUCCESSFUL;
+            break;
+            case HOVER_TRANSAC_PENDING: statusEnums =   StatusEnums.PENDING;
+            break;
+            default: statusEnums = StatusEnums.SUCCESS;
+            break;
+        }
+        return statusEnums;
+    }
+
+    public static String formatDate(long timestamp) {
+        String pattern = "HH:mm:ss (z) MMM dd, yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        return simpleDateFormat.format(timestamp);
+    }
+
+    public static String envValueToString(int env) {
+        String string = "";
+        switch (env) {
+            case 0: string = "Normal";
+            break;
+            case 1: string = "Debug";
+            break;
+            default: string = "No-SIM";
+            break;
+        }
+        return string;
+    }
+
+    public static String nullToString(String value) {
+        if(value == null) return  "None";
+        else return value;
     }
 
 }
