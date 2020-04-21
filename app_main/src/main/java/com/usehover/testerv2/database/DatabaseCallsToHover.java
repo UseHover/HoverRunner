@@ -248,20 +248,7 @@ public class DatabaseCallsToHover {
     }
 
     public  List<TransactionModels> getTransactionByParserIdFromHover(String parserId) {
-        //List<HoverAction> actionList = Hover.getAllActions(ApplicationInstance.getContext());
-        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext());
-        List<Transaction> subList = new ArrayList<>();
-        for(Transaction transaction : transactionList) {
-            String[] parserList = {};
-            try {
-                parserList = Utils.convertNormalJSONArrayToStringArray(transaction.matchedParsers);
-            } catch (JSONException ignored) {}
-
-            for(String string : parserList) {
-                if(string.equals(parserId)) subList.add(transaction);
-            }
-        }
-
+        List<Transaction> subList = Hover.getTransactionByParserId(ApplicationInstance.getContext(),parserId);
         List<TransactionModels> transactionModelsList = new ArrayList<>(subList.size());
         for(Transaction transaction :subList) {
             String lastUSSDMessage = "empty";
