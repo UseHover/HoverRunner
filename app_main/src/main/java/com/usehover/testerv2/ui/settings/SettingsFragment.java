@@ -11,14 +11,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.hover.sdk.actions.HoverAction;
+import com.hover.sdk.api.Hover;
+import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.utils.UIHelper;
 
-public class SettingsFragment extends Fragment {
+import java.util.ArrayList;
+
+public class SettingsFragment extends Fragment implements Hover.DownloadListener {
 
 	private SettingsViewModel settingsViewModel;
 	private RadioGroup radioGroup;
+	private boolean refreshButtonIdle = false;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
@@ -43,12 +49,23 @@ public class SettingsFragment extends Fragment {
 		});
 
 		root.findViewById(R.id.refreshButton).setOnClickListener(v -> {
-			new Apis().refreshAppData();
+			refreshButtonIdle = true;
+			Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext()) ;
 			UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.app_data_refreshed));
 		});
-
 		settingsViewModel.getSims();
 
 		return root;
+	}
+
+	@Override
+	public void onError(String message) {
+		refreshButtonIdle = false;
+	UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), message);
+	}
+
+	@Override
+	public void onSuccess(ArrayList<HoverAction> actions) {
+		refreshButtonIdle = false;
 	}
 }

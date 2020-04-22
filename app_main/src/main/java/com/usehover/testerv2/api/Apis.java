@@ -111,7 +111,7 @@ public class Apis {
 	public void updateTestMode(int mode) { Utils.saveInt(Utils.TESTER_ENV, mode, ApplicationInstance.getContext()); }
 
 	public void refreshAppData() {
-
+	Hover.updateActionConfigs();
 	}
 
 	public PassageEnum allowIntoMainActivity() {
