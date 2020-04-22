@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.usehover.testerv2.BuildConfig;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.ActionVariablesDBModel;
 import com.usehover.testerv2.models.RawStepsModel;
@@ -72,10 +73,19 @@ public class Utils {
 
         for(RawStepsModel model : rawStepsModel) {
             stepSuffix.append("*").append(model.getValue());
-            if(model.isIs_param() || model.getValue().equals("pin")) {
-                stepsVariableLabels.add(model.getValue());
-                stepsVariableDesc.add(model.getDescription());
+            if(BuildConfig.FLAVOR.equals("pro")) {
+                if(model.isIs_param() || model.getValue().equals("pin")) {
+                    stepsVariableLabels.add(model.getValue());
+                    stepsVariableDesc.add(model.getDescription());
+                }
             }
+            else {
+                if(model.isIs_param()) {
+                    stepsVariableLabels.add(model.getValue());
+                    stepsVariableDesc.add(model.getDescription());
+                }
+            }
+
         }
         //Taking substring of root code to remove the last #. E.g *737# to become *737
         String readableStep = rootCode.substring(0, rootCode.length()-1) + stepSuffix+"#";
