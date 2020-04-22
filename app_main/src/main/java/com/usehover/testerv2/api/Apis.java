@@ -1,5 +1,7 @@
 package com.usehover.testerv2.api;
 
+import com.hover.sdk.api.Hover;
+import com.hover.sdk.sims.SimInfo;
 import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.database.DatabaseCallsToHover;
 import com.usehover.testerv2.enums.PassageEnum;
@@ -18,6 +20,7 @@ import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Apis {
@@ -93,7 +96,16 @@ public class Apis {
 
 
 	public LoadSimModel getSimsOnDevice() {
-		return new LoadSimModel("MTN NIGERIA", "SAFARICOM KE");
+		List<SimInfo> sims = Hover.getPresentSims(ApplicationInstance.getContext());
+		String sim1 = "None"; String sim2 = "None";
+		if(sims.size() > 0) {
+			 sim1 = sims.get(0).getNetworkOperatorName();
+		}
+		if(sims.size() > 1) {
+			sim2 = sims.get(1).getNetworkOperatorName();
+		}
+
+		return new LoadSimModel(sim1, sim2);
 	}
 	public int getCurrentTestMode() { return Utils.getIntFromSharedPref(ApplicationInstance.getContext(), Utils.TESTER_ENV); }
 	public void updateTestMode(int mode) { Utils.saveInt(Utils.TESTER_ENV, mode, ApplicationInstance.getContext()); }
