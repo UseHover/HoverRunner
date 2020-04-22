@@ -30,6 +30,7 @@ public class Utils {
     public final static String HOVER_TRANSAC_PENDING = "pending";
     public final static String HOVER_TRANSAC_SUCCEEDED = "succeeded";
     private static final String SHARED_PREFS = "_testerV2";
+    public final static String TESTER_ENV = "testerEnv";
 
 
     private static SharedPreferences getSharedPrefs(Context context) {

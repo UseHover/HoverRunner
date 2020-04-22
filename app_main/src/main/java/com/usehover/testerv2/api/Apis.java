@@ -1,5 +1,6 @@
 package com.usehover.testerv2.api;
 
+import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.database.DatabaseCallsToHover;
 import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.enums.StatusEnums;
@@ -94,12 +95,8 @@ public class Apis {
 	public LoadSimModel getSimsOnDevice() {
 		return new LoadSimModel("MTN NIGERIA", "SAFARICOM KE");
 	}
-	public int getCurrentTestMode() {
-		return new Random().nextInt(3);
-	}
-	public void updateTestMode(int mode) {
-
-	}
+	public int getCurrentTestMode() { return Utils.getIntFromSharedPref(ApplicationInstance.getContext(), Utils.TESTER_ENV); }
+	public void updateTestMode(int mode) { Utils.saveInt(Utils.TESTER_ENV, mode, ApplicationInstance.getContext()); }
 
 	public void refreshAppData() {
 
