@@ -1,6 +1,9 @@
 package com.usehover.testerv2.ui.settings;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -33,7 +37,10 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 		TextView sim1 = root.findViewById(R.id.sim1_content);
 		TextView sim2 = root.findViewById(R.id.sim2_content);
 
-		UIHelper.setTextUnderline(root.findViewById(R.id.contact_support), getResources().getString(R.string.contact_support));
+		TextView contactSupport = root.findViewById(R.id.contact_support);
+		Spanned sp = HtmlCompat.fromHtml(getString(R.string.contactUs), HtmlCompat.FROM_HTML_OPTION_USE_CSS_COLORS);
+		contactSupport.setText(sp);
+		contactSupport.setMovementMethod(LinkMovementMethod.getInstance());
 		radioGroup.setOnCheckedChangeListener((group, checkedId) -> settingsViewModel.updateMode(checkedId));
 
 		settingsViewModel.loadCurrentModeObs().observe(getViewLifecycleOwner(), mode-> {

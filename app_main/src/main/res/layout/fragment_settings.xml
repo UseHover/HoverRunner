@@ -170,16 +170,10 @@
 			android:textColor="@color/colorSecondaryGrey"
 			android:layout_marginEnd="32dp"
 			android:textSize="@dimen/text_14"
-			android:text="@string/sim_tooltip"/>
-
-	<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:textColor="@color/colorSecondaryGrey"
-			android:textSize="@dimen/text_14"
-			android:textStyle="bold"
 			android:id="@+id/contact_support"
-			android:text="@string/contact_support"/>
+			android:text="@string/contactUs"/>
+
+
 
 	<TextView
 			android:layout_width="wrap_content"
