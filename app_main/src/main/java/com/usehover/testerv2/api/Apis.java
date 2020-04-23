@@ -110,9 +110,6 @@ public class Apis {
 	public int getCurrentTestMode() { return Utils.getIntFromSharedPref(ApplicationInstance.getContext(), Utils.TESTER_ENV); }
 	public void updateTestMode(int mode) { Utils.saveInt(Utils.TESTER_ENV, mode, ApplicationInstance.getContext()); }
 
-	public void refreshAppData() {
-	Hover.updateActionConfigs();
-	}
 
 	public PassageEnum allowIntoMainActivity() {
 		return PassageEnum.REJECT;
