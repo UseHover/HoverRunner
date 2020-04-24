@@ -35,13 +35,13 @@ public class DatabaseCallsToHover {
         List<ActionsModel> actionsModelList = new ArrayList<>(actionList.size());
         Map<String, String> actionsWithStatus = new HashMap<>();
         for(Transaction transaction : transactionList) {
-            actionsWithStatus.put(transaction.actionId, transaction.status);
-
+            //Only put the last run status.
+            if(actionsWithStatus.get(transaction.actionId) == null)
+                actionsWithStatus.put(transaction.actionId, transaction.status);
         }
 
 
         for(HoverAction action : actionList) {
-
             String status = actionsWithStatus.get(action.id);
             ActionsModel tempModel = new ActionsModel(action.id, action.name, action.rootCode, action.steps,
                     (status == null) ? StatusEnums.NOT_YET_RUN : Utils.getStatusByString(status));
@@ -73,7 +73,6 @@ public class DatabaseCallsToHover {
     }
 
     public ActionDetailsModels getActionDetailsById(String actionId) {
-        Log.d("SITUATION", "requested action id is: "+actionId);
         //Putting into try and catch to prevent Runtime errors.
         try {
             transactionListByActionId = Hover.getTransactionByActionId(ApplicationInstance.getContext(), actionId);

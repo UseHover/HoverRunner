@@ -115,7 +115,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                     i.putParcelableArrayListExtra("data", withUncompletedVariablesActionList);
                     startActivityForResult(i, FILL_IN_UNCOMPLETED_VARIABLES);
                 } else {
-                    if (withCompletedVariableActionList.size() > 0) runAction();
+                    if (withCompletedVariableActionList.size() > 0) runAction(true);
                     else
 
                         UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.noRunnableAction));
@@ -142,8 +142,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         return root;
     }
 
-    private void runAction() {
-
+    private void runAction(boolean firstTime) {
         ActionsModel action = withCompletedVariableActionList.get(actionRunCounter);
         Map<String, String> actionExtra = Utils.getInitialVariableData(getContext(), action.getActionId()).second;
 
@@ -155,7 +154,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         for(String key : actionExtra.keySet()) {
             builder.extra(key, actionExtra.get(key));
         }
-
+        if(firstTime) actionRunCounter = actionRunCounter + 1;
         Intent i = builder.buildIntent();
         startActivityForResult(i, TEST_ALL_RESULT);
     }
@@ -208,6 +207,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                     homeActionsRecyclerView.setAdapter(new HomeActionRecyclerAdapter(fullActionResult.getActionsModelList(), true,
                             this,
                             getResources().getColor(R.color.colorYellow),
+                            getResources().getColor(R.color.colorGreen),
                             getResources().getColor(R.color.colorRed)));
                     break;
             }
@@ -233,7 +233,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         }
         else if (requestCode == TEST_ALL_RESULT) {
             if(actionRunCounter  < withCompletedVariableActionList.size()) {
-                runAction();
+                runAction(false);
                 actionRunCounter = actionRunCounter + 1;
             }
             else if(actionRunCounter == withCompletedVariableActionList.size()) {

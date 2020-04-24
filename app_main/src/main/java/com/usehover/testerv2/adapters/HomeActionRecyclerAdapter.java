@@ -22,14 +22,15 @@ public  class HomeActionRecyclerAdapter extends RecyclerView.Adapter<HomeActionR
         private List<ActionsModel> actionsModel;
         private boolean showStatus;
         private CustomOnClickListener customOnClickListener;
-        private int colorPending, colorFailed;
+        private int colorPending, colorFailed, colorSuccess;
 
-        public HomeActionRecyclerAdapter(List<ActionsModel> actionsModel, boolean showStatus, CustomOnClickListener customOnClickListener, int colorPending, int colorFailed) {
+        public HomeActionRecyclerAdapter(List<ActionsModel> actionsModel, boolean showStatus, CustomOnClickListener customOnClickListener, int colorPending, int colorSuccess, int colorFailed) {
             this.actionsModel = actionsModel;
             this.showStatus = showStatus;
             this.customOnClickListener = customOnClickListener;
             this.colorPending = colorPending;
             this.colorFailed = colorFailed;
+            this.colorSuccess = colorSuccess;
         }
 
 
@@ -48,6 +49,8 @@ public  class HomeActionRecyclerAdapter extends RecyclerView.Adapter<HomeActionR
                 holder.actionIdText.setTextColor(colorPending);
             else if(model.getActionEnum() == StatusEnums.UNSUCCESSFUL)
                 holder.actionIdText.setTextColor(colorFailed);
+            else if(model.getActionEnum() == StatusEnums.SUCCESS)
+                holder.actionIdText.setTextColor(colorSuccess);
             holder.actionTitleText.setText(model.getActionTitle());
 
 
