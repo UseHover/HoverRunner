@@ -15,12 +15,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.hover.sdk.actions.HoverAction;
+import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverParameters;
+import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.Fakesdk;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HomeActionRecyclerAdapter;
 import com.usehover.testerv2.api.Apis;
+import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.models.ActionsModel;
@@ -28,6 +33,7 @@ import com.usehover.testerv2.models.StreamlinedStepsModel;
 import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
 import com.usehover.testerv2.ui.actions.filter.ActionFilterActivity;
 import com.usehover.testerv2.ui.actions.uncompletedVariables.UncompletedVariableActivity;
+import com.usehover.testerv2.utils.NetworkUtil;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
 
@@ -36,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ActionsFragment extends Fragment implements CustomOnClickListener {
+public class ActionsFragment extends Fragment implements CustomOnClickListener, Hover.DownloadListener {
 
 
     private ActionsViewModel actionsViewModel;
@@ -50,6 +56,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
     private ArrayList<ActionsModel> withCompletedVariableActionList = new ArrayList<>();
     private int actionRunCounter = 0;
     private RelativeLayout emptyStateView;
+    private SwipeRefreshLayout pullToRefresh;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +66,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
         progressBar = root.findViewById(R.id.progress_state_1);
         emptyStateText = root.findViewById(R.id.empty_text_1);
         emptyStateView = root.findViewById(R.id.layoutForEmptyStateId);
+        pullToRefresh = root.findViewById(R.id.pullToRefresh);
 
         homeActionsRecyclerView = root.findViewById(R.id.recyclerViewId);
         homeActionsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
@@ -73,43 +81,56 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
         });
 
         root.findViewById(R.id.testAllActions_id).setOnClickListener(v -> {
-            ProgressDialog progressDialog = new ProgressDialog(getContext());
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.setCancelable(false);
-            progressDialog.setMessage(getResources().getString(R.string.validatingActions));
-            progressDialog.show();
-            ArrayList<ActionsModel> withUncompletedVariablesActionList = new ArrayList<>();
-            withCompletedVariableActionList = new ArrayList<>();
+            //Ensure action is not refreshing and running at same time to prevent errors.
+            if(!pullToRefresh.isRefreshing()) {
+                pullToRefresh.setRefreshing(true);
 
-            for(ActionsModel runnableModel : rawRunnableModelList) {
-                int variableSize = Utils.getStreamlinedStepsStepsFromRaw(runnableModel.getRootCode(), runnableModel.getSteps()).getStepVariableLabel().size();
-                switch (Utils.actionHasAllVariablesFilled(getContext(), runnableModel.getActionId(), variableSize)) {
-                    case GOOD: withCompletedVariableActionList.add(runnableModel);
-                        break;
-                    case BAD: withUncompletedVariablesActionList.add(runnableModel);
-                        break;
+                ArrayList<ActionsModel> withUncompletedVariablesActionList = new ArrayList<>();
+                withCompletedVariableActionList = new ArrayList<>();
+
+                for (ActionsModel runnableModel : rawRunnableModelList) {
+                    int variableSize = Utils.getStreamlinedStepsStepsFromRaw(runnableModel.getRootCode(), runnableModel.getSteps()).getStepVariableLabel().size();
+                    switch (Utils.actionHasAllVariablesFilled(getContext(), runnableModel.getActionId(), variableSize)) {
+                        case GOOD:
+                            withCompletedVariableActionList.add(runnableModel);
+                            break;
+                        case BAD:
+                            withUncompletedVariablesActionList.add(runnableModel);
+                            break;
                         //SKIPPING DOES NOT REQUIRE A CASE
                         //case SKIPPED:
                         //  break;
+                    }
                 }
-            }
 
-            progressDialog.dismiss();
-            progressDialog.cancel();
-            if(withUncompletedVariablesActionList.size() > 0) {
-                Intent i = new Intent(getActivity(), UncompletedVariableActivity.class);
-                i.putParcelableArrayListExtra("data", withUncompletedVariablesActionList);
-                startActivityForResult(i, FILL_IN_UNCOMPLETED_VARIABLES);
-            }
-            else {
-                if(withCompletedVariableActionList.size() > 0) runAction();
-                else UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), getResources().getString(R.string.noRunnableAction));
+                pullToRefresh.setRefreshing(false);
+                if (withUncompletedVariablesActionList.size() > 0) {
+                    Intent i = new Intent(getActivity(), UncompletedVariableActivity.class);
+                    i.putParcelableArrayListExtra("data", withUncompletedVariablesActionList);
+                    startActivityForResult(i, FILL_IN_UNCOMPLETED_VARIABLES);
+                } else {
+                    if (withCompletedVariableActionList.size() > 0) runAction();
+                    else
+                        UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), getResources().getString(R.string.noRunnableAction));
+                }
             }
 
         });
 
         //GET ALL ACTIONS
         actionsViewModel.getAllActions();
+
+
+        pullToRefresh.setOnRefreshListener(() -> {
+                if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
+                    Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext());
+                }
+                else {
+                    pullToRefresh.setRefreshing(false);
+                    UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null, Apis.NO_NETWORK);
+                }
+
+        });
 
         return root;
     }
@@ -211,5 +232,18 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
         i.putExtra(Apis.ACTION_TITLE, (String) data[1]);
         i.putExtra(Apis.ACTION_STATUS, (StatusEnums) data[2]);
         startActivity(i);
+    }
+
+    @Override
+    public void onError(String message) {
+    pullToRefresh.setRefreshing(false);
+    UIHelper.showHoverToastV2(getContext(), message);
+    }
+
+    @Override
+    public void onSuccess(ArrayList<HoverAction> actions) {
+    pullToRefresh.setRefreshing(false);
+    actionsViewModel.getAllActions();
+    UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.refreshed_successfully));
     }
 }

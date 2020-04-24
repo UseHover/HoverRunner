@@ -117,6 +117,7 @@
 
 	<string name="noRunnableAction">No runnable actions. Try refreshing</string>
 	<string name="validatingActions">Validating all actions, please wait…</string>
+	<string name="refreshed_successfully">Refreshed successfully</string>
 
 
 </resources>

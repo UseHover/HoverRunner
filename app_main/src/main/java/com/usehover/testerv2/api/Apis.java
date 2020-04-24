@@ -34,7 +34,6 @@ public class Apis {
 	public static final String ACTION_TITLE = "action_title";
 	public static final String ACTION_STATUS = "actionStatus";
 
-	public static final String TRANS_UUID = "trans_uuid_id";
 	public static final String TRANS_ID = "trans_id";
 	public static final String TRANS_DATE = "trans_date";
 	public static final String TRANS_STATUS = "trans_status";
@@ -91,11 +90,22 @@ public class Apis {
 		String[] ussdMessages = result[1];
 		int largestSize = Math.max(enteredValues.length, ussdMessages.length);
 		ArrayList<TransactionDetailsMessagesModel> messagesModels = new ArrayList<>(largestSize);
-		for(int i=0; i < largestSize; i++) {
-			messagesModels.add(new TransactionDetailsMessagesModel(
-					enteredValues[i] != null ? enteredValues[i] : "",
-					ussdMessages[i] != null  ? ussdMessages[i]  : ""));
+
+		//Put in a try and catch to prevent crashing when USSD session reports incorrectly.
+		try{
+			for(int i=0; i < largestSize; i++) {
+				messagesModels.add(new TransactionDetailsMessagesModel(
+						enteredValues[i] != null ? enteredValues[i] : "",
+						ussdMessages[i] != null  ? ussdMessages[i]  : ""));
+			}
+		} catch (Exception e) {
+			for(int i=0; i < largestSize-1; i++) {
+				messagesModels.add(new TransactionDetailsMessagesModel(
+						enteredValues[i] != null ? enteredValues[i] : "",
+						ussdMessages[i] != null  ? ussdMessages[i]  : ""));
+			}
 		}
+
 		return messagesModels;
 	}
 

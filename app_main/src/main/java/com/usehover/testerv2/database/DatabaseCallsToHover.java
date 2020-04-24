@@ -160,7 +160,7 @@ public class DatabaseCallsToHover {
                 null, false));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Result", lastUSSDMessage,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Category", transaction.category,
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Category", Utils.nullToString(transaction.category),
                 null, false));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Operator", action.networkName,
                 null, false));
@@ -169,10 +169,9 @@ public class DatabaseCallsToHover {
 
     public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsDevice(String transactionId) {
         Transaction transaction = Hover.getTransactionById(ApplicationInstance.getContext(), transactionId);
-        HoverAction action = Hover.getActionById(ApplicationInstance.getContext(), transaction.actionId);
         String manufacturer = Build.MANUFACTURER;
         String model = Build.MODEL;
-        String osVersionName = Build.VERSION.CODENAME;
+        String osVersionName =  String.valueOf(Build.VERSION.SDK_INT);
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Testing mode", Utils.envValueToString(transaction.env),
                 null, false));

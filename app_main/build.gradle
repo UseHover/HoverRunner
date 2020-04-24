@@ -55,7 +55,7 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation'com.google.android.material:material:1.2.0-alpha06'
-    implementation 'com.maximeroussy.invitrode:invitrode:2.0.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
