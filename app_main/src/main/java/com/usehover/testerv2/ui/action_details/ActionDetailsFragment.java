@@ -159,7 +159,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         viewAllText.setOnClickListener(v -> {
             if(getActivity() !=null) {
                 Intent i = new Intent(getContext(), MainActivity.class);
-                i.putExtra("navigate", true);
+                i.putExtra("navigate", ActionDetailsActivity.actionId);
                 startActivity(i);
                 getActivity().finishAffinity();
             }

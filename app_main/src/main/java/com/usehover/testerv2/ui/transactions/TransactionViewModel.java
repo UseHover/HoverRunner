@@ -32,4 +32,5 @@ public class TransactionViewModel extends ViewModel {
 		filterStatus.postValue(HomeEnums.FILTER_ON);
 	}
 	void getAllTransactions() { homeTransactions.postValue(new Apis().doGetAllTransactionsWorkManager()); }
+	void getTransactionByActionId(String actionId) {homeTransactions.postValue(new Apis().doGetTransactionsByActionIdWorkManager(actionId)); }
 }

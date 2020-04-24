@@ -64,6 +64,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         actionsViewModel = new ViewModelProvider(this).get(ActionsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_actions, container, false);
+
         filterText  = root.findViewById(R.id.actionFilter_id);
         progressBar = root.findViewById(R.id.progress_state_1);
         emptyInfoLayout = root.findViewById(R.id.empty_info_layout);
@@ -116,24 +117,25 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                 } else {
                     if (withCompletedVariableActionList.size() > 0) runAction();
                     else
-                        UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), getResources().getString(R.string.noRunnableAction));
+
+                        UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.noRunnableAction));
                 }
             }
 
         });
 
+        //setupViews();
         //GET ALL ACTIONS
         actionsViewModel.getAllActions();
 
-
         pullToRefresh.setOnRefreshListener(() -> {
-                if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
-                    Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext());
-                }
-                else {
-                    pullToRefresh.setRefreshing(false);
-                    UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null, Apis.NO_NETWORK);
-                }
+            if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
+                Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext());
+            }
+            else {
+                pullToRefresh.setRefreshing(false);
+                UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null, Apis.NO_NETWORK);
+            }
 
         });
 
@@ -153,17 +155,19 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         for(String key : actionExtra.keySet()) {
             builder.extra(key, actionExtra.get(key));
         }
+
         Intent i = builder.buildIntent();
         startActivityForResult(i, TEST_ALL_RESULT);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+
+    private void setupViews() {
         actionsViewModel.getText().observe(getViewLifecycleOwner(), filterStatus-> {
             switch (filterStatus) {
+
                 case FILTER_OFF: filterText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
                     break;
+
                 case FILTER_ON: filterText.setTextColor(getResources().getColor(R.color.colorPrimary));
                     filterText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dot_purple_24dp, 0,0,0);
                     filterText.setCompoundDrawablePadding(8);
@@ -209,6 +213,11 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
             }
         });
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupViews();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -227,7 +236,11 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                 runAction();
                 actionRunCounter = actionRunCounter + 1;
             }
-            else if(actionRunCounter == withCompletedVariableActionList.size()) actionsViewModel.getAllActions();
+            else if(actionRunCounter == withCompletedVariableActionList.size()) {
+                //Important to set runCounter back to zero when completed.
+                actionRunCounter = 0;
+                actionsViewModel.getAllActions();
+            }
 
         }
     }
@@ -245,14 +258,14 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
 
     @Override
     public void onError(String message) {
-    pullToRefresh.setRefreshing(false);
-    UIHelper.showHoverToastV2(getContext(), message);
+        pullToRefresh.setRefreshing(false);
+        UIHelper.showHoverToastV2(getContext(), message);
     }
 
     @Override
     public void onSuccess(ArrayList<HoverAction> actions) {
-    pullToRefresh.setRefreshing(false);
-    actionsViewModel.getAllActions();
-    UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.refreshed_successfully));
+        pullToRefresh.setRefreshing(false);
+        actionsViewModel.getAllActions();
+        UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.refreshed_successfully));
     }
 }

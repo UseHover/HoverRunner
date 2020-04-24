@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
 import com.usehover.testerv2.api.Apis;
@@ -35,6 +36,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 	private ProgressBar progressBar;
 	private RecyclerView homeTransactionsRecyclerView;
 	private RelativeLayout emptyStateView;
+	private String tempActionFilter;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
@@ -45,7 +47,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 		emptyInfoLayout = root.findViewById(R.id.empty_info_layout);
 		emptyStateView = root.findViewById(R.id.layoutForEmptyStateId);
 
-		homeTransactionsRecyclerView= root.findViewById(R.id.recyclerViewId);
+		homeTransactionsRecyclerView = root.findViewById(R.id.recyclerViewId);
 		homeTransactionsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
 
 		UIHelper.setTextUnderline(filterText, getResources().getString(R.string.filter_text));
@@ -56,7 +58,13 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 			startActivityForResult(i, FILTER_RESULT_TRANSACTION);
 		});
 
-		transactionViewModel.getAllTransactions();
+		if(MainActivity.initialActionFilter !=null) {
+			tempActionFilter = MainActivity.initialActionFilter;
+			transactionViewModel.setFilterOn();
+			transactionViewModel.getTransactionByActionId(tempActionFilter);
+			MainActivity.initialActionFilter = null;
+		}
+		else transactionViewModel.getAllTransactions();
 
 		return root;
 	}

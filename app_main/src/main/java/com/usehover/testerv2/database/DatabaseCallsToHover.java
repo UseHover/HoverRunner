@@ -87,7 +87,7 @@ public class DatabaseCallsToHover {
 
         StringBuilder parsers = new StringBuilder();
         for(HoverParser hoverParser : hoverParsersList) {
-            parsers.append(", ").append(hoverParser.serverId);
+            parsers.append(hoverParser.serverId).append(", ");
         }
         String totalTransaction = "0";
         int successNo = 0;

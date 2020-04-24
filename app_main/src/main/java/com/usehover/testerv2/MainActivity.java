@@ -22,6 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
 
 	public static int LoginYes = 0;
+	public static String initialActionFilter;
 	private final int PERMISSION_REQ_CODE = 201;
 	final String permission_acceptance_incomplete = "You did not allow all permissions";
 	@Override
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
 					return;
 				}
 			}
-		Hover.initialize(this);
+			//Test keys
+		Hover.initialize(this, "847346e4e73beb57a1186f69fedfbfb4");
 		if(!new PermissionHelper(this, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE}).hasPermissions()) {
 			startActivityForResult(new Intent(this, PermissionActivity.class), PERMISSION_REQ_CODE);
 		}
@@ -47,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
 		NavigationUI.setupWithNavController(navView, navController);
 
 		if(getIntent().getExtras() !=null) {
-			if(getIntent().getExtras().get("navigate") !=null) navController.navigate(R.id.navigation_transactions);
+			if(getIntent().getExtras().getString("navigate") !=null) {
+				initialActionFilter = getIntent().getExtras().getString("navigate");
+				navController.navigate(R.id.navigation_transactions);
+			}
 		}
 
 	}
