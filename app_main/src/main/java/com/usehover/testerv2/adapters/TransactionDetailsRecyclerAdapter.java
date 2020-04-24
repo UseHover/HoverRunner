@@ -29,6 +29,14 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
     public TransactionDetailsRecyclerAdapter(ArrayList<TransactionDetailsInfoModels> modelsArrayList, CustomOnClickListener customOnClickListener) {
         this.modelsArrayList = modelsArrayList;
         this.customOnClickListener = customOnClickListener;
+    }
+
+    public TransactionDetailsRecyclerAdapter(ArrayList<TransactionDetailsInfoModels> modelsArrayList, CustomOnClickListener customOnClickListener, int colorRed, int colorYellow, int colorGreen) {
+        this.modelsArrayList = modelsArrayList;
+        this.customOnClickListener = customOnClickListener;
+        this.colorRed = colorRed;
+        this.colorYellow = colorYellow;
+        this.colorGreen = colorGreen;
 
         for(TransactionDetailsInfoModels models : modelsArrayList) {
             if(models.getLabel().equals("ActionID")) {
@@ -38,14 +46,6 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
                 actionName = models.getValue();
             }
         }
-    }
-
-    public TransactionDetailsRecyclerAdapter(ArrayList<TransactionDetailsInfoModels> modelsArrayList, CustomOnClickListener customOnClickListener, int colorRed, int colorYellow, int colorGreen) {
-        this.modelsArrayList = modelsArrayList;
-        this.customOnClickListener = customOnClickListener;
-        this.colorRed = colorRed;
-        this.colorYellow = colorYellow;
-        this.colorGreen = colorGreen;
     }
 
     @NonNull
@@ -77,7 +77,7 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
     if(infoModels.isClickable()) {
         UIHelper.setTextUnderline(holder.value, infoModels.getValue());
         if(infoModels.getLabel().contains("Action"))
-            holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_ACTION, actionName, actionId, infoModels.getStatusEnums() ));
+            holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_ACTION, actionId, actionName, infoModels.getStatusEnums() ));
         else holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_PARSER,  infoModels.getValue() ));
     }
     else holder.value.setText(infoModels.getValue());

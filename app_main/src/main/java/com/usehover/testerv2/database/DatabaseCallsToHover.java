@@ -73,6 +73,7 @@ public class DatabaseCallsToHover {
     }
 
     public ActionDetailsModels getActionDetailsById(String actionId) {
+        Log.d("SITUATION", "requested action id is: "+actionId);
         //Putting into try and catch to prevent Runtime errors.
         try {
             transactionListByActionId = Hover.getTransactionByActionId(ApplicationInstance.getContext(), actionId);
@@ -81,9 +82,8 @@ public class DatabaseCallsToHover {
         List<HoverParser> hoverParsersList = new ArrayList<>();
         try {
             hoverParsersList = Hover.getParsersByActionId(ApplicationInstance.getContext(), actionId);
-        }catch (Exception ignored) {};
+        }catch (Exception ignored) {}
         HoverAction hoverAction = Hover.getActionById(ApplicationInstance.getContext(), actionId);
-
 
         StringBuilder parsers = new StringBuilder();
         for(HoverParser hoverParser : hoverParsersList) {
