@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,7 +30,8 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 
 	private static final int FILTER_RESULT_TRANSACTION = 301;
 	private TransactionViewModel transactionViewModel;
-	private TextView filterText, emptyStateText;
+	private TextView filterText;
+	private LinearLayout emptyInfoLayout;
 	private ProgressBar progressBar;
 	private RecyclerView homeTransactionsRecyclerView;
 	private RelativeLayout emptyStateView;
@@ -40,7 +42,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 
 		filterText  = root.findViewById(R.id.transactionFilter_id);
 		progressBar = root.findViewById(R.id.progress_state_1);
-		emptyStateText = root.findViewById(R.id.empty_text_1);
+		emptyInfoLayout = root.findViewById(R.id.empty_info_layout);
 		emptyStateView = root.findViewById(R.id.layoutForEmptyStateId);
 
 		homeTransactionsRecyclerView= root.findViewById(R.id.recyclerViewId);
@@ -78,8 +80,8 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 			switch (fullActionResult.getEnums()){
 				case LOADING:
 					if(homeTransactionsRecyclerView.getVisibility() == View.VISIBLE)homeTransactionsRecyclerView.setVisibility(View.GONE);
-					if(emptyStateText.getVisibility() == View.VISIBLE) {
-						emptyStateText.setVisibility(View.GONE);
+					if(emptyInfoLayout.getVisibility() == View.VISIBLE) {
+						emptyInfoLayout.setVisibility(View.GONE);
 						emptyStateView.setVisibility(View.GONE);
 					}
 					progressBar.setVisibility(View.VISIBLE);
@@ -88,13 +90,13 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 				case EMPTY:
 					if(homeTransactionsRecyclerView.getVisibility() == View.VISIBLE)homeTransactionsRecyclerView.setVisibility(View.GONE);
 					if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
-					emptyStateText.setVisibility(View.VISIBLE);
+					emptyInfoLayout.setVisibility(View.VISIBLE);
 					emptyStateView.setVisibility(View.VISIBLE);
 					break;
 
 				case HAS_DATA:
-					if(emptyStateText.getVisibility() == View.VISIBLE) {
-						emptyStateText.setVisibility(View.GONE);
+					if(emptyInfoLayout.getVisibility() == View.VISIBLE) {
+						emptyInfoLayout.setVisibility(View.GONE);
 						emptyStateView.setVisibility(View.GONE);
 					}
 					if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);

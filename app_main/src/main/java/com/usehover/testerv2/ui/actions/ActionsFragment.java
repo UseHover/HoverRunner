@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -49,7 +50,8 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     private static final int FILTER_RESULT = 300;
     private static final int TEST_ALL_RESULT = 301;
     private static final int FILL_IN_UNCOMPLETED_VARIABLES = 302;
-    private TextView filterText, emptyStateText;
+    private TextView filterText;
+    private LinearLayout emptyInfoLayout;
     private ProgressBar progressBar;
     private RecyclerView homeActionsRecyclerView;
     private List<ActionsModel> rawRunnableModelList = new ArrayList<>();
@@ -57,16 +59,19 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     private int actionRunCounter = 0;
     private RelativeLayout emptyStateView;
     private SwipeRefreshLayout pullToRefresh;
-
+    private TextView emptyTitle, emptySubtitle;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         actionsViewModel = new ViewModelProvider(this).get(ActionsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_actions, container, false);
         filterText  = root.findViewById(R.id.actionFilter_id);
         progressBar = root.findViewById(R.id.progress_state_1);
-        emptyStateText = root.findViewById(R.id.empty_text_1);
+        emptyInfoLayout = root.findViewById(R.id.empty_info_layout);
         emptyStateView = root.findViewById(R.id.layoutForEmptyStateId);
         pullToRefresh = root.findViewById(R.id.pullToRefresh);
+
+        emptyTitle = root.findViewById(R.id.empty_title_text);
+        emptySubtitle = root.findViewById(R.id.empty_subtitle_text);
 
         homeActionsRecyclerView = root.findViewById(R.id.recyclerViewId);
         homeActionsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
@@ -170,8 +175,8 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
             switch (fullActionResult.getActionEnum()){
                 case LOADING:
                     if(homeActionsRecyclerView.getVisibility() == View.VISIBLE)homeActionsRecyclerView.setVisibility(View.GONE);
-                    if(emptyStateText.getVisibility() == View.VISIBLE) {
-                        emptyStateText.setVisibility(View.GONE);
+                    if(emptyInfoLayout.getVisibility() == View.VISIBLE) {
+                        emptyInfoLayout.setVisibility(View.GONE);
                         emptyStateView.setVisibility(View.GONE);
                     }
                     progressBar.setVisibility(View.VISIBLE);
@@ -180,13 +185,17 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                 case EMPTY:
                     if(homeActionsRecyclerView.getVisibility() == View.VISIBLE)homeActionsRecyclerView.setVisibility(View.GONE);
                     if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
-                    emptyStateText.setVisibility(View.VISIBLE);
+                    emptyInfoLayout.setVisibility(View.VISIBLE);
                     emptyStateView.setVisibility(View.VISIBLE);
+
+                    emptyTitle.setText(getResources().getString(R.string.no_actions_yet));
+                    emptySubtitle.setText(getResources().getString(R.string.no_actions_desc));
+
                     break;
 
                 case HAS_DATA:
-                    if(emptyStateText.getVisibility() == View.VISIBLE) {
-                        emptyStateText.setVisibility(View.GONE);
+                    if(emptyInfoLayout.getVisibility() == View.VISIBLE) {
+                        emptyInfoLayout.setVisibility(View.GONE);
                         emptyStateView.setVisibility(View.GONE);
                     }
                     if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
