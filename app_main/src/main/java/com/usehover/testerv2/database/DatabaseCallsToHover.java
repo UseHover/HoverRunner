@@ -89,6 +89,8 @@ public class DatabaseCallsToHover {
         for(HoverParser hoverParser : hoverParsersList) {
             parsers.append(hoverParser.serverId).append(", ");
         }
+        String parserString = "";
+        if(!parsers.toString().isEmpty())  parserString= parsers.toString().substring(0, parsers.length()-2);
         String totalTransaction = "0";
         int successNo = 0;
         int pendingNo = 0;
@@ -106,7 +108,7 @@ public class DatabaseCallsToHover {
 
         ActionDetailsModels actionDetailsModels = new ActionDetailsModels(
                 hoverAction.networkName,
-                parsers.toString(),
+                parserString,
                 totalTransaction,
                 String.valueOf(successNo),
                 String.valueOf(pendingNo),
@@ -181,7 +183,7 @@ public class DatabaseCallsToHover {
                 null, false));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Model", model,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Android ver.", osVersionName,
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Android ver.", "SDK "+osVersionName,
                 null, false));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("App ver.", Utils.TESTER_VERSION,
                 null, false));
@@ -191,19 +193,23 @@ public class DatabaseCallsToHover {
     }
     public ArrayList<TransactionDetailsInfoModels> getTransactionsDetailsDebug(String transactionId){
         Transaction transaction = Hover.getTransactionById(ApplicationInstance.getContext(), transactionId);
-        HoverAction action = Hover.getActionById(ApplicationInstance.getContext(), transaction.actionId);
         StringBuilder parsers = new StringBuilder();
         try {
             String[] parserList = Utils.convertNormalJSONArrayToStringArray(transaction.matchedParsers);
             for(String string : parserList) {
-                parsers.append(", ").append(string);
+                parsers.append(string).append(", ");
             }
+
         } catch (JSONException ignored) {}
 
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Input extras", Utils.nullToString(transaction.input_extras),
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Matched parsers", Utils.nullToString(parsers),
+
+        String parserString = "";
+        if(!parsers.toString().isEmpty())  parserString= parsers.toString().substring(0, parsers.length()-2);
+
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Matched parsers", Utils.nullToString(parserString),
                 null, true));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Parsed variables", Utils.nullToString(transaction.parsed_variables),
                 null, false));
