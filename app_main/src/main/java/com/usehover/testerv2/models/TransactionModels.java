@@ -4,13 +4,19 @@ import com.usehover.testerv2.enums.StatusEnums;
 
 public class TransactionModels {
     private String transaction_id, date, caption;
+    private long idOnDb;
     private StatusEnums statusEnums;
 
-    public TransactionModels(String transaction_id, String date, String caption, StatusEnums statusEnums) {
+    public TransactionModels(long idOnDb, String transaction_id, String date, String caption, StatusEnums statusEnums) {
+        this.idOnDb = idOnDb;
         this.transaction_id = transaction_id;
         this.date = date;
         this.caption = caption;
         this.statusEnums = statusEnums;
+    }
+
+    public long getIdOnDb() {
+        return idOnDb;
     }
 
     public StatusEnums getStatusEnums() {

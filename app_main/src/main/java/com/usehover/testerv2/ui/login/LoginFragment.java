@@ -97,13 +97,13 @@ public class LoginFragment extends Fragment {
 
 
         view.findViewById(R.id.signinButton).setOnClickListener(v -> {
-            if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
+           // if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
                 if (!progressDialog.isShowing()) progressDialog.show();
                 undoErrorView(emailEdit, errorEmailText, emailLabel);
                 undoErrorView(passwordEdit, errorPasswordText, passwordLabel);
                 loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString());
-            }
-            else UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null, Apis.NO_NETWORK);
+            //}
+           // else UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null, Apis.NO_NETWORK);
         });
 
         return view;

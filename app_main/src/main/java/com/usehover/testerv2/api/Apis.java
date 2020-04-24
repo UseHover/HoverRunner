@@ -34,6 +34,7 @@ public class Apis {
 	public static final String ACTION_TITLE = "action_title";
 	public static final String ACTION_STATUS = "actionStatus";
 
+	public static final String TRANS_UUID = "trans_uuid_id";
 	public static final String TRANS_ID = "trans_id";
 	public static final String TRANS_DATE = "trans_date";
 	public static final String TRANS_STATUS = "trans_status";
@@ -70,7 +71,7 @@ public class Apis {
 	}
 
 	public FullTransactionResult getTransactionsByParserId(String parserId) {
-		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getTransactionByParserIdFromHover(parserId)
+		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getTransactionByParserIdFromHover(parserId);
 		return new FullTransactionResult(transactionModelsList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, transactionModelsList);
 	}
 
@@ -114,6 +115,7 @@ public class Apis {
 	}
 	public int getCurrentTestMode() { return Utils.getIntFromSharedPref(ApplicationInstance.getContext(), Utils.TESTER_ENV); }
 	public void updateTestMode(int mode) { Utils.saveInt(Utils.TESTER_ENV, mode, ApplicationInstance.getContext()); }
+	public static int getTestEnvMode() { return  Utils.getIntFromSharedPref(ApplicationInstance.getContext(), Utils.TESTER_ENV);}
 
 
 	public PassageEnum allowIntoMainActivity() {

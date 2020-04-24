@@ -2,13 +2,18 @@ package com.usehover.testerv2.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
 import com.usehover.testerv2.BuildConfig;
+import com.usehover.testerv2.enums.ActionRunStatus;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.ActionVariablesDBModel;
+import com.usehover.testerv2.models.ActionsModel;
 import com.usehover.testerv2.models.RawStepsModel;
 import com.usehover.testerv2.models.StreamlinedStepsModel;
 import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
@@ -93,6 +98,22 @@ public class Utils {
         return new StreamlinedStepsModel(readableStep, stepsVariableLabels, stepsVariableDesc);
     }
 
+    public static ActionRunStatus actionHasAllVariablesFilled(Context c, String actionId, int expectedSize) {
+        Pair<Boolean, Map<String, String>> pair = getInitialVariableData(c, actionId);
+        Map<String, String> variables = pair.second;
+        int filledSize = 0;
+        if(pair.first != null) { if (pair.first) return  ActionRunStatus.SKIPPED; }
+
+        assert  variables !=null;
+        for(String value : variables.values()) {
+            if(value !=null) {
+                if(!TextUtils.isEmpty(value)) filledSize  = filledSize + 1;
+            }
+        }
+        if(expectedSize == filledSize) return ActionRunStatus.GOOD;
+        else return ActionRunStatus.BAD;
+    }
+
     public static void saveActionVariable(Context c,  String label, String value) {
         ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, ActionDetailsActivity.actionId));
         Map<String, String> mapper;
@@ -103,13 +124,13 @@ public class Utils {
         }
 
         mapper.put(label, value);
-        Utils.saveString(ActionDetailsActivity.actionId, new ActionVariablesDBModel(mapper).serialize(), c);
+        Utils.saveString(ActionDetailsActivity.actionId, new ActionVariablesDBModel(mapper, false).serialize(), c);
     }
 
-    public static Map<String, String> getInitialVariableData(Context c, String actionId) {
-        ActionVariablesDBModel model = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, ActionDetailsActivity.actionId));
-        if(model == null) return new HashMap<>();
-        return model.getVarMap();
+    public static Pair<Boolean, Map<String, String>> getInitialVariableData(Context c, String actionId) {
+        ActionVariablesDBModel model = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, actionId));
+        if(model == null) return new Pair<>(false,  new HashMap<>());
+        return new Pair<>(model.isSkipped(), model.getVarMap());
     }
 
     public static boolean validateEmail(String string) {
@@ -161,9 +182,9 @@ public class Utils {
         return string;
     }
 
-    public static String nullToString(String value) {
+    public static String nullToString(Object value) {
         if(value == null) return  "None";
-        else return value;
+        else return value.toString();
     }
 
 }

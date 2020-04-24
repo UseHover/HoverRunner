@@ -149,7 +149,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                         ActionDetailsActivity.actionId,
                         model.getStreamlinedStepsModel(),
                         this,
-                        Utils.getInitialVariableData(getContext(), ActionDetailsActivity.actionId)
+                        Utils.getInitialVariableData(getContext(), ActionDetailsActivity.actionId).second
                 ));
             }
         });

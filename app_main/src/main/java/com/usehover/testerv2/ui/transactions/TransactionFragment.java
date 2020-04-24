@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 	private TextView filterText, emptyStateText;
 	private ProgressBar progressBar;
 	private RecyclerView homeTransactionsRecyclerView;
+	private RelativeLayout emptyStateView;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
@@ -39,6 +41,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 		filterText  = root.findViewById(R.id.transactionFilter_id);
 		progressBar = root.findViewById(R.id.progress_state_1);
 		emptyStateText = root.findViewById(R.id.empty_text_1);
+		emptyStateView = root.findViewById(R.id.layoutForEmptyStateId);
 
 		homeTransactionsRecyclerView= root.findViewById(R.id.recyclerViewId);
 		homeTransactionsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
@@ -75,16 +78,25 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 			switch (fullActionResult.getEnums()){
 				case LOADING:
 					if(homeTransactionsRecyclerView.getVisibility() == View.VISIBLE)homeTransactionsRecyclerView.setVisibility(View.GONE);
-					if(emptyStateText.getVisibility() == View.VISIBLE) emptyStateText.setVisibility(View.GONE);
+					if(emptyStateText.getVisibility() == View.VISIBLE) {
+						emptyStateText.setVisibility(View.GONE);
+						emptyStateView.setVisibility(View.GONE);
+					}
 					progressBar.setVisibility(View.VISIBLE);
 					break;
+
 				case EMPTY:
 					if(homeTransactionsRecyclerView.getVisibility() == View.VISIBLE)homeTransactionsRecyclerView.setVisibility(View.GONE);
 					if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
 					emptyStateText.setVisibility(View.VISIBLE);
+					emptyStateView.setVisibility(View.VISIBLE);
 					break;
+
 				case HAS_DATA:
-					if(emptyStateText.getVisibility() == View.VISIBLE) emptyStateText.setVisibility(View.GONE);
+					if(emptyStateText.getVisibility() == View.VISIBLE) {
+						emptyStateText.setVisibility(View.GONE);
+						emptyStateView.setVisibility(View.GONE);
+					}
 					if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
 					if(homeTransactionsRecyclerView.getVisibility() != View.VISIBLE) homeTransactionsRecyclerView.setVisibility(View.VISIBLE);
 					homeTransactionsRecyclerView.setAdapter(new TransactionRecyclerAdapter(fullActionResult.getTransactionModelsList(),
@@ -95,6 +107,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 					break;
 			}
 		});
+
 	}
 
 	@Override
@@ -114,7 +127,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 	@Override
 	public void customClickListener(Object... data) {
 		Intent i = new Intent(getActivity(), TransactionDetailsActivity.class);
-		i.putExtra(Apis.TRANS_ID, (String) data[0]);
+		i.putExtra(Apis.TRANS_ID, (long) data[0]);
 		i.putExtra(Apis.TRANS_DATE, (String) data[1]);
 		i.putExtra(Apis.TRANS_STATUS, (StatusEnums) data[2]);
 		startActivity(i);

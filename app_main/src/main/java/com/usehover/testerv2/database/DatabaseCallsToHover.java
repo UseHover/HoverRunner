@@ -1,6 +1,7 @@
 package com.usehover.testerv2.database;
 
 import android.os.Build;
+import android.util.Log;
 
 import com.hover.sdk.BuildConfig;
 import com.hover.sdk.actions.HoverAction;
@@ -35,13 +36,14 @@ public class DatabaseCallsToHover {
         Map<String, String> actionsWithStatus = new HashMap<>();
         for(Transaction transaction : transactionList) {
             actionsWithStatus.put(transaction.actionId, transaction.status);
+
         }
 
 
         for(HoverAction action : actionList) {
+
             String status = actionsWithStatus.get(action.id);
-            ActionsModel tempModel = new ActionsModel(action.id,
-                    action.name,
+            ActionsModel tempModel = new ActionsModel(action.id, action.name, action.rootCode, action.steps,
                     (status == null) ? StatusEnums.NOT_YET_RUN : Utils.getStatusByString(status));
             actionsModelList.add(tempModel);
         }
@@ -51,6 +53,7 @@ public class DatabaseCallsToHover {
 
     public  List<TransactionModels> getAllTransactionsFromHover() {
         List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext());
+        Log.d("SITUATION", "transaction list reported is: "+transactionList.size());
         List<TransactionModels> transactionModelsList = new ArrayList<>(transactionList.size());
 
         for(Transaction transaction : transactionList) {
@@ -58,7 +61,7 @@ public class DatabaseCallsToHover {
             try {
                 lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
             } catch (JSONException ignored) {}
-            TransactionModels transactionModels = new TransactionModels(transaction.uuid,
+            TransactionModels transactionModels = new TransactionModels(transaction.id, transaction.uuid,
                     Utils.formatDate(transaction.updatedTimestamp),
                     lastUSSDMessage,
                     Utils.getStatusByString(transaction.status));
@@ -125,7 +128,7 @@ public class DatabaseCallsToHover {
             try {
                 lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
             } catch (JSONException ignored) {}
-            TransactionModels transactionModels = new TransactionModels(transaction.uuid,
+            TransactionModels transactionModels = new TransactionModels(transaction.id, transaction.uuid,
                     Utils.formatDate(transaction.updatedTimestamp),
                     lastUSSDMessage,
                     Utils.getStatusByString(transaction.status));
@@ -171,7 +174,7 @@ public class DatabaseCallsToHover {
         String model = Build.MODEL;
         String osVersionName = Build.VERSION.CODENAME;
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Transactions", Utils.envValueToString(transaction.env),
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Testing mode", Utils.envValueToString(transaction.env),
                 null, false));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Device ID", com.hover.sdk.utils.Utils.getDeviceId(ApplicationInstance.getContext()),
                 null, false));
@@ -199,11 +202,11 @@ public class DatabaseCallsToHover {
         } catch (JSONException ignored) {}
 
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Input extras", transaction.input_extras.toString(),
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Input extras", Utils.nullToString(transaction.input_extras),
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Matched parsers", parsers.toString(),
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Matched parsers", Utils.nullToString(parsers),
                 null, true));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Parsed variables", transaction.parsed_variables.toString(),
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Parsed variables", Utils.nullToString(transaction.parsed_variables),
                 null, false));
         return dataTransacArrayList;
     }
@@ -256,7 +259,7 @@ public class DatabaseCallsToHover {
                 lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
             } catch (JSONException ignored) {}
 
-            TransactionModels transactionModels = new TransactionModels(transaction.uuid,
+            TransactionModels transactionModels = new TransactionModels(transaction.id, transaction.uuid,
                     Utils.formatDate(transaction.updatedTimestamp),
                     lastUSSDMessage,
                     Utils.getStatusByString(transaction.status));

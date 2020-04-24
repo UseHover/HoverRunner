@@ -50,7 +50,7 @@
 
 		</LinearLayout>
 
-		<include layout="@layout/recycler_view_state" android:visibility="gone"/>
+		<include layout="@layout/recycler_view_state"  />
 		<include layout="@layout/general_recycler_view"
 				android:visibility="gone"/>
 

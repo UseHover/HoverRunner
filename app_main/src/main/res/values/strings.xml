@@ -115,5 +115,8 @@
 	<string name="hint_choose_actions">Choose actions</string>
 	<string name="selected_range">Selected range</string>
 
+	<string name="noRunnableAction">No runnable actions. Try refreshing</string>
+	<string name="validatingActions">Validating all actions, please wait…</string>
+
 
 </resources>
