@@ -20,9 +20,13 @@ import com.usehover.testerv2.adapters.HomeActionRecyclerAdapter;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
+import com.usehover.testerv2.models.ActionsModel;
 import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
 import com.usehover.testerv2.ui.actions.filter.ActionFilterActivity;
 import com.usehover.testerv2.utils.UIHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActionsFragment extends Fragment implements CustomOnClickListener {
 
@@ -33,7 +37,8 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
     private TextView filterText, emptyStateText;
     private ProgressBar progressBar;
     private RecyclerView homeActionsRecyclerView;
-    int counter = 0;
+    private List<ActionsModel> runnableModelList = new ArrayList<>();
+    private int counter = 0;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,6 +101,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener {
                     if(emptyStateText.getVisibility() == View.VISIBLE) emptyStateText.setVisibility(View.GONE);
                     if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
                     if(homeActionsRecyclerView.getVisibility() != View.VISIBLE) homeActionsRecyclerView.setVisibility(View.VISIBLE);
+                    runnableModelList = fullActionResult.getActionsModelList();
                     homeActionsRecyclerView.setAdapter(new HomeActionRecyclerAdapter(fullActionResult.getActionsModelList(), true,
                             this,
                             getResources().getColor(R.color.colorYellow),

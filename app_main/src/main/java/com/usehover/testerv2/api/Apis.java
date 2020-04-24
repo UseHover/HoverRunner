@@ -16,6 +16,7 @@ import com.usehover.testerv2.models.LoginModel;
 import com.usehover.testerv2.models.ParsersInfoModel;
 import com.usehover.testerv2.models.TransactionDetailsInfoModels;
 import com.usehover.testerv2.models.TransactionDetailsMessagesModel;
+import com.usehover.testerv2.models.TransactionModels;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
 
@@ -46,11 +47,13 @@ public class Apis {
 	}
 
 	public FullActionResult doGetAllActionsWorkManager() {
+
 		return new FullActionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getAllActionsFromHover());
 	}
 
 	public FullTransactionResult doGetAllTransactionsWorkManager() {
-		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getAllTransactionsFromHover());
+		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getAllTransactionsFromHover();
+		return new FullTransactionResult(transactionModelsList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY,transactionModelsList);
 	}
 
 	public ActionDetailsModels doGetSpecificActionDetailsById(String actionId){
@@ -58,7 +61,8 @@ public class Apis {
 	}
 
 	public FullTransactionResult doGetTransactionsByActionIdWorkManager(String actionId) {
-		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getTransactionByActionIdFromHover(actionId));
+		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getTransactionByActionIdFromHover(actionId);
+		return new FullTransactionResult(transactionModelsList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, transactionModelsList);
 	}
 
 	public ParsersInfoModel getParsersInfoById(String parserId) {
@@ -66,7 +70,8 @@ public class Apis {
 	}
 
 	public FullTransactionResult getTransactionsByParserId(String parserId) {
-		return new FullTransactionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getTransactionByParserIdFromHover(parserId));
+		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getTransactionByParserIdFromHover(parserId)
+		return new FullTransactionResult(transactionModelsList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, transactionModelsList);
 	}
 
 	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsAboutById(String transactionId) {
