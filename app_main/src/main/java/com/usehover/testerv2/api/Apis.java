@@ -8,6 +8,7 @@ import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.enums.TransactionDetailsDataType;
 import com.usehover.testerv2.models.ActionDetailsModels;
+import com.usehover.testerv2.models.ActionsModel;
 import com.usehover.testerv2.models.FullActionResult;
 import com.usehover.testerv2.enums.HomeEnums;
 import com.usehover.testerv2.models.FullTransactionResult;
@@ -47,8 +48,8 @@ public class Apis {
 	}
 
 	public FullActionResult doGetAllActionsWorkManager() {
-
-		return new FullActionResult(StatusEnums.HAS_DATA, new DatabaseCallsToHover().getAllActionsFromHover());
+		List<ActionsModel> actionsModelList = new DatabaseCallsToHover().getAllActionsFromHover();
+		return new FullActionResult(actionsModelList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, actionsModelList);
 	}
 
 	public FullTransactionResult doGetAllTransactionsWorkManager() {
