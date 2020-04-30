@@ -128,9 +128,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
 
         });
 
-        //setupViews();
-        //GET ALL ACTIONS
-        actionsViewModel.getAllActions();
+        setupViews();
 
         pullToRefresh.setOnRefreshListener(() -> {
             if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
@@ -220,7 +218,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     @Override
     public void onResume() {
         super.onResume();
-        setupViews();
+        actionsViewModel.getAllActions();
     }
 
     @Override
@@ -243,7 +241,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
             else if(actionRunCounter == withCompletedVariableActionList.size()) {
                 //Important to set runCounter back to zero when completed.
                 actionRunCounter = 0;
-                actionsViewModel.getAllActions();
+                //actionsViewModel.getAllActions();
             }
         }
     }
