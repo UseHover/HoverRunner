@@ -10,7 +10,7 @@ import org.json.JSONArray;
 
 public class ActionsModel implements Parcelable{
 
-    private String actionId, actionTitle, rootCode;
+    private String actionId, actionTitle, rootCode, jsonArrayToString="";
     private JSONArray steps;
     private StatusEnums actionEnum;
 
@@ -27,6 +27,7 @@ public class ActionsModel implements Parcelable{
         actionId = in.readString();
         actionTitle = in.readString();
         rootCode = in.readString();
+        jsonArrayToString = in.readString();
     }
 
     @Override
@@ -34,6 +35,7 @@ public class ActionsModel implements Parcelable{
         dest.writeString(actionId);
         dest.writeString(actionTitle);
         dest.writeString(rootCode);
+        dest.writeString(jsonArrayToString);
     }
 
     @Override
@@ -71,5 +73,13 @@ public class ActionsModel implements Parcelable{
 
     public StatusEnums getActionEnum() {
         return actionEnum;
+    }
+
+    public void setJsonArrayToString(String jsonArrayToString) {
+        this.jsonArrayToString = jsonArrayToString;
+    }
+
+    public String getJsonArrayToString() {
+        return jsonArrayToString;
     }
 }

@@ -123,6 +123,12 @@
 	<string name="no_transactions_desc">Test an action to see transactions appear here</string>
 	<string name="no_actions_yet">No Actions yet</string>
 	<string name="no_actions_desc">Try swiping down to refresh</string>
+	
+	<string name="uncompleted_variable_notice">Please enter values for the variables below.</string>
+	<string name="above_skip_text">Don’t have the values for these variables right now?</string>
+	<string name="skip_text">Skip this action for now.</string>
+	<string name="below_skip_text">You can always add the values later on this action’s details page</string>
+	<string name="bad_steps_config">Something went wrong with your steps. Please check your dashboard settings</string>
 
 
 </resources>

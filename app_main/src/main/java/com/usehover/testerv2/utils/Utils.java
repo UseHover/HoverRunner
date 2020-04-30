@@ -68,6 +68,9 @@ public class Utils {
             return "fail";
         }
     }
+    public static void clearData(Context c) {
+        getSharedPrefs(c).edit().clear().apply();
+    }
 
     public static StreamlinedStepsModel getStreamlinedStepsStepsFromRaw(@NonNull String rootCode,@NonNull  JSONArray jsonArray) {
         Gson gson = new Gson();
@@ -114,8 +117,8 @@ public class Utils {
         else return ActionRunStatus.BAD;
     }
 
-    public static void saveActionVariable(Context c,  String label, String value) {
-        ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, ActionDetailsActivity.actionId));
+    public static void saveActionVariable(Context c,  String label, String value, String actionId) {
+        ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, actionId));
         Map<String, String> mapper;
         if(dbModel == null) mapper = new HashMap<>();
         else {
@@ -124,7 +127,19 @@ public class Utils {
         }
 
         mapper.put(label, value);
-        Utils.saveString(ActionDetailsActivity.actionId, new ActionVariablesDBModel(mapper, false).serialize(), c);
+        Utils.saveString(actionId, new ActionVariablesDBModel(mapper, false).serialize(), c);
+    }
+    public static void saveSkippedVariable(Context c, String actionId) {
+        ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, actionId));
+        Map<String, String> mapper;
+        if(dbModel == null) mapper = new HashMap<>();
+        else {
+            if(dbModel.getVarMap() == null) mapper = new HashMap<>();
+            else mapper = dbModel.getVarMap();
+        }
+
+        mapper.put("label", "value");
+        Utils.saveString(actionId, new ActionVariablesDBModel(mapper, true).serialize(), c);
     }
 
     public static Pair<Boolean, Map<String, String>> getInitialVariableData(Context c, String actionId) {
@@ -150,6 +165,7 @@ public class Utils {
         }
         return list;
     }
+
     public static StatusEnums getStatusByString(String status) {
         StatusEnums statusEnums;
         switch (status) {

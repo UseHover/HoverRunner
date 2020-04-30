@@ -38,6 +38,8 @@ import com.usehover.testerv2.utils.NetworkUtil;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +103,8 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                             withCompletedVariableActionList.add(runnableModel);
                             break;
                         case BAD:
+                            String jsonArrayToString = runnableModel.getSteps().toString();
+                            runnableModel.setJsonArrayToString(jsonArrayToString);
                             withUncompletedVariablesActionList.add(runnableModel);
                             break;
                         //SKIPPING DOES NOT REQUIRE A CASE
@@ -241,7 +245,6 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                 actionRunCounter = 0;
                 actionsViewModel.getAllActions();
             }
-
         }
     }
 

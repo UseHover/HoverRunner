@@ -1,5 +1,7 @@
 package com.usehover.testerv2.ui.settings;
 
+import android.app.Application;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -11,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +24,7 @@ import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.utils.UIHelper;
+import com.usehover.testerv2.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -56,9 +60,24 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 		});
 
 		root.findViewById(R.id.refreshButton).setOnClickListener(v -> {
-			refreshButtonIdle = true;
-			Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext()) ;
-			UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.app_data_refreshed));
+			AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+			builder.setTitle("App refresh");
+			builder.setMessage("Refreshing your app data will delete all cached entries. Are you sure you want continue with app refresh?");
+			builder.setPositiveButton("Refresh", (dialog, which) -> {
+				dialog.dismiss();
+				dialog.cancel();
+
+				refreshButtonIdle = true;
+				Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext()) ;
+				Utils.clearData(ApplicationInstance.getContext());
+				UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.app_data_refreshed));
+			});
+			builder.setNegativeButton("Cancel", (dialog, which)-> {
+				dialog.dismiss();
+				dialog.cancel();
+			});
+			builder.show();
+
 		});
 		settingsViewModel.getSims();
 
