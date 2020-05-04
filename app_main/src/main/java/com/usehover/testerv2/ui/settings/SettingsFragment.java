@@ -69,7 +69,7 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 
 				refreshButtonIdle = true;
 				Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext()) ;
-				//Utils.clearData(ApplicationInstance.getContext());
+				Utils.clearData(ApplicationInstance.getContext());
 				UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.app_data_refreshed));
 			});
 			builder.setNegativeButton("Cancel", (dialog, which)-> {

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorPrimaryDark"
+        >
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textStyle="bold"
+                android:id="@+id/category_title"
+                android:textSize= "@dimen/actionTextSize"
+                android:textColor="@color/colorHoverWhite"
+                android:text="@string/title_categories"
+                android:drawableStart="@drawable/ic_close_white_24dp"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:paddingHorizontal="@dimen/activity_vertical_margin"
+                android:layout_weight="1"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorMainGrey"
+                android:textSize="@dimen/actionRightSideTextSize"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/activity_vertical_margin"
+                android:id="@+id/filter_save_id"
+                android:text="@string/save_text"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/filter_recyclerView"
+            />
+</LinearLayout>

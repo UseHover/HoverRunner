@@ -1,5 +1,7 @@
 package com.usehover.testerv2.api;
 
+import androidx.core.util.Pair;
+
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.sims.SimInfo;
 import com.usehover.testerv2.ApplicationInstance;
@@ -9,20 +11,25 @@ import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.enums.TransactionDetailsDataType;
 import com.usehover.testerv2.models.ActionDetailsModels;
 import com.usehover.testerv2.models.ActionsModel;
+import com.usehover.testerv2.models.FilterActionsFullModel;
 import com.usehover.testerv2.models.FullActionResult;
 import com.usehover.testerv2.enums.HomeEnums;
 import com.usehover.testerv2.models.FullTransactionResult;
 import com.usehover.testerv2.models.LoadSimModel;
 import com.usehover.testerv2.models.LoginModel;
 import com.usehover.testerv2.models.ParsersInfoModel;
+import com.usehover.testerv2.models.SingleFilterInfoModel;
 import com.usehover.testerv2.models.TransactionDetailsInfoModels;
 import com.usehover.testerv2.models.TransactionDetailsMessagesModel;
 import com.usehover.testerv2.models.TransactionModels;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class Apis {
@@ -47,13 +54,162 @@ public class Apis {
 		return new LoginModel(HomeEnums.SUCCESS, "Login successful");
 	}
 
-	public FullActionResult doGetAllActionsWorkManager() {
-		List<ActionsModel> actionsModelList = new DatabaseCallsToHover().getAllActionsFromHover();
+	public FullActionResult doGetAllActionsWorkManager(boolean withMetaInfo) {
+		List<ActionsModel> actionsModelList = new DatabaseCallsToHover().getAllActionsFromHover(withMetaInfo);
 		return new FullActionResult(actionsModelList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, actionsModelList);
 	}
 
+	public FilterActionsFullModel doGetDataForActionFilter() {
+		FilterActionsFullModel filterActionsFullModel = new FilterActionsFullModel();
+
+		List<ActionsModel> actionsModelList = new DatabaseCallsToHover().getAllActionsFromHover(true);
+		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getAllTransactionsFromHover(null);
+		ArrayList<String> countryRawList = new ArrayList<>();
+		ArrayList<Pair<String,String>> networkRawList = new ArrayList<>();
+		ArrayList<String> networkNameTemp = new ArrayList<>();
+		ArrayList<String> categoryRawList = new ArrayList<>();
+
+
+		if(actionsModelList.size() > 0) {
+			for(ActionsModel actionsModel: actionsModelList) {
+				//Get all countries from all available actions
+				if(!countryRawList.contains(actionsModel.getCountry())) countryRawList.add(actionsModel.getCountry());
+
+				//Get all network list from actions
+				String networks = actionsModel.getNetwork_name().replace(" or ", ", ");
+				String[] networkList = networks.split(", ");
+				for(String networkName : networkList) {
+					if(!networkNameTemp.contains(networkName)) {
+						networkNameTemp.add(networkName);
+						networkRawList.add(new Pair<>(networkName, actionsModel.getCountry()));
+					}
+				}
+
+			}
+		}
+
+		if(transactionModelsList.size() > 0) {
+			for(TransactionModels transactionModels : transactionModelsList) {
+				if(transactionModels.getCategory() !=null) {
+					if(!transactionModels.getCategory().isEmpty()) {
+						if(!categoryRawList.contains(transactionModels.getCategory())) categoryRawList.add(transactionModels.getCategory());
+					}
+				}
+			}
+		}
+
+		filterActionsFullModel.setAllCategories(categoryRawList);
+		filterActionsFullModel.setAllCountries(countryRawList);
+		filterActionsFullModel.setAllNetworks(networkRawList);
+		filterActionsFullModel.setActionsModelList(actionsModelList);
+		filterActionsFullModel.setTransactionModelsList(transactionModelsList);
+		filterActionsFullModel.setActionEnum(actionsModelList.size() > 0 ? StatusEnums.HAS_DATA : StatusEnums.EMPTY);
+		return  filterActionsFullModel;
+	}
+
+	public ArrayList<SingleFilterInfoModel> getCountriesForActionFilter(ArrayList<String> countries) {
+		ArrayList<SingleFilterInfoModel> filterInfoModels = new ArrayList<>();
+		ArrayList<String> mySelectedCountries = ApplicationInstance.getCountriesFilter();
+		for(String country : countries) {
+			SingleFilterInfoModel singleFilterInfoModel = new SingleFilterInfoModel(country, false);
+			if(mySelectedCountries.contains(country)) {
+				singleFilterInfoModel.setCheck(true);
+				mySelectedCountries.remove(country);
+			}
+			filterInfoModels.add(singleFilterInfoModel);
+		}
+		return filterInfoModels;
+	}
+
+	public ArrayList<SingleFilterInfoModel> getCategoriesForActionFilter(ArrayList<String> categories) {
+		ArrayList<SingleFilterInfoModel> filterInfoModels = new ArrayList<>();
+		ArrayList<String> mySelectedCategories = ApplicationInstance.getCategoryFilter();
+		for(String category : categories) {
+			SingleFilterInfoModel singleFilterInfoModel = new SingleFilterInfoModel(category, false);
+			if(mySelectedCategories.contains(category)) {
+				singleFilterInfoModel.setCheck(true);
+				mySelectedCategories.remove(category);
+			}
+			filterInfoModels.add(singleFilterInfoModel);
+		}
+		return filterInfoModels;
+	}
+
+	public ArrayList<SingleFilterInfoModel> getNetworksForActionFilter(ArrayList<Pair<String, String>> networkPairList) {
+		ArrayList<SingleFilterInfoModel> filterInfoModels = new ArrayList<>();
+		ArrayList<String> mySelectedNetworks = ApplicationInstance.getNetworksFilter();
+
+		for(Pair networkPair: networkPairList) {
+			assert networkPair.first != null;
+			assert networkPair.second != null;
+			SingleFilterInfoModel singleFilterInfoModel = new SingleFilterInfoModel(networkPair.first.toString(), networkPair.second.toString(), false);
+			if(mySelectedNetworks.contains(networkPair.first.toString())) {
+				singleFilterInfoModel.setCheck(true);
+				mySelectedNetworks.remove(networkPair.first.toString());
+			}
+			filterInfoModels.add(singleFilterInfoModel);
+		}
+		return filterInfoModels;
+	}
+
+	public String getSelectedCountriesAsText() {
+		StringBuilder text = new StringBuilder();
+		int maxSize = 5;
+		if(ApplicationInstance.getCountriesFilter().size() < maxSize) maxSize = ApplicationInstance.getCountriesFilter().size();
+		for(int i=0; i< maxSize; i++) {
+			if(i==0)
+				text = new StringBuilder(ApplicationInstance.getCountriesFilter().get(0));
+			else
+				text.append(", ").append(ApplicationInstance.getCountriesFilter().get(i));
+		}
+		return text.toString();
+	}
+
+	public String getSelectedNetworksAsText() {
+		StringBuilder text = new StringBuilder();
+		int maxSize = 5;
+		if(ApplicationInstance.getNetworksFilter().size() < maxSize) maxSize = ApplicationInstance.getNetworksFilter().size();
+		for(int i=0; i< maxSize; i++) {
+			if(i==0)
+				text = new StringBuilder(ApplicationInstance.getNetworksFilter().get(0));
+			else
+				text.append(", ").append(ApplicationInstance.getNetworksFilter().get(i));
+		}
+		return text.toString();
+	}
+
+	public String getSelectedCategoriesAsText() {
+		StringBuilder text = new StringBuilder();
+		int maxSize = 5;
+		if(ApplicationInstance.getCategoryFilter().size() < maxSize) maxSize = ApplicationInstance.getCategoryFilter().size();
+		for(int i=0; i< maxSize; i++) {
+			if(i==0)
+				text = new StringBuilder(ApplicationInstance.getCategoryFilter().get(0));
+			else
+				text.append(", ").append(ApplicationInstance.getCategoryFilter().get(i));
+		}
+		return text.toString();
+	}
+
+
+
+
+
+	public void resetActionFilterDataset() {
+		ApplicationInstance.setOnlyWithSimPresent(false);
+		ApplicationInstance.setWithParsers(false);
+		ApplicationInstance.setStatusPending(true);
+		ApplicationInstance.setStatusFailed(true);
+		ApplicationInstance.setStatusNoTrans(true);
+		ApplicationInstance.setStatusSuccess(true);
+		ApplicationInstance.setActionSearchText("");
+		ApplicationInstance.setDateRange(null);
+		ApplicationInstance.setCountriesFilter(new ArrayList<>());
+		ApplicationInstance.setCategoryFilter(new ArrayList<>());
+		ApplicationInstance.setNetworksFilter(new ArrayList<>());
+	}
 	public FullTransactionResult doGetAllTransactionsWorkManager() {
-		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getAllTransactionsFromHover();
+		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getAllTransactionsFromHover(null);
 		return new FullTransactionResult(transactionModelsList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY,transactionModelsList);
 	}
 

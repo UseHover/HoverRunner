@@ -28,9 +28,9 @@ import java.util.Map;
 public class DatabaseCallsToHover {
     private List<Transaction> transactionListByActionId;
 
-    public List<ActionsModel> getAllActionsFromHover() {
+    public List<ActionsModel> getAllActionsFromHover(boolean withMetaInfo) {
         List<HoverAction> actionList = Hover.getAllActions(ApplicationInstance.getContext());
-        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext());
+        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext(), null);
 
         List<ActionsModel> actionsModelList = new ArrayList<>(actionList.size());
         Map<String, String> actionsWithStatus = new HashMap<>();
@@ -45,14 +45,18 @@ public class DatabaseCallsToHover {
             String status = actionsWithStatus.get(action.id);
             ActionsModel tempModel = new ActionsModel(action.id, action.name, action.rootCode, action.steps,
                     (status == null) ? StatusEnums.NOT_YET_RUN : Utils.getStatusByString(status));
+            if(withMetaInfo) {
+                tempModel.setCountry(action.country);
+                tempModel.setNetwork_name(action.networkName);
+            }
             actionsModelList.add(tempModel);
         }
 
         return actionsModelList;
     }
 
-    public  List<TransactionModels> getAllTransactionsFromHover() {
-        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext());
+    public  List<TransactionModels> getAllTransactionsFromHover(String args) {
+        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext(), args);
         Log.d("SITUATION", "transaction list reported is: "+transactionList.size());
         List<TransactionModels> transactionModelsList = new ArrayList<>(transactionList.size());
 
@@ -66,6 +70,8 @@ public class DatabaseCallsToHover {
                     lastUSSDMessage,
                     Utils.getStatusByString(transaction.status));
 
+            transactionModels.setActionId(transaction.actionId);
+            transactionModels.setCategory(transaction.category);
             transactionModelsList.add(transactionModels);
 
         }

@@ -73,7 +73,7 @@
 	<string name="transaction_det_failed">This transaction failed</string>
 	<string name="transaction_det_pending">This transaction is pending</string>
 	<string name="transaction_det_success">This transaction worked</string>
-
+	<string name="sim_filter">SIM</string>
 	
 	<string name="operators">Operators</string>
 	<string name="steps">Steps</string>
@@ -129,6 +129,11 @@
 	<string name="skip_text">Skip this action for now.</string>
 	<string name="below_skip_text">You can always add the values later on this action’s details page</string>
 	<string name="bad_steps_config">Something went wrong with your steps. Please check your dashboard settings</string>
+	
+	<string name="title_countries">Choose countries</string>
+	<string name="title_categories">Choose categories</string>
+	<string name="title_networks">Choose networks</string>
+	<string name="save_text">Save</string>
 
 
 </resources>

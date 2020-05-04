@@ -43,7 +43,24 @@ public class UIHelper {
 		SpannableString content = new SpannableString(cs);
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 		content.setSpan(android.graphics.Typeface.BOLD, 0, content.length(), 0);
-		textView.setText(content);
+		try{
+			textView.setText(content);
+		}catch (Exception e) {
+			//Avoid error due to threading based on users aggressive clicks.
+			//I.e when user types in the search, it waits for 1.5secs to update the textView,
+			//During this 1.5sec if user goes away from the screen it can through an error called:
+			//CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
+			//Therefore, putting this in a try and catch to avoid crashing.
+		}
+
+	}
+
+	public static void removeTextUnderline(TextView textView) {
+		SpannableString ss= new SpannableString(textView.getText());
+		UnderlineSpan[] spans=ss.getSpans(0, textView.getText().length(), UnderlineSpan.class);
+		for (UnderlineSpan span : spans) {
+			ss.removeSpan(span);
+		}
 	}
 
 	public static void changeStatusBarColor(final Activity activity, final int color) {

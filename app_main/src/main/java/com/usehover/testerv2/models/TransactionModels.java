@@ -3,9 +3,10 @@ package com.usehover.testerv2.models;
 import com.usehover.testerv2.enums.StatusEnums;
 
 public class TransactionModels {
-    private String transaction_id, date, caption;
+    private String transaction_id, date, caption, actionId, category;
     private long idOnDb;
     private StatusEnums statusEnums;
+
 
     public TransactionModels(long idOnDb, String transaction_id, String date, String caption, StatusEnums statusEnums) {
         this.idOnDb = idOnDb;
@@ -33,5 +34,21 @@ public class TransactionModels {
 
     public String getCaption() {
         return caption;
+    }
+
+    public String getActionId() {
+        return actionId;
+    }
+
+    public void setActionId(String actionId) {
+        this.actionId = actionId;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

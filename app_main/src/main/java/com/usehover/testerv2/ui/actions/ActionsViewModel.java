@@ -30,5 +30,5 @@ public class ActionsViewModel extends ViewModel {
     void setFilterOn() {
         filterStatus.postValue(HomeEnums.FILTER_ON);
     }
-    void getAllActions() { homeActions.postValue(new Apis().doGetAllActionsWorkManager()); }
+    void getAllActions() { homeActions.postValue(new Apis().doGetAllActionsWorkManager(false)); }
 }

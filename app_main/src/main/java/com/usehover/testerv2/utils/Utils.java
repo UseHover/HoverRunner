@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
@@ -184,6 +185,20 @@ public class Utils {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
         return simpleDateFormat.format(timestamp);
     }
+
+    public static String formatDateV2(@Nullable long timestamp) {
+
+        String pattern = "MMM dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        return simpleDateFormat.format(timestamp);
+    }
+
+    public static String formatDateV3(long timestamp) {
+        String pattern = "MMM dd, yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        return simpleDateFormat.format(timestamp);
+    }
+
 
     public static String envValueToString(int env) {
         String string = "";

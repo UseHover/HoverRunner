@@ -1,64 +1,293 @@
 package com.usehover.testerv2.ui.actions.filter;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.SpannableString;
+import android.text.TextWatcher;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.R;
+import com.usehover.testerv2.api.Apis;
+import com.usehover.testerv2.enums.StatusEnums;
+import com.usehover.testerv2.models.FilterActionsFullModel;
+import com.usehover.testerv2.ui.actions.ActionsViewModel;
+import com.usehover.testerv2.ui.filter_pages.FilterByCategories;
+import com.usehover.testerv2.ui.filter_pages.FilterByCountries;
+import com.usehover.testerv2.ui.filter_pages.FilterByNetworks;
 import com.usehover.testerv2.utils.UIHelper;
+import com.usehover.testerv2.utils.Utils;
+
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ActionFilterFragment extends Fragment {
 
+    private ProgressBar loadingProgressBar;
+    private FilterActionsFullModel filterActionsFullModel;
+    private TextView resetText, countryEntry, networkEntry, categoryEntry, datePickerView;
+    private EditText searchActionEdit;
+    private AppCompatCheckBox status_success, status_pending, status_fail, status_noTrans, withParser, onlyWithSimPresent;
+    private Timer timer = new Timer();
+    private boolean resetActivated = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.action_filter_fragment, container, false);
 
         TextView toolText = view.findViewById(R.id.actionFilterBackId);
-        TextView resetText = view.findViewById(R.id.reset_id);
-        toolText.setOnClickListener(v -> getActivity().finish());
+        loadingProgressBar = view.findViewById(R.id.filter_action_progressBar);
+        loadingProgressBar.setVisibility(View.VISIBLE);
 
-        TextView datePickerView = view.findViewById(R.id.dateRangeEditId);
+        filterActionsFullModel = new Apis().doGetDataForActionFilter();
+        if(filterActionsFullModel.getActionEnum() == StatusEnums.HAS_DATA) {
+            loadingProgressBar.setVisibility(View.GONE);
+        }
+        else {
+            UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.no_actions_yet));
+            if(getActivity()!=null)getActivity().finish();
+        }
+
+        toolText.setOnClickListener(v -> { if(getActivity() !=null)getActivity().finish(); });
+
+
+         resetText = view.findViewById(R.id.reset_id);
+         countryEntry = view.findViewById(R.id.countryEntryId);
+         networkEntry = view.findViewById(R.id.networkEntryId);
+         categoryEntry = view.findViewById(R.id.categoryEntryId);
+         searchActionEdit = view.findViewById(R.id.searchEditId);
+         status_success = view.findViewById(R.id.checkbox_success);
+         status_pending = view.findViewById(R.id.checkbox_pending);
+         status_fail = view.findViewById(R.id.checkbox_fail);
+         status_noTrans = view.findViewById(R.id.checkbox_no_transaction);
+         withParser = view.findViewById(R.id.checkbox_parsers);
+         onlyWithSimPresent = view.findViewById(R.id.checkbox_sim);
+
+         searchActionEdit.addTextChangedListener(new TextWatcher() {
+             @Override
+             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+             }
+
+             @Override
+             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ApplicationInstance.setActionSearchText(s.toString());
+                 timer.cancel();
+                 timer = new Timer();
+                 long DELAY = 1500;
+                 timer.schedule(new TimerTask() {
+                     @Override
+                     public void run() {
+                         activateReset();
+                        filterThroughActions();
+                     }
+                 }, DELAY);
+             }
+
+             @Override
+             public void afterTextChanged(Editable s) {
+
+             }
+         });
+
+        resetText.setOnClickListener(v->{
+            if(resetActivated) {
+                new Apis().resetActionFilterDataset();
+                reloadAllMajorViews();
+                new Handler().postDelayed(() -> {
+                    UIHelper.removeTextUnderline(resetText);
+                    resetText.setTextColor(getResources().getColor(R.color.colorMainGrey));
+                    resetActivated = false;
+                }, 1500);
+
+            }
+
+        });
+
+
+
+
+         datePickerView = view.findViewById(R.id.dateRangeEditId);
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
         builder.setCalendarConstraints(constraintsBuilder.build());
 
         MaterialDatePicker<?> picker = builder.setTitleText(getResources().getString(R.string.selected_range)).build();
-        picker.addOnPositiveButtonClickListener(selection -> {
-            Pair<Long, Long> datePairs = (Pair<Long, Long>) selection;
-            UIHelper.showHoverToastV2(getContext(), String.valueOf(datePairs.first+" AND "+datePairs.second));
 
-        });
+                datePickerView.setOnClickListener(v -> {
+                    if(hasLoaded()) picker.show(getParentFragmentManager(), picker.toString());
+                });
+                picker.addOnPositiveButtonClickListener(selection -> {
+                    Pair<Long, Long> datePairs = (Pair<Long, Long>) selection;
+                    ApplicationInstance.setDateRange(datePairs);
+                    setOrReloadDateRange();
 
+                });
 
-        datePickerView.setOnClickListener(v -> {
-            picker.show(getParentFragmentManager(), picker.toString());
-        });
+         setUpViewClicks();
+         setupCheckboxes();
 
-        view.findViewById(R.id.showActions_id).setOnClickListener(v -> getActivity().finish());
+        view.findViewById(R.id.showActions_id).setOnClickListener(v -> { if(getActivity() !=null)getActivity().finish(); });
 
         return view;
     }
 
+    private void filterThroughActions() {
 
-    private View.OnFocusChangeListener focusListener = new View.OnFocusChangeListener() {
-        public void onFocusChange(View v, boolean hasFocus) {
-            if (hasFocus){
-                //focusedView = v;
-            } else {
-               // focusedView  = null;
-            }
+    }
+
+    private void activateReset() {
+        if(!resetActivated) {
+            resetText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
+            UIHelper.setTextUnderline(resetText, "Reset");
+            resetActivated = true;
         }
-    };
+
+    }
+    private void setupCheckboxes() {
+        status_success.setOnCheckedChangeListener((v, status)-> {
+            ApplicationInstance.setStatusSuccess(status);
+            activateReset();
+            filterThroughActions();
+        });
+
+        status_noTrans.setOnCheckedChangeListener((v, status)-> {
+            ApplicationInstance.setStatusNoTrans(status);
+            activateReset();
+            filterThroughActions();
+        });
+
+        status_fail.setOnCheckedChangeListener((v, status)-> {
+            ApplicationInstance.setStatusFailed(status);
+            activateReset();
+            filterThroughActions();
+        });
+
+        status_pending.setOnCheckedChangeListener((v, status)-> {
+            ApplicationInstance.setStatusPending(status);
+            activateReset();
+            filterThroughActions();
+        });
+
+        withParser.setOnCheckedChangeListener((v, status) -> {
+            ApplicationInstance.setWithParsers(status);
+            activateReset();
+            filterThroughActions();
+        });
+
+        onlyWithSimPresent.setOnCheckedChangeListener((v, status)-> {
+            ApplicationInstance.setOnlyWithSimPresent(status);
+            activateReset();
+            filterThroughActions();
+        });
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+       reloadAllMajorViews();
+    }
+
+    private void reloadAllMajorViews() {
+        setOrReloadSearchEdit();
+        setOrReloadCountriesText();
+        setOrReloadNetworkText();
+        setOrReloadDateRange();
+        setOrReloadCategoryText();
+        setOrReloadCheckboxes();
+    }
+
+
+    private void setUpViewClicks() {
+        countryEntry.setOnClickListener(v-> {
+            Intent i = new Intent(getActivity(), FilterByCountries.class);
+            i.putExtra("data", new Apis().getCountriesForActionFilter(filterActionsFullModel.getAllCountries()));
+            startActivity(i);
+        });
+
+        networkEntry.setOnClickListener(v->{
+            Intent i = new Intent(getActivity(), FilterByNetworks.class);
+            i.putExtra("data", new Apis().getNetworksForActionFilter(filterActionsFullModel.getAllNetworks()));
+            startActivity(i);
+        });
+
+        categoryEntry.setOnClickListener(v->{
+            Intent i = new Intent(getActivity(), FilterByCategories.class);
+            i.putExtra("data", new Apis().getCategoriesForActionFilter(filterActionsFullModel.getAllCategories()));
+            startActivity(i);
+        });
+    }
+
+    private void setOrReloadSearchEdit() {
+        if(ApplicationInstance.getActionSearchText() !=null) {
+            if(!ApplicationInstance.getActionSearchText().isEmpty()) {
+                searchActionEdit.setText(ApplicationInstance.getActionSearchText());
+            }else searchActionEdit.setText("");
+        } else searchActionEdit.setText("");
+    }
+    private void setOrReloadCountriesText() {
+        if(ApplicationInstance.getCountriesFilter().size()>0) {
+            countryEntry.setText(new Apis().getSelectedCountriesAsText());
+            activateReset();
+        }
+        else countryEntry.setText("");
+    }
+
+    private void setOrReloadNetworkText() {
+        if(ApplicationInstance.getNetworksFilter().size()>0) {
+            networkEntry.setText(new Apis().getSelectedNetworksAsText());
+            activateReset();
+        }
+        else networkEntry.setText("");
+    }
+
+    private void setOrReloadDateRange() {
+        if(ApplicationInstance.getDateRange() != null) {
+            Pair<Long, Long> dateRange = ApplicationInstance.getDateRange();
+            datePickerView.setText(String.format(Locale.ENGLISH, "%s - %s", Utils.formatDateV2(dateRange.first), Utils.formatDateV3(dateRange.second)));
+            activateReset();
+        }
+        else datePickerView.setText(getResources().getString(R.string.from_account_creation_to_today));
+    }
+
+    private void setOrReloadCategoryText() {
+        if(ApplicationInstance.getCategoryFilter().size() > 0) {
+            categoryEntry.setText(new Apis().getSelectedCategoriesAsText());
+            activateReset();
+        }
+        else categoryEntry.setText("");
+    }
+
+    private void setOrReloadCheckboxes() {
+        status_success.setChecked(ApplicationInstance.isStatusSuccess());
+        status_pending.setChecked(ApplicationInstance.isStatusPending());
+        status_fail.setChecked(ApplicationInstance.isStatusFailed());
+        status_noTrans.setChecked(ApplicationInstance.isStatusNoTrans());
+        withParser.setChecked(ApplicationInstance.isWithParsers());
+        onlyWithSimPresent.setChecked(ApplicationInstance.isOnlyWithSimPresent());
+    }
+
+    private boolean hasLoaded() {
+        return loadingProgressBar.getVisibility() == View.GONE;
+    }
+
 }
