@@ -4,6 +4,8 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.hover.sdk.api.Hover;
+import com.hover.sdk.sims.SimInfo;
 import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.database.DatabaseCallsToHover;
 import com.usehover.testerv2.enums.StatusEnums;
@@ -17,7 +19,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FilterMethod {
+public class ActonFilterMethod {
     private List<ActionsModel> filteredActions(List<ActionsModel> f0, List<ActionsModel> f1, boolean visited) {
         //Where f0 is for filtered actions, and f1 for totalActions
         //If f0 size == 0 it means the previous stages weren't part of the filtering params.
@@ -44,7 +46,7 @@ public class FilterMethod {
         //onlyWithSimPresent : get the HNI of the two(or one) sim(s) available and search for hnis that matches.
 
 
-    //    Log.d("FILTER_THROUGH", "RESULT STARTED");
+        //    Log.d("FILTER_THROUGH", "RESULT STARTED");
         // STAGE 1: FILTER THROUGH COUNTRIES IF IT'S INCLUDED IN THE FILTERING PARAMETERS.
         // TIME COMPLEXITY: O(n)
         if(ApplicationInstance.getCountriesFilter().size() > 0) {
@@ -82,8 +84,8 @@ public class FilterMethod {
 
             filteredActionList = (List<ActionsModel>) Utils.removeDuplicatesFromList(newTempList);
             filterListAsBeenVisited = true;
-           Log.d("FILTER_THROUGH", "PASSED STAGE 2 WITH ITEMS COUNT: "+filteredActionList.size());
-           Log.d("FILTER_THROUGH", "PASSED STAGE 2 WITH ITEMS COUNT AGIN: "+filteredActionList.size());
+            Log.d("FILTER_THROUGH", "PASSED STAGE 2 WITH ITEMS COUNT: "+filteredActionList.size());
+            Log.d("FILTER_THROUGH", "PASSED STAGE 2 WITH ITEMS COUNT AGIN: "+filteredActionList.size());
         }
 
         if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
@@ -99,8 +101,8 @@ public class FilterMethod {
             }
             filteredActionList = newTempList;
             filterListAsBeenVisited = true;
-          Log.d("FILTER_THROUGH", "PASSED STAGE 3");
-            
+            Log.d("FILTER_THROUGH", "PASSED STAGE 3");
+
         }
 
         if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
@@ -116,7 +118,7 @@ public class FilterMethod {
                 }
                 filteredActionList = newTempList;
                 filterListAsBeenVisited = true;
-             Log.d("FILTER_THROUGH", "PASSED STAGE 4");
+                Log.d("FILTER_THROUGH", "PASSED STAGE 4");
 
             }
         }
@@ -153,7 +155,7 @@ public class FilterMethod {
             }
             filteredActionList = newTempList;
             filterListAsBeenVisited = true;
-           Log.d("FILTER_THROUGH", "PASSED STAGE 5");
+            Log.d("FILTER_THROUGH", "PASSED STAGE 5");
         }
 
         else if(ApplicationInstance.getDateRange() !=null || ApplicationInstance.getCategoryFilter().size() > 0
@@ -186,52 +188,52 @@ public class FilterMethod {
                 for(Iterator<TransactionModels> ts= shortListedTransactions.iterator(); ts.hasNext();) {
                     TransactionModels transaction = ts.next();
                     if (transaction.getDateTimeStamp() < startDate || transaction.getDateTimeStamp() > endDate) {
-                         ts.remove();
-                         shortListedTransactionActionId.remove(transaction.getActionId());
+                        ts.remove();
+                        shortListedTransactionActionId.remove(transaction.getActionId());
                     }
                 }
-               Log.d("FILTER_THROUGH", "PASSED STAGE 6");
+                Log.d("FILTER_THROUGH", "PASSED STAGE 6");
             }
 
-            
-                for (Iterator<TransactionModels> ts = shortListedTransactions.iterator(); ts.hasNext(); ) {
-                    // STAGE 7: FILTER THROUGH CATEGORIES, IF ITS IN THE PARAMETER
-                    TransactionModels transaction = ts.next();
-                    if (ApplicationInstance.getCategoryFilter().size() > 0) {
-                        if (!ApplicationInstance.getCategoryFilter().contains(transaction.getCategory())) {
-                            ts.remove();
-                            shortListedTransactionActionId.remove(transaction.getActionId());
-                        }
-                      Log.d("FILTER_THROUGH", "PASSED STAGE 7");
-                    }
 
-                    // STAGE 8: REMOVE ACTION ID IF IT WAS SUCCESSFUL
-                    if (!ApplicationInstance.isStatusSuccess()) {
-                        if (transaction.getStatusEnums() == StatusEnums.SUCCESS) {
-                            ts.remove();
-                            shortListedTransactionActionId.remove(transaction.getActionId());
-                        }
-                      Log.d("FILTER_THROUGH", "PASSED STAGE 8");
+            for (Iterator<TransactionModels> ts = shortListedTransactions.iterator(); ts.hasNext(); ) {
+                // STAGE 7: FILTER THROUGH CATEGORIES, IF ITS IN THE PARAMETER
+                TransactionModels transaction = ts.next();
+                if (ApplicationInstance.getCategoryFilter().size() > 0) {
+                    if (!ApplicationInstance.getCategoryFilter().contains(transaction.getCategory())) {
+                        ts.remove();
+                        shortListedTransactionActionId.remove(transaction.getActionId());
                     }
-
-                    //STAGE 9: REMOVE ACTION ID IF IT IS PENDING
-                    if (!ApplicationInstance.isStatusPending()) {
-                        if (transaction.getStatusEnums() == StatusEnums.PENDING) {
-                            ts.remove();
-                            shortListedTransactionActionId.remove(transaction.getActionId());
-                        }
-                       Log.d("FILTER_THROUGH", "PASSED STAGE 9");
-                    }
-
-                    //STAGE 9: REMOVE ACTION ID IF IT WAS UNSUCCESSFUL
-                    if (!ApplicationInstance.isStatusFailed()) {
-                        if (transaction.getStatusEnums() == StatusEnums.UNSUCCESSFUL) {
-                            ts.remove();
-                            shortListedTransactionActionId.remove(transaction.getActionId());
-                        }
-                     Log.d("FILTER_THROUGH", "PASSED STAGE 10");
-                    }
+                    Log.d("FILTER_THROUGH", "PASSED STAGE 7");
                 }
+
+                // STAGE 8: REMOVE ACTION ID IF IT WAS SUCCESSFUL
+                if (!ApplicationInstance.isStatusSuccess()) {
+                    if (transaction.getStatusEnums() == StatusEnums.SUCCESS) {
+                        ts.remove();
+                        shortListedTransactionActionId.remove(transaction.getActionId());
+                    }
+                    Log.d("FILTER_THROUGH", "PASSED STAGE 8");
+                }
+
+                //STAGE 9: REMOVE ACTION ID IF IT IS PENDING
+                if (!ApplicationInstance.isStatusPending()) {
+                    if (transaction.getStatusEnums() == StatusEnums.PENDING) {
+                        ts.remove();
+                        shortListedTransactionActionId.remove(transaction.getActionId());
+                    }
+                    Log.d("FILTER_THROUGH", "PASSED STAGE 9");
+                }
+
+                //STAGE 9: REMOVE ACTION ID IF IT WAS UNSUCCESSFUL
+                if (!ApplicationInstance.isStatusFailed()) {
+                    if (transaction.getStatusEnums() == StatusEnums.UNSUCCESSFUL) {
+                        ts.remove();
+                        shortListedTransactionActionId.remove(transaction.getActionId());
+                    }
+                    Log.d("FILTER_THROUGH", "PASSED STAGE 10");
+                }
+            }
 
 
 
@@ -240,28 +242,44 @@ public class FilterMethod {
             // NO NEED TO PUT (No trans in an if statement, since if it does not exists, it wont be part of the data anyway)
             // TIME COMPLEXITY: O(n)
 
-                List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
-                for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
-                    //If this action is not found in the filtered transaction data, remove it.
-                    ActionsModel model = md.next();
-                    if(!shortListedTransactionActionId.contains(model.getActionId())) {
-                        md.remove();
-                    }
+            List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
+            for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
+                //If this action is not found in the filtered transaction data, remove it.
+                ActionsModel model = md.next();
+                if(!shortListedTransactionActionId.contains(model.getActionId())) {
+                    md.remove();
                 }
-                filteredActionList = newTempList;
-                filterListAsBeenVisited = true;
-          Log.d("FILTER_THROUGH", "PASSED STAGE 11");
+            }
+            filteredActionList = newTempList;
+            filterListAsBeenVisited = true;
+            Log.d("FILTER_THROUGH", "PASSED STAGE 11");
+        }
+
+        if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
+
+        // STAGE 11: CHECK FOR ACTIONS WITH THAT HAS PRESENT HNIS : IF PARAMETERS EXISTS
+        // TIME COMPLEXITY: O(n²)
+        if(ApplicationInstance.isOnlyWithSimPresent()) {
+            List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
+            for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
+                ActionsModel model = md.next();
+                if(!Hover.isActionSimPresent(model.getActionId(), ApplicationInstance.getContext())) {
+                    md.remove();
+                }
+            }
+            filteredActionList = newTempList;
+            filterListAsBeenVisited = true;
         }
 
 
         if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
         if(filterListAsBeenVisited) {
-          Log.d("FILTER_THROUGH", "FILTER HAS "+filteredActionList.size());
+            Log.d("FILTER_THROUGH", "FILTER HAS "+filteredActionList.size());
             ApplicationInstance.setResultFilter_Actions(filteredActionList);
             return filteredActionList;
         }
         else {
-          Log.d("FILTER_THROUGH", "RESULT HAS DEFAULT "+actionsModelList.size());
+            Log.d("FILTER_THROUGH", "RESULT HAS DEFAULT "+actionsModelList.size());
             return actionsModelList;
         }
 
@@ -270,7 +288,5 @@ public class FilterMethod {
         if(value == null) return 0;
         else return value;
     }
-    public void startFilterTransaction(List<ActionsModel> actionsModelList, List<TransactionModels> transactionModelList) {
-    //Search searches by id, or text from the session
-    }
+
 }

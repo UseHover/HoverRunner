@@ -1,7 +1,5 @@
 package com.usehover.testerv2.api;
 
-import android.os.Build;
-
 import androidx.core.util.Pair;
 
 import com.hover.sdk.api.Hover;
@@ -27,9 +25,7 @@ import com.usehover.testerv2.models.WithSubtitleFilterInfoModel;
 import com.usehover.testerv2.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Apis {
 	public final static int PROD_ENV = 0, DEBUG_ENV = 1, TEST_ENV = 2;
@@ -395,7 +391,7 @@ public class Apis {
 
 
 	public FullActionResult filterThroughActions(List<ActionsModel> actionsModels, List<TransactionModels> transactionModels) {
-		List<ActionsModel> list = new FilterMethod().startFilterAction(actionsModels, transactionModels);
+		List<ActionsModel> list = new ActonFilterMethod().startFilterAction(actionsModels, transactionModels);
 		if(list.size() > 0)
 			return new FullActionResult(StatusEnums.HAS_DATA, list);
 		else return new FullActionResult(StatusEnums.EMPTY, list);

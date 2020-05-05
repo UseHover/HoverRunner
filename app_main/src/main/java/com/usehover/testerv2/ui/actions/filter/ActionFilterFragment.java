@@ -168,13 +168,10 @@ public class ActionFilterFragment extends Fragment {
                 reloadAllMajorViews();
                 ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
                 ApplicationInstance.setResultFilter_Actions_LOAD(new ArrayList<>());
+                deactivateReset();
 
                 UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.reset_successful));
-                new Handler().postDelayed(() -> {
-                    resetText.setTextColor(getResources().getColor(R.color.colorMainGrey));
-                    resetActivated = false;
-
-                }, 1500);
+                new Handler().postDelayed(this::deactivateReset, 800);
             }
         });
 
@@ -192,6 +189,7 @@ public class ActionFilterFragment extends Fragment {
             Pair<Long, Long> datePairs = (Pair<Long, Long>) selection;
             ApplicationInstance.setDateRange(datePairs);
             setOrReloadDateRange();
+            filterThroughActions();
 
         });
 
@@ -202,6 +200,7 @@ public class ActionFilterFragment extends Fragment {
         return view;
     }
 
+
     private void filterThroughActions() {
         if(filterDataFullModel == null) onCreate(null);
         else {
@@ -209,6 +208,10 @@ public class ActionFilterFragment extends Fragment {
         }
     }
 
+    private void deactivateReset() {
+        resetText.setTextColor(getResources().getColor(R.color.colorMainGrey));
+        resetActivated = false;
+    }
     private void activateReset() {
         if(!Apis.actionFilterIsInNormalState()) {
             resetText.setTextColor(getResources().getColor(R.color.colorHoverWhite));

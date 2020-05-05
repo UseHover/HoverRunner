@@ -18,7 +18,6 @@ import com.usehover.testerv2.models.ActionVariablesDBModel;
 import com.usehover.testerv2.models.ActionsModel;
 import com.usehover.testerv2.models.RawStepsModel;
 import com.usehover.testerv2.models.StreamlinedStepsModel;
-import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +34,7 @@ import java.util.stream.Collectors;
 public class Utils {
 
     public final static String TESTER_VERSION = "1.0 (1)";
-    public final static String HOVER_TRANSAC_FAILED = "failed";
+    private final static String HOVER_TRANSAC_FAILED = "failed";
     public final static String HOVER_TRANSAC_PENDING = "pending";
     public final static String HOVER_TRANSAC_SUCCEEDED = "succeeded";
     private static final String SHARED_PREFS = "_testerV2";
