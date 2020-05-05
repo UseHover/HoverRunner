@@ -36,6 +36,7 @@
 				android:textStyle="bold"
 				android:layout_gravity="center"
 				android:gravity="center"
+				android:paddingVertical="6dp"
 				android:paddingHorizontal="@dimen/activity_vertical_margin"
 				android:id="@+id/transactionFilter_id"
 				android:text="@string/filter_text"/>
