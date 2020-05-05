@@ -50,16 +50,26 @@
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:paddingHorizontal="@dimen/activity_vertical_margin"
+                    android:paddingStart="@dimen/activity_vertical_margin"
+                    android:paddingEnd="0dp"
+                    android:paddingVertical="6dp"
                     android:id="@+id/reset_id"
                     android:text="@string/reset"/>
         </LinearLayout>
         <ProgressBar
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                android:id="@+id/filter_action_progressBar"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:id="@+id/filter_progressBar"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/entry_filter_view"
+                android:visibility="gone"
+            android:orientation="vertical">
+
 
     <TextView
             android:layout_width="wrap_content"
@@ -183,7 +193,6 @@
                 android:textAllCaps="false"
                 android:id="@+id/networkEntryId"
                 android:autofillHints="@string/search_hint"
-                android:inputType="date"
                 android:textColor="@color/colorHoverWhite"
                 android:background="@drawable/edit_text_bg"/>
 
@@ -329,6 +338,7 @@
 
 
     </LinearLayout>
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
     <TextView
@@ -341,5 +351,6 @@
             android:textSize="@dimen/text_16"
             android:textColor="@color/colorPrimaryDark"
             android:id="@+id/showActions_id"
-            android:text="Show 9 actions"/>
+            android:text="@string/loadingText"
+            />
 </LinearLayout>

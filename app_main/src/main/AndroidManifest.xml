@@ -36,6 +36,7 @@
         <activity android:name=".ui.filter_pages.FilterByCountries" />
 		<activity android:name=".ui.filter_pages.FilterByNetworks" />
 		<activity android:name=".ui.filter_pages.FilterByCategories" />
-	</application>
+        <activity android:name=".ui.filter_pages.FilterByActions" />
+    </application>
 
 </manifest>

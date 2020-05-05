@@ -4,7 +4,7 @@ import com.usehover.testerv2.enums.StatusEnums;
 
 public class TransactionModels {
     private String transaction_id, date, caption, actionId, category;
-    private long idOnDb;
+    private long idOnDb, dateTimeStamp;
     private StatusEnums statusEnums;
 
 
@@ -38,6 +38,34 @@ public class TransactionModels {
 
     public String getActionId() {
         return actionId;
+    }
+
+    public void setTransaction_id(String transaction_id) {
+        this.transaction_id = transaction_id;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
+    public void setIdOnDb(long idOnDb) {
+        this.idOnDb = idOnDb;
+    }
+
+    public long getDateTimeStamp() {
+        return dateTimeStamp;
+    }
+
+    public void setDateTimeStamp(long dateTimeStamp) {
+        this.dateTimeStamp = dateTimeStamp;
+    }
+
+    public void setStatusEnums(StatusEnums statusEnums) {
+        this.statusEnums = statusEnums;
     }
 
     public void setActionId(String actionId) {

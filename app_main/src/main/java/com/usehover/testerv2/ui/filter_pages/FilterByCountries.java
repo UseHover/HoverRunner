@@ -21,7 +21,7 @@ public class FilterByCountries extends AppCompatActivity implements CustomOnClic
     private ArrayList<String> selectedCountries = new ArrayList<>();
     private final String COLUMN_COUNTRY = "country_alpha2";
     private boolean saveStateChanged = false;
-    TextView saveText;
+    private TextView saveText;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,18 +38,10 @@ public class FilterByCountries extends AppCompatActivity implements CustomOnClic
         findViewById(R.id.country_title).setOnClickListener(v-> finish());
         saveText = findViewById(R.id.filter_save_id);
         saveText.setOnClickListener(v->{
-           /* StringBuilder args = new StringBuilder();
-
-            for(int i=0; i<selectedCountries.size(); i++) {
-                if(i==0) {
-                    args = new StringBuilder(COLUMN_COUNTRY + " = '" + selectedCountries.get(i) + "'");
-                }
-                else args.append(" OR ").append(COLUMN_COUNTRY).append(" = '").append(selectedCountries.get(i)).append("'");
-            }
-
-            */
-           if(saveStateChanged) {
-            ApplicationInstance.setCountriesFilter(selectedCountries);
+            if(saveStateChanged) {
+            int filterType = getIntent().getExtras().getInt("filter_type", 0);
+            if(filterType == 0) ApplicationInstance.setCountriesFilter(selectedCountries);
+            else ApplicationInstance.setTransactionCountriesFilter(selectedCountries);
             finish();
            }
 
@@ -57,6 +49,7 @@ public class FilterByCountries extends AppCompatActivity implements CustomOnClic
 
         RecyclerView itemsRecyclerView = findViewById(R.id.filter_recyclerView);
         itemsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(this));
+        itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setAdapter(new FilterSingleItemRecyclerAdapter(countryList, this));
 
 

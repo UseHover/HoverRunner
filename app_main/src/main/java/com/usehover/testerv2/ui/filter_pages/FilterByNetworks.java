@@ -52,7 +52,9 @@ public class FilterByNetworks extends AppCompatActivity implements CustomOnClick
         saveText = findViewById(R.id.filter_save_id);
         saveText.setOnClickListener(v->{
             if(saveStateChanged) {
-                ApplicationInstance.setNetworksFilter(selectedNetworks);
+                int filterType = getIntent().getExtras().getInt("filter_type", 0);
+                if(filterType == 0) ApplicationInstance.setNetworksFilter(selectedNetworks);
+                else ApplicationInstance.setTransactionNetworksFilter(selectedNetworks);
                 finish();
             }
         });
@@ -65,6 +67,8 @@ public class FilterByNetworks extends AppCompatActivity implements CustomOnClick
 
         networksInCountryRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(this));
         networksInOtherCountryRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(this));
+        networksInCountryRecyclerView.setHasFixedSize(true);
+        networksInOtherCountryRecyclerView.setHasFixedSize(true);
 
 
         int countryListSize = ApplicationInstance.getCountriesFilter().size();

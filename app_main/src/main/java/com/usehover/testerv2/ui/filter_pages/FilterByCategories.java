@@ -20,9 +20,8 @@ public class FilterByCategories extends AppCompatActivity implements CustomOnCli
     private ArrayList<SingleFilterInfoModel> categoryList = new ArrayList<>();
     private ArrayList<String> selectedCategories = new ArrayList<>();
     boolean saveStateChanged = false;
-    private final String COLUMN_COUNTRY = "category_alpha2";
+    private TextView saveText;
 
-    TextView saveText;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +56,7 @@ public class FilterByCategories extends AppCompatActivity implements CustomOnCli
 
         RecyclerView itemsRecyclerView = findViewById(R.id.filter_recyclerView);
         itemsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(this));
+        itemsRecyclerView.setHasFixedSize(true);
         itemsRecyclerView.setAdapter(new FilterSingleItemRecyclerAdapter(categoryList, this));
 
 

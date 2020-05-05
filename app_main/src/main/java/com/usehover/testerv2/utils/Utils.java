@@ -2,6 +2,7 @@ package com.usehover.testerv2.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -25,9 +26,11 @@ import org.json.JSONException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Utils {
 
@@ -216,6 +219,16 @@ public class Utils {
     public static String nullToString(Object value) {
         if(value == null) return  "None";
         else return value.toString();
+    }
+
+    public static List<?> removeDuplicatesFromList(List<?> list) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            list = list.stream().distinct().collect(Collectors.toList());
+        } else {
+            LinkedHashSet<Object> hashSet = new LinkedHashSet<>(list);
+            list = new ArrayList<>(hashSet);
+        }
+        return list;
     }
 
 }

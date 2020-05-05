@@ -7,7 +7,7 @@ import com.usehover.testerv2.enums.StatusEnums;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterActionsFullModel {
+public class FilterDataFullModel {
     private StatusEnums actionEnum;
     private List<ActionsModel> actionsModelList;
     private List<TransactionModels> transactionModelsList;

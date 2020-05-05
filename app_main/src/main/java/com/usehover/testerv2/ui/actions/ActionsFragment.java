@@ -166,10 +166,13 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         actionsViewModel.getText().observe(getViewLifecycleOwner(), filterStatus-> {
             switch (filterStatus) {
 
-                case FILTER_OFF: filterText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
+                case FILTER_OFF:
+                    filterText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
+                    filterText.setCompoundDrawablesWithIntrinsicBounds(0, 0,0,0);
                     break;
 
-                case FILTER_ON: filterText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                case FILTER_ON:
+                    filterText.setTextColor(getResources().getColor(R.color.colorPrimary));
                     filterText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dot_purple_24dp, 0,0,0);
                     filterText.setCompoundDrawablePadding(8);
                     break;
@@ -224,16 +227,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == FILTER_RESULT) {
-            if (resultCode == Activity.RESULT_OK) {
-                String newText = data.getStringExtra("idn");
-                assert newText != null;
-                if (newText.equals("enteredTextValue")) {
-                    actionsViewModel.setFilterOn();
-                }
-            }
-        }
-        else if (requestCode == TEST_ALL_RESULT) {
+        if (requestCode == TEST_ALL_RESULT) {
             if(actionRunCounter  < withCompletedVariableActionList.size()) {
                 runAction(false);
                 actionRunCounter = actionRunCounter + 1;

@@ -6,10 +6,13 @@ import android.content.Context;
 
 import androidx.core.util.Pair;
 
+import com.usehover.testerv2.models.ActionsModel;
+import com.usehover.testerv2.models.TransactionModels;
 import com.usehover.testerv2.utils.fonts.FontReplacer;
 import com.usehover.testerv2.utils.fonts.Replacer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ApplicationInstance extends Application {
@@ -30,6 +33,21 @@ public class ApplicationInstance extends Application {
 	private static boolean onlyWithSimPresent;
 
 	//For transactionFilters
+	private static ArrayList<String> transactionCountriesFilter;
+	private static ArrayList<String> transactionNetworksFilter;
+	private static ArrayList<String> transactionActionsSelectedFilter;
+	private static Pair<Long, Long> transactionDateRange;
+	private static String transactionSearchText;
+	private static boolean transactionStatusSuccess;
+	private static boolean transactionStatusPending;
+	private static boolean transactionStatusFailed;
+
+	//Action filter result;
+	private static List<ActionsModel> resultFilter_Actions;
+	private static List<ActionsModel> resultFilter_Actions_LOAD;
+	private static List<TransactionModels> resultFilter_Transactions;
+	private static List<TransactionModels> resultFilter_Transactions_LOAD;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -42,6 +60,14 @@ public class ApplicationInstance extends Application {
 		replacer.applyFont();
 		context = this;
 
+		transactionActionsSelectedFilter = new ArrayList<>();
+		transactionNetworksFilter = new ArrayList<>();
+		transactionCountriesFilter = new ArrayList<>();
+		transactionSearchText = "";
+		transactionStatusSuccess = true;
+		transactionStatusPending = true;
+		transactionStatusFailed = true;
+
 		countriesFilter = new ArrayList<>();
 		networksFilter = new ArrayList<>();
 		categoryFilter = new ArrayList<>();
@@ -52,6 +78,11 @@ public class ApplicationInstance extends Application {
 		statusSuccess = true;
 		withParsers = false;
 		onlyWithSimPresent = false;
+
+		resultFilter_Actions = new ArrayList<>();
+		resultFilter_Actions_LOAD = new ArrayList<>();
+		resultFilter_Transactions = new ArrayList<>();
+		resultFilter_Transactions_LOAD = new ArrayList<>();
 	}
 
 	public static boolean isStatusSuccess() {
@@ -140,6 +171,102 @@ public class ApplicationInstance extends Application {
 
 	public static void setCategoryFilter(ArrayList<String> categoryFilter) {
 		ApplicationInstance.categoryFilter = categoryFilter;
+	}
+
+	public static ArrayList<String> getTransactionCountriesFilter() {
+		return transactionCountriesFilter;
+	}
+
+	public static void setTransactionCountriesFilter(ArrayList<String> transactionCountriesFilter) {
+		ApplicationInstance.transactionCountriesFilter = transactionCountriesFilter;
+	}
+
+	public static ArrayList<String> getTransactionNetworksFilter() {
+		return transactionNetworksFilter;
+	}
+
+	public static void setTransactionNetworksFilter(ArrayList<String> transactionNetworksFilter) {
+		ApplicationInstance.transactionNetworksFilter = transactionNetworksFilter;
+	}
+
+	public static ArrayList<String> getTransactionActionsSelectedFilter() {
+		return transactionActionsSelectedFilter;
+	}
+
+	public static void setTransactionActionsSelectedFilter(ArrayList<String> transactionActionsSelectedFilter) {
+		ApplicationInstance.transactionActionsSelectedFilter = transactionActionsSelectedFilter;
+	}
+
+	public static Pair<Long, Long> getTransactionDateRange() {
+		return transactionDateRange;
+	}
+
+	public static void setTransactionDateRange(Pair<Long, Long> transactionDateRange) {
+		ApplicationInstance.transactionDateRange = transactionDateRange;
+	}
+
+	public static String getTransactionSearchText() {
+		return transactionSearchText;
+	}
+
+	public static void setTransactionSearchText(String transactionSearchText) {
+		ApplicationInstance.transactionSearchText = transactionSearchText;
+	}
+
+	public static boolean isTransactionStatusSuccess() {
+		return transactionStatusSuccess;
+	}
+
+	public static void setTransactionStatusSuccess(boolean transactionStatusSuccess) {
+		ApplicationInstance.transactionStatusSuccess = transactionStatusSuccess;
+	}
+
+	public static boolean isTransactionStatusPending() {
+		return transactionStatusPending;
+	}
+
+	public static void setTransactionStatusPending(boolean transactionStatusPending) {
+		ApplicationInstance.transactionStatusPending = transactionStatusPending;
+	}
+
+	public static boolean isTransactionStatusFailed() {
+		return transactionStatusFailed;
+	}
+
+	public static void setTransactionStatusFailed(boolean transactionStatusFailed) {
+		ApplicationInstance.transactionStatusFailed = transactionStatusFailed;
+	}
+
+	public static List<ActionsModel> getResultFilter_Actions() {
+		return resultFilter_Actions;
+	}
+
+	public static void setResultFilter_Actions(List<ActionsModel> resultFilter_Actions) {
+		ApplicationInstance.resultFilter_Actions = resultFilter_Actions;
+	}
+
+	public static List<ActionsModel> getResultFilter_Actions_LOAD() {
+		return resultFilter_Actions_LOAD;
+	}
+
+	public static void setResultFilter_Actions_LOAD(List<ActionsModel> resultFilter_Actions_LOAD) {
+		ApplicationInstance.resultFilter_Actions_LOAD = resultFilter_Actions_LOAD;
+	}
+
+	public static List<TransactionModels> getResultFilter_Transactions() {
+		return resultFilter_Transactions;
+	}
+
+	public static void setResultFilter_Transactions(List<TransactionModels> resultFilter_Transactions) {
+		ApplicationInstance.resultFilter_Transactions = resultFilter_Transactions;
+	}
+
+	public static List<TransactionModels> getResultFilter_Transactions_LOAD() {
+		return resultFilter_Transactions_LOAD;
+	}
+
+	public static void setResultFilter_Transactions_LOAD(List<TransactionModels> resultFilter_Transactions_LOAD) {
+		ApplicationInstance.resultFilter_Transactions_LOAD = resultFilter_Transactions_LOAD;
 	}
 
 	public static Context getContext() {

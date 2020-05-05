@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.FullActionResult;
 import com.usehover.testerv2.enums.HomeEnums;
+import com.usehover.testerv2.models.FullTransactionResult;
 
 public class ActionsViewModel extends ViewModel {
 
@@ -30,5 +32,14 @@ public class ActionsViewModel extends ViewModel {
     void setFilterOn() {
         filterStatus.postValue(HomeEnums.FILTER_ON);
     }
-    void getAllActions() { homeActions.postValue(new Apis().doGetAllActionsWorkManager(false)); }
+    void getAllActions() {
+        if(ApplicationInstance.getResultFilter_Actions_LOAD().size() == 0) {
+            filterStatus.postValue(HomeEnums.FILTER_OFF);
+            homeActions.postValue(new Apis().doGetAllActionsWorkManager(false));
+            }
+        else {
+            filterStatus.postValue(HomeEnums.FILTER_ON);
+            homeActions.postValue(new FullActionResult(StatusEnums.HAS_DATA, ApplicationInstance.getResultFilter_Actions_LOAD()));
+        }
+    }
 }

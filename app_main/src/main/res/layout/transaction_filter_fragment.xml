@@ -51,9 +51,16 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:paddingHorizontal="@dimen/activity_vertical_margin"
+                        android:paddingVertical="6dp"
                         android:id="@+id/reset_id"
                         android:text="@string/reset"/>
             </LinearLayout>
+            <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:id="@+id/filter_progressBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -74,7 +81,7 @@
                     android:paddingRight="@dimen/editText_box_margin_horiz"
                     android:paddingTop="@dimen/editText_box_margin_vert"
                     android:paddingBottom="@dimen/editText_box_margin_vert"
-                    android:hint="@string/search_hint"
+                    android:hint="@string/search_hint_transaction"
                     android:textColorHint="@color/colorTextHint"
                     android:layout_marginTop="8dp"
                     android:maxLines="1"
@@ -82,7 +89,7 @@
                     android:drawablePadding="8dp"
                     android:textAllCaps="false"
                     android:id="@+id/searchEditId"
-                    android:autofillHints="@string/search_hint"
+                    android:autofillHints="@string/search_hint_transaction"
                     android:inputType="textPersonName"
                     android:textColor="@color/colorHoverWhite"
                     android:background="@drawable/edit_text_bg"/>
@@ -113,8 +120,8 @@
                     android:maxLines="1"
                     android:textSize="@dimen/text_16"
                     android:textAllCaps="false"
-                    android:id="@+id/actionsSelectEditId"
-                    android:autofillHints="@string/search_hint"
+                    android:id="@+id/actionsSelectEntryId"
+                    android:autofillHints="@string/search_hint_transaction"
                     android:textColor="@color/colorHoverWhite"
                     android:background="@drawable/edit_text_bg"/>
 
@@ -146,8 +153,8 @@
                     android:maxLines="1"
                     android:textSize="@dimen/text_16"
                     android:textAllCaps="false"
-                    android:id="@+id/dateRangeEditId"
-                    android:autofillHints="@string/search_hint"
+                    android:id="@+id/dateRangeEntryId"
+                    android:autofillHints="@string/search_hint_transaction"
                     android:textColor="@color/colorHoverWhite"
                     android:background="@drawable/edit_text_bg"/>
 
@@ -176,8 +183,8 @@
                     android:layout_marginTop="8dp"
                     android:maxLines="1"
                     android:textAllCaps="false"
-                    android:id="@+id/countryEditId"
-                    android:autofillHints="@string/search_hint"
+                    android:id="@+id/countryEntryId"
+                    android:autofillHints="@string/search_hint_transaction"
                     android:textSize="@dimen/text_16"
                     android:textColor="@color/colorHoverWhite"
                     android:background="@drawable/edit_text_bg"/>
@@ -207,8 +214,8 @@
                     android:layout_marginTop="8dp"
                     android:maxLines="1"
                     android:textAllCaps="false"
-                    android:id="@+id/networkEditId"
-                    android:autofillHints="@string/search_hint"
+                    android:id="@+id/networkEntryId"
+                    android:autofillHints="@string/search_hint_transaction"
                     android:textSize="@dimen/text_16"
                     android:textColor="@color/colorHoverWhite"
                     android:background="@drawable/edit_text_bg"/>

@@ -69,7 +69,7 @@ public class DatabaseCallsToHover {
                     Utils.formatDate(transaction.updatedTimestamp),
                     lastUSSDMessage,
                     Utils.getStatusByString(transaction.status));
-
+            transactionModels.setDateTimeStamp(transaction.updatedTimestamp);
             transactionModels.setActionId(transaction.actionId);
             transactionModels.setCategory(transaction.category);
             transactionModelsList.add(transactionModels);
@@ -78,6 +78,9 @@ public class DatabaseCallsToHover {
         return transactionModelsList;
     }
 
+    public boolean doesActionHasParsers(String actionId) {
+        return Hover.getParsersByActionId(ApplicationInstance.getContext(), actionId).size() > 0;
+    }
     public ActionDetailsModels getActionDetailsById(String actionId) {
         //Putting into try and catch to prevent Runtime errors.
         try {
@@ -277,5 +280,9 @@ public class DatabaseCallsToHover {
 
         }
         return transactionModelsList;
+    }
+
+    public void filterTransactionFromHover() {
+
     }
 }
