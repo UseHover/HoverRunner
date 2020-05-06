@@ -52,91 +52,56 @@ class ActonFilterMethod {
         if(ApplicationInstance.getCountriesFilter().size() > 0 || ApplicationInstance.getNetworksFilter().size() > 0 ||
                 ApplicationInstance.isWithParsers() || ApplicationInstance.getActionSearchText() !=null) {
 
-            for(ActionsModel model: actionsModelList) {
+            for(Iterator<ActionsModel> md= actionsModelList.iterator(); md.hasNext();) {
+                ActionsModel model = md.next();
+
+                // STAGE 1: FILTER THROUGH COUNTRIES IF IT'S INCLUDED IN THE FILTERING PARAMETERS.
                 if(ApplicationInstance.getCountriesFilter().size() > 0) {
                     StringBuilder concatenatedSelectedCountries = new StringBuilder();
                     for(String countryCode : ApplicationInstance.getCountriesFilter()) {
                         concatenatedSelectedCountries = concatenatedSelectedCountries.append(concatenatedSelectedCountries).append(countryCode);
                     }
                     String allSelectedCountries = concatenatedSelectedCountries.toString();
-                    if(allSelectedCountries.contains(model.getCountry())) {
-                        filteredActionList.add(model);
+                    if(!allSelectedCountries.contains(model.getCountry())) {
+                       md.remove();
                 }
 
                 }
-            }
-        }
 
-        if(ApplicationInstance.getCountriesFilter().size() > 0) {
-            StringBuilder concatenatedSelectedCountries = new StringBuilder();
-            for(String countryCode : ApplicationInstance.getCountriesFilter()) {
-                concatenatedSelectedCountries = concatenatedSelectedCountries.append(concatenatedSelectedCountries).append(countryCode);
-            }
-            String allSelectedCountries = concatenatedSelectedCountries.toString();
-            Log.d("FILTER THROUGH", "COUNTRIES CONCAT: "+allSelectedCountries);
-            for(ActionsModel model: actionsModelList) {
-                if(allSelectedCountries.contains(model.getCountry())) {
-                    filteredActionList.add(model);
-                }
-            }
-            filterListAsBeenVisited = true;
-            //Log.d("FILTER_THROUGH", "PASSED STAGE 1 WITH SIZE: "+filteredActionList.size());
-        }
+                // STAGE 2: FILTER THROUGH NETWORKS IF IT'S INCLUDED IN THE FILTERING PARAMETERS.
+                if(ApplicationInstance.getNetworksFilter().size() > 0) {
+                    String[] networkNames = new Apis().convertNetworkNamesToStringArray(model.getNetwork_name());
+                    boolean toRemove = true;
+                    for(String network: networkNames) {
+                        if (ApplicationInstance.getNetworksFilter().contains(network)) {
+                            toRemove = false;
+                            break;
+                        }
+                    }
 
-        if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
-        // STAGE 2: FILTER THROUGH NETWORKS IF IT'S INCLUDED IN THE FILTERING PARAMETERS.
-        // TIME COMPLEXITY: O(n²)
-        if(ApplicationInstance.getNetworksFilter().size() > 0) {
-            List<ActionsModel> newTempList = new ArrayList<>();
-            for(ActionsModel model : filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited)) {
-                String[] networkNames = new Apis().convertNetworkNamesToStringArray(model.getNetwork_name());
-                for(String network: networkNames) {
-                    if(ApplicationInstance.getNetworksFilter().contains(network)) {
-                        newTempList.add(model);
+                    if(toRemove) {
+                        md.remove();
                     }
                 }
-            }
 
-            //Remove duplicates in newTempList should they occur;
+                // STAGE 3: FILTER THROUGH PARSERS, IF ITS SELECTED IN THE PARAMETER
+                if(ApplicationInstance.isWithParsers()) {
+                    if(!new DatabaseCallsToHover().doesActionHasParsers(model.getActionId()))
+                        md.remove();
+                }
 
-
-            filteredActionList = (List<ActionsModel>) Utils.removeDuplicatesFromList(newTempList);
-            filterListAsBeenVisited = true;
-        }
-
-        if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
-        // STAGE 3: FILTER THROUGH PARSERS, IF ITS SELECTED IN THE PARAMETER
-        // TIME COMPLEXITY: Seems to be 0(n), but it's actually O(n²). Because:
-        // Although there is only for loop, the inner method calls a MYSQL select which is a form of for loop.
-        // Default value is unchecked, therefore if isWithParsers, then it's been added into the parameter.
-        if(ApplicationInstance.isWithParsers()) {
-            ArrayList<ActionsModel> newTempList = new ArrayList<>();
-            for(ActionsModel model: filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited)) {
-                if(new DatabaseCallsToHover().doesActionHasParsers(model.getActionId()))
-                    newTempList.add(model);
-            }
-            filteredActionList = newTempList;
-            filterListAsBeenVisited = true;
-            Log.d("FILTER_THROUGH", "PASSED STAGE 3");
-
-        }
-
-        if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
-        // STAGE 4: SEARCH FOR ENTERED VALUE, IN ACTION ID, NAME AND ROOTCODE : IF SEARCH IS PROVIDED
-        // TIME COMPLEXITY: O(n²)
-        if(ApplicationInstance.getActionSearchText() !=null) {
-            if(TextUtils.getTrimmedLength(ApplicationInstance.getActionSearchText()) > 0) {
-                ArrayList<ActionsModel> newTempList = new ArrayList<>();
-                for(ActionsModel model: filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited)) {
-                    if(model.getActionTitle().contains(ApplicationInstance.getActionSearchText())) {
-                        newTempList.add(model);
+                // STAGE 4: SEARCH FOR ENTERED VALUE, IN ACTION ID, NAME AND ROOTCODE : IF SEARCH IS PROVIDED
+                if(ApplicationInstance.getActionSearchText() !=null) {
+                    if(TextUtils.getTrimmedLength(ApplicationInstance.getActionSearchText()) > 0) {
+                        if(!model.getActionTitle().contains(ApplicationInstance.getActionSearchText())) {
+                            md.remove();
+                        }
                     }
                 }
-                filteredActionList = newTempList;
-                filterListAsBeenVisited = true;
-                Log.d("FILTER_THROUGH", "PASSED STAGE 4");
 
             }
+            filteredActionList = actionsModelList;
+            filterListAsBeenVisited = true;
         }
 
         // STAGE 5: FILTER THROUGH TRANSACTION DATA.

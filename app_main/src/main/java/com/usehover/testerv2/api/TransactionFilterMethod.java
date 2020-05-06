@@ -56,7 +56,7 @@ public class TransactionFilterMethod {
                     if(ApplicationInstance.getTransactionDateRange() != null) {
                         long startDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().first);
                         long endDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().second);
-                        if (model.getDateTimeStamp() >= startDate && model.getDateTimeStamp() <= endDate) {
+                        if (model.getDateTimeStamp() < startDate && model.getDateTimeStamp() > endDate) {
                             md.remove();
                         }
                     }
