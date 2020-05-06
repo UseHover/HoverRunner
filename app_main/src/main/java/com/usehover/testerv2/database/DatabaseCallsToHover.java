@@ -73,7 +73,6 @@ public class DatabaseCallsToHover {
             transactionModels.setActionId(transaction.actionId);
             transactionModels.setCategory(transaction.category);
             transactionModelsList.add(transactionModels);
-
         }
         return transactionModelsList;
     }

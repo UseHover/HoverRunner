@@ -21,6 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverParameters;
+import com.hover.sdk.sims.SimInfo;
 import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.Fakesdk;
 import com.usehover.testerv2.R;
@@ -165,7 +166,6 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     private void setupViews() {
         actionsViewModel.getText().observe(getViewLifecycleOwner(), filterStatus-> {
             switch (filterStatus) {
-
                 case FILTER_OFF:
                     filterText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
                     filterText.setCompoundDrawablesWithIntrinsicBounds(0, 0,0,0);

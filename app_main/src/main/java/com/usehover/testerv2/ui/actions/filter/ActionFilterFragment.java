@@ -71,6 +71,7 @@ public class ActionFilterFragment extends Fragment {
         status_noTrans = view.findViewById(R.id.checkbox_no_transaction);
         withParser = view.findViewById(R.id.checkbox_parsers);
         onlyWithSimPresent = view.findViewById(R.id.checkbox_sim);
+        datePickerView = view.findViewById(R.id.dateRangeEditId);
 
         toolText.setOnClickListener(v -> { if(getActivity() !=null)getActivity().finish(); });
         loadingProgressBar.setVisibility(View.VISIBLE);
@@ -175,7 +176,7 @@ public class ActionFilterFragment extends Fragment {
             }
         });
 
-        datePickerView = view.findViewById(R.id.dateRangeEditId);
+
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
         builder.setCalendarConstraints(constraintsBuilder.build());

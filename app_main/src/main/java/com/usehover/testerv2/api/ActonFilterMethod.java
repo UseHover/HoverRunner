@@ -19,7 +19,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ActonFilterMethod {
+class ActonFilterMethod {
     private List<ActionsModel> filteredActions(List<ActionsModel> f0, List<ActionsModel> f1, boolean visited) {
         //Where f0 is for filtered actions, and f1 for totalActions
         //If f0 size == 0 it means the previous stages weren't part of the filtering params.
@@ -46,9 +46,27 @@ public class ActonFilterMethod {
         //onlyWithSimPresent : get the HNI of the two(or one) sim(s) available and search for hnis that matches.
 
 
-        //    Log.d("FILTER_THROUGH", "RESULT STARTED");
         // STAGE 1: FILTER THROUGH COUNTRIES IF IT'S INCLUDED IN THE FILTERING PARAMETERS.
         // TIME COMPLEXITY: O(n)
+
+        if(ApplicationInstance.getCountriesFilter().size() > 0 || ApplicationInstance.getNetworksFilter().size() > 0 ||
+                ApplicationInstance.isWithParsers() || ApplicationInstance.getActionSearchText() !=null) {
+
+            for(ActionsModel model: actionsModelList) {
+                if(ApplicationInstance.getCountriesFilter().size() > 0) {
+                    StringBuilder concatenatedSelectedCountries = new StringBuilder();
+                    for(String countryCode : ApplicationInstance.getCountriesFilter()) {
+                        concatenatedSelectedCountries = concatenatedSelectedCountries.append(concatenatedSelectedCountries).append(countryCode);
+                    }
+                    String allSelectedCountries = concatenatedSelectedCountries.toString();
+                    if(allSelectedCountries.contains(model.getCountry())) {
+                        filteredActionList.add(model);
+                }
+
+                }
+            }
+        }
+
         if(ApplicationInstance.getCountriesFilter().size() > 0) {
             StringBuilder concatenatedSelectedCountries = new StringBuilder();
             for(String countryCode : ApplicationInstance.getCountriesFilter()) {
@@ -84,8 +102,6 @@ public class ActonFilterMethod {
 
             filteredActionList = (List<ActionsModel>) Utils.removeDuplicatesFromList(newTempList);
             filterListAsBeenVisited = true;
-            Log.d("FILTER_THROUGH", "PASSED STAGE 2 WITH ITEMS COUNT: "+filteredActionList.size());
-            Log.d("FILTER_THROUGH", "PASSED STAGE 2 WITH ITEMS COUNT AGIN: "+filteredActionList.size());
         }
 
         if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
@@ -183,8 +199,8 @@ public class ActonFilterMethod {
             // STAGE 6: FILTER FOR DATE RANGE
             // TIME COMPLEXITY: 0(n)
             if (ApplicationInstance.getDateRange() !=null) {
-                long startDate = (long) nonNullDateRange(ApplicationInstance.getDateRange().first);
-                long endDate = (long) nonNullDateRange(ApplicationInstance.getDateRange().second);
+                long startDate = (long) Utils.nonNullDateRange(ApplicationInstance.getDateRange().first);
+                long endDate = (long) Utils.nonNullDateRange(ApplicationInstance.getDateRange().second);
                 for(Iterator<TransactionModels> ts= shortListedTransactions.iterator(); ts.hasNext();) {
                     TransactionModels transaction = ts.next();
                     if (transaction.getDateTimeStamp() < startDate || transaction.getDateTimeStamp() > endDate) {
@@ -284,9 +300,6 @@ public class ActonFilterMethod {
         }
 
     }
-    private Object nonNullDateRange(Object value) {
-        if(value == null) return 0;
-        else return value;
-    }
+
 
 }

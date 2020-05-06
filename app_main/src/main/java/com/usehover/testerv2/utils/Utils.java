@@ -229,5 +229,9 @@ public class Utils {
         }
         return list;
     }
+    static public  Object nonNullDateRange(Object value) {
+        if(value == null) return 0;
+        else return value;
+    }
 
 }
