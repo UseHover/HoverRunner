@@ -1,11 +1,9 @@
 package com.usehover.testerv2.api;
 
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.hover.sdk.api.Hover;
-import com.hover.sdk.sims.SimInfo;
 import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.database.DatabaseCallsToHover;
 import com.usehover.testerv2.enums.StatusEnums;
@@ -15,9 +13,7 @@ import com.usehover.testerv2.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 class ActonFilterMethod {
     private List<ActionsModel> filteredActions(List<ActionsModel> f0, List<ActionsModel> f1, boolean visited) {
@@ -63,8 +59,8 @@ class ActonFilterMethod {
                     }
                     String allSelectedCountries = concatenatedSelectedCountries.toString();
                     if(!allSelectedCountries.contains(model.getCountry())) {
-                       md.remove();
-                }
+                        md.remove();
+                    }
 
                 }
 
@@ -136,7 +132,6 @@ class ActonFilterMethod {
             }
             filteredActionList = newTempList;
             filterListAsBeenVisited = true;
-            Log.d("FILTER_THROUGH", "PASSED STAGE 5");
         }
 
         else if(ApplicationInstance.getDateRange() !=null || ApplicationInstance.getCategoryFilter().size() > 0
@@ -173,7 +168,6 @@ class ActonFilterMethod {
                         shortListedTransactionActionId.remove(transaction.getActionId());
                     }
                 }
-                Log.d("FILTER_THROUGH", "PASSED STAGE 6");
             }
 
 
@@ -185,7 +179,6 @@ class ActonFilterMethod {
                         ts.remove();
                         shortListedTransactionActionId.remove(transaction.getActionId());
                     }
-                    Log.d("FILTER_THROUGH", "PASSED STAGE 7");
                 }
 
                 // STAGE 8: REMOVE ACTION ID IF IT WAS SUCCESSFUL
@@ -194,7 +187,7 @@ class ActonFilterMethod {
                         ts.remove();
                         shortListedTransactionActionId.remove(transaction.getActionId());
                     }
-                    Log.d("FILTER_THROUGH", "PASSED STAGE 8");
+
                 }
 
                 //STAGE 9: REMOVE ACTION ID IF IT IS PENDING
@@ -203,7 +196,6 @@ class ActonFilterMethod {
                         ts.remove();
                         shortListedTransactionActionId.remove(transaction.getActionId());
                     }
-                    Log.d("FILTER_THROUGH", "PASSED STAGE 9");
                 }
 
                 //STAGE 9: REMOVE ACTION ID IF IT WAS UNSUCCESSFUL
@@ -212,7 +204,6 @@ class ActonFilterMethod {
                         ts.remove();
                         shortListedTransactionActionId.remove(transaction.getActionId());
                     }
-                    Log.d("FILTER_THROUGH", "PASSED STAGE 10");
                 }
             }
 

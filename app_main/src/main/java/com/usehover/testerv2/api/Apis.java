@@ -298,6 +298,13 @@ public class Apis {
 				ApplicationInstance.getCategoryFilter().isEmpty() && ApplicationInstance.getCountriesFilter().isEmpty() && ApplicationInstance.getNetworksFilter().isEmpty();
 	}
 
+	public static boolean transactionFilterIsInNormalState() {
+		return ApplicationInstance.getTransactionActionsSelectedFilter().isEmpty() && ApplicationInstance.getTransactionNetworksFilter().isEmpty() &&
+				ApplicationInstance.getTransactionCountriesFilter().isEmpty() && ApplicationInstance.getTransactionDateRange() == null &&
+				ApplicationInstance.getTransactionSearchText().isEmpty() && ApplicationInstance.isTransactionStatusFailed() &&
+				ApplicationInstance.isTransactionStatusPending() && ApplicationInstance.isTransactionStatusSuccess();
+	}
+
 	public void resetTransactionFilterDataset() {
 		ApplicationInstance.setTransactionNetworksFilter(new ArrayList<>());
 		ApplicationInstance.setTransactionCountriesFilter(new ArrayList<>());
@@ -392,8 +399,13 @@ public class Apis {
 
 	public FullActionResult filterThroughActions(List<ActionsModel> actionsModels, List<TransactionModels> transactionModels) {
 		List<ActionsModel> list = new ActonFilterMethod().startFilterAction(actionsModels, transactionModels);
-		if(list.size() > 0)
-			return new FullActionResult(StatusEnums.HAS_DATA, list);
+		if(list.size() > 0) return new FullActionResult(StatusEnums.HAS_DATA, list);
 		else return new FullActionResult(StatusEnums.EMPTY, list);
+	}
+
+	public FullTransactionResult filterThroughTransactions(List<ActionsModel> actionsModels, List<TransactionModels> transactionModels) {
+		List<TransactionModels> list = new TransactionFilterMethod().startFilterTransaction(actionsModels, transactionModels);
+		if(list.size() > 0) return new FullTransactionResult(StatusEnums.HAS_DATA, list);
+		else return new FullTransactionResult(StatusEnums.EMPTY, list);
 	}
 }

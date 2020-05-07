@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -26,12 +28,12 @@ import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.FilterDataFullModel;
 import com.usehover.testerv2.ui.filter_pages.FilterByActions;
-import com.usehover.testerv2.ui.filter_pages.FilterByCategories;
 import com.usehover.testerv2.ui.filter_pages.FilterByCountries;
 import com.usehover.testerv2.ui.filter_pages.FilterByNetworks;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,17 +46,27 @@ public class TransactionFilterFragment extends Fragment {
     private boolean resetActivated = false;
     private AppCompatCheckBox status_success, status_pending, status_fail;
     private FilterDataFullModel filterDataFullModel;
+    private TransactionFilterViewModel transactionFilterViewModel;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.transaction_filter_fragment, container, false);
 
         TextView toolText = view.findViewById(R.id.transactionFilterBackId);
+        LinearLayout entryFilterView = view.findViewById(R.id.entry_filter_view);
+        TextView showTransactionsText = view.findViewById(R.id.showActions_id);
+        
         resetText = view.findViewById(R.id.reset_id);
-        toolText.setOnClickListener(v -> getActivity().finish());
+        toolText.setOnClickListener(v -> {
+            if(getActivity() !=null) getActivity().finish();
+        });
+
         loadingProgressBar = view.findViewById(R.id.filter_progressBar);
+        loadingProgressBar.setIndeterminate(true);
         loadingProgressBar.setVisibility(View.VISIBLE);
 
+        datePickerView = view.findViewById(R.id.dateRangeEntryId);
         searchTransactionEdit = view.findViewById(R.id.searchEditId);
         countryEntry = view.findViewById(R.id.countryEntryId);
         networkEntry = view.findViewById(R.id.networkEntryId);
@@ -62,15 +74,61 @@ public class TransactionFilterFragment extends Fragment {
         status_success = view.findViewById(R.id.checkbox_success);
         status_pending = view.findViewById(R.id.checkbox_pending);
         status_fail = view.findViewById(R.id.checkbox_fail);
+        UIHelper.setTextUnderline(resetText, "Reset");
 
-        filterDataFullModel = new Apis().doGetDataForActionFilter();
-        if(filterDataFullModel.getActionEnum() == StatusEnums.HAS_DATA) {
-            loadingProgressBar.setVisibility(View.GONE);
-        }
-        else {
-            UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.no_transactions_yet));
-            if(getActivity()!=null)getActivity().finish();
-        }
+
+        transactionFilterViewModel = new ViewModelProvider(this).get(TransactionFilterViewModel.class);
+        transactionFilterViewModel.loadAllDataObs().observe(getViewLifecycleOwner(), result-> {
+            if(result.getActionEnum() == StatusEnums.HAS_DATA) {
+                loadingProgressBar.setVisibility(View.GONE);
+                filterDataFullModel = result;
+                entryFilterView.setVisibility(View.VISIBLE);
+                filterThroughTransactions();
+            }
+            else if(result.getActionEnum() == StatusEnums.EMPTY) {
+                filterDataFullModel = null;
+                UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.no_actions_yet));
+                if(getActivity()!=null)getActivity().finish();
+            }
+        });
+
+        showTransactionsText.setOnClickListener(v -> {
+            //We are setting two list of actions, so that if user clicks cancel, it shows the previously filtered actions
+            //When users clicks this button, it then adds the latest filtered actions into this bucket.
+            if(Apis.transactionFilterIsInNormalState()) {
+                ApplicationInstance.setResultFilter_Transactions_LOAD(new ArrayList<>());
+                ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
+            }
+            else {
+                ApplicationInstance.setResultFilter_Transactions_LOAD(ApplicationInstance.getResultFilter_Transactions());
+                ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
+            }
+
+            if(getActivity() !=null)getActivity().finish();
+        });
+
+        transactionFilterViewModel.loadTransactionsObs().observe(getViewLifecycleOwner(), filterResult->{
+            if(filterResult.getEnums() == StatusEnums.HAS_DATA) {
+                showTransactionsText.setClickable(true);
+                showTransactionsText.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                String suffixAction ="transactions";
+                if(filterResult.getTransactionModelsList().size() == 1) suffixAction = "transaction";
+                showTransactionsText.setText(String.format(Locale.ENGLISH, "Show %d %s", filterResult.getTransactionModelsList().size(), suffixAction));
+            }
+            else if(filterResult.getEnums() == StatusEnums.LOADING) {
+                showTransactionsText.setClickable(false);
+                showTransactionsText.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                showTransactionsText.setText(getResources().getString(R.string.loadingText));
+            }
+            else {
+                //It means empty
+                showTransactionsText.setClickable(false);
+                showTransactionsText.setBackgroundColor(getResources().getColor(R.color.colorMainGrey));
+                showTransactionsText.setText(getResources().getString(R.string.no_transactions_filter_result));
+            }
+        });
+
+
 
         searchTransactionEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -88,7 +146,7 @@ public class TransactionFilterFragment extends Fragment {
                     @Override
                     public void run() {
                         activateReset();
-                        filterThroughActions();
+                        filterThroughTransactions();
                     }
                 }, DELAY);
             }
@@ -103,19 +161,18 @@ public class TransactionFilterFragment extends Fragment {
             if(resetActivated) {
                 new Apis().resetTransactionFilterDataset();
                 reloadAllMajorViews();
-                UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.reset_successful));
-                new Handler().postDelayed(() -> {
-                    UIHelper.removeTextUnderline(resetText);
-                    resetText.setTextColor(getResources().getColor(R.color.colorMainGrey));
-                    resetActivated = false;
+                ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
+                ApplicationInstance.setResultFilter_Transactions_LOAD(new ArrayList<>());
 
-                }, 1500);
+                deactivateReset();
+                UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.reset_successful));
+                new Handler().postDelayed(this::deactivateReset, 1500);
 
             }
 
         });
 
-        datePickerView = view.findViewById(R.id.dateRangeEntryId);
+
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
         builder.setCalendarConstraints(constraintsBuilder.build());
@@ -129,13 +186,14 @@ public class TransactionFilterFragment extends Fragment {
             Pair<Long, Long> datePairs = (Pair<Long, Long>) selection;
             ApplicationInstance.setTransactionDateRange(datePairs);
             setOrReloadDateRange();
+            filterThroughTransactions();
 
         });
 
-        view.findViewById(R.id.showActions_id).setOnClickListener(v -> getActivity().finish());
 
         setUpViewClicks();
         setupCheckboxes();
+        transactionFilterViewModel.getFullDataFirst();
         return view;
     }
 
@@ -145,6 +203,10 @@ public class TransactionFilterFragment extends Fragment {
         reloadAllMajorViews();
     }
 
+    private void deactivateReset() {
+        resetText.setTextColor(getResources().getColor(R.color.colorMainGrey));
+        resetActivated = false;
+    }
     private void reloadAllMajorViews() {
         setOrReloadSearchEdit();
         setOrReloadCountriesText();
@@ -155,9 +217,8 @@ public class TransactionFilterFragment extends Fragment {
     }
 
     private void activateReset() {
-        if(!resetActivated) {
+        if(!Apis.transactionFilterIsInNormalState()) {
             resetText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
-            UIHelper.setTextUnderline(resetText, "Reset");
             resetActivated = true;
         }
 
@@ -166,19 +227,19 @@ public class TransactionFilterFragment extends Fragment {
         status_success.setOnCheckedChangeListener((v, status)-> {
             ApplicationInstance.setTransactionStatusSuccess(status);
             activateReset();
-            filterThroughActions();
+            filterThroughTransactions();
         });
 
         status_fail.setOnCheckedChangeListener((v, status)-> {
             ApplicationInstance.setTransactionStatusFailed(status);
             activateReset();
-            filterThroughActions();
+            filterThroughTransactions();
         });
 
         status_pending.setOnCheckedChangeListener((v, status)-> {
             ApplicationInstance.setTransactionStatusPending(status);
             activateReset();
-            filterThroughActions();
+            filterThroughTransactions();
         });
 
     }
@@ -239,7 +300,9 @@ public class TransactionFilterFragment extends Fragment {
     private void setOrReloadDateRange() {
         if(ApplicationInstance.getTransactionDateRange() != null) {
             Pair<Long, Long> dateRange = ApplicationInstance.getTransactionDateRange();
-            datePickerView.setText(String.format(Locale.ENGLISH, "%s - %s", Utils.formatDateV2(dateRange.first), Utils.formatDateV3(dateRange.second)));
+            datePickerView.setText(String.format(Locale.ENGLISH,
+                    "%s - %s", Utils.formatDateV2((long) Utils.nonNullDateRange(dateRange.first)),
+                    Utils.formatDateV3((long) Utils.nonNullDateRange(dateRange.second))));
             activateReset();
         }
         else datePickerView.setText(getResources().getString(R.string.from_account_creation_to_today));
@@ -251,8 +314,11 @@ public class TransactionFilterFragment extends Fragment {
         status_fail.setChecked(ApplicationInstance.isTransactionStatusFailed());
     }
 
-    private void filterThroughActions() {
-
+    private void filterThroughTransactions() {
+        if(filterDataFullModel == null) onCreate(null);
+        else {
+           transactionFilterViewModel.getOrReloadFilterTransactions(filterDataFullModel.getActionsModelList(), filterDataFullModel.getTransactionModelsList());
+        }
     }
     private boolean hasLoaded() {
         return loadingProgressBar.getVisibility() == View.GONE;

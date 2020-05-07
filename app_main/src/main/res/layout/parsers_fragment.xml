@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorSecondaryGrey"
                 android:textSize="@dimen/text_14"
+                android:textAllCaps="true"
                 android:id="@+id/parser_type_content" />
 
     </LinearLayout>

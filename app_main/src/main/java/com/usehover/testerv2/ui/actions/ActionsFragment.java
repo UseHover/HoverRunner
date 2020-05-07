@@ -79,6 +79,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
 
         homeActionsRecyclerView = root.findViewById(R.id.recyclerViewId);
         homeActionsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
+        homeActionsRecyclerView.setHasFixedSize(true);
 
 
         UIHelper.setTextUnderline(filterText, getResources().getString(R.string.filter_text));

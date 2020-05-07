@@ -58,27 +58,22 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 			startActivityForResult(i, FILTER_RESULT_TRANSACTION);
 		});
 
-		if(MainActivity.initialActionFilter !=null) {
-			tempActionFilter = MainActivity.initialActionFilter;
-			transactionViewModel.setFilterOn();
-			transactionViewModel.getTransactionByActionId(tempActionFilter);
-			MainActivity.initialActionFilter = null;
-		}
-		else transactionViewModel.getAllTransactions();
-
+		setupViews();
 		return root;
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
+	private void setupViews() {
 		transactionViewModel.getText().observe(getViewLifecycleOwner(), filterStatus-> {
 			switch (filterStatus) {
-				case FILTER_OFF: filterText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
+				case FILTER_OFF:
+					filterText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
+					filterText.setCompoundDrawablesWithIntrinsicBounds(0, 0,0,0);
+
 					break;
-				case FILTER_ON: filterText.setTextColor(getResources().getColor(R.color.colorPrimary));
-				filterText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dot_purple_24dp, 0,0,0);
-				filterText.setCompoundDrawablePadding(8);
+				case FILTER_ON:
+					filterText.setTextColor(getResources().getColor(R.color.colorPrimary));
+					filterText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dot_purple_24dp, 0,0,0);
+					filterText.setCompoundDrawablePadding(8);
 					break;
 			}
 		});
@@ -117,22 +112,20 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 					break;
 			}
 		});
-
 	}
-
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == FILTER_RESULT_TRANSACTION) {
-			if (resultCode == Activity.RESULT_OK) {
-				String newText = data.getStringExtra("idn");
-				assert newText != null;
-				if (newText.equals("enteredTextValue")) {
-					transactionViewModel.setFilterOn();
-				}
-			}
+	public void onResume() {
+		super.onResume();
+		if(MainActivity.initialActionFilter !=null) {
+			tempActionFilter = MainActivity.initialActionFilter;
+			transactionViewModel.setFilterOn();
+			transactionViewModel.getTransactionByActionId(tempActionFilter);
+			MainActivity.initialActionFilter = null;
 		}
+		else transactionViewModel.getAllTransactions();
+
 	}
+
 
 	@Override
 	public void customClickListener(Object... data) {

@@ -139,6 +139,7 @@
 
 	<string name="reset_successful">Reset successful</string>
 	<string name="no_actions_filter_result">0 Actions</string>
+	<string name="no_transactions_filter_result">0 Transactions</string>
 	<string name="next_label">Next</string>
 
 
