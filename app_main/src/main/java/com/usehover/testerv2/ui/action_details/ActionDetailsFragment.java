@@ -171,7 +171,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 UIHelper.setTextUnderline(descLink,getResources().getString(R.string.pendingStatus_linkText));
                 descLink.setOnClickListener(v -> {
                     Intent i = new Intent(getActivity(), WebViewActivity.class);
-                    i.putExtra(WebViewActivity.TITLE, "Pending Transaction");
+                    i.putExtra(WebViewActivity.TITLE, "Pending transaction");
                     i.putExtra(WebViewActivity.URL, getResources().getString(R.string.pendingStatus_url));
                     startActivity(i);
                 });
@@ -189,7 +189,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 UIHelper.setTextUnderline(descLink,getResources().getString(R.string.failedStatus_linkText));
                 descLink.setOnClickListener(v -> {
                     Intent i = new Intent(getActivity(), WebViewActivity.class);
-                    i.putExtra(WebViewActivity.TITLE, "Failed Transaction");
+                    i.putExtra(WebViewActivity.TITLE, "Failed transaction");
                     i.putExtra(WebViewActivity.URL, getResources().getString(R.string.failedStatus_url));
                     startActivity(i);
                 });

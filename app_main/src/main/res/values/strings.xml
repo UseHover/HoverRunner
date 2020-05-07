@@ -62,12 +62,12 @@
 	<string name="pendingStatus_title">This action has a pending transaction.</string>
 	<string name="pendingStatus_desc">This transaction has no parsers or has failed to match an existing parser.</string>
 	<string name="pendingStatus_linkText">Learn more about pending transactions</string>
-	<string name="pendingStatus_url">https://docs.usehover.com/customization</string>
+	<string name="pendingStatus_url">https://docs.usehover.com/parsing</string>
 
 	<string name="failedStatus_title">This action has a failed transaction.</string>
 	<string name="failedStatus_desc">This action has matched a parser with a failed transaction status.</string>
 	<string name="failedStatus_linkText">Learn more about failed transactions</string>
-	<string name="failedStatus_url">https://docs.usehover.com/customization</string>
+	<string name="failedStatus_url">https://docs.usehover.com/parsing</string>
 
 	<string name="successStatus_title">This action works.</string>
 	<string name="unrunStatus_title">This action is yet to be run on this device.</string>
