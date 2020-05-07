@@ -1,7 +1,5 @@
 package com.usehover.testerv2.ui.actions;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,9 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverParameters;
-import com.hover.sdk.sims.SimInfo;
 import com.usehover.testerv2.ApplicationInstance;
-import com.usehover.testerv2.Fakesdk;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.HomeActionRecyclerAdapter;
 import com.usehover.testerv2.api.Apis;
@@ -31,20 +27,16 @@ import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.models.ActionsModel;
-import com.usehover.testerv2.models.StreamlinedStepsModel;
 import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
 import com.usehover.testerv2.ui.actions.filter.ActionFilterActivity;
 import com.usehover.testerv2.ui.actions.uncompletedVariables.UncompletedVariableActivity;
-import com.usehover.testerv2.utils.NetworkUtil;
+import com.usehover.testerv2.utils.network.NetworkUtil;
 import com.usehover.testerv2.utils.UIHelper;
 import com.usehover.testerv2.utils.Utils;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ActionsFragment extends Fragment implements CustomOnClickListener, Hover.DownloadListener {
 

@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
+import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.BuildConfig;
 import com.usehover.testerv2.enums.ActionRunStatus;
 import com.usehover.testerv2.enums.StatusEnums;
@@ -39,13 +40,13 @@ public class Utils {
     public final static String HOVER_TRANSAC_SUCCEEDED = "succeeded";
     private static final String SHARED_PREFS = "_testerV2";
     public final static String TESTER_ENV = "testerEnv";
-
+    private final static String API_KEY_LABEL = "apiKey";
 
     private static SharedPreferences getSharedPrefs(Context context) {
         return context.getSharedPreferences(getPackage(context) + SHARED_PREFS, Context.MODE_PRIVATE);
     }
 
-    public static void saveString(String key, String value, Context c) {
+    private static void saveString(String key, String value, Context c) {
         SharedPreferences.Editor editor = Utils.getSharedPrefs(c).edit();
         editor.putString(key, value);
         editor.apply();
@@ -56,7 +57,7 @@ public class Utils {
         editor.apply();
     }
 
-    public static String getStringFromSharedPref(Context c, String key) {
+    private static String getStringFromSharedPref(Context c, String key) {
         return getSharedPrefs(c).getString(key, "");
     }
 
@@ -70,6 +71,13 @@ public class Utils {
         } catch (NullPointerException e) {
             return "fail";
         }
+    }
+
+    public static void saveApiKey(String value) {
+        saveString(API_KEY_LABEL, value, ApplicationInstance.getContext());
+    }
+    public static String getAppApiKey(Context c) {
+        return getStringFromSharedPref(c, API_KEY_LABEL);
     }
     public static void clearData(Context c) {
         getSharedPrefs(c).edit().clear().apply();
@@ -141,7 +149,7 @@ public class Utils {
             else mapper = dbModel.getVarMap();
         }
 
-        mapper.put("label", "value");
+        mapper.put("", "");
         Utils.saveString(actionId, new ActionVariablesDBModel(mapper, true).serialize(), c);
     }
 
@@ -233,5 +241,6 @@ public class Utils {
         if(value == null) return 0;
         else return value;
     }
+
 
 }

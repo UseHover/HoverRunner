@@ -12,6 +12,7 @@ import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.ui.login.LoginActivity;
 import com.usehover.testerv2.utils.PermissionHelper;
 import com.usehover.testerv2.utils.UIHelper;
+import com.usehover.testerv2.utils.Utils;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 				}
 			}
 			//Test keys
-		Hover.initialize(this, "847346e4e73beb57a1186f69fedfbfb4");
+		Hover.initialize(this, Utils.getAppApiKey(this));
 		if(!new PermissionHelper(this, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE}).hasPermissions()) {
 			startActivityForResult(new Intent(this, PermissionActivity.class), PERMISSION_REQ_CODE);
 		}

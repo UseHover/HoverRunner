@@ -2,6 +2,8 @@ package com.usehover.testerv2.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.text.SpannableString;
@@ -18,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.hover.sdk.utils.AnalyticsSingleton;
 import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.enums.StatusEnums;
@@ -114,6 +117,21 @@ public class UIHelper {
 	public static void showHoverToastV2(Context context, String message) {
 		if(context == null) context = ApplicationInstance.getContext();
 		Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+	}
+
+	public static PackageInfo getPackageInfo(Context c) {
+		try {
+			return c.getPackageManager().getPackageInfo(getPackage(c), 0);
+		} catch (PackageManager.NameNotFoundException ignored) { }
+		return null;
+	}
+
+	private static String getPackage(Context c) {
+		try {
+			return c.getApplicationContext().getPackageName();
+		} catch (NullPointerException e) {
+			return "fail";
+		}
 	}
 
 

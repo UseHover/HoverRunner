@@ -23,6 +23,7 @@ import com.usehover.testerv2.models.TransactionDetailsMessagesModel;
 import com.usehover.testerv2.models.TransactionModels;
 import com.usehover.testerv2.models.WithSubtitleFilterInfoModel;
 import com.usehover.testerv2.utils.Utils;
+import com.usehover.testerv2.utils.network.LoginAsyncCaller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,14 @@ public class Apis {
 		if(!Utils.validateEmail(email)) return new LoginModel(HomeEnums.ERROR_EMAIL, INVALID_EMAIL);
 		if(!Utils.validatePassword(password)) return new LoginModel(HomeEnums.ERROR_PASSWORD, INVALID_PASSWORD);
 
-		return new LoginModel(HomeEnums.SUCCESS, "Login successful");
+		try {
+			return new LoginAsyncCaller().execute(email, password).get();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String loginAuthFailMessage = "Authentication failed. Wrong email or password";
+		return new LoginModel(HomeEnums.ERROR, loginAuthFailMessage);
 	}
 
 	public FullActionResult doGetAllActionsWorkManager(boolean withMetaInfo) {
@@ -407,7 +415,7 @@ public class Apis {
 
 
 	public PassageEnum allowIntoMainActivity() {
-		return PassageEnum.REJECT;
+		return Utils.getAppApiKey(ApplicationInstance.getContext()).isEmpty()? PassageEnum.REJECT : PassageEnum.ACCEPT;
 	}
 
 

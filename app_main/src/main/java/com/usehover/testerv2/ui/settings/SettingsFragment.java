@@ -62,7 +62,7 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 		root.findViewById(R.id.refreshButton).setOnClickListener(v -> {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 			builder.setTitle("App refresh");
-			builder.setMessage("Refreshing your app data will delete all cached entries. Are you sure you want continue with app refresh?");
+			builder.setMessage("Refreshing your app data will delete all cached entries. Are you sure you want continue?");
 			builder.setPositiveButton("Refresh", (dialog, which) -> {
 				dialog.dismiss();
 				dialog.cancel();
@@ -87,7 +87,7 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 	@Override
 	public void onError(String message) {
 		refreshButtonIdle = false;
-	UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), message);
+		UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), message);
 	}
 
 	@Override

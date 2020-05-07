@@ -142,5 +142,11 @@
 	<string name="no_transactions_filter_result">0 Transactions</string>
 	<string name="next_label">Next</string>
 
+	<string name="auth_for_token_stage">https://stage.usehover.com/api/authenticate</string>
+	<string name="auth_for_token_live">https://www.usehover.com/api/authenticate</string>
+
+	<string name="auth_for_key_stage">https://stage.usehover.com/api/get_token</string>
+	<string name="auth_for_key_live">https://www.usehover.com/api/get_token</string>
+
 
 </resources>
