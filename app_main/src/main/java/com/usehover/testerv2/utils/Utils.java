@@ -117,7 +117,7 @@ public class Utils {
         }
         if(expectedSize == filledSize) return ActionRunStatus.GOOD;
         if(pair.first != null) { if (pair.first) return  ActionRunStatus.SKIPPED; }
-        else return ActionRunStatus.BAD;
+        return ActionRunStatus.BAD;
     }
 
     public static void saveActionVariable(Context c,  String label, String value, String actionId) {
