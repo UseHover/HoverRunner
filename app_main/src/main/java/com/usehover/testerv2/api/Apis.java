@@ -343,7 +343,7 @@ public class Apis {
 	}
 
 	public ActionDetailsModels doGetSpecificActionDetailsById(String actionId){
-	return new DatabaseCallsToHover().getActionDetailsById(actionId);
+		return new DatabaseCallsToHover().getActionDetailsById(actionId);
 	}
 
 	public FullTransactionResult doGetTransactionsByActionIdWorkManager(String actionId) {
@@ -401,7 +401,7 @@ public class Apis {
 		List<SimInfo> sims = Hover.getPresentSims(ApplicationInstance.getContext());
 		String sim1 = "None"; String sim2 = "None";
 		if(sims.size() > 0) {
-			 sim1 = sims.get(0).getNetworkOperatorName();
+			sim1 = sims.get(0).getNetworkOperatorName();
 		}
 		if(sims.size() > 1) {
 			sim2 = sims.get(1).getNetworkOperatorName();

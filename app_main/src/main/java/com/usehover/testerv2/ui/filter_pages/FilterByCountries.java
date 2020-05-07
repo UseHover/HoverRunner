@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class FilterByCountries extends AppCompatActivity implements CustomOnClickListener {
     private ArrayList<SingleFilterInfoModel> countryList = new ArrayList<>();
     private ArrayList<String> selectedCountries = new ArrayList<>();
-    private final String COLUMN_COUNTRY = "country_alpha2";
     private boolean saveStateChanged = false;
     private TextView saveText;
     @Override
@@ -39,11 +38,11 @@ public class FilterByCountries extends AppCompatActivity implements CustomOnClic
         saveText = findViewById(R.id.filter_save_id);
         saveText.setOnClickListener(v->{
             if(saveStateChanged) {
-            int filterType = getIntent().getExtras().getInt("filter_type", 0);
-            if(filterType == 0) ApplicationInstance.setCountriesFilter(selectedCountries);
-            else ApplicationInstance.setTransactionCountriesFilter(selectedCountries);
-            finish();
-           }
+                int filterType = getIntent().getExtras().getInt("filter_type", 0);
+                if(filterType == 0) ApplicationInstance.setCountriesFilter(selectedCountries);
+                else ApplicationInstance.setTransactionCountriesFilter(selectedCountries);
+                finish();
+            }
 
         });
 

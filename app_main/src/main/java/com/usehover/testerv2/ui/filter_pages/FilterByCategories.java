@@ -48,10 +48,10 @@ public class FilterByCategories extends AppCompatActivity implements CustomOnCli
             }
 
             */
-           if(saveStateChanged) {
-               ApplicationInstance.setCategoryFilter(selectedCategories);
-               finish();
-           }
+            if(saveStateChanged) {
+                ApplicationInstance.setCategoryFilter(selectedCategories);
+                finish();
+            }
         });
 
         RecyclerView itemsRecyclerView = findViewById(R.id.filter_recyclerView);

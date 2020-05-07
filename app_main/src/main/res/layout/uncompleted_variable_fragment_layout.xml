@@ -20,16 +20,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:drawableStart="@drawable/ic_close_black_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/actionTextSize"
-                android:id="@+id/u_variable_toolbarText"/>
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/ic_close_black_24dp"
+                    android:drawablePadding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/actionTextSize"
+                    android:id="@+id/u_variable_toolbarText"/>
 
             <TextView
                     android:layout_width="wrap_content"

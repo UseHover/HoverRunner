@@ -182,11 +182,11 @@ public class Utils {
         StatusEnums statusEnums;
         switch (status) {
             case HOVER_TRANSAC_FAILED : statusEnums = StatusEnums.UNSUCCESSFUL;
-            break;
+                break;
             case HOVER_TRANSAC_PENDING: statusEnums =   StatusEnums.PENDING;
-            break;
+                break;
             default: statusEnums = StatusEnums.SUCCESS;
-            break;
+                break;
         }
         return statusEnums;
     }
@@ -215,11 +215,11 @@ public class Utils {
         String string = "";
         switch (env) {
             case 0: string = "Normal";
-            break;
+                break;
             case 1: string = "Debug";
-            break;
+                break;
             default: string = "No-SIM";
-            break;
+                break;
         }
         return string;
     }

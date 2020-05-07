@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hover.sdk.api.HoverParameters;
-import com.usehover.testerv2.Fakesdk;
 import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
@@ -27,7 +26,6 @@ import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.interfaces.CustomOnClickListener;
 import com.usehover.testerv2.interfaces.ParserClickListener;
 import com.usehover.testerv2.interfaces.VariableEditinterface;
-import com.usehover.testerv2.models.ActionsModel;
 import com.usehover.testerv2.ui.parsers.ParsersActivity;
 import com.usehover.testerv2.ui.transactionDetails.TransactionDetailsActivity;
 import com.usehover.testerv2.ui.webview.WebViewActivity;
@@ -54,21 +52,21 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         View view = inflater.inflate(R.layout.action_details_fragment, container, false);
 
         toolText = view.findViewById(R.id.actionDetails_toolbarText);
-         subtoolText = view.findViewById(R.id.actionDetails_subtoolText);
-         descTitle = view.findViewById(R.id.actionDetails_statusTitle);
+        subtoolText = view.findViewById(R.id.actionDetails_subtoolText);
+        descTitle = view.findViewById(R.id.actionDetails_statusTitle);
 
         descContent = view.findViewById(R.id.actionDetails_statusDesc);
-         descLink = view.findViewById(R.id.actionDetails_statusLink);
+        descLink = view.findViewById(R.id.actionDetails_statusLink);
         topLayout = view.findViewById(R.id.actionDetailsTopLayoutId);
 
-         operatorsText = view.findViewById(R.id.operators_content);
-         stepsText = view.findViewById(R.id.steps_content);
-         parsersText = view.findViewById(R.id.parsers_content);
-         transacText = view.findViewById(R.id.transactionNo_content);
-         successText = view.findViewById(R.id.successCount_content);
-         pendingText = view.findViewById(R.id.pendingCount_content);
-         failureText = view.findViewById(R.id.failedCount_content);
-         testSingleActiontext = view.findViewById(R.id.testSingle_id);
+        operatorsText = view.findViewById(R.id.operators_content);
+        stepsText = view.findViewById(R.id.steps_content);
+        parsersText = view.findViewById(R.id.parsers_content);
+        transacText = view.findViewById(R.id.transactionNo_content);
+        successText = view.findViewById(R.id.successCount_content);
+        pendingText = view.findViewById(R.id.pendingCount_content);
+        failureText = view.findViewById(R.id.failedCount_content);
+        testSingleActiontext = view.findViewById(R.id.testSingle_id);
 
         toolText.setText(ActionDetailsActivity.actionId);
         subtoolText.setText(ActionDetailsActivity.actionTitle);

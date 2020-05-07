@@ -31,7 +31,6 @@
 		<activity android:name=".ui.action_details.ActionDetailsActivity" />
 		<activity android:name=".ui.parsers.ParsersActivity" />
 		<activity android:name=".ui.transactionDetails.TransactionDetailsActivity" />
-        <activity android:name=".Fakesdk" />
         <activity android:name=".ui.actions.uncompletedVariables.UncompletedVariableActivity" />
         <activity android:name=".ui.filter_pages.FilterByCountries" />
 		<activity android:name=".ui.filter_pages.FilterByNetworks" />

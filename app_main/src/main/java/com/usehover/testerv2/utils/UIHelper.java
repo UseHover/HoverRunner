@@ -77,22 +77,22 @@ public class UIHelper {
 	}
 
 	public static void makeEachTextLinks(final String text, final TextView tv, ParserClickListener clickListener) {
-				if (text == null || tv == null) { return; }
-				final SpannableString ss = new SpannableString(text);
-				final String[] items = text.split(", ");
-				int start = 0, end;
-				for ( String item : items) {
-						end = start + item.length();
-					if (start < end) {
-								ss.setSpan(new UnderlineSpan(), start, end, 0);
-								ss.setSpan(new MyClickableSpan(item, clickListener), start, end, 0);
-								ss.setSpan(new ForegroundColorSpan(Color.WHITE), start,end, 0);
-							}
-						start += item.length() + 2;//comma and space in the original text ;)
-					}
-				tv.setMovementMethod(LinkMovementMethod.getInstance());
-				tv.setText(ss, TextView.BufferType.SPANNABLE);
+		if (text == null || tv == null) { return; }
+		final SpannableString ss = new SpannableString(text);
+		final String[] items = text.split(", ");
+		int start = 0, end;
+		for ( String item : items) {
+			end = start + item.length();
+			if (start < end) {
+				ss.setSpan(new UnderlineSpan(), start, end, 0);
+				ss.setSpan(new MyClickableSpan(item, clickListener), start, end, 0);
+				ss.setSpan(new ForegroundColorSpan(Color.WHITE), start,end, 0);
 			}
+			start += item.length() + 2;//comma and space in the original text ;)
+		}
+		tv.setMovementMethod(LinkMovementMethod.getInstance());
+		tv.setText(ss, TextView.BufferType.SPANNABLE);
+	}
 
 	private static class MyClickableSpan extends ClickableSpan {
 		private final String mText;

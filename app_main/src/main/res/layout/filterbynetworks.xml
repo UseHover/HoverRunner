@@ -10,82 +10,82 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:textStyle="bold"
+                    android:id="@+id/networks_title"
+                    android:textSize= "@dimen/actionTextSize"
+                    android:textColor="@color/colorHoverWhite"
+                    android:text="@string/title_networks"
+                    android:drawableStart="@drawable/ic_close_white_24dp"
+                    android:drawablePadding="@dimen/activity_horizontal_margin"
+                    android:paddingHorizontal="@dimen/activity_vertical_margin"
+                    android:layout_weight="1"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorMainGrey"
+                    android:textSize="@dimen/actionRightSideTextSize"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/activity_vertical_margin"
+                    android:id="@+id/filter_save_id"
+                    android:text="@string/save_text"/>
+
+        </LinearLayout>
 
         <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="textStart"
-                android:textStyle="bold"
-                android:id="@+id/networks_title"
-                android:textSize= "@dimen/actionTextSize"
+                android:id="@+id/networks_in_countries"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:textSize="@dimen/text_16"
+                android:text="In your chosen countries: "
+                android:paddingHorizontal="4dp"
                 android:textColor="@color/colorHoverWhite"
-                android:text="@string/title_networks"
-                android:drawableStart="@drawable/ic_close_white_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:paddingHorizontal="@dimen/activity_vertical_margin"
-                android:layout_weight="1"
+                />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/filter_recyclerView_1"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorMainGrey"
-                android:textSize="@dimen/actionRightSideTextSize"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/activity_vertical_margin"
-                android:id="@+id/filter_save_id"
-                android:text="@string/save_text"/>
+                android:id="@+id/networks_in_other_countries"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/colorHoverWhite"
+                android:visibility="gone"
+                android:paddingHorizontal="4dp"
+                android:textSize="@dimen/text_16"
+                />
 
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/networks_in_countries"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="@dimen/text_16"
-        android:text="In your chosen countries: "
-        android:paddingHorizontal="4dp"
-        android:textColor="@color/colorHoverWhite"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/filter_recyclerView_1"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            />
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/networks_in_other_countries"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:textColor="@color/colorHoverWhite"
-            android:visibility="gone"
-            android:paddingHorizontal="4dp"
-            android:textSize="@dimen/text_16"
-            />
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/filter_recyclerView_2"
-            android:visibility="gone"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            />
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/filter_recyclerView_2"
+                android:visibility="gone"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -69,7 +69,7 @@ public class FilterSingleItemRecyclerAdapter extends RecyclerView.Adapter<Filter
 
     static class FilterSingleViewHolder extends RecyclerView.ViewHolder {
         AppCompatCheckBox checkBox;
-         FilterSingleViewHolder(@NonNull View itemView) {
+        FilterSingleViewHolder(@NonNull View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.checkbox_filter_option);
         }

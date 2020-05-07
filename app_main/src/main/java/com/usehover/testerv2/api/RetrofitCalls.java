@@ -1,40 +1,20 @@
 package com.usehover.testerv2.api;
 
-import android.content.pm.PackageInfo;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Debug;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.BuildConfig;
-import com.usehover.testerv2.enums.HomeEnums;
-import com.usehover.testerv2.interfaces.Endpoints;
-import com.usehover.testerv2.models.ApiKeyModel;
-import com.usehover.testerv2.models.LoginModel;
-import com.usehover.testerv2.models.TokenModel;
-import com.usehover.testerv2.utils.UIHelper;
-import com.usehover.testerv2.utils.Utils;
 
-import java.io.IOException;
-
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitCalls {
     private final String auth_for_token_stage = "https://stage.usehover.com/api/";
-	private final String auth_for_token_live = "https://www.usehover.com/api/";
+    private final String auth_for_token_live = "https://www.usehover.com/api/";
 
-	private final String auth_for_key_stage = "https://stage.usehover.com/api/";
-	private final String auth_for_key_live = "https://www.usehover.com/api/";
+    private final String auth_for_key_stage = "https://stage.usehover.com/api/";
+    private final String auth_for_key_live = "https://www.usehover.com/api/";
 
     private Gson gson ;
 
@@ -43,7 +23,7 @@ public class RetrofitCalls {
     }
 
     public Retrofit getRetrofitToken() {
-      return new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(BuildConfig.BUILD_TYPE.equals("debug") ? auth_for_token_stage : auth_for_token_live)
                 .build();

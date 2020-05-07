@@ -36,7 +36,6 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 	private ProgressBar progressBar;
 	private RecyclerView homeTransactionsRecyclerView;
 	private RelativeLayout emptyStateView;
-	private String tempActionFilter;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
@@ -117,7 +116,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 	public void onResume() {
 		super.onResume();
 		if(MainActivity.initialActionFilter !=null) {
-			tempActionFilter = MainActivity.initialActionFilter;
+			String tempActionFilter = MainActivity.initialActionFilter;
 			transactionViewModel.setFilterOn();
 			transactionViewModel.getTransactionByActionId(tempActionFilter);
 			MainActivity.initialActionFilter = null;

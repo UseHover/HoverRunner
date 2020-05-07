@@ -36,7 +36,7 @@ public class ActionsViewModel extends ViewModel {
         if(ApplicationInstance.getResultFilter_Actions_LOAD().size() == 0) {
             filterStatus.postValue(HomeEnums.FILTER_OFF);
             homeActions.postValue(new Apis().doGetAllActionsWorkManager(false));
-            }
+        }
         else {
             filterStatus.postValue(HomeEnums.FILTER_ON);
             homeActions.postValue(new FullActionResult(StatusEnums.HAS_DATA, ApplicationInstance.getResultFilter_Actions_LOAD()));

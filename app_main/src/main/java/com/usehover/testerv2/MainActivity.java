@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-			if(LoginYes == 0) {
-				if (new Apis().allowIntoMainActivity() == PassageEnum.REJECT) {
-					startActivity(new Intent(this, LoginActivity.class));
-					finish();
-					return;
-				}
+		if(LoginYes == 0) {
+			if (new Apis().allowIntoMainActivity() == PassageEnum.REJECT) {
+				startActivity(new Intent(this, LoginActivity.class));
+				finish();
+				return;
 			}
-			//Test keys
+		}
+		//Test keys
 		Hover.initialize(this, Utils.getAppApiKey(this));
 		if(!new PermissionHelper(this, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE}).hasPermissions()) {
 			startActivityForResult(new Intent(this, PermissionActivity.class), PERMISSION_REQ_CODE);

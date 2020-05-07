@@ -12,35 +12,35 @@
             android:layout_height="wrap_content">
 
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/actionIdText_Id"
-            android:textSize="@dimen/text_16"
-            android:paddingHorizontal="@dimen/activity_vertical_margin"
-            android:layout_marginEnd="38dp"
-            android:textColor="@color/colorHoverWhite"
-            android:textStyle="bold"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/actionIdText_Id"
+                android:textSize="@dimen/text_16"
+                android:paddingHorizontal="@dimen/activity_vertical_margin"
+                android:layout_marginEnd="38dp"
+                android:textColor="@color/colorHoverWhite"
+                android:textStyle="bold"/>
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/actionTitle_Id"
-            android:layout_below="@id/actionIdText_Id"
-            android:textSize="@dimen/text_16"
-            android:paddingHorizontal="@dimen/activity_vertical_margin"
-            android:textColor="@color/colorHoverWhite"
-            android:layout_marginEnd="38dp"
-            android:textStyle="bold"/>
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/actionIconStatus"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:paddingHorizontal="@dimen/activity_vertical_margin"
-            android:contentDescription="@string/action_icon_status_description"
-            />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/actionTitle_Id"
+                android:layout_below="@id/actionIdText_Id"
+                android:textSize="@dimen/text_16"
+                android:paddingHorizontal="@dimen/activity_vertical_margin"
+                android:textColor="@color/colorHoverWhite"
+                android:layout_marginEnd="38dp"
+                android:textStyle="bold"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/actionIconStatus"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:paddingHorizontal="@dimen/activity_vertical_margin"
+                android:contentDescription="@string/action_icon_status_description"
+                />
     </RelativeLayout>
 
     <View

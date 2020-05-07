@@ -65,7 +65,7 @@ public class UncompletedVariableFragment extends Fragment implements  VariableEd
         });
 
         skip.setOnClickListener(v->{
-        Utils.saveSkippedVariable(getContext(), actionsModel.getActionId());
+            Utils.saveSkippedVariable(getContext(), actionsModel.getActionId());
             int unCompleted = UncompletedVariableActivity.uncompletedVariableActionList.size();
             if(currentViewPosition == unCompleted - 1) {
                 //If it's in the last pos, skip and close activity

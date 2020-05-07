@@ -25,7 +25,7 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
     private String actionId = ""; private String actionName="";
 
     private int colorRed, colorYellow, colorGreen;
-    
+
     public TransactionDetailsRecyclerAdapter(ArrayList<TransactionDetailsInfoModels> modelsArrayList, CustomOnClickListener customOnClickListener) {
         this.modelsArrayList = modelsArrayList;
         this.customOnClickListener = customOnClickListener;
@@ -57,30 +57,30 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
 
     @Override
     public void onBindViewHolder(@NonNull TDViewHolder holder, int position) {
-    TransactionDetailsInfoModels infoModels = modelsArrayList.get(position);
-    
-    holder.label.setText(infoModels.getLabel());
+        TransactionDetailsInfoModels infoModels = modelsArrayList.get(position);
 
-    if(infoModels.getLabel().equals("Status")) {
-        switch (infoModels.getStatusEnums()) {
-            case UNSUCCESSFUL:
-                holder.value.setTextColor(colorRed);
-                break;
-            case PENDING:
-                holder.value.setTextColor(colorYellow);
-                break;
-            case SUCCESS:
-                holder.value.setTextColor(colorGreen);
-                break;
+        holder.label.setText(infoModels.getLabel());
+
+        if(infoModels.getLabel().equals("Status")) {
+            switch (infoModels.getStatusEnums()) {
+                case UNSUCCESSFUL:
+                    holder.value.setTextColor(colorRed);
+                    break;
+                case PENDING:
+                    holder.value.setTextColor(colorYellow);
+                    break;
+                case SUCCESS:
+                    holder.value.setTextColor(colorGreen);
+                    break;
+            }
         }
-    }
-    if(infoModels.isClickable()) {
-        UIHelper.setTextUnderline(holder.value, infoModels.getValue());
-        if(infoModels.getLabel().contains("Action"))
-            holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_ACTION, actionId, actionName, infoModels.getStatusEnums() ));
-        else holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_PARSER,  infoModels.getValue() ));
-    }
-    else holder.value.setText(infoModels.getValue());
+        if(infoModels.isClickable()) {
+            UIHelper.setTextUnderline(holder.value, infoModels.getValue());
+            if(infoModels.getLabel().contains("Action"))
+                holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_ACTION, actionId, actionName, infoModels.getStatusEnums() ));
+            else holder.value.setOnClickListener(v -> customOnClickListener.customClickListener(ClickTypeEnum.CLICK_PARSER,  infoModels.getValue() ));
+        }
+        else holder.value.setText(infoModels.getValue());
 
     }
 
@@ -101,7 +101,7 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
 
     static class TDViewHolder extends RecyclerView.ViewHolder {
         TextView label, value;
-         TDViewHolder(@NonNull View itemView) {
+        TDViewHolder(@NonNull View itemView) {
             super(itemView);
             label = itemView.findViewById(R.id.transac_det_label);
             value = itemView.findViewById(R.id.transac_det_value);

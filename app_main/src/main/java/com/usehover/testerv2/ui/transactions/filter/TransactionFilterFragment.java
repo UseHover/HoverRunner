@@ -56,7 +56,7 @@ public class TransactionFilterFragment extends Fragment {
         TextView toolText = view.findViewById(R.id.transactionFilterBackId);
         LinearLayout entryFilterView = view.findViewById(R.id.entry_filter_view);
         TextView showTransactionsText = view.findViewById(R.id.showActions_id);
-        
+
         resetText = view.findViewById(R.id.reset_id);
         toolText.setOnClickListener(v -> {
             if(getActivity() !=null) getActivity().finish();
@@ -316,7 +316,7 @@ public class TransactionFilterFragment extends Fragment {
     private void filterThroughTransactions() {
         if(filterDataFullModel == null) onCreate(null);
         else {
-           transactionFilterViewModel.getOrReloadFilterTransactions(filterDataFullModel.getActionsModelList(), filterDataFullModel.getTransactionModelsList());
+            transactionFilterViewModel.getOrReloadFilterTransactions(filterDataFullModel.getActionsModelList(), filterDataFullModel.getTransactionModelsList());
         }
     }
     private boolean hasLoaded() {

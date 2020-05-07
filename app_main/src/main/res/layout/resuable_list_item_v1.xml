@@ -7,13 +7,13 @@
         android:paddingHorizontal="@dimen/activity_horizontal_margin"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
-    
+
     <TextView
             android:layout_width="105dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_14"
-            android:text="Transactions"/>
+            />
 
     <TextView
             android:layout_width="match_parent"
@@ -21,6 +21,6 @@
             android:textColor="@color/colorSecondaryGrey"
             android:textSize="@dimen/text_14"
             android:layout_marginStart="12dp"
-            android:text="Safaricom.LTD, Indosat, PT Excelcom.ID, Orange KE, MTN"/>
+            />
 
 </LinearLayout>

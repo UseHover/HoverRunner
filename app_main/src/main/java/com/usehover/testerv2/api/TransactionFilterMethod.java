@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
- class TransactionFilterMethod {
+class TransactionFilterMethod {
     private List<TransactionModels> filteredTrans(List<TransactionModels> f0, List<TransactionModels> f1, boolean visited) {
         //Where f0 is for filtered actions, and f1 for totalActions
         //If f0 size == 0 it means the previous stages weren't part of the filtering params.
@@ -44,47 +44,47 @@ import java.util.List;
                 !ApplicationInstance.isTransactionStatusFailed() || !ApplicationInstance.isTransactionStatusSuccess() ||
                 !ApplicationInstance.isTransactionStatusPending()) {
 
-                for(Iterator<TransactionModels> md= transactionModelList.iterator(); md.hasNext();) {
-                    TransactionModels model = md.next();
+            for(Iterator<TransactionModels> md= transactionModelList.iterator(); md.hasNext();) {
+                TransactionModels model = md.next();
 
-                    // STAGE 1: FILTER THROUGH KEYWORDS.
-                    if(ApplicationInstance.getTransactionSearchText() !=null) {
-                        if(!ApplicationInstance.getTransactionSearchText().isEmpty()) {
-                            String searchValue = ApplicationInstance.getTransactionSearchText();
-                            if (!model.getTransaction_id().contains(searchValue) || !model.getCaption().contains(searchValue)) {
-                                md.remove();
-                            }
-                        }
-                    }
-
-                    // STAGE 2: FILTER THROUGH DATE RANGE
-                    if(ApplicationInstance.getTransactionDateRange() != null) {
-                        long startDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().first);
-                        long endDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().second);
-                        if (model.getDateTimeStamp() < startDate || model.getDateTimeStamp() > endDate) {
+                // STAGE 1: FILTER THROUGH KEYWORDS.
+                if(ApplicationInstance.getTransactionSearchText() !=null) {
+                    if(!ApplicationInstance.getTransactionSearchText().isEmpty()) {
+                        String searchValue = ApplicationInstance.getTransactionSearchText();
+                        if (!model.getTransaction_id().contains(searchValue) || !model.getCaption().contains(searchValue)) {
                             md.remove();
                         }
                     }
-                    // STAGE 3: FILTER THROUGH IF, FAILED IS NOT CHECKED.
-                    if(!ApplicationInstance.isTransactionStatusFailed()) {
-                        if(model.getStatusEnums() == StatusEnums.UNSUCCESSFUL) {
-                            md.remove();
-                        }
-                    }
+                }
 
-                    // STAGE 4: FILTER THROUGH IF, SUCCESS IS NOT CHECKED.
-                    if(!ApplicationInstance.isTransactionStatusSuccess()) {
-                        if(model.getStatusEnums() == StatusEnums.SUCCESS) {
-                            md.remove();
-                        }
+                // STAGE 2: FILTER THROUGH DATE RANGE
+                if(ApplicationInstance.getTransactionDateRange() != null) {
+                    long startDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().first);
+                    long endDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().second);
+                    if (model.getDateTimeStamp() < startDate || model.getDateTimeStamp() > endDate) {
+                        md.remove();
                     }
+                }
+                // STAGE 3: FILTER THROUGH IF, FAILED IS NOT CHECKED.
+                if(!ApplicationInstance.isTransactionStatusFailed()) {
+                    if(model.getStatusEnums() == StatusEnums.UNSUCCESSFUL) {
+                        md.remove();
+                    }
+                }
 
-                    // STAGE 5: FILTER THROUGH IF, PENDING IS NOT CHECKED.
-                    if(!ApplicationInstance.isTransactionStatusPending()) {
-                        if(model.getStatusEnums() == StatusEnums.PENDING) {
-                            md.remove();
-                        }
+                // STAGE 4: FILTER THROUGH IF, SUCCESS IS NOT CHECKED.
+                if(!ApplicationInstance.isTransactionStatusSuccess()) {
+                    if(model.getStatusEnums() == StatusEnums.SUCCESS) {
+                        md.remove();
                     }
+                }
+
+                // STAGE 5: FILTER THROUGH IF, PENDING IS NOT CHECKED.
+                if(!ApplicationInstance.isTransactionStatusPending()) {
+                    if(model.getStatusEnums() == StatusEnums.PENDING) {
+                        md.remove();
+                    }
+                }
             }
             filteredTransactionList = transactionModelList;
             filterListHasBeenVisited = true;
