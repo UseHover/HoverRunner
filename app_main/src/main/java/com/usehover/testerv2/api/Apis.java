@@ -26,9 +26,11 @@ import com.usehover.testerv2.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Apis {
 	public final static int PROD_ENV = 0, DEBUG_ENV = 1, TEST_ENV = 2;
+	private static final int MAX_SIZE_FHV = 2;
 	private static final String INVALID_EMAIL = "Invalid email format, please enter correct email and try again";
 	private static final String INVALID_PASSWORD = "Invalid password format. Ensure password has a minimum of 5 letters with no space";
 	public static final String NO_NETWORK = "Internet connection not found";
@@ -201,7 +203,7 @@ public class Apis {
 
 	public String getSelectedCountriesAsText() {
 		StringBuilder text = new StringBuilder();
-		int maxSize = 2;
+		int maxSize = MAX_SIZE_FHV;
 		if(ApplicationInstance.getCountriesFilter().size() < maxSize) maxSize = ApplicationInstance.getCountriesFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
@@ -209,12 +211,12 @@ public class Apis {
 			else
 				text.append(", ").append(ApplicationInstance.getCountriesFilter().get(i));
 		}
-		return text.toString();
+		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getCountriesFilter());
 	}
 
 	public String getSelectedNetworksAsText() {
 		StringBuilder text = new StringBuilder();
-		int maxSize = 2;
+		int maxSize = MAX_SIZE_FHV;
 		if(ApplicationInstance.getNetworksFilter().size() < maxSize) maxSize = ApplicationInstance.getNetworksFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
@@ -222,12 +224,12 @@ public class Apis {
 			else
 				text.append(", ").append(ApplicationInstance.getNetworksFilter().get(i));
 		}
-		return text.toString();
+		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getNetworksFilter());
 	}
 
 	public String getSelectedCategoriesAsText() {
 		StringBuilder text = new StringBuilder();
-		int maxSize = 2;
+		int maxSize = MAX_SIZE_FHV;
 		if(ApplicationInstance.getCategoryFilter().size() < maxSize) maxSize = ApplicationInstance.getCategoryFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
@@ -235,12 +237,12 @@ public class Apis {
 			else
 				text.append(", ").append(ApplicationInstance.getCategoryFilter().get(i));
 		}
-		return text.toString();
+		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getCategoryFilter());
 	}
 
 	public String getSelectedTransactionCountriesAsText() {
 		StringBuilder text = new StringBuilder();
-		int maxSize = 2;
+		int maxSize = MAX_SIZE_FHV;
 		if(ApplicationInstance.getTransactionCountriesFilter().size() < maxSize) maxSize = ApplicationInstance.getTransactionCountriesFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
@@ -248,12 +250,14 @@ public class Apis {
 			else
 				text.append(", ").append(ApplicationInstance.getTransactionCountriesFilter().get(i));
 		}
-		return text.toString();
+
+
+		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getTransactionCountriesFilter());
 	}
 
 	public String getSelectedTransactionNetworksAsText() {
 		StringBuilder text = new StringBuilder();
-		int maxSize = 2;
+		int maxSize = MAX_SIZE_FHV;
 		if(ApplicationInstance.getTransactionNetworksFilter().size() < maxSize) maxSize = ApplicationInstance.getTransactionNetworksFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
@@ -261,12 +265,13 @@ public class Apis {
 			else
 				text.append(", ").append(ApplicationInstance.getTransactionNetworksFilter().get(i));
 		}
-		return text.toString();
+
+		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getTransactionNetworksFilter());
 	}
 
 	public String getSelectedActionsForTransactionAsText() {
 		StringBuilder text = new StringBuilder();
-		int maxSize = 2;
+		int maxSize = MAX_SIZE_FHV;
 		if(ApplicationInstance.getTransactionActionsSelectedFilter().size() < maxSize) maxSize = ApplicationInstance.getTransactionActionsSelectedFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
@@ -274,9 +279,18 @@ public class Apis {
 			else
 				text.append(", ").append(ApplicationInstance.getTransactionActionsSelectedFilter().get(i));
 		}
-		return text.toString();
+		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getTransactionActionsSelectedFilter());
 	}
 
+	private String addSuffixToEntryValue(ArrayList<?> list) {
+		String suffix = "";
+		if(list.size()>MAX_SIZE_FHV) {
+			int remaining = list.size() - MAX_SIZE_FHV;
+			String others = remaining == 1 ? "other": "others";
+			suffix = String.format(Locale.ENGLISH, " and %d %s", remaining, others);
+		}
+		return suffix;
+	}
 	public void resetActionFilterDataset() {
 		ApplicationInstance.setOnlyWithSimPresent(false);
 		ApplicationInstance.setWithParsers(false);
