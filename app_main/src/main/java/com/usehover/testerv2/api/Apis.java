@@ -375,7 +375,7 @@ public class Apis {
 		String[] enteredValues = result[0];
 		String[] ussdMessages = result[1];
 		int largestSize = Math.max(enteredValues.length, ussdMessages.length);
-		ArrayList<TransactionDetailsMessagesModel> messagesModels = new ArrayList<>(largestSize);
+		ArrayList<TransactionDetailsMessagesModel> messagesModels = new ArrayList<>();
 
 		//Put in a try and catch to prevent crashing when USSD session reports incorrectly.
 		try{
@@ -385,11 +385,21 @@ public class Apis {
 						ussdMessages[i] != null  ? ussdMessages[i]  : ""));
 			}
 		} catch (Exception e) {
-			for(int i=0; i < largestSize-1; i++) {
-				messagesModels.add(new TransactionDetailsMessagesModel(
-						enteredValues[i] != null ? enteredValues[i] : "",
-						ussdMessages[i] != null  ? ussdMessages[i]  : ""));
-			}
+
+			//PUTTING IN ANOTHER TRY AND CATCH TO AVOID ERROR WHEN ON NO-SIM MODE
+			try{
+				for(int i=0; i < largestSize-1; i++) {
+					messagesModels.add(new TransactionDetailsMessagesModel(
+							enteredValues[i] != null ? enteredValues[i] : "",
+							ussdMessages[i] != null  ? ussdMessages[i]  : ""));
+				}
+			} catch (Exception ex){
+				//USE THIS FOR NO-SIM MESSAGE MODE;
+				messagesModels.add(new TransactionDetailsMessagesModel("*ROOT_CODE#", "Test Responses"));
+			};
+
+
+
 		}
 
 		return messagesModels;
