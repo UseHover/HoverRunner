@@ -56,7 +56,7 @@ public class Apis {
 		return new FullActionResult(actionsModelList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, actionsModelList);
 	}
 
-	public String[] convertNetworkNamesToStringArray(String networkName) {
+	String[] convertNetworkNamesToStringArray(String networkName) {
 		String networks = networkName.replace(" or ", ", ");
 		return networks.split(", ");
 	}

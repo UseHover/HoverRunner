@@ -108,7 +108,6 @@ public class Utils {
         Pair<Boolean, Map<String, String>> pair = getInitialVariableData(c, actionId);
         Map<String, String> variables = pair.second;
         int filledSize = 0;
-        if(pair.first != null) { if (pair.first) return  ActionRunStatus.SKIPPED; }
 
         assert  variables !=null;
         for(String value : variables.values()) {
@@ -117,6 +116,7 @@ public class Utils {
             }
         }
         if(expectedSize == filledSize) return ActionRunStatus.GOOD;
+        if(pair.first != null) { if (pair.first) return  ActionRunStatus.SKIPPED; }
         else return ActionRunStatus.BAD;
     }
 
