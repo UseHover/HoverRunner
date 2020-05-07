@@ -45,12 +45,10 @@ public class LoginAsyncCaller extends AsyncTask<String, Void, LoginModel> {
                         Call<ApiKeyModel> apiCaller = retrofitApi.getApiFromHover(packageName);
                         Response<ApiKeyModel> callerApi = apiCaller.execute();
                         if(callerApi.code() == 200 && callerApi.body() !=null && callerApi.body().getApi_key() !=null) {
-
                             Utils.saveApiKey(callerApi.body().getApi_key());
                             String loginSuccess = "Login successful";
                             return new LoginModel(HomeEnums.SUCCESS, loginSuccess);
                         }
-
                     } else return new LoginModel(HomeEnums.ERROR, loginFailedCausedByPackage);
                 }
             } catch (IOException e) {

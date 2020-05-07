@@ -2,10 +2,13 @@ package com.usehover.testerv2.api;
 
 import android.content.pm.PackageInfo;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Debug;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.usehover.testerv2.ApplicationInstance;
+import com.usehover.testerv2.BuildConfig;
 import com.usehover.testerv2.enums.HomeEnums;
 import com.usehover.testerv2.interfaces.Endpoints;
 import com.usehover.testerv2.models.ApiKeyModel;
@@ -42,7 +45,7 @@ public class RetrofitCalls {
     public Retrofit getRetrofitToken() {
       return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(auth_for_token_stage)
+                .baseUrl(BuildConfig.BUILD_TYPE.equals("debug") ? auth_for_token_stage : auth_for_token_live)
                 .build();
     }
 
@@ -63,7 +66,7 @@ public class RetrofitCalls {
         return new Retrofit.Builder()
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(auth_for_key_stage)
+                .baseUrl(BuildConfig.BUILD_TYPE.equals("debug") ? auth_for_key_stage : auth_for_key_live)
                 .build();
     }
 
