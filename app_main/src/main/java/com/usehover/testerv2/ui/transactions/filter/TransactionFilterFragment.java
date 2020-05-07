@@ -177,14 +177,13 @@ public class TransactionFilterFragment extends Fragment {
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
         builder.setCalendarConstraints(constraintsBuilder.build());
 
-        MaterialDatePicker<?> picker = builder.setTitleText(getResources().getString(R.string.selected_range)).build();
+        MaterialDatePicker<Pair<Long, Long>> picker = builder.setTitleText(getResources().getString(R.string.selected_range)).build();
 
         datePickerView.setOnClickListener(v -> {
             if(hasLoaded()) picker.show(getParentFragmentManager(), picker.toString());
         });
         picker.addOnPositiveButtonClickListener(selection -> {
-            Pair<Long, Long> datePairs = (Pair<Long, Long>) selection;
-            ApplicationInstance.setTransactionDateRange(datePairs);
+            ApplicationInstance.setTransactionDateRange(selection);
             setOrReloadDateRange();
             filterThroughTransactions();
 

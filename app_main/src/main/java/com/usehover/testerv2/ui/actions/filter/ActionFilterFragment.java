@@ -181,14 +181,13 @@ public class ActionFilterFragment extends Fragment {
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
         builder.setCalendarConstraints(constraintsBuilder.build());
 
-        MaterialDatePicker<?> picker = builder.setTitleText(getResources().getString(R.string.selected_range)).build();
+        MaterialDatePicker<Pair<Long, Long>> picker = builder.setTitleText(getResources().getString(R.string.selected_range)).build();
 
         datePickerView.setOnClickListener(v -> {
             if(hasLoaded()) picker.show(getParentFragmentManager(), picker.toString());
         });
         picker.addOnPositiveButtonClickListener(selection -> {
-            Pair<Long, Long> datePairs = (Pair<Long, Long>) selection;
-            ApplicationInstance.setDateRange(datePairs);
+            ApplicationInstance.setDateRange(selection);
             setOrReloadDateRange();
             filterThroughActions();
 
@@ -327,7 +326,9 @@ public class ActionFilterFragment extends Fragment {
     private void setOrReloadDateRange() {
         if(ApplicationInstance.getDateRange() != null) {
             Pair<Long, Long> dateRange = ApplicationInstance.getDateRange();
-            datePickerView.setText(String.format(Locale.ENGLISH, "%s - %s", Utils.formatDateV2(dateRange.first), Utils.formatDateV3(dateRange.second)));
+            datePickerView.setText(String.format(Locale.ENGLISH, "%s - %s",
+                    Utils.formatDateV2((long) Utils.nonNullDateRange(dateRange.first)),
+                    Utils.formatDateV3((long) Utils.nonNullDateRange(dateRange.second))));
             activateReset();
         }
         else datePickerView.setText(getResources().getString(R.string.from_account_creation_to_today));
