@@ -43,7 +43,8 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
     private Timer timer= new Timer();
     private ActionDetailsViewModel actionDetailsViewModel;
     private static final int TEST_SINGLE = 305;
-    private TextView toolText, subtoolText, descTitle,descContent,descLink,operatorsText,stepsText,parsersText,transacText,successText,pendingText,failureText;
+    private TextView toolText, subtoolText, descTitle,descContent,descLink,operatorsText,stepsText,parsersText,
+            transacText,successText,pendingText,failureText, testSingleActiontext;
     private LinearLayout topLayout;
     private StatusEnums mostRecentStatus;
 
@@ -67,6 +68,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
          successText = view.findViewById(R.id.successCount_content);
          pendingText = view.findViewById(R.id.pendingCount_content);
          failureText = view.findViewById(R.id.failedCount_content);
+         testSingleActiontext = view.findViewById(R.id.testSingle_id);
 
         toolText.setText(ActionDetailsActivity.actionId);
         subtoolText.setText(ActionDetailsActivity.actionTitle);
@@ -136,7 +138,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
             }
         });
 
-        view.findViewById(R.id.testSingle_id).setOnClickListener(v->{
+        testSingleActiontext.setOnClickListener(v->{
 
             Map<String, String> actionExtra = Utils.getInitialVariableData(getContext(),  ActionDetailsActivity.actionId).second;
 
@@ -145,11 +147,26 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
             builder.setEnvironment(Apis.getTestEnvMode());
 
             assert  actionExtra !=null;
+            boolean hasValidVariables = true;
             for(String key : actionExtra.keySet()) {
-                builder.extra(key, actionExtra.get(key));
+                if(key == null || key.replace(" ","").isEmpty()) {
+                    hasValidVariables = false;
+                    break;
+                }
+                else builder.extra(key, actionExtra.get(key));
             }
-            Intent i = builder.buildIntent();
-            startActivityForResult(i, TEST_SINGLE);
+
+            if(hasValidVariables) {
+                try{
+                    Intent i = builder.buildIntent();
+                    startActivityForResult(i, TEST_SINGLE);
+                }catch (Exception e){
+                    UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.one_or_more_empty_variable));
+                }
+            }
+            else {
+                UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.one_or_more_empty_variable));
+            }
         });
 
         return  view;
@@ -244,9 +261,14 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
 
     @Override
     public void onEditStringChanged(String label, String newValue) {
+        testSingleActiontext.setClickable(false);
         timer.cancel();
-        timer = new Timer();long DELAY = 1000;
+        timer = new Timer();long DELAY = 800;
         timer.schedule(new TimerTask() {@Override public void run() {
-            if(getContext() !=null) Utils.saveActionVariable(getContext(), label, newValue, ActionDetailsActivity.actionId); }}, DELAY);
+            if(getContext() !=null) {
+                Utils.saveActionVariable(getContext(), label, newValue, ActionDetailsActivity.actionId);
+            }
+            testSingleActiontext.setClickable(true);
+        }}, DELAY);
     }
 }

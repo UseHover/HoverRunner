@@ -69,7 +69,7 @@ public  class TransactionRecyclerAdapter extends RecyclerView.Adapter<Transactio
         @Override
         public int getItemCount() {
             if (transactionModelsList == null) return 0;
-            return transactionModelsList.size();
+            return Math.min(transactionModelsList.size(), 200);
         }
 
     static class TransactionListItemView extends  RecyclerView.ViewHolder {

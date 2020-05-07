@@ -38,6 +38,7 @@
 	<string name="forgot_password">Forgot password</string>
 	<string name="loadingText">Loading…</string>
 	<string name="loggin_in_text">Logging in, please wait…</string>
+	<string name="one_or_more_empty_variable">This action has one or more empty variables. Please check.</string>
 	<string name="filter_text">Filter</string>
 	<string name="testAllActions">Test all actions</string>
 	<string name="test_single_action">Test action</string>

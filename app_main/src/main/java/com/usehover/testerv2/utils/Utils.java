@@ -119,8 +119,9 @@ public class Utils {
 
         assert  variables !=null;
         for(String value : variables.values()) {
+            //REPLACE WHITESPACES TO PREVENT USER ENTER JUST SPACES, WHICH CAN CAUSE ERROR.
             if(value !=null) {
-                if(!TextUtils.isEmpty(value)) filledSize  = filledSize + 1;
+                if(!TextUtils.isEmpty(value.replace(" ", ""))) filledSize  = filledSize + 1;
             }
         }
         if(expectedSize == filledSize) return ActionRunStatus.GOOD;
@@ -137,7 +138,7 @@ public class Utils {
             else mapper = dbModel.getVarMap();
         }
 
-        mapper.put(label, value);
+        mapper.put(label, value.trim());
         Utils.saveString(actionId, new ActionVariablesDBModel(mapper, false).serialize(), c);
     }
     public static void saveSkippedVariable(Context c, String actionId) {
