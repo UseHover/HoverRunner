@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">Hover TesterV2</string>
+	<string name="app_name">Runner</string>
 	<string name="title_actions">Actions</string>
 	<string name="title_transactions">Transactions</string>
 	<string name="title_settings">Settings</string>

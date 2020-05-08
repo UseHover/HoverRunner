@@ -24,6 +24,7 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+
 		<activity android:name=".ui.login.LoginActivity" />
 		<activity android:name=".ui.webview.WebViewActivity" />
         <activity android:name=".ui.actions.filter.ActionFilterActivity" android:theme="@style/AppTheme" />
@@ -37,5 +38,4 @@
 		<activity android:name=".ui.filter_pages.FilterByCategories" />
         <activity android:name=".ui.filter_pages.FilterByActions" />
     </application>
-
 </manifest>
