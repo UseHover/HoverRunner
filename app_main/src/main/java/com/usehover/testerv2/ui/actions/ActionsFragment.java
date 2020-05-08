@@ -175,8 +175,9 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         actionsViewModel.loadActionsObs().observe(getViewLifecycleOwner(), fullActionResult -> {
             switch (fullActionResult.getActionEnum()){
                 case LOADING:
-                    if(homeActionsRecyclerView.getVisibility() == View.VISIBLE)homeActionsRecyclerView.setVisibility(View.GONE);
-                    if(emptyInfoLayout.getVisibility() == View.VISIBLE) {
+                    if (homeActionsRecyclerView.getVisibility() == View.VISIBLE)
+                        homeActionsRecyclerView.setVisibility(View.GONE);
+                    if (emptyInfoLayout.getVisibility() == View.VISIBLE) {
                         emptyInfoLayout.setVisibility(View.GONE);
                         emptyStateView.setVisibility(View.GONE);
                     }
@@ -184,7 +185,8 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                     break;
 
                 case EMPTY:
-                    if(homeActionsRecyclerView.getVisibility() == View.VISIBLE)homeActionsRecyclerView.setVisibility(View.GONE);
+                    if(homeActionsRecyclerView.getVisibility() == View.VISIBLE)
+                        homeActionsRecyclerView.setVisibility(View.GONE);
                     if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
                     emptyInfoLayout.setVisibility(View.VISIBLE);
                     emptyStateView.setVisibility(View.VISIBLE);

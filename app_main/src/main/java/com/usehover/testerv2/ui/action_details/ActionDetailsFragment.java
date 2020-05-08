@@ -81,7 +81,8 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         actionDetailsViewModel.loadActionDetailsObs().observe(getViewLifecycleOwner(), model-> {
             if(model !=null) {
                 operatorsText.setText(model.getOperators());
-                if(model.getStreamlinedStepsModel() !=null) stepsText.setText(model.getStreamlinedStepsModel().getFullUSSDCodeStep());
+                if(model.getStreamlinedStepsModel() !=null)
+                    stepsText.setText(model.getStreamlinedStepsModel().getFullUSSDCodeStep());
                 UIHelper.makeEachTextLinks(model.getParsers(), parsersText, this);
                 transacText.setText(model.getTransactionsNo());
                 successText.setText(model.getSuccessNo());

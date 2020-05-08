@@ -83,7 +83,7 @@ public class Utils {
         getSharedPrefs(c).edit().clear().apply();
     }
 
-    public static StreamlinedStepsModel getStreamlinedStepsStepsFromRaw(@NonNull String rootCode,@NonNull  JSONArray jsonArray) {
+    public static StreamlinedStepsModel getStreamlinedStepsStepsFromRaw(@NonNull String rootCode, @NonNull  JSONArray jsonArray) {
         Gson gson = new Gson();
         RawStepsModel[] rawStepsModel = gson.fromJson(String.valueOf(jsonArray), RawStepsModel[].class);
 
@@ -108,7 +108,7 @@ public class Utils {
 
         }
         //Taking substring of root code to remove the last #. E.g *737# to become *737
-        String readableStep = rootCode.substring(0, rootCode.length()-1) + stepSuffix+"#";
+        String readableStep = (rootCode.length() > 0 ? rootCode.substring(0, rootCode.length() - 1) : "") + stepSuffix + "#";
         return new StreamlinedStepsModel(readableStep, stepsVariableLabels, stepsVariableDesc);
     }
 
