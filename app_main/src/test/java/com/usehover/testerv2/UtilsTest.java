@@ -1,6 +1,7 @@
 package com.usehover.testerv2;
 
 import com.google.gson.JsonArray;
+import com.usehover.testerv2.api.AlgorithmsPlay;
 import com.usehover.testerv2.models.StreamlinedStepsModel;
 import com.usehover.testerv2.utils.Utils;
 import com.usehover.testerv2.utils.Utils;
@@ -69,5 +70,10 @@ public class UtilsTest {
 		Assert.assertEquals(expectedFormat, Utils.formatDate(Long.valueOf("1587414950910")));
 	}
 
+	@Test
+	public void test_findSingleAppearance() {
+		int[] sampleList = new int[] {1,3,5,5,3,1,3,6,5,1,7,2,9,9,2,7,2,7,9};
+		Assert.assertEquals(6, AlgorithmsPlay.findSingleAppearanceV2(sampleList));
+	}
 
 }

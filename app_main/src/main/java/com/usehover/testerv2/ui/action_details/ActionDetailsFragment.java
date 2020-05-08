@@ -259,14 +259,12 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
 
     @Override
     public void onEditStringChanged(String label, String newValue) {
-        testSingleActiontext.setClickable(false);
         timer.cancel();
         timer = new Timer();long DELAY = 800;
         timer.schedule(new TimerTask() {@Override public void run() {
             if(getContext() !=null) {
                 Utils.saveActionVariable(getContext(), label, newValue, ActionDetailsActivity.actionId);
             }
-            testSingleActiontext.setClickable(true);
         }}, DELAY);
     }
 }
