@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.usehover.testerv2">
+    package="com.usehover.runner">
 
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -12,12 +12,12 @@
 	    android:allowBackup="true"
 	    android:icon="@mipmap/ic_launcher"
 	    android:label="@string/app_name"
-	    android:name=".ApplicationInstance"
+	    android:name="com.usehover.runner.ApplicationInstance"
 	    android:supportsRtl="true"
 	    android:theme="@style/myHoverTheme">
 
 		<activity
-		    android:name=".MainActivity"
+		    android:name="com.usehover.runner.MainActivity"
 		    android:label="@string/app_name">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -25,17 +25,17 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".ui.login.LoginActivity" />
-		<activity android:name=".ui.webview.WebViewActivity" />
-        <activity android:name=".ui.actions.filter.ActionFilterActivity" android:theme="@style/AppTheme" />
-		<activity android:name=".ui.transactions.filter.TransactionFilterActivity" android:theme="@style/AppTheme" />
-		<activity android:name=".ui.action_details.ActionDetailsActivity" />
-		<activity android:name=".ui.parsers.ParsersActivity" />
-		<activity android:name=".ui.transactionDetails.TransactionDetailsActivity" />
-        <activity android:name=".ui.actions.uncompletedVariables.UncompletedVariableActivity" />
-        <activity android:name=".ui.filter_pages.FilterByCountries" />
-		<activity android:name=".ui.filter_pages.FilterByNetworks" />
-		<activity android:name=".ui.filter_pages.FilterByCategories" />
-        <activity android:name=".ui.filter_pages.FilterByActions" />
+		<activity android:name="com.usehover.runner.ui.login.LoginActivity" />
+		<activity android:name="com.usehover.runner.ui.webview.WebViewActivity" />
+        <activity android:name="com.usehover.runner.ui.actions.filter.ActionFilterActivity" android:theme="@style/AppTheme" />
+		<activity android:name="com.usehover.runner.ui.transactions.filter.TransactionFilterActivity" android:theme="@style/AppTheme" />
+		<activity android:name="com.usehover.runner.ui.action_details.ActionDetailsActivity" />
+		<activity android:name="com.usehover.runner.ui.parsers.ParsersActivity" />
+		<activity android:name="com.usehover.runner.ui.transactionDetails.TransactionDetailsActivity" />
+        <activity android:name="com.usehover.runner.ui.actions.uncompletedVariables.UncompletedVariableActivity" />
+        <activity android:name="com.usehover.runner.ui.filter_pages.FilterByCountries" />
+		<activity android:name="com.usehover.runner.ui.filter_pages.FilterByNetworks" />
+		<activity android:name="com.usehover.runner.ui.filter_pages.FilterByCategories" />
+        <activity android:name="com.usehover.runner.ui.filter_pages.FilterByActions" />
     </application>
 </manifest>
