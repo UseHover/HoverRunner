@@ -7,19 +7,19 @@
 
 	<fragment
 	    android:id="@+id/navigation_actions"
-	    android:name="com.usehover.runner.ui.actions.ActionsFragment"
+	    android:name="com.hover.runner.ui.actions.ActionsFragment"
 	    android:label="@string/title_actions"
 	    tools:layout="@layout/fragment_actions" />
 
 	<fragment
 	    android:id="@+id/navigation_transactions"
-	    android:name="com.usehover.runner.ui.transactions.TransactionFragment"
+	    android:name="com.hover.runner.ui.transactions.TransactionFragment"
 	    android:label="@string/title_transactions"
 	    tools:layout="@layout/fragment_transactions" />
 
 	<fragment
 	    android:id="@+id/navigation_settings"
-	    android:name="com.usehover.runner.ui.settings.SettingsFragment"
+	    android:name="com.hover.runner.ui.settings.SettingsFragment"
 	    android:label="@string/title_settings"
 	    tools:layout="@layout/fragment_settings" />
 </navigation>
