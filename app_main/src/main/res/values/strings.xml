@@ -3,12 +3,14 @@
 	<string name="title_actions">Actions</string>
 	<string name="title_transactions">Transactions</string>
 	<string name="title_settings">Settings</string>
+	<string name="title_actions_in_filter">Choose actions</string>
 
 	<string name="title_filter">Filter Actions</string>
 	<string name="title_filter_trans">Filter transactions</string>
 	<string name="reset">Reset</string>
 	<string name="search">Search</string>
-	<string name="search_hint">Search for actionID or name</string>
+	<string name="search_hint">Search for actionID, name or root code</string>
+	<string name="search_hint_transaction">Search transaction id, or session text</string>
 	<string name="date_range">Date range</string>
 	<string name="countries">Countries</string>
 	<string name="countries_hint">Select countries</string>
@@ -36,6 +38,7 @@
 	<string name="forgot_password">Forgot password</string>
 	<string name="loadingText">Loading…</string>
 	<string name="loggin_in_text">Logging in, please wait…</string>
+	<string name="one_or_more_empty_variable">This action has one or more empty variables. Please check.</string>
 	<string name="filter_text">Filter</string>
 	<string name="testAllActions">Test all actions</string>
 	<string name="test_single_action">Test action</string>
@@ -60,12 +63,12 @@
 	<string name="pendingStatus_title">This action has a pending transaction.</string>
 	<string name="pendingStatus_desc">This transaction has no parsers or has failed to match an existing parser.</string>
 	<string name="pendingStatus_linkText">Learn more about pending transactions</string>
-	<string name="pendingStatus_url">https://docs.usehover.com/customization</string>
+	<string name="pendingStatus_url">https://docs.usehover.com/parsing</string>
 
 	<string name="failedStatus_title">This action has a failed transaction.</string>
 	<string name="failedStatus_desc">This action has matched a parser with a failed transaction status.</string>
 	<string name="failedStatus_linkText">Learn more about failed transactions</string>
-	<string name="failedStatus_url">https://docs.usehover.com/customization</string>
+	<string name="failedStatus_url">https://docs.usehover.com/parsing</string>
 
 	<string name="successStatus_title">This action works.</string>
 	<string name="unrunStatus_title">This action is yet to be run on this device.</string>
@@ -73,7 +76,7 @@
 	<string name="transaction_det_failed">This transaction failed</string>
 	<string name="transaction_det_pending">This transaction is pending</string>
 	<string name="transaction_det_success">This transaction worked</string>
-
+	<string name="sim_filter">SIM</string>
 	
 	<string name="operators">Operators</string>
 	<string name="steps">Steps</string>
@@ -111,8 +114,40 @@
 	<string name="tranac_details_category">Category</string>
 	<string name="transac_details_operator">Operator</string>
 	<string name="from_account_creation_to_today"><![CDATA[From <account creation> to <today>]]></string>
+	<string name="contactUs"><![CDATA[Don’t see the correct SIM? Try removing it and re-inserting it. If that doesn\’t work, <a href="mailto:support@usehover.com">contact support.</a>]]></string>
 	<string name="hint_choose_actions">Choose actions</string>
 	<string name="selected_range">Selected range</string>
+
+	<string name="noRunnableAction">No runnable actions. Try refreshing</string>
+	<string name="validatingActions">Validating all actions, please wait…</string>
+	<string name="refreshed_successfully">Refreshed successfully</string>
+
+	<string name="no_transactions_yet">No transactions yet</string>
+	<string name="no_transactions_desc">Test an action to see transactions appear here</string>
+	<string name="no_actions_yet">No Actions yet</string>
+	<string name="no_actions_desc">Try swiping down to refresh</string>
+	
+	<string name="uncompleted_variable_notice">Please enter values for the variables below.</string>
+	<string name="above_skip_text">Don’t have the values for these variables right now?</string>
+	<string name="skip_text">Skip this action for now.</string>
+	<string name="below_skip_text">You can always add the values later on this action’s details page</string>
+	<string name="bad_steps_config">Something went wrong with your steps. Please check your dashboard settings</string>
+	
+	<string name="title_countries">Choose countries</string>
+	<string name="title_categories">Choose categories</string>
+	<string name="title_networks">Choose networks</string>
+	<string name="save_text">Save</string>
+
+	<string name="reset_successful">Reset successful</string>
+	<string name="no_actions_filter_result">0 Actions</string>
+	<string name="no_transactions_filter_result">0 Transactions</string>
+	<string name="next_label">Next</string>
+
+	<string name="auth_for_token_stage">https://stage.usehover.com/api/authenticate</string>
+	<string name="auth_for_token_live">https://www.usehover.com/api/authenticate</string>
+
+	<string name="auth_for_key_stage">https://stage.usehover.com/api/get_token</string>
+	<string name="auth_for_key_live">https://www.usehover.com/api/get_token</string>
 
 
 </resources>

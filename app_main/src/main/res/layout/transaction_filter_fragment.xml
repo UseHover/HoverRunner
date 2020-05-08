@@ -50,224 +50,237 @@
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:paddingHorizontal="@dimen/activity_vertical_margin"
+                        android:paddingStart="@dimen/activity_vertical_margin"
+                        android:paddingEnd="0dp"
+                        android:paddingVertical="6dp"
                         android:id="@+id/reset_id"
                         android:text="@string/reset"/>
             </LinearLayout>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search"
-                    android:id="@+id/search_label_id"
-                    android:textColor="@color/colorHoverWhite"
-                    android:textSize="@dimen/text_16"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:textStyle="bold"/>
-
-            <EditText
+            <ProgressBar
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/editText_box_margin_horiz"
-                    android:paddingStart="@dimen/editText_box_margin_horiz"
-                    android:paddingEnd="@dimen/editText_box_margin_horiz"
-                    android:paddingRight="@dimen/editText_box_margin_horiz"
-                    android:paddingTop="@dimen/editText_box_margin_vert"
-                    android:paddingBottom="@dimen/editText_box_margin_vert"
-                    android:hint="@string/search_hint"
-                    android:textColorHint="@color/colorTextHint"
-                    android:layout_marginTop="8dp"
-                    android:maxLines="1"
-                    android:drawableStart="@drawable/ic_search_white_24dp"
-                    android:drawablePadding="8dp"
-                    android:textAllCaps="false"
-                    android:id="@+id/searchEditId"
-                    android:autofillHints="@string/search_hint"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/colorHoverWhite"
-                    android:background="@drawable/edit_text_bg"/>
+                    android:layout_height="match_parent"
+                    android:id="@+id/filter_progressBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_actions"
-                    android:id="@+id/actionsRange_label_id"
-                    android:textColor="@color/colorHoverWhite"
-                    android:textSize="@dimen/text_16"
-                    android:labelFor="@+id/dateRangeEditId"
-                    android:layout_marginTop="32dp"
-                    android:textStyle="bold"/>
-
-            <TextView
+            <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/editText_box_margin_horiz"
-                    android:paddingStart="@dimen/editText_box_margin_horiz"
-                    android:paddingEnd="@dimen/editText_box_margin_horiz"
-                    android:paddingRight="@dimen/editText_box_margin_horiz"
-                    android:paddingTop="@dimen/editText_box_margin_vert"
-                    android:paddingBottom="@dimen/editText_box_margin_vert"
-                    android:hint="@string/hint_choose_actions"
-                    android:textColorHint="@color/colorTextHint"
-                    android:layout_marginTop="8dp"
-                    android:maxLines="1"
-                    android:textSize="@dimen/text_16"
-                    android:textAllCaps="false"
-                    android:id="@+id/actionsSelectEditId"
-                    android:autofillHints="@string/search_hint"
-                    android:textColor="@color/colorHoverWhite"
-                    android:background="@drawable/edit_text_bg"/>
+                    android:layout_height="match_parent"
+                    android:id="@+id/entry_filter_view"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search"
+                        android:id="@+id/search_label_id"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_16"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:textStyle="bold"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/date_range"
-                    android:id="@+id/dateRange_label_id"
-                    android:textColor="@color/colorHoverWhite"
-                    android:textSize="@dimen/text_16"
-                    android:labelFor="@+id/dateRangeEditId"
-                    android:layout_marginTop="32dp"
-                    android:textStyle="bold"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/editText_box_margin_horiz"
+                        android:paddingStart="@dimen/editText_box_margin_horiz"
+                        android:paddingEnd="@dimen/editText_box_margin_horiz"
+                        android:paddingRight="@dimen/editText_box_margin_horiz"
+                        android:paddingTop="@dimen/editText_box_margin_vert"
+                        android:paddingBottom="@dimen/editText_box_margin_vert"
+                        android:hint="@string/search_hint_transaction"
+                        android:textColorHint="@color/colorTextHint"
+                        android:layout_marginTop="8dp"
+                        android:maxLines="1"
+                        android:drawableStart="@drawable/ic_search_white_24dp"
+                        android:drawablePadding="8dp"
+                        android:textAllCaps="false"
+                        android:id="@+id/searchEditId"
+                        android:autofillHints="@string/search_hint_transaction"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/colorHoverWhite"
+                        android:background="@drawable/edit_text_bg"/>
 
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_actions"
+                        android:id="@+id/actionsRange_label_id"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_16"
+                        android:labelFor="@+id/dateRangeEditId"
+                        android:layout_marginTop="32dp"
+                        android:textStyle="bold"/>
 
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/editText_box_margin_horiz"
+                        android:paddingStart="@dimen/editText_box_margin_horiz"
+                        android:paddingEnd="@dimen/editText_box_margin_horiz"
+                        android:paddingRight="@dimen/editText_box_margin_horiz"
+                        android:paddingTop="@dimen/editText_box_margin_vert"
+                        android:paddingBottom="@dimen/editText_box_margin_vert"
+                        android:hint="@string/hint_choose_actions"
+                        android:textColorHint="@color/colorTextHint"
+                        android:layout_marginTop="8dp"
+                        android:maxLines="1"
+                        android:textSize="@dimen/text_16"
+                        android:textAllCaps="false"
+                        android:id="@+id/actionsSelectEntryId"
+                        android:autofillHints="@string/search_hint_transaction"
+                        android:textColor="@color/colorHoverWhite"
+                        android:background="@drawable/edit_text_bg"/>
 
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/editText_box_margin_horiz"
-                    android:paddingStart="@dimen/editText_box_margin_horiz"
-                    android:paddingEnd="@dimen/editText_box_margin_horiz"
-                    android:paddingRight="@dimen/editText_box_margin_horiz"
-                    android:paddingTop="@dimen/editText_box_margin_vert"
-                    android:paddingBottom="@dimen/editText_box_margin_vert"
-                    android:text="@string/from_account_creation_to_today"
-                    android:textColorHint="@color/colorTextHint"
-                    android:layout_marginTop="8dp"
-                    android:maxLines="1"
-                    android:textSize="@dimen/text_16"
-                    android:textAllCaps="false"
-                    android:id="@+id/dateRangeEditId"
-                    android:autofillHints="@string/search_hint"
-                    android:textColor="@color/colorHoverWhite"
-                    android:background="@drawable/edit_text_bg"/>
-
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/countries"
-                    android:id="@+id/countries_label_id"
-                    android:textColor="@color/colorHoverWhite"
-                    android:textSize="@dimen/text_16"
-                    android:layout_marginTop="32dp"
-                    android:textStyle="bold"/>
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/editText_box_margin_horiz"
-                    android:paddingStart="@dimen/editText_box_margin_horiz"
-                    android:paddingEnd="@dimen/editText_box_margin_horiz"
-                    android:paddingRight="@dimen/editText_box_margin_horiz"
-                    android:paddingTop="@dimen/editText_box_margin_vert"
-                    android:paddingBottom="@dimen/editText_box_margin_vert"
-                    android:hint="@string/countries_hint"
-                    android:textColorHint="@color/colorTextHint"
-                    android:layout_marginTop="8dp"
-                    android:maxLines="1"
-                    android:textAllCaps="false"
-                    android:id="@+id/countryEditId"
-                    android:autofillHints="@string/search_hint"
-                    android:textSize="@dimen/text_16"
-                    android:textColor="@color/colorHoverWhite"
-                    android:background="@drawable/edit_text_bg"/>
-
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/network"
-                    android:id="@+id/network_label_id"
-                    android:textColor="@color/colorHoverWhite"
-                    android:textSize="@dimen/text_16"
-                    android:layout_marginTop="32dp"
-                    android:textStyle="bold"/>
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/editText_box_margin_horiz"
-                    android:paddingStart="@dimen/editText_box_margin_horiz"
-                    android:paddingEnd="@dimen/editText_box_margin_horiz"
-                    android:paddingRight="@dimen/editText_box_margin_horiz"
-                    android:paddingTop="@dimen/editText_box_margin_vert"
-                    android:paddingBottom="@dimen/editText_box_margin_vert"
-                    android:hint="@string/countries_hint"
-                    android:textColorHint="@color/colorTextHint"
-                    android:layout_marginTop="8dp"
-                    android:maxLines="1"
-                    android:textAllCaps="false"
-                    android:id="@+id/networkEditId"
-                    android:autofillHints="@string/search_hint"
-                    android:textSize="@dimen/text_16"
-                    android:textColor="@color/colorHoverWhite"
-                    android:background="@drawable/edit_text_bg"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/status"
-                    android:id="@+id/status_label_id"
-                    android:textColor="@color/colorHoverWhite"
-                    android:textSize="@dimen/text_16"
-                    android:layout_marginTop="32dp"
-                    android:textStyle="bold"/>
-
-            <androidx.appcompat.widget.AppCompatCheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    app:buttonTint="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/checkbox_success"
-                    android:text="@string/success_label"
-                    android:textColor="@color/colorHoverWhite"
-                    android:textSize="@dimen/text_16"
-                    android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                    />
-
-            <androidx.appcompat.widget.AppCompatCheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    app:buttonTint="@color/colorPrimary"
-                    android:layout_marginTop="8dp"
-                    android:id="@+id/checkbox_pending"
-                    android:text="@string/pending_label"
-                    android:textColor="@color/colorHoverWhite"
-                    android:textSize="@dimen/text_16"
-                    android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                    />
-
-            <androidx.appcompat.widget.AppCompatCheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    app:buttonTint="@color/colorPrimary"
-                    android:layout_marginTop="8dp"
-                    android:id="@+id/checkbox_fail"
-                    android:text="@string/failed_label"
-                    android:textColor="@color/colorHoverWhite"
-                    android:textSize="@dimen/text_16"
-                    android:layout_marginBottom="42dp"
-                    android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                    />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/date_range"
+                        android:id="@+id/dateRange_label_id"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_16"
+                        android:labelFor="@+id/dateRangeEditId"
+                        android:layout_marginTop="32dp"
+                        android:textStyle="bold"/>
 
 
 
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/editText_box_margin_horiz"
+                        android:paddingStart="@dimen/editText_box_margin_horiz"
+                        android:paddingEnd="@dimen/editText_box_margin_horiz"
+                        android:paddingRight="@dimen/editText_box_margin_horiz"
+                        android:paddingTop="@dimen/editText_box_margin_vert"
+                        android:paddingBottom="@dimen/editText_box_margin_vert"
+                        android:text="@string/from_account_creation_to_today"
+                        android:textColorHint="@color/colorTextHint"
+                        android:layout_marginTop="8dp"
+                        android:maxLines="1"
+                        android:textSize="@dimen/text_16"
+                        android:textAllCaps="false"
+                        android:id="@+id/dateRangeEntryId"
+                        android:autofillHints="@string/search_hint_transaction"
+                        android:textColor="@color/colorHoverWhite"
+                        android:background="@drawable/edit_text_bg"/>
+
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/countries"
+                        android:id="@+id/countries_label_id"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_16"
+                        android:layout_marginTop="32dp"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/editText_box_margin_horiz"
+                        android:paddingStart="@dimen/editText_box_margin_horiz"
+                        android:paddingEnd="@dimen/editText_box_margin_horiz"
+                        android:paddingRight="@dimen/editText_box_margin_horiz"
+                        android:paddingTop="@dimen/editText_box_margin_vert"
+                        android:paddingBottom="@dimen/editText_box_margin_vert"
+                        android:hint="@string/countries_hint"
+                        android:textColorHint="@color/colorTextHint"
+                        android:layout_marginTop="8dp"
+                        android:maxLines="1"
+                        android:textAllCaps="false"
+                        android:id="@+id/countryEntryId"
+                        android:autofillHints="@string/search_hint_transaction"
+                        android:textSize="@dimen/text_16"
+                        android:textColor="@color/colorHoverWhite"
+                        android:background="@drawable/edit_text_bg"/>
+
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/network"
+                        android:id="@+id/network_label_id"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_16"
+                        android:layout_marginTop="32dp"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/editText_box_margin_horiz"
+                        android:paddingStart="@dimen/editText_box_margin_horiz"
+                        android:paddingEnd="@dimen/editText_box_margin_horiz"
+                        android:paddingRight="@dimen/editText_box_margin_horiz"
+                        android:paddingTop="@dimen/editText_box_margin_vert"
+                        android:paddingBottom="@dimen/editText_box_margin_vert"
+                        android:hint="@string/countries_hint"
+                        android:textColorHint="@color/colorTextHint"
+                        android:layout_marginTop="8dp"
+                        android:maxLines="1"
+                        android:textAllCaps="false"
+                        android:id="@+id/networkEntryId"
+                        android:autofillHints="@string/search_hint_transaction"
+                        android:textSize="@dimen/text_16"
+                        android:textColor="@color/colorHoverWhite"
+                        android:background="@drawable/edit_text_bg"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/status"
+                        android:id="@+id/status_label_id"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_16"
+                        android:layout_marginTop="32dp"
+                        android:textStyle="bold"/>
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:buttonTint="@color/colorPrimary"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:id="@+id/checkbox_success"
+                        android:text="@string/success_label"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_16"
+                        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                        />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:buttonTint="@color/colorPrimary"
+                        android:layout_marginTop="8dp"
+                        android:id="@+id/checkbox_pending"
+                        android:text="@string/pending_label"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_16"
+                        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                        />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:buttonTint="@color/colorPrimary"
+                        android:layout_marginTop="8dp"
+                        android:id="@+id/checkbox_fail"
+                        android:text="@string/failed_label"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_16"
+                        android:layout_marginBottom="42dp"
+                        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                        />
 
 
 
+
+
+
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
@@ -281,5 +294,5 @@
             android:textSize="@dimen/text_16"
             android:textColor="@color/colorPrimaryDark"
             android:id="@+id/showActions_id"
-            android:text="Show 9 actions"/>
+            />
 </LinearLayout>

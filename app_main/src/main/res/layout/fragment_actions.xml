@@ -1,60 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@color/colorPrimaryDark"
 		android:orientation="vertical"
+		android:background="@color/colorPrimaryDark"
 		android:layout_marginBottom="55dp"
-		tools:context=".ui.actions.ActionsFragment">
-
-	<LinearLayout
+		xmlns:tools="http://schemas.android.com/tools"
+		tools:context=".ui.actions.ActionsFragment"
+		xmlns:android="http://schemas.android.com/apk/res/android">
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+			android:id="@+id/pullToRefresh"
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
-			android:orientation="vertical"
 			android:layout_weight="1"
-			android:paddingTop="@dimen/activity_vertical_margin"
 			>
-
 		<LinearLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_vertical"
-				android:gravity="center_vertical"
-				android:orientation="horizontal">
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				android:paddingTop="@dimen/activity_vertical_margin"
+				>
 
-			<TextView
-					android:layout_width="0dp"
+			<LinearLayout
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:textAlignment="textStart"
-					android:textStyle="bold"
-					android:textSize="@dimen/actionTextSize"
-					android:textColor="@color/colorHoverWhite"
-					android:text="@string/title_actions"
-					android:paddingHorizontal="@dimen/activity_vertical_margin"
-					android:layout_weight="1"
-					/>
+					android:layout_gravity="center_vertical"
+					android:gravity="center_vertical"
+					android:orientation="horizontal">
 
-			<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textColor="@color/colorHoverWhite"
-					android:textSize="@dimen/actionRightSideTextSize"
-					android:textStyle="bold"
-					android:layout_gravity="center"
-					android:gravity="center"
-					android:paddingHorizontal="@dimen/activity_vertical_margin"
-					android:id="@+id/actionFilter_id"
-					android:text="@string/filter_text"/>
+				<TextView
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:textAlignment="textStart"
+						android:textStyle="bold"
+						android:textSize="@dimen/actionTextSize"
+						android:textColor="@color/colorHoverWhite"
+						android:text="@string/title_actions"
+						android:paddingHorizontal="@dimen/activity_vertical_margin"
+						android:layout_weight="1"
+						/>
+
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textColor="@color/colorHoverWhite"
+						android:textSize="@dimen/actionRightSideTextSize"
+						android:textStyle="bold"
+						android:layout_gravity="center"
+						android:gravity="center"
+						android:paddingHorizontal="@dimen/activity_vertical_margin"
+						android:paddingVertical="6dp"
+						android:id="@+id/actionFilter_id"
+						android:text="@string/filter_text"/>
+
+			</LinearLayout>
+
+			<include layout="@layout/recycler_view_state"/>
+
+			<include layout="@layout/general_recycler_view"
+					android:visibility="gone"/>
 
 		</LinearLayout>
-
-		<include layout="@layout/recycler_view_state" android:visibility="gone"/>
-		<include layout="@layout/general_recycler_view"
-				android:visibility="gone"/>
-
-	</LinearLayout>
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 	<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

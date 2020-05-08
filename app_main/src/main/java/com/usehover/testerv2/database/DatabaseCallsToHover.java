@@ -1,6 +1,7 @@
 package com.usehover.testerv2.database;
 
 import android.os.Build;
+import android.util.Log;
 
 import com.hover.sdk.BuildConfig;
 import com.hover.sdk.actions.HoverAction;
@@ -27,30 +28,36 @@ import java.util.Map;
 public class DatabaseCallsToHover {
     private List<Transaction> transactionListByActionId;
 
-    public List<ActionsModel> getAllActionsFromHover() {
+    public List<ActionsModel> getAllActionsFromHover(boolean withMetaInfo) {
         List<HoverAction> actionList = Hover.getAllActions(ApplicationInstance.getContext());
-        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext());
+        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext(), null);
 
         List<ActionsModel> actionsModelList = new ArrayList<>(actionList.size());
         Map<String, String> actionsWithStatus = new HashMap<>();
         for(Transaction transaction : transactionList) {
-            actionsWithStatus.put(transaction.actionId, transaction.status);
+            //Only put the last run status.
+            if(actionsWithStatus.get(transaction.actionId) == null)
+                actionsWithStatus.put(transaction.actionId, transaction.status);
         }
 
 
         for(HoverAction action : actionList) {
             String status = actionsWithStatus.get(action.id);
-            ActionsModel tempModel = new ActionsModel(action.id,
-                    action.name,
+            ActionsModel tempModel = new ActionsModel(action.id, action.name, action.rootCode, action.steps,
                     (status == null) ? StatusEnums.NOT_YET_RUN : Utils.getStatusByString(status));
+            if(withMetaInfo) {
+                tempModel.setCountry(action.country);
+                tempModel.setNetwork_name(action.networkName);
+            }
             actionsModelList.add(tempModel);
         }
 
         return actionsModelList;
     }
 
-    public  List<TransactionModels> getAllTransactionsFromHover() {
-        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext());
+    public  List<TransactionModels> getAllTransactionsFromHover(String args) {
+        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext(), args);
+        Log.d("SITUATION", "transaction list reported is: "+transactionList.size());
         List<TransactionModels> transactionModelsList = new ArrayList<>(transactionList.size());
 
         for(Transaction transaction : transactionList) {
@@ -58,17 +65,21 @@ public class DatabaseCallsToHover {
             try {
                 lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
             } catch (JSONException ignored) {}
-            TransactionModels transactionModels = new TransactionModels(transaction.uuid,
+            TransactionModels transactionModels = new TransactionModels(transaction.id, transaction.uuid,
                     Utils.formatDate(transaction.updatedTimestamp),
                     lastUSSDMessage,
                     Utils.getStatusByString(transaction.status));
-
+            transactionModels.setDateTimeStamp(transaction.updatedTimestamp);
+            transactionModels.setActionId(transaction.actionId);
+            transactionModels.setCategory(transaction.category);
             transactionModelsList.add(transactionModels);
-
         }
         return transactionModelsList;
     }
 
+    public boolean doesActionHasParsers(String actionId) {
+        return Hover.getParsersByActionId(ApplicationInstance.getContext(), actionId).size() > 0;
+    }
     public ActionDetailsModels getActionDetailsById(String actionId) {
         //Putting into try and catch to prevent Runtime errors.
         try {
@@ -78,14 +89,15 @@ public class DatabaseCallsToHover {
         List<HoverParser> hoverParsersList = new ArrayList<>();
         try {
             hoverParsersList = Hover.getParsersByActionId(ApplicationInstance.getContext(), actionId);
-        }catch (Exception ignored) {};
+        }catch (Exception ignored) {}
         HoverAction hoverAction = Hover.getActionById(ApplicationInstance.getContext(), actionId);
-
 
         StringBuilder parsers = new StringBuilder();
         for(HoverParser hoverParser : hoverParsersList) {
-            parsers.append(", ").append(hoverParser.serverId);
+            parsers.append(hoverParser.serverId).append(", ");
         }
+        String parserString = "";
+        if(!parsers.toString().isEmpty())  parserString= parsers.toString().substring(0, parsers.length()-2);
         String totalTransaction = "0";
         int successNo = 0;
         int pendingNo = 0;
@@ -103,7 +115,7 @@ public class DatabaseCallsToHover {
 
         ActionDetailsModels actionDetailsModels = new ActionDetailsModels(
                 hoverAction.networkName,
-                parsers.toString(),
+                parserString,
                 totalTransaction,
                 String.valueOf(successNo),
                 String.valueOf(pendingNo),
@@ -125,7 +137,7 @@ public class DatabaseCallsToHover {
             try {
                 lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
             } catch (JSONException ignored) {}
-            TransactionModels transactionModels = new TransactionModels(transaction.uuid,
+            TransactionModels transactionModels = new TransactionModels(transaction.id, transaction.uuid,
                     Utils.formatDate(transaction.updatedTimestamp),
                     lastUSSDMessage,
                     Utils.getStatusByString(transaction.status));
@@ -157,7 +169,7 @@ public class DatabaseCallsToHover {
                 null, false));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Result", lastUSSDMessage,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Category", transaction.category,
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Category", Utils.nullToString(transaction.category),
                 null, false));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Operator", action.networkName,
                 null, false));
@@ -166,12 +178,11 @@ public class DatabaseCallsToHover {
 
     public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsDevice(String transactionId) {
         Transaction transaction = Hover.getTransactionById(ApplicationInstance.getContext(), transactionId);
-        HoverAction action = Hover.getActionById(ApplicationInstance.getContext(), transaction.actionId);
         String manufacturer = Build.MANUFACTURER;
         String model = Build.MODEL;
-        String osVersionName = Build.VERSION.CODENAME;
+        String osVersionName =  String.valueOf(Build.VERSION.SDK_INT);
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Transactions", Utils.envValueToString(transaction.env),
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Testing mode", Utils.envValueToString(transaction.env),
                 null, false));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Device ID", com.hover.sdk.utils.Utils.getDeviceId(ApplicationInstance.getContext()),
                 null, false));
@@ -179,7 +190,7 @@ public class DatabaseCallsToHover {
                 null, false));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Model", model,
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Android ver.", osVersionName,
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Android ver.", "SDK "+osVersionName,
                 null, false));
         dataTransacArrayList.add(new TransactionDetailsInfoModels("App ver.", Utils.TESTER_VERSION,
                 null, false));
@@ -189,21 +200,25 @@ public class DatabaseCallsToHover {
     }
     public ArrayList<TransactionDetailsInfoModels> getTransactionsDetailsDebug(String transactionId){
         Transaction transaction = Hover.getTransactionById(ApplicationInstance.getContext(), transactionId);
-        HoverAction action = Hover.getActionById(ApplicationInstance.getContext(), transaction.actionId);
         StringBuilder parsers = new StringBuilder();
         try {
             String[] parserList = Utils.convertNormalJSONArrayToStringArray(transaction.matchedParsers);
             for(String string : parserList) {
-                parsers.append(", ").append(string);
+                parsers.append(string).append(", ");
             }
+
         } catch (JSONException ignored) {}
 
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Input extras", transaction.input_extras.toString(),
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Input extras", Utils.nullToString(transaction.input_extras),
                 null, false));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Matched parsers", parsers.toString(),
+
+        String parserString = "";
+        if(!parsers.toString().isEmpty())  parserString= parsers.toString().substring(0, parsers.length()-2);
+
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Matched parsers", Utils.nullToString(parserString),
                 null, true));
-        dataTransacArrayList.add(new TransactionDetailsInfoModels("Parsed variables", transaction.parsed_variables.toString(),
+        dataTransacArrayList.add(new TransactionDetailsInfoModels("Parsed variables", Utils.nullToString(transaction.parsed_variables),
                 null, false));
         return dataTransacArrayList;
     }
@@ -256,7 +271,7 @@ public class DatabaseCallsToHover {
                 lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
             } catch (JSONException ignored) {}
 
-            TransactionModels transactionModels = new TransactionModels(transaction.uuid,
+            TransactionModels transactionModels = new TransactionModels(transaction.id, transaction.uuid,
                     Utils.formatDate(transaction.updatedTimestamp),
                     lastUSSDMessage,
                     Utils.getStatusByString(transaction.status));
@@ -264,5 +279,9 @@ public class DatabaseCallsToHover {
 
         }
         return transactionModelsList;
+    }
+
+    public void filterTransactionFromHover() {
+
     }
 }

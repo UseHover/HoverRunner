@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.usehover.testerv2.MainActivity;
 import com.usehover.testerv2.R;
 import com.usehover.testerv2.adapters.TransactionRecyclerAdapter;
 import com.usehover.testerv2.api.Apis;
@@ -28,9 +31,11 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 
 	private static final int FILTER_RESULT_TRANSACTION = 301;
 	private TransactionViewModel transactionViewModel;
-	private TextView filterText, emptyStateText;
+	private TextView filterText;
+	private LinearLayout emptyInfoLayout;
 	private ProgressBar progressBar;
 	private RecyclerView homeTransactionsRecyclerView;
+	private RelativeLayout emptyStateView;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
@@ -38,9 +43,10 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 
 		filterText  = root.findViewById(R.id.transactionFilter_id);
 		progressBar = root.findViewById(R.id.progress_state_1);
-		emptyStateText = root.findViewById(R.id.empty_text_1);
+		emptyInfoLayout = root.findViewById(R.id.empty_info_layout);
+		emptyStateView = root.findViewById(R.id.layoutForEmptyStateId);
 
-		homeTransactionsRecyclerView= root.findViewById(R.id.recyclerViewId);
+		homeTransactionsRecyclerView = root.findViewById(R.id.recyclerViewId);
 		homeTransactionsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
 
 		UIHelper.setTextUnderline(filterText, getResources().getString(R.string.filter_text));
@@ -51,21 +57,22 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 			startActivityForResult(i, FILTER_RESULT_TRANSACTION);
 		});
 
-		transactionViewModel.getAllTransactions();
-
+		setupViews();
 		return root;
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
+	private void setupViews() {
 		transactionViewModel.getText().observe(getViewLifecycleOwner(), filterStatus-> {
 			switch (filterStatus) {
-				case FILTER_OFF: filterText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
+				case FILTER_OFF:
+					filterText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
+					filterText.setCompoundDrawablesWithIntrinsicBounds(0, 0,0,0);
+
 					break;
-				case FILTER_ON: filterText.setTextColor(getResources().getColor(R.color.colorPrimary));
-				filterText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dot_purple_24dp, 0,0,0);
-				filterText.setCompoundDrawablePadding(8);
+				case FILTER_ON:
+					filterText.setTextColor(getResources().getColor(R.color.colorPrimary));
+					filterText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dot_purple_24dp, 0,0,0);
+					filterText.setCompoundDrawablePadding(8);
 					break;
 			}
 		});
@@ -75,16 +82,25 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 			switch (fullActionResult.getEnums()){
 				case LOADING:
 					if(homeTransactionsRecyclerView.getVisibility() == View.VISIBLE)homeTransactionsRecyclerView.setVisibility(View.GONE);
-					if(emptyStateText.getVisibility() == View.VISIBLE) emptyStateText.setVisibility(View.GONE);
+					if(emptyInfoLayout.getVisibility() == View.VISIBLE) {
+						emptyInfoLayout.setVisibility(View.GONE);
+						emptyStateView.setVisibility(View.GONE);
+					}
 					progressBar.setVisibility(View.VISIBLE);
 					break;
+
 				case EMPTY:
 					if(homeTransactionsRecyclerView.getVisibility() == View.VISIBLE)homeTransactionsRecyclerView.setVisibility(View.GONE);
 					if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
-					emptyStateText.setVisibility(View.VISIBLE);
+					emptyInfoLayout.setVisibility(View.VISIBLE);
+					emptyStateView.setVisibility(View.VISIBLE);
 					break;
+
 				case HAS_DATA:
-					if(emptyStateText.getVisibility() == View.VISIBLE) emptyStateText.setVisibility(View.GONE);
+					if(emptyInfoLayout.getVisibility() == View.VISIBLE) {
+						emptyInfoLayout.setVisibility(View.GONE);
+						emptyStateView.setVisibility(View.GONE);
+					}
 					if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
 					if(homeTransactionsRecyclerView.getVisibility() != View.VISIBLE) homeTransactionsRecyclerView.setVisibility(View.VISIBLE);
 					homeTransactionsRecyclerView.setAdapter(new TransactionRecyclerAdapter(fullActionResult.getTransactionModelsList(),
@@ -96,20 +112,19 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 			}
 		});
 	}
-
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == FILTER_RESULT_TRANSACTION) {
-			if (resultCode == Activity.RESULT_OK) {
-				String newText = data.getStringExtra("idn");
-				assert newText != null;
-				if (newText.equals("enteredTextValue")) {
-					transactionViewModel.setFilterOn();
-				}
-			}
+	public void onResume() {
+		super.onResume();
+		if(MainActivity.initialActionFilter !=null) {
+			String tempActionFilter = MainActivity.initialActionFilter;
+			transactionViewModel.setFilterOn();
+			transactionViewModel.getTransactionByActionId(tempActionFilter);
+			MainActivity.initialActionFilter = null;
 		}
+		else transactionViewModel.getAllTransactions();
+
 	}
+
 
 	@Override
 	public void customClickListener(Object... data) {

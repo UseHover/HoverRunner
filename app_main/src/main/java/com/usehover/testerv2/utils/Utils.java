@@ -2,16 +2,23 @@ package com.usehover.testerv2.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
+import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.BuildConfig;
+import com.usehover.testerv2.enums.ActionRunStatus;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.ActionVariablesDBModel;
+import com.usehover.testerv2.models.ActionsModel;
 import com.usehover.testerv2.models.RawStepsModel;
 import com.usehover.testerv2.models.StreamlinedStepsModel;
-import com.usehover.testerv2.ui.action_details.ActionDetailsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,25 +26,27 @@ import org.json.JSONException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Utils {
 
     public final static String TESTER_VERSION = "1.0 (1)";
-    public final static String HOVER_TRANSAC_FAILED = "failed";
+    private final static String HOVER_TRANSAC_FAILED = "failed";
     public final static String HOVER_TRANSAC_PENDING = "pending";
     public final static String HOVER_TRANSAC_SUCCEEDED = "succeeded";
     private static final String SHARED_PREFS = "_testerV2";
     public final static String TESTER_ENV = "testerEnv";
-
+    private final static String API_KEY_LABEL = "apiKey";
 
     private static SharedPreferences getSharedPrefs(Context context) {
         return context.getSharedPreferences(getPackage(context) + SHARED_PREFS, Context.MODE_PRIVATE);
     }
 
-    public static void saveString(String key, String value, Context c) {
+    private static void saveString(String key, String value, Context c) {
         SharedPreferences.Editor editor = Utils.getSharedPrefs(c).edit();
         editor.putString(key, value);
         editor.apply();
@@ -48,7 +57,7 @@ public class Utils {
         editor.apply();
     }
 
-    public static String getStringFromSharedPref(Context c, String key) {
+    private static String getStringFromSharedPref(Context c, String key) {
         return getSharedPrefs(c).getString(key, "");
     }
 
@@ -62,6 +71,16 @@ public class Utils {
         } catch (NullPointerException e) {
             return "fail";
         }
+    }
+
+    public static void saveApiKey(String value) {
+        saveString(API_KEY_LABEL, value, ApplicationInstance.getContext());
+    }
+    public static String getAppApiKey(Context c) {
+        return getStringFromSharedPref(c, API_KEY_LABEL);
+    }
+    public static void clearData(Context c) {
+        getSharedPrefs(c).edit().clear().apply();
     }
 
     public static StreamlinedStepsModel getStreamlinedStepsStepsFromRaw(@NonNull String rootCode,@NonNull  JSONArray jsonArray) {
@@ -93,8 +112,25 @@ public class Utils {
         return new StreamlinedStepsModel(readableStep, stepsVariableLabels, stepsVariableDesc);
     }
 
-    public static void saveActionVariable(Context c,  String label, String value) {
-        ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, ActionDetailsActivity.actionId));
+    public static ActionRunStatus actionHasAllVariablesFilled(Context c, String actionId, int expectedSize) {
+        Pair<Boolean, Map<String, String>> pair = getInitialVariableData(c, actionId);
+        Map<String, String> variables = pair.second;
+        int filledSize = 0;
+
+        assert  variables !=null;
+        for(String value : variables.values()) {
+            //REPLACE WHITESPACES TO PREVENT USER ENTER JUST SPACES, WHICH CAN CAUSE ERROR.
+            if(value !=null) {
+                if(!TextUtils.isEmpty(value.replace(" ", ""))) filledSize  = filledSize + 1;
+            }
+        }
+        if(expectedSize == filledSize) return ActionRunStatus.GOOD;
+        if(pair.first != null) { if (pair.first) return  ActionRunStatus.SKIPPED; }
+        return ActionRunStatus.BAD;
+    }
+
+    public static void saveActionVariable(Context c,  String label, String value, String actionId) {
+        ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, actionId));
         Map<String, String> mapper;
         if(dbModel == null) mapper = new HashMap<>();
         else {
@@ -102,14 +138,26 @@ public class Utils {
             else mapper = dbModel.getVarMap();
         }
 
-        mapper.put(label, value);
-        Utils.saveString(ActionDetailsActivity.actionId, new ActionVariablesDBModel(mapper).serialize(), c);
+        mapper.put(label, value.trim());
+        Utils.saveString(actionId, new ActionVariablesDBModel(mapper, false).serialize(), c);
+    }
+    public static void saveSkippedVariable(Context c, String actionId) {
+        ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, actionId));
+        Map<String, String> mapper;
+        if(dbModel == null) mapper = new HashMap<>();
+        else {
+            if(dbModel.getVarMap() == null) mapper = new HashMap<>();
+            else mapper = dbModel.getVarMap();
+        }
+
+        mapper.put("", "");
+        Utils.saveString(actionId, new ActionVariablesDBModel(mapper, true).serialize(), c);
     }
 
-    public static Map<String, String> getInitialVariableData(Context c, String actionId) {
-        ActionVariablesDBModel model = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, ActionDetailsActivity.actionId));
-        if(model == null) return new HashMap<>();
-        return model.getVarMap();
+    public static Pair<Boolean, Map<String, String>> getInitialVariableData(Context c, String actionId) {
+        ActionVariablesDBModel model = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, actionId));
+        if(model == null) return new Pair<>(false,  new HashMap<>());
+        return new Pair<>(model.isSkipped(), model.getVarMap());
     }
 
     public static boolean validateEmail(String string) {
@@ -129,15 +177,16 @@ public class Utils {
         }
         return list;
     }
+
     public static StatusEnums getStatusByString(String status) {
         StatusEnums statusEnums;
         switch (status) {
             case HOVER_TRANSAC_FAILED : statusEnums = StatusEnums.UNSUCCESSFUL;
-            break;
+                break;
             case HOVER_TRANSAC_PENDING: statusEnums =   StatusEnums.PENDING;
-            break;
+                break;
             default: statusEnums = StatusEnums.SUCCESS;
-            break;
+                break;
         }
         return statusEnums;
     }
@@ -148,22 +197,51 @@ public class Utils {
         return simpleDateFormat.format(timestamp);
     }
 
+    public static String formatDateV2(@Nullable long timestamp) {
+
+        String pattern = "MMM dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        return simpleDateFormat.format(timestamp);
+    }
+
+    public static String formatDateV3(long timestamp) {
+        String pattern = "MMM dd, yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        return simpleDateFormat.format(timestamp);
+    }
+
+
     public static String envValueToString(int env) {
         String string = "";
         switch (env) {
             case 0: string = "Normal";
-            break;
+                break;
             case 1: string = "Debug";
-            break;
+                break;
             default: string = "No-SIM";
-            break;
+                break;
         }
         return string;
     }
 
-    public static String nullToString(String value) {
+    public static String nullToString(Object value) {
         if(value == null) return  "None";
+        else return value.toString();
+    }
+
+    public static List<?> removeDuplicatesFromList(List<?> list) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            list = list.stream().distinct().collect(Collectors.toList());
+        } else {
+            LinkedHashSet<Object> hashSet = new LinkedHashSet<>(list);
+            list = new ArrayList<>(hashSet);
+        }
+        return list;
+    }
+    static public  Object nonNullDateRange(Object value) {
+        if(value == null) return 0;
         else return value;
     }
+
 
 }

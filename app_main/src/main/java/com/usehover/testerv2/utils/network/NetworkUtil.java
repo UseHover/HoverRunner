@@ -1,4 +1,4 @@
-package com.usehover.testerv2.utils;
+package com.usehover.testerv2.utils.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

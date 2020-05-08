@@ -95,14 +95,14 @@ public class ParsersFragment extends Fragment implements CustomOnClickListener {
         parsersViewModel.loadParsersTransactionsObs().observe(getViewLifecycleOwner(), transactions-> {
             switch (transactions.getEnums()) {
                 case LOADING:
-                        recentTransText.setText(getResources().getString(R.string.loadingText));
+                    recentTransText.setText(getResources().getString(R.string.loadingText));
                     break;
                 case EMPTY:
-                        recentTransText.setText(getResources().getString(R.string.zero_transactions));
+                    recentTransText.setText(getResources().getString(R.string.zero_transactions));
                     break;
                 case HAS_DATA:
-                        recentTransText.setText(getResources().getString(R.string.recent_transactions));
-                        parserTransactionRecyclerView.setAdapter(new TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
+                    recentTransText.setText(getResources().getString(R.string.recent_transactions));
+                    parserTransactionRecyclerView.setAdapter(new TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
                             this,
                             getResources().getColor(R.color.colorYellow),
                             getResources().getColor(R.color.colorRed),

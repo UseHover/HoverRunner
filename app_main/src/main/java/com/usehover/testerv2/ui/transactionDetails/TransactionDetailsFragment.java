@@ -152,12 +152,12 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
             Intent i = new Intent(getActivity(), ActionDetailsActivity.class);
             i.putExtra(Apis.ACTION_ID, (String) data[1]);
             i.putExtra(Apis.ACTION_TITLE, (String) data[2]);
-            i.putExtra(Apis.ACTION_STATUS, (StatusEnums) data[3]);
+            i.putExtra(Apis.ACTION_STATUS, TransactionDetailsActivity.transactionStatusEnums);
             startActivity(i);
         }
         else {
             Intent i2 = new Intent(getActivity(), ParsersActivity.class);
-            i2.putExtra(ParsersActivity.PARSER_EXTRA, (String )data[1]);
+            i2.putExtra(ParsersActivity.PARSER_EXTRA, (String) data[1]);
             startActivity(i2);
         }
     }

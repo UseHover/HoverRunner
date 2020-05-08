@@ -7,13 +7,19 @@ import java.util.Map;
 
 public class ActionVariablesDBModel {
     private Map<String, String> varMap;
+    private boolean skipped;
 
-    public ActionVariablesDBModel(Map<String, String> label) {
+    public ActionVariablesDBModel(Map<String, String> label, boolean skipped) {
         this.varMap = label;
+        this.skipped = skipped;
     }
 
     public Map<String, String> getVarMap() {
         return varMap;
+    }
+
+    public boolean isSkipped() {
+        return skipped;
     }
 
     public String serialize() {

@@ -3,12 +3,13 @@ package com.usehover.testerv2.ui.login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,7 @@ import com.usehover.testerv2.R;
 import com.usehover.testerv2.api.Apis;
 import com.usehover.testerv2.enums.PassageEnum;
 import com.usehover.testerv2.ui.webview.WebViewActivity;
-import com.usehover.testerv2.utils.NetworkUtil;
+import com.usehover.testerv2.utils.network.NetworkUtil;
 import com.usehover.testerv2.utils.UIHelper;
 
 import java.util.Objects;
@@ -29,18 +30,13 @@ import java.util.Objects;
 
 public class LoginFragment extends Fragment {
     private LoginViewModel loginViewModel;
-    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         View view = inflater.inflate(R.layout.login_fragment, container, false);
         TextView forgotPassword = view.findViewById(R.id.forgotPassword_text);
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage(getResources().getString(R.string.loggin_in_text));
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
+
 
         UIHelper.setTextUnderline(forgotPassword, Objects.requireNonNull(getContext()).getString(R.string.forgot_password));
 
@@ -51,6 +47,8 @@ public class LoginFragment extends Fragment {
             startActivity(intent);
         });
 
+        ProgressBar loginProgressBar = view.findViewById(R.id.login_progress);
+        Button signInButton = view.findViewById(R.id.signinButton);
         EditText emailEdit = view.findViewById(R.id.emailEditId);
         EditText passwordEdit = view.findViewById(R.id.passwordEditId);
         TextView errorEmailText = view.findViewById(R.id.errorText_email);
@@ -61,13 +59,14 @@ public class LoginFragment extends Fragment {
         emailEdit.setOnClickListener(v -> undoErrorView(emailEdit, errorEmailText, emailLabel));
         passwordEdit.setOnClickListener(v -> undoErrorView(passwordEdit, errorPasswordText, passwordLabel));
 
+        loginProgressBar.setIndeterminate(true);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         loginViewModel.getModelResult().observe(getViewLifecycleOwner(), modelResult -> {
-            if (progressDialog.isShowing()) {
-                progressDialog.dismiss();
-                progressDialog.cancel();
-            }
+            signInButton.setText(getResources().getString(R.string.signIn));
+            loginProgressBar.setVisibility(View.GONE);
             switch (modelResult.getStatus()) {
                 case ERROR_EMAIL:
+                    signInButton.setClickable(true);
                     //Just to make sure password error gets cleared
                     if(errorPasswordText.getVisibility() == View.VISIBLE)undoErrorView(passwordEdit, errorPasswordText, passwordLabel);
                     //Set email error afterwards
@@ -76,6 +75,7 @@ public class LoginFragment extends Fragment {
 
                     break;
                 case ERROR_PASSWORD:
+                    signInButton.setClickable(true);
                     //Just to make sure email error get's cleared
                     if(errorEmailText.getVisibility() == View.VISIBLE)undoErrorView(emailEdit, errorEmailText, emailLabel);
                     //set password error afterwards
@@ -84,6 +84,7 @@ public class LoginFragment extends Fragment {
 
                     break;
                 case ERROR:
+                    signInButton.setClickable(true);
                     UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null , modelResult.getMessage());
                     break;
                 case SUCCESS:
@@ -96,12 +97,19 @@ public class LoginFragment extends Fragment {
         });
 
 
-        view.findViewById(R.id.signinButton).setOnClickListener(v -> {
+        signInButton.setOnClickListener(v -> {
             if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
-                if (!progressDialog.isShowing()) progressDialog.show();
+                loginProgressBar.setVisibility(View.VISIBLE);
+                signInButton.setText(getResources().getString(R.string.loggin_in_text));
+                v.setClickable(false);
                 undoErrorView(emailEdit, errorEmailText, emailLabel);
                 undoErrorView(passwordEdit, errorPasswordText, passwordLabel);
-                loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString());
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString());
+                    }
+                }, 500);
             }
             else UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null, Apis.NO_NETWORK);
         });
