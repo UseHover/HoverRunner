@@ -2,8 +2,8 @@
 <androidx.fragment.app.FragmentContainerView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:name="com.usehover.testerv2.ui.parsers.ParsersFragment"
-        tools:context="com.usehover.runner.ui.parsers.ParsersFragment"
+        android:name="com.usehover.runner.ui.parsers.ParsersFragment"
+        tools:context="com.hover.runner.ui.parsers.ParsersFragment"
         android:id="@+id/parsers_FragmentId"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
