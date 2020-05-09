@@ -1,8 +1,12 @@
 package com.usehover.testerv2.utils;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -13,6 +17,7 @@ import androidx.core.util.Pair;
 import com.google.gson.Gson;
 import com.usehover.testerv2.ApplicationInstance;
 import com.usehover.testerv2.BuildConfig;
+import com.usehover.testerv2.R;
 import com.usehover.testerv2.enums.ActionRunStatus;
 import com.usehover.testerv2.enums.StatusEnums;
 import com.usehover.testerv2.models.ActionVariablesDBModel;
@@ -243,5 +248,20 @@ public class Utils {
         else return value;
     }
 
-
+    @SuppressLint({"HardwareIds", "MissingPermission"})
+    public static String getDeviceId(Context c) {
+        try {
+            if (new PermissionHelper(c, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE}).hasPermissions()) {
+                String id = null;
+                if (Build.VERSION.SDK_INT < 29) {
+                    try {
+                        id = ((TelephonyManager) c.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+                    } catch (Exception ignored) {}
+                }
+                if (id == null) { id = Settings.Secure.getString(c.getContentResolver(), Settings.Secure.ANDROID_ID); }
+                return id;
+            }
+        } catch (SecurityException ignored) {  }
+        return c.getString(R.string.hsdk_unknown_device_id);
+    }
 }

@@ -21,8 +21,8 @@ public class ParsersViewModel extends ViewModel {
     }
 
     LiveData<ParsersInfoModel> loadParserInfoObs() { return  parserModel;}
-    void getParsersInfo(String parserId) {parserModel.postValue(new Apis().getParsersInfoById(parserId));}
+    void getParsersInfo(int parserId) {parserModel.postValue(new Apis().getParsersInfoById(parserId));}
 
     LiveData<FullTransactionResult> loadParsersTransactionsObs() {return parserTransactions; }
-    void getParserTransactions(String parserId) {parserTransactions.postValue(new Apis().getTransactionsByParserId(parserId));}
+    void getParserTransactions(int parserId) {parserTransactions.postValue(new Apis().getTransactionsByParserId(parserId));}
 }

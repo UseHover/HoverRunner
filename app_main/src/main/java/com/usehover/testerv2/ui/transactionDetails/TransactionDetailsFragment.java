@@ -157,7 +157,7 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
         }
         else {
             Intent i2 = new Intent(getActivity(), ParsersActivity.class);
-            i2.putExtra(ParsersActivity.PARSER_EXTRA, (String) data[1]);
+            i2.putExtra(ParsersActivity.PARSER_EXTRA, (int) data[1]);
             startActivity(i2);
         }
     }

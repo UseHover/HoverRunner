@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.usehover.testerv2.R;
 
 public class ParsersActivity extends AppCompatActivity {
-    static String parserId;
+    static int parserId;
     public static String PARSER_EXTRA = "parser_extra";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getIntent().getExtras() !=null) parserId = getIntent().getExtras().getString(PARSER_EXTRA);
+        if(getIntent().getExtras() != null) parserId = getIntent().getExtras().getInt(PARSER_EXTRA);
 
         setContentView(R.layout.parsers_activity);
     }

@@ -347,16 +347,16 @@ public class Apis {
 	}
 
 	public FullTransactionResult doGetTransactionsByActionIdWorkManager(String actionId) {
-		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getTransactionByActionIdFromHover(actionId);
+		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getTransactionsByActionIdFromHover(actionId);
 		return new FullTransactionResult(transactionModelsList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, transactionModelsList);
 	}
 
-	public ParsersInfoModel getParsersInfoById(String parserId) {
+	public ParsersInfoModel getParsersInfoById(int parserId) {
 		return new DatabaseCallsToHover().getParserInfoByIdFromHover(parserId);
 	}
 
-	public FullTransactionResult getTransactionsByParserId(String parserId) {
-		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getTransactionByParserIdFromHover(parserId);
+	public FullTransactionResult getTransactionsByParserId(int parserId) {
+		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getTransactionsByParserIdFromHover(parserId);
 		return new FullTransactionResult(transactionModelsList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, transactionModelsList);
 	}
 
