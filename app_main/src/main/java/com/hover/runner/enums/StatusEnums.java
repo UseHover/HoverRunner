@@ -7,5 +7,5 @@ public enum StatusEnums {
     NOT_YET_RUN,
     LOADING,
     EMPTY,
-    HAS_DATA;
+    HAS_DATA
 }

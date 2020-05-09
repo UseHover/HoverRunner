@@ -130,7 +130,7 @@ public class DatabaseCallsToHover {
         if(transactionListByActionId == null)
             try{
                 transactionListByActionId = Hover.getTransactionsByActionId(actionId, ApplicationInstance.getContext());
-            } catch (Exception e) {transactionListByActionId = new ArrayList<>();};
+            } catch (Exception e) {transactionListByActionId = new ArrayList<>();}
 
         List<TransactionModels> transactionModelsList = new ArrayList<>(transactionListByActionId.size());
         for(Transaction transaction : transactionListByActionId) {

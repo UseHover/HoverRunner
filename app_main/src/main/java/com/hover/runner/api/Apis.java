@@ -96,11 +96,11 @@ public class Apis {
 			}
 		}
 
-		if(transactionModelsList.size() > 0) {
-			for(TransactionModels transactionModels : transactionModelsList) {
-				if(transactionModels.getCategory() !=null) {
-					if(!transactionModels.getCategory().isEmpty()) {
-						if(!categoryRawList.contains(transactionModels.getCategory())) categoryRawList.add(transactionModels.getCategory());
+		if (transactionModelsList.size() > 0) {
+			for (TransactionModels transactionModels : transactionModelsList) {
+				if (transactionModels.getCategory() !=null) {
+					if (!transactionModels.getCategory().isEmpty()) {
+						if (!categoryRawList.contains(transactionModels.getCategory())) categoryRawList.add(transactionModels.getCategory());
 					}
 				}
 			}
@@ -396,8 +396,7 @@ public class Apis {
 			} catch (Exception ex){
 				//USE THIS FOR NO-SIM MESSAGE MODE;
 				messagesModels.add(new TransactionDetailsMessagesModel("*ROOT_CODE#", "Test Responses"));
-			};
-
+			}
 
 
 		}
@@ -437,7 +436,7 @@ public class Apis {
 
 	public FullTransactionResult filterThroughTransactions(List<ActionsModel> actionsModels, List<TransactionModels> transactionModels) {
 		List<TransactionModels> list = new TransactionFilterMethod().startFilterTransaction(actionsModels, transactionModels);
-		if(list.size() > 0) return new FullTransactionResult(StatusEnums.HAS_DATA, list);
+		if (list.size() > 0) return new FullTransactionResult(StatusEnums.HAS_DATA, list);
 		else return new FullTransactionResult(StatusEnums.EMPTY, list);
 	}
 }

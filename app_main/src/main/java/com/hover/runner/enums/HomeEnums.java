@@ -7,7 +7,7 @@ public enum HomeEnums {
     ERROR,
     FILTER_ON,
     FILTER_OFF,
-    SUCCESS;
+    SUCCESS
 }
 
 
