@@ -2,7 +2,7 @@ package com.hover.runner.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hover.runner.BuildConfig;
+
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,7 +25,7 @@ public class RetrofitCalls {
     public Retrofit getRetrofitToken() {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(BuildConfig.BUILD_TYPE.equals("debug") ? auth_for_token_stage : auth_for_token_live)
+                .baseUrl(auth_for_token_live)
                 .build();
     }
 
@@ -46,7 +46,7 @@ public class RetrofitCalls {
         return new Retrofit.Builder()
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(BuildConfig.BUILD_TYPE.equals("debug") ? auth_for_key_stage : auth_for_key_live)
+                .baseUrl(auth_for_key_live)
                 .build();
     }
 
