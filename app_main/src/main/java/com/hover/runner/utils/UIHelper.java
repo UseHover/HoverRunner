@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.snackbar.Snackbar;
+
 import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.enums.StatusEnums;
