@@ -14,7 +14,6 @@
             android:textColor="@color/colorHoverWhite"
             android:textSize="@dimen/text_16"
             android:textStyle="bold"/>
-
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
