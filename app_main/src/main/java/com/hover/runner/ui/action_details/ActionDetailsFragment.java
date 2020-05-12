@@ -254,7 +254,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
     @Override
     public void onClickParser(String str) {
         Intent intent = new Intent(getActivity(), ParsersActivity.class);
-        intent.putExtra(ParsersActivity.PARSER_EXTRA, str);
+        intent.putExtra(ParsersActivity.PARSER_EXTRA, Integer.valueOf(str));
         startActivity(intent);
     }
 
