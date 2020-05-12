@@ -39,7 +39,7 @@ public class ParsersFragment extends Fragment implements CustomOnClickListener {
         TextView regexText = view.findViewById(R.id.parser_regex_content);
         TextView toolText = view.findViewById(R.id.parserDetails_toolbarText);
 
-        toolText.setText(ParsersActivity.parserId);
+        toolText.setText(String.valueOf(ParsersActivity.parserId));
         toolText.setOnClickListener(v -> {
             if(getActivity() !=null) getActivity().finish();
         });
