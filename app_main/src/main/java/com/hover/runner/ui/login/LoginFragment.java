@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.hover.runner.ApplicationInstance;
 import com.hover.runner.MainActivity;
 import com.hover.runner.R;
 import com.hover.runner.api.Apis;
@@ -117,9 +118,9 @@ public class LoginFragment extends Fragment {
     }
     private void setErrorView(EditText editText, TextView errorText, TextView label) {
         editText.setActivated(true);
-        editText.setTextColor(getResources().getColor(R.color.colorRed));
+        editText.setTextColor(ApplicationInstance.getColorRed());
         errorText.setVisibility(View.VISIBLE);
-        label.setTextColor(getResources().getColor(R.color.colorRed));
+        label.setTextColor(ApplicationInstance.getColorRed());
     }
     private void undoErrorView(EditText editText, TextView errorText, TextView label) {
         editText.setActivated(false);
