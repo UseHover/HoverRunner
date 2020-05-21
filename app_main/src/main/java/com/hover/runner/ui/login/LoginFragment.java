@@ -111,7 +111,8 @@ public class LoginFragment extends Fragment {
                     }
                 }, 500);
             }
-            else UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null, Apis.NO_NETWORK);
+            else UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null,
+                    ApplicationInstance.getContext().getString(R.string.NO_NETWORK));
         });
 
         return view;

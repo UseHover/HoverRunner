@@ -130,7 +130,8 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
             }
             else {
                 pullToRefresh.setRefreshing(false);
-                UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null, Apis.NO_NETWORK);
+                UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null,
+                        ApplicationInstance.getContext().getString(R.string.NO_NETWORK));
             }
 
         });
