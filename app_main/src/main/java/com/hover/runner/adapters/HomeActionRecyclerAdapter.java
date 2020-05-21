@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.interfaces.CustomOnClickListener;
@@ -22,15 +23,11 @@ public  class HomeActionRecyclerAdapter extends RecyclerView.Adapter<HomeActionR
     private List<ActionsModel> actionsModel;
     private boolean showStatus;
     private CustomOnClickListener customOnClickListener;
-    private int colorPending, colorFailed, colorSuccess;
 
     public HomeActionRecyclerAdapter(List<ActionsModel> actionsModel, boolean showStatus, CustomOnClickListener customOnClickListener, int colorPending, int colorSuccess, int colorFailed) {
         this.actionsModel = actionsModel;
         this.showStatus = showStatus;
         this.customOnClickListener = customOnClickListener;
-        this.colorPending = colorPending;
-        this.colorFailed = colorFailed;
-        this.colorSuccess = colorSuccess;
     }
 
 
@@ -46,11 +43,11 @@ public  class HomeActionRecyclerAdapter extends RecyclerView.Adapter<HomeActionR
         ActionsModel model = actionsModel.get(position);
         UIHelper.setTextUnderline(holder.actionIdText, model.getActionId());
         if(model.getActionEnum() == StatusEnums.PENDING)
-            holder.actionIdText.setTextColor(colorPending);
+            holder.actionIdText.setTextColor(ApplicationInstance.getColorYellow());
         else if(model.getActionEnum() == StatusEnums.UNSUCCESSFUL)
-            holder.actionIdText.setTextColor(colorFailed);
+            holder.actionIdText.setTextColor(ApplicationInstance.getColorRed());
         else if(model.getActionEnum() == StatusEnums.SUCCESS)
-            holder.actionIdText.setTextColor(colorSuccess);
+            holder.actionIdText.setTextColor(ApplicationInstance.getColorGreen());
         holder.actionTitleText.setText(model.getActionTitle());
 
 
