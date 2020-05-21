@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.enums.ClickTypeEnum;
 import com.hover.runner.interfaces.CustomOnClickListener;
@@ -23,19 +24,14 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
     private CustomOnClickListener customOnClickListener;
     private String actionId = ""; private String actionName="";
 
-    private int colorRed, colorYellow, colorGreen;
-
     public TransactionDetailsRecyclerAdapter(ArrayList<TransactionDetailsInfoModels> modelsArrayList, CustomOnClickListener customOnClickListener) {
         this.modelsArrayList = modelsArrayList;
         this.customOnClickListener = customOnClickListener;
     }
 
-    public TransactionDetailsRecyclerAdapter(ArrayList<TransactionDetailsInfoModels> modelsArrayList, CustomOnClickListener customOnClickListener, int colorRed, int colorYellow, int colorGreen) {
+    public TransactionDetailsRecyclerAdapter(ArrayList<TransactionDetailsInfoModels> modelsArrayList, CustomOnClickListener customOnClickListener, boolean withActionId) {
         this.modelsArrayList = modelsArrayList;
         this.customOnClickListener = customOnClickListener;
-        this.colorRed = colorRed;
-        this.colorYellow = colorYellow;
-        this.colorGreen = colorGreen;
 
         for(TransactionDetailsInfoModels models : modelsArrayList) {
             if(models.getLabel().equals("ActionID")) {
@@ -63,13 +59,13 @@ public class TransactionDetailsRecyclerAdapter extends RecyclerView.Adapter<Tran
         if(infoModels.getLabel().equals("Status")) {
             switch (infoModels.getStatusEnums()) {
                 case UNSUCCESSFUL:
-                    holder.value.setTextColor(colorRed);
+                    holder.value.setTextColor(ApplicationInstance.getColorRed());
                     break;
                 case PENDING:
-                    holder.value.setTextColor(colorYellow);
+                    holder.value.setTextColor(ApplicationInstance.getColorYellow());
                     break;
                 case SUCCESS:
-                    holder.value.setTextColor(colorGreen);
+                    holder.value.setTextColor(ApplicationInstance.getColorGreen());
                     break;
             }
         }

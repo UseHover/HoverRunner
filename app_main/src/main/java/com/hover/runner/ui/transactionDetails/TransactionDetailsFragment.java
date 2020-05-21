@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.adapters.TransactionDetailsRecyclerAdapter;
 import com.hover.runner.adapters.TransactionMessagesRecyclerAdapter;
@@ -47,8 +48,8 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
 
         switch (TransactionDetailsActivity.transactionStatusEnums) {
             case PENDING:
-                UIHelper.changeStatusBarColor(getActivity(), getResources().getColor(R.color.colorYellow));
-                topLayout.setBackgroundColor(getResources().getColor(R.color.colorYellow));
+                UIHelper.changeStatusBarColor(getActivity(), ApplicationInstance.getColorYellow());
+                topLayout.setBackgroundColor(ApplicationInstance.getColorYellow());
                 descContent.setVisibility(View.VISIBLE);
                 descLink.setVisibility(View.VISIBLE);
 
@@ -65,8 +66,8 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
                 });
                 break;
             case UNSUCCESSFUL:
-                UIHelper.changeStatusBarColor(getActivity(), getResources().getColor(R.color.colorRed));
-                topLayout.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                UIHelper.changeStatusBarColor(getActivity(), ApplicationInstance.getColorRed());
+                topLayout.setBackgroundColor(ApplicationInstance.getColorRed());
                 descContent.setVisibility(View.VISIBLE);
                 descLink.setVisibility(View.VISIBLE);
 
@@ -84,8 +85,8 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
 
                 break;
             case SUCCESS:
-                UIHelper.changeStatusBarColor(getActivity(), getResources().getColor(R.color.colorGreen));
-                topLayout.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                UIHelper.changeStatusBarColor(getActivity(), ApplicationInstance.getColorGreen());
+                topLayout.setBackgroundColor(ApplicationInstance.getColorGreen());
                 descContent.setVisibility(View.VISIBLE);
                 descLink.setVisibility(View.VISIBLE);
 
@@ -116,11 +117,7 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
         TransactionDetailsViewModel transactionDetailsViewModel = new ViewModelProvider(this).get(TransactionDetailsViewModel.class);
         transactionDetailsViewModel.loadAboutInfoModelsObs().observe(getViewLifecycleOwner(), model->{
             if(model !=null) {
-                aboutInfoRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model,
-                        this,
-                        getResources().getColor(R.color.colorRed),
-                        getResources().getColor(R.color.colorYellow),
-                        getResources().getColor(R.color.colorGreen)));
+                aboutInfoRecyclerView.setAdapter(new TransactionDetailsRecyclerAdapter(model, this, true));
             }
         });
 

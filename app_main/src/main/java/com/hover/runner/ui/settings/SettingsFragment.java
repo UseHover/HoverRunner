@@ -61,13 +61,16 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 			builder.setTitle("App refresh");
 			builder.setMessage("Refreshing your app data will delete all cached entries. Are you sure you want continue?");
 			builder.setPositiveButton("Refresh", (dialog, which) -> {
-				dialog.dismiss();
-				dialog.cancel();
+				if(!refreshButtonIdle) {
+					dialog.dismiss();
+					dialog.cancel();
 
-				refreshButtonIdle = true;
-				Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext()) ;
-				Utils.clearData(ApplicationInstance.getContext());
-				UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.app_data_refreshed));
+					refreshButtonIdle = true;
+					Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext()) ;
+					Utils.clearData(ApplicationInstance.getContext());
+					UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.app_data_refreshed));
+				}
+
 			});
 			builder.setNegativeButton("Cancel", (dialog, which)-> {
 				dialog.dismiss();
