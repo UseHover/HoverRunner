@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hover.runner">
+		xmlns:tools="http://schemas.android.com/tools"
+		package="com.hover.runner">
 
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 	<uses-permission android:name="android.permission.CALL_PHONE"/>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+	<uses-sdk tools:overrideLibrary="com.hover.sdk"/>
 
 	<application
 	    android:allowBackup="true"
@@ -33,9 +34,9 @@
 		<activity android:name="com.hover.runner.ui.parsers.ParsersActivity" />
 		<activity android:name="com.hover.runner.ui.transactionDetails.TransactionDetailsActivity" />
         <activity android:name="com.hover.runner.ui.actions.uncompletedVariables.UncompletedVariableActivity" />
-        <activity android:name="com.hover.runner.ui.filter_pages.FilterByCountries" />
-		<activity android:name="com.hover.runner.ui.filter_pages.FilterByNetworks" />
-		<activity android:name="com.hover.runner.ui.filter_pages.FilterByCategories" />
-        <activity android:name="com.hover.runner.ui.filter_pages.FilterByActions" />
+        <activity android:name="com.hover.runner.ui.filter_pages.FilterByCountriesActivity" />
+		<activity android:name="com.hover.runner.ui.filter_pages.FilterByNetworksActivity" />
+		<activity android:name="com.hover.runner.ui.filter_pages.FilterByCategoriesActivity" />
+        <activity android:name="com.hover.runner.ui.filter_pages.FilterByActionsActivity" />
     </application>
 </manifest>

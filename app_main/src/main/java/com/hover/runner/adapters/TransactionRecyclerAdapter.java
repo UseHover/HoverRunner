@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.interfaces.CustomOnClickListener;
@@ -20,14 +21,10 @@ public  class TransactionRecyclerAdapter extends RecyclerView.Adapter<Transactio
 
     private List<TransactionModels> transactionModelsList;
     private CustomOnClickListener customOnClickListener;
-    private int colorPending, colorFailed, colorSuccess;
 
-    public TransactionRecyclerAdapter(List<TransactionModels> transactionModelsList, CustomOnClickListener customOnClickListener, int colorPending, int colorFailed, int colorSuccess) {
+    public TransactionRecyclerAdapter(List<TransactionModels> transactionModelsList, CustomOnClickListener customOnClickListener) {
         this.transactionModelsList = transactionModelsList;
         this.customOnClickListener = customOnClickListener;
-        this.colorPending = colorPending;
-        this.colorFailed = colorFailed;
-        this.colorSuccess = colorSuccess;
     }
 
     @NonNull
@@ -47,7 +44,7 @@ public  class TransactionRecyclerAdapter extends RecyclerView.Adapter<Transactio
             holder.date.setCompoundDrawablesWithIntrinsicBounds(0,0, UIHelper.getActionIconDrawable(transactionModels.getStatusEnums()), 0);
             holder.date.setCompoundDrawablePadding(8);
             holder.date.setTextColor(transactionModels.getStatusEnums() == StatusEnums.PENDING ?
-                    colorPending : transactionModels.getStatusEnums() == StatusEnums.UNSUCCESSFUL ? colorFailed : colorSuccess);
+                    ApplicationInstance.getColorYellow() : transactionModels.getStatusEnums() == StatusEnums.UNSUCCESSFUL ? ApplicationInstance.getColorRed() : ApplicationInstance.getColorGreen());
         }
 
         holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(

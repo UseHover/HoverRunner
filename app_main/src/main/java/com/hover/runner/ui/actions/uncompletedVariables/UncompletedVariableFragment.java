@@ -91,7 +91,7 @@ public class UncompletedVariableFragment extends Fragment implements  VariableEd
         subtoolText.setText(actionsModel.getActionTitle());
         descTitle.setText(String.format(Locale.ENGLISH, "%d %s",unCompleted, suffixForDesc));
         UIHelper.setTextUnderline(nextSave, (currentViewPosition == unCompleted - 1) ? "Save" : "Next");
-        descContent.setText(String.format(Locale.ENGLISH,"Action %d of %s", currentViewPosition+1, totalUncompleted));
+        descContent.setText(String.format(Locale.getDefault(),"Action %d of %s", currentViewPosition+1, totalUncompleted));
 
         try{
             variablesRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
