@@ -434,7 +434,7 @@ public class Apis {
 
 
 	public FullActionResult filterThroughActions(List<ActionsModel> actionsModels, List<TransactionModels> transactionModels) {
-		List<ActionsModel> list = new ActonFilterMethod().startFilterAction(actionsModels, transactionModels);
+		List<ActionsModel> list = new ActonFilterMethod(actionsModels, transactionModels).startFilterAction();
 		if(list.size() > 0) return new FullActionResult(StatusEnums.HAS_DATA, list);
 		else return new FullActionResult(StatusEnums.EMPTY, list);
 	}
