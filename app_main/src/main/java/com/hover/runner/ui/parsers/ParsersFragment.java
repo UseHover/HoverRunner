@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.adapters.TransactionRecyclerAdapter;
 import com.hover.runner.api.Apis;
@@ -63,15 +64,15 @@ public class ParsersFragment extends Fragment implements CustomOnClickListener {
                         break;
                     case UNSUCCESSFUL:
                         statusText.setText(getResources().getString(R.string.failed_label));
-                        statusText.setTextColor(getResources().getColor(R.color.colorRed));
+                        statusText.setTextColor(ApplicationInstance.getColorRed());
                         break;
                     case PENDING:
                         statusText.setText(getResources().getString(R.string.pending_label));
-                        statusText.setTextColor(getResources().getColor(R.color.colorYellow));
+                        statusText.setTextColor(ApplicationInstance.getColorYellow());
                         break;
                     case SUCCESS:
                         statusText.setText(getResources().getString(R.string.success_label));
-                        statusText.setTextColor(getResources().getColor(R.color.colorGreen));
+                        statusText.setTextColor(ApplicationInstance.getColorGreen());
                         break;
                 }
                 actionIdText.setOnClickListener(v -> startActionActivity(
@@ -103,10 +104,7 @@ public class ParsersFragment extends Fragment implements CustomOnClickListener {
                 case HAS_DATA:
                     recentTransText.setText(getResources().getString(R.string.recent_transactions));
                     parserTransactionRecyclerView.setAdapter(new TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
-                            this,
-                            getResources().getColor(R.color.colorYellow),
-                            getResources().getColor(R.color.colorRed),
-                            getResources().getColor(R.color.colorGreen)));
+                            this));
                     break;
             }
         });

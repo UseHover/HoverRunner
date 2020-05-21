@@ -24,7 +24,7 @@ public  class HomeActionRecyclerAdapter extends RecyclerView.Adapter<HomeActionR
     private boolean showStatus;
     private CustomOnClickListener customOnClickListener;
 
-    public HomeActionRecyclerAdapter(List<ActionsModel> actionsModel, boolean showStatus, CustomOnClickListener customOnClickListener, int colorPending, int colorSuccess, int colorFailed) {
+    public HomeActionRecyclerAdapter(List<ActionsModel> actionsModel, boolean showStatus, CustomOnClickListener customOnClickListener) {
         this.actionsModel = actionsModel;
         this.showStatus = showStatus;
         this.customOnClickListener = customOnClickListener;

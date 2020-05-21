@@ -103,10 +103,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 					if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
 					if(homeTransactionsRecyclerView.getVisibility() != View.VISIBLE) homeTransactionsRecyclerView.setVisibility(View.VISIBLE);
 					homeTransactionsRecyclerView.setAdapter(new TransactionRecyclerAdapter(fullActionResult.getTransactionModelsList(),
-							this,
-							getResources().getColor(R.color.colorYellow),
-							getResources().getColor(R.color.colorRed),
-							getResources().getColor(R.color.colorGreen)));
+							this));
 					break;
 			}
 		});
