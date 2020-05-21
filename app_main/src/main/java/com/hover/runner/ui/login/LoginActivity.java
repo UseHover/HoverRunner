@@ -42,8 +42,11 @@ public class LoginActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             View logo = findViewById(R.id.hover_bg1);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                ft.addSharedElement(logo, logo.getTransitionName());
+            try{
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    ft.addSharedElement(logo, logo.getTransitionName());
+            } catch (Exception ignored){};
+
             ft.replace(R.id.login_frame, frag);
             ft.disallowAddToBackStack();
             ft.commit();

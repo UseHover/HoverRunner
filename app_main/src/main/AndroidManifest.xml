@@ -34,9 +34,9 @@
 		<activity android:name="com.hover.runner.ui.parsers.ParsersActivity" />
 		<activity android:name="com.hover.runner.ui.transactionDetails.TransactionDetailsActivity" />
         <activity android:name="com.hover.runner.ui.actions.uncompletedVariables.UncompletedVariableActivity" />
-        <activity android:name="com.hover.runner.ui.filter_pages.FilterByCountries" />
-		<activity android:name="com.hover.runner.ui.filter_pages.FilterByNetworks" />
-		<activity android:name="com.hover.runner.ui.filter_pages.FilterByCategories" />
-        <activity android:name="com.hover.runner.ui.filter_pages.FilterByActions" />
+        <activity android:name="com.hover.runner.ui.filter_pages.FilterByCountriesActivity" />
+		<activity android:name="com.hover.runner.ui.filter_pages.FilterByNetworksActivity" />
+		<activity android:name="com.hover.runner.ui.filter_pages.FilterByCategoriesActivity" />
+        <activity android:name="com.hover.runner.ui.filter_pages.FilterByActionsActivity" />
     </application>
 </manifest>

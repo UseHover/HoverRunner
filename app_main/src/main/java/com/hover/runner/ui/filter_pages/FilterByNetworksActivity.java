@@ -18,7 +18,7 @@ import com.hover.runner.utils.UIHelper;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-public class FilterByNetworks extends AppCompatActivity implements CustomOnClickListener {
+public class FilterByNetworksActivity extends AppCompatActivity implements CustomOnClickListener {
     private ArrayList<SingleFilterInfoModel> networkList = new ArrayList<>();
     private ArrayList<SingleFilterInfoModel> networkInselectedCountriesList = new ArrayList<>();
     private ArrayList<SingleFilterInfoModel> networkOutsideSelectedCountriesList = new ArrayList<>();

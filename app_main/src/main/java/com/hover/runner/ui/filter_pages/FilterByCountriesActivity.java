@@ -16,7 +16,7 @@ import com.hover.runner.utils.UIHelper;
 
 import java.util.ArrayList;
 
-public class FilterByCountries extends AppCompatActivity implements CustomOnClickListener {
+public class FilterByCountriesActivity extends AppCompatActivity implements CustomOnClickListener {
     private ArrayList<SingleFilterInfoModel> countryList = new ArrayList<>();
     private ArrayList<String> selectedCountries = new ArrayList<>();
     private boolean saveStateChanged = false;
