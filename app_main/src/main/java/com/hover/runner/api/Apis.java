@@ -409,6 +409,11 @@ public class Apis {
 	public LoadSimModel getSimsOnDevice() {
 		List<SimInfo> sims = Hover.getPresentSims(ApplicationInstance.getContext());
 		String sim1 = "None"; String sim2 = "None";
+		if(sims.size() == 0) {
+			Hover.updateSimInfo(ApplicationInstance.getContext());
+			sims = Hover.getPresentSims(ApplicationInstance.getContext());
+		}
+
 		if(sims.size() > 0) {
 			sim1 = sims.get(0).getNetworkOperatorName();
 		}
