@@ -48,6 +48,8 @@ public class ApplicationInstance extends Application {
 	private static List<TransactionModels> resultFilter_Transactions;
 	private static List<TransactionModels> resultFilter_Transactions_LOAD;
 
+	private static int COLOR_RED, COLOR_YELLOW, COLOR_GREEN;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -83,6 +85,10 @@ public class ApplicationInstance extends Application {
 		resultFilter_Actions_LOAD = new ArrayList<>();
 		resultFilter_Transactions = new ArrayList<>();
 		resultFilter_Transactions_LOAD = new ArrayList<>();
+
+		COLOR_RED = getResources().getColor(R.color.colorRed);
+				COLOR_YELLOW = getResources().getColor(R.color.colorYellow);
+				COLOR_GREEN = getResources().getColor(R.color.colorGreen);
 	}
 
 	public static boolean isStatusSuccess() {
@@ -267,6 +273,18 @@ public class ApplicationInstance extends Application {
 
 	public static void setResultFilter_Transactions_LOAD(List<TransactionModels> resultFilter_Transactions_LOAD) {
 		ApplicationInstance.resultFilter_Transactions_LOAD = resultFilter_Transactions_LOAD;
+	}
+
+	public static int getColorRed() {
+		return COLOR_RED;
+	}
+
+	public static int getColorYellow() {
+		return COLOR_YELLOW;
+	}
+
+	public static int getColorGreen() {
+		return COLOR_GREEN;
 	}
 
 	public static Context getContext() {

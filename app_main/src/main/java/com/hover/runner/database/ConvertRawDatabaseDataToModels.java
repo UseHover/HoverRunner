@@ -3,7 +3,7 @@ package com.hover.runner.database;
 import android.os.Build;
 import android.util.Log;
 
-import com.android.volley.BuildConfig;
+import com.hover.runner.BuildConfig;
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.parsers.HoverParser;
@@ -26,12 +26,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DatabaseCallsToHover {
+public class ConvertRawDatabaseDataToModels {
     private List<Transaction> transactionListByActionId;
+    private DatabaseRepo repo = new DatabaseRepo();
 
     public List<ActionsModel> getAllActionsFromHover(boolean withMetaInfo) {
-        List<HoverAction> actionList = Hover.getAllActions(ApplicationInstance.getContext());
-        List<Transaction> transactionList = Hover.getAllTransactions(ApplicationInstance.getContext());
+        List<HoverAction> actionList = repo.getAllActionsFromHover();
+        List<Transaction> transactionList = repo.getAllTransactionsFromHover();
 
         List<ActionsModel> actionsModelList = new ArrayList<>(actionList.size());
         Map<String, String> actionsWithStatus = new HashMap<>();
@@ -57,8 +58,7 @@ public class DatabaseCallsToHover {
     }
 
     public  List<TransactionModels> getAllTransactionsFromHover(String args) {
-        List<Transaction> transactionList = Hover.getTransactions(args, ApplicationInstance.getContext());
-        Log.d("SITUATION", "transaction list reported is: "+transactionList.size());
+        List<Transaction> transactionList = repo.getTransactionsWithArgsFromHover(args);
         List<TransactionModels> transactionModelsList = new ArrayList<>(transactionList.size());
 
         for(Transaction transaction : transactionList) {
@@ -79,19 +79,19 @@ public class DatabaseCallsToHover {
     }
 
     public boolean doesActionHasParsers(String actionId) {
-        return Hover.getParsersByActionId(actionId, ApplicationInstance.getContext()).size() > 0;
+        return repo.getParsersByActionId(actionId).size() > 0;
     }
     public ActionDetailsModels getActionDetailsById(String actionId) {
         //Putting into try and catch to prevent Runtime errors.
         try {
-            transactionListByActionId = Hover.getTransactionsByActionId(actionId, ApplicationInstance.getContext());
+            transactionListByActionId = repo.getTransactionsByActionId(actionId);
         }catch (Exception e) {transactionListByActionId = new ArrayList<>();}
 
         List<HoverParser> hoverParsersList = new ArrayList<>();
         try {
-            hoverParsersList = Hover.getParsersByActionId(actionId, ApplicationInstance.getContext());
+            hoverParsersList = repo.getParsersByActionId(actionId);
         }catch (Exception ignored) {}
-        HoverAction hoverAction = Hover.getAction(actionId, ApplicationInstance.getContext());
+        HoverAction hoverAction = repo.getSingleActionByIdActionId(actionId);
 
         StringBuilder parsers = new StringBuilder();
         for(HoverParser hoverParser : hoverParsersList) {
@@ -129,7 +129,7 @@ public class DatabaseCallsToHover {
     public  List<TransactionModels> getTransactionsByActionIdFromHover(String actionId) {
         if(transactionListByActionId == null)
             try{
-                transactionListByActionId = Hover.getTransactionsByActionId(actionId, ApplicationInstance.getContext());
+                transactionListByActionId = repo.getTransactionsByActionId(actionId);
             } catch (Exception e) {transactionListByActionId = new ArrayList<>();}
 
         List<TransactionModels> transactionModelsList = new ArrayList<>(transactionListByActionId.size());
@@ -151,8 +151,8 @@ public class DatabaseCallsToHover {
 
 
     public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsAbout(String transactionId) {
-        Transaction transaction = Hover.getTransaction(transactionId, ApplicationInstance.getContext());
-        HoverAction action = Hover.getAction(transaction.actionId, ApplicationInstance.getContext());
+        Transaction transaction = repo.getTransactionByTransId(transactionId);
+        HoverAction action = repo.getSingleActionByIdActionId(transaction.actionId);
         String lastUSSDMessage = "empty";
         try {
             lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
@@ -178,7 +178,7 @@ public class DatabaseCallsToHover {
     }
 
     public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsDevice(String transactionId) {
-        Transaction transaction = Hover.getTransaction(transactionId, ApplicationInstance.getContext());
+        Transaction transaction = repo.getTransactionByTransId(transactionId);
         String manufacturer = Build.MANUFACTURER;
         String model = Build.MODEL;
         String osVersionName =  String.valueOf(Build.VERSION.SDK_INT);
@@ -199,8 +199,9 @@ public class DatabaseCallsToHover {
                 null, false));
         return dataTransacArrayList;
     }
+
     public ArrayList<TransactionDetailsInfoModels> getTransactionsDetailsDebug(String transactionId){
-        Transaction transaction = Hover.getTransaction(transactionId, ApplicationInstance.getContext());
+        Transaction transaction = repo.getTransactionByTransId(transactionId);
         StringBuilder parsers = new StringBuilder();
         try {
             String[] parserList = Utils.convertNormalJSONArrayToStringArray(transaction.matchedParsers);
@@ -225,8 +226,8 @@ public class DatabaseCallsToHover {
     }
 
     public String[][] getTransactionMessagesByIdFromHover(String transactionId) {
-        Transaction transaction = Hover.getTransaction(transactionId, ApplicationInstance.getContext());
-        HoverAction action = Hover.getAction(transaction.actionId, ApplicationInstance.getContext());
+        Transaction transaction = repo.getTransactionByTransId(transactionId);
+        HoverAction action = repo.getSingleActionByIdActionId(transaction.actionId);
         String[] rootCode = {action.rootCode};
         String[] tempEnteredValues = {};
         try {
@@ -247,8 +248,8 @@ public class DatabaseCallsToHover {
     }
 
     public ParsersInfoModel getParserInfoByIdFromHover(int parserId) {
-        HoverParser hoverParser = Hover.getParser(parserId, ApplicationInstance.getContext());
-        HoverAction action = Hover.getAction(hoverParser.actionId, ApplicationInstance.getContext());
+        HoverParser hoverParser = repo.getSingleParserByParserId(parserId);
+        HoverAction action = repo.getSingleActionByIdActionId(hoverParser.actionId);
 
         ParsersInfoModel parsersInfoModel = new ParsersInfoModel();
         parsersInfoModel.setParser_action(action.name);
@@ -264,7 +265,7 @@ public class DatabaseCallsToHover {
     }
 
     public  List<TransactionModels> getTransactionsByParserIdFromHover(int parserId) {
-        List<Transaction> subList = Hover.getTransactionsByParserId(parserId, ApplicationInstance.getContext());
+        List<Transaction> subList = repo.getTransactionsByParserId(parserId);
         List<TransactionModels> transactionModelsList = new ArrayList<>(subList.size());
         for(Transaction transaction :subList) {
             String lastUSSDMessage = "empty";
@@ -280,9 +281,5 @@ public class DatabaseCallsToHover {
 
         }
         return transactionModelsList;
-    }
-
-    public void filterTransactionFromHover() {
-
     }
 }

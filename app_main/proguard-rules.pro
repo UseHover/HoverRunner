@@ -25,6 +25,9 @@
 # EnclosingMethod is required to use InnerClasses.
 
 # Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-keepclassmembers class * extends androidx.work.Worker {
+    public <init>(android.content.Context,androidx.work.WorkerParameters);
+}
 -dontwarn org.codehaus.mojo.animal_sniffer.*
 -keepattributes Signature, InnerClasses, EnclosingMethod
 

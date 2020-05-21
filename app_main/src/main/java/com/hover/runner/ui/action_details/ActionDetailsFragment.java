@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hover.runner.ApplicationInstance;
 import com.hover.sdk.api.HoverParameters;
 import com.hover.runner.MainActivity;
 import com.hover.runner.R;
@@ -129,10 +130,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                         }
                     }
                     transacRecyclerView.setAdapter(new TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
-                            this,
-                            getResources().getColor(R.color.colorYellow),
-                            getResources().getColor(R.color.colorRed),
-                            getResources().getColor(R.color.colorGreen)));
+                            this));
                     break;
             }
         });
@@ -175,8 +173,8 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
     private void setupTopDetailsInfo(StatusEnums statusEnums) {
         switch (statusEnums) {
             case PENDING:
-                UIHelper.changeStatusBarColor(getActivity(), getResources().getColor(R.color.colorYellow));
-                topLayout.setBackgroundColor(getResources().getColor(R.color.colorYellow));
+                UIHelper.changeStatusBarColor(getActivity(), ApplicationInstance.getColorYellow());
+                topLayout.setBackgroundColor(ApplicationInstance.getColorYellow());
                 descContent.setVisibility(View.VISIBLE);
                 descLink.setVisibility(View.VISIBLE);
 
@@ -193,8 +191,8 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 });
                 break;
             case UNSUCCESSFUL:
-                UIHelper.changeStatusBarColor(getActivity(), getResources().getColor(R.color.colorRed));
-                topLayout.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                UIHelper.changeStatusBarColor(getActivity(), ApplicationInstance.getColorRed());
+                topLayout.setBackgroundColor(ApplicationInstance.getColorRed());
                 descContent.setVisibility(View.VISIBLE);
                 descLink.setVisibility(View.VISIBLE);
 
@@ -212,8 +210,8 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
 
                 break;
             case SUCCESS:
-                UIHelper.changeStatusBarColor(getActivity(), getResources().getColor(R.color.colorGreen));
-                topLayout.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                UIHelper.changeStatusBarColor(getActivity(), ApplicationInstance.getColorGreen());
+                topLayout.setBackgroundColor(ApplicationInstance.getColorGreen());
                 descContent.setVisibility(View.VISIBLE);
                 descLink.setVisibility(View.VISIBLE);
 
@@ -254,7 +252,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
     @Override
     public void onClickParser(String str) {
         Intent intent = new Intent(getActivity(), ParsersActivity.class);
-        intent.putExtra(ParsersActivity.PARSER_EXTRA, str);
+        intent.putExtra(ParsersActivity.PARSER_EXTRA, Integer.valueOf(str));
         startActivity(intent);
     }
 

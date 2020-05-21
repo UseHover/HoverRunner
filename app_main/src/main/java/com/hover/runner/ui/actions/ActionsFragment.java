@@ -205,10 +205,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                     if(homeActionsRecyclerView.getVisibility() != View.VISIBLE) homeActionsRecyclerView.setVisibility(View.VISIBLE);
                     rawRunnableModelList = fullActionResult.getActionsModelList();
                     homeActionsRecyclerView.setAdapter(new HomeActionRecyclerAdapter(fullActionResult.getActionsModelList(), true,
-                            this,
-                            getResources().getColor(R.color.colorYellow),
-                            getResources().getColor(R.color.colorGreen),
-                            getResources().getColor(R.color.colorRed)));
+                            this));
                     break;
             }
         });

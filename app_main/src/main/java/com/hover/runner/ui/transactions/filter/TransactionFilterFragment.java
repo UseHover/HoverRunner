@@ -27,9 +27,9 @@ import com.hover.runner.R;
 import com.hover.runner.api.Apis;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.models.FilterDataFullModel;
-import com.hover.runner.ui.filter_pages.FilterByActions;
-import com.hover.runner.ui.filter_pages.FilterByCountries;
-import com.hover.runner.ui.filter_pages.FilterByNetworks;
+import com.hover.runner.ui.filter_pages.FilterByActionsActivity;
+import com.hover.runner.ui.filter_pages.FilterByCountriesActivity;
+import com.hover.runner.ui.filter_pages.FilterByNetworksActivity;
 import com.hover.runner.utils.UIHelper;
 import com.hover.runner.utils.Utils;
 
@@ -245,21 +245,21 @@ public class TransactionFilterFragment extends Fragment {
 
     private void setUpViewClicks() {
         countryEntry.setOnClickListener(v-> {
-            Intent i = new Intent(getActivity(), FilterByCountries.class);
+            Intent i = new Intent(getActivity(), FilterByCountriesActivity.class);
             i.putExtra("data", new Apis().getCountriesForTransactionFilter(filterDataFullModel.getAllCountries()));
             i.putExtra("filter_type", 1);
             startActivity(i);
         });
 
         networkEntry.setOnClickListener(v->{
-            Intent i = new Intent(getActivity(), FilterByNetworks.class);
+            Intent i = new Intent(getActivity(), FilterByNetworksActivity.class);
             i.putExtra("data", new Apis().getNetworksForTransactionFilter(filterDataFullModel.getAllNetworks()));
             i.putExtra("filter_type", 1);
             startActivity(i);
         });
 
         actionEntry.setOnClickListener(v-> {
-            Intent i = new Intent(getActivity(), FilterByActions.class);
+            Intent i = new Intent(getActivity(), FilterByActionsActivity.class);
             i.putExtra("data", new Apis().getTransactionSelectedActionsFilter(filterDataFullModel.getActionsModelList()));
             startActivity(i);
         });
