@@ -118,7 +118,6 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 			MainActivity.initialActionFilter = null;
 		}
 		else transactionViewModel.getAllTransactions();
-
 	}
 
 
