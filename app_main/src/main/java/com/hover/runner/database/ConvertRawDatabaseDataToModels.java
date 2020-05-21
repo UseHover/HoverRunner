@@ -199,6 +199,7 @@ public class ConvertRawDatabaseDataToModels {
                 null, false));
         return dataTransacArrayList;
     }
+
     public ArrayList<TransactionDetailsInfoModels> getTransactionsDetailsDebug(String transactionId){
         Transaction transaction = repo.getTransactionByTransId(transactionId);
         StringBuilder parsers = new StringBuilder();

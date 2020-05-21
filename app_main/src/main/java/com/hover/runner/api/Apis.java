@@ -440,7 +440,7 @@ public class Apis {
 	}
 
 	public FullTransactionResult filterThroughTransactions(List<ActionsModel> actionsModels, List<TransactionModels> transactionModels) {
-		List<TransactionModels> list = new TransactionFilterMethod().startFilterTransaction(actionsModels, transactionModels);
+		List<TransactionModels> list = new TransactionFilterMethod(actionsModels, transactionModels).startFilterTransaction();
 		if (list.size() > 0) return new FullTransactionResult(StatusEnums.HAS_DATA, list);
 		else return new FullTransactionResult(StatusEnums.EMPTY, list);
 	}
