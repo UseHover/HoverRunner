@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.hover.sdk.api.Hover;
 import com.hover.runner.ApplicationInstance;
-import com.hover.runner.database.DatabaseCallsToHover;
+import com.hover.runner.database.ConvertRawDatabaseDataToModels;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.models.ActionsModel;
 import com.hover.runner.models.TransactionModels;
@@ -81,7 +81,7 @@ class ActonFilterMethod {
         if(ApplicationInstance.isStatusNoTrans() && !ApplicationInstance.isStatusFailed() &&
                 !ApplicationInstance.isStatusPending() && !ApplicationInstance.isStatusSuccess()) {
             // STEP 1: CREATE A SHORTLIST  OF ONLY MOST RECENT TRANSACTION AND SAVE IN NON-DUPLICATE ACTION IDS
-            filteredActionList = shortListedTransactionNonDuplicate();
+            filteredActionList = shortListedTransactionsNonDuplicate();
             filterListAsBeenVisited = true;
         }
 
@@ -100,6 +100,7 @@ class ActonFilterMethod {
                     shortListedTransactionActionId.add(transactionModels.getActionId());
                 }
             }
+
 
 
             // MID STAGE NOTICE: START USING THE STRING ARRAY LIST initialized at the main top most THAT HOLDS ACTION ID
@@ -185,7 +186,7 @@ class ActonFilterMethod {
 
     private void filterIfItHasParsers(ActionsModel model, Iterator<ActionsModel> md) {
         if(ApplicationInstance.isWithParsers()) {
-            if(!new DatabaseCallsToHover().doesActionHasParsers(model.getActionId()))
+            if(!new ConvertRawDatabaseDataToModels().doesActionHasParsers(model.getActionId()))
                 md.remove();
         }
     }
@@ -200,7 +201,7 @@ class ActonFilterMethod {
         }
     }
 
-    private List<ActionsModel> shortListedTransactionNonDuplicate() {
+    private List<ActionsModel> shortListedTransactionsNonDuplicate() {
         ArrayList<String> shortListedTransactionActionId = new ArrayList<>();
 
         for(TransactionModels transactionModels : transactionModelList) {

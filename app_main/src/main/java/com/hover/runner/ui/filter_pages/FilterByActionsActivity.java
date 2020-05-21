@@ -16,7 +16,7 @@ import com.hover.runner.utils.UIHelper;
 
 import java.util.ArrayList;
 
-public class FilterByActions extends AppCompatActivity implements CustomOnClickListener {
+public class FilterByActionsActivity extends AppCompatActivity implements CustomOnClickListener {
     private ArrayList<WithSubtitleFilterInfoModel> actionList = new ArrayList<>();
     private ArrayList<String> selectedActions = new ArrayList<>();
     private boolean saveStateChanged = false;

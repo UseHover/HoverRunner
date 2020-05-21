@@ -5,7 +5,7 @@ import androidx.core.util.Pair;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.sims.SimInfo;
 import com.hover.runner.ApplicationInstance;
-import com.hover.runner.database.DatabaseCallsToHover;
+import com.hover.runner.database.ConvertRawDatabaseDataToModels;
 import com.hover.runner.enums.PassageEnum;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.models.ActionDetailsModels;
@@ -60,7 +60,7 @@ public class Apis {
 	}
 
 	public FullActionResult doGetAllActionsWorkManager(boolean withMetaInfo) {
-		List<ActionsModel> actionsModelList = new DatabaseCallsToHover().getAllActionsFromHover(withMetaInfo);
+		List<ActionsModel> actionsModelList = new ConvertRawDatabaseDataToModels().getAllActionsFromHover(withMetaInfo);
 		return new FullActionResult(actionsModelList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, actionsModelList);
 	}
 
@@ -71,8 +71,8 @@ public class Apis {
 	public FilterDataFullModel doGetDataForActionFilter() {
 		FilterDataFullModel filterDataFullModel = new FilterDataFullModel();
 
-		List<ActionsModel> actionsModelList = new DatabaseCallsToHover().getAllActionsFromHover(true);
-		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getAllTransactionsFromHover(null);
+		List<ActionsModel> actionsModelList = new ConvertRawDatabaseDataToModels().getAllActionsFromHover(true);
+		List<TransactionModels> transactionModelsList = new ConvertRawDatabaseDataToModels().getAllTransactionsFromHover(null);
 		ArrayList<String> countryRawList = new ArrayList<>();
 		ArrayList<Pair<String,String>> networkRawList = new ArrayList<>();
 		ArrayList<String> networkNameTemp = new ArrayList<>();
@@ -338,40 +338,40 @@ public class Apis {
 		ApplicationInstance.setTransactionStatusSuccess(true);
 	}
 	public FullTransactionResult doGetAllTransactionsWorkManager() {
-		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getAllTransactionsFromHover(null);
+		List<TransactionModels> transactionModelsList = new ConvertRawDatabaseDataToModels().getAllTransactionsFromHover(null);
 		return new FullTransactionResult(transactionModelsList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY,transactionModelsList);
 	}
 
 	public ActionDetailsModels doGetSpecificActionDetailsById(String actionId){
-		return new DatabaseCallsToHover().getActionDetailsById(actionId);
+		return new ConvertRawDatabaseDataToModels().getActionDetailsById(actionId);
 	}
 
 	public FullTransactionResult doGetTransactionsByActionIdWorkManager(String actionId) {
-		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getTransactionsByActionIdFromHover(actionId);
+		List<TransactionModels> transactionModelsList = new ConvertRawDatabaseDataToModels().getTransactionsByActionIdFromHover(actionId);
 		return new FullTransactionResult(transactionModelsList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, transactionModelsList);
 	}
 
 	public ParsersInfoModel getParsersInfoById(int parserId) {
-		return new DatabaseCallsToHover().getParserInfoByIdFromHover(parserId);
+		return new ConvertRawDatabaseDataToModels().getParserInfoByIdFromHover(parserId);
 	}
 
 	public FullTransactionResult getTransactionsByParserId(int parserId) {
-		List<TransactionModels> transactionModelsList = new DatabaseCallsToHover().getTransactionsByParserIdFromHover(parserId);
+		List<TransactionModels> transactionModelsList = new ConvertRawDatabaseDataToModels().getTransactionsByParserIdFromHover(parserId);
 		return new FullTransactionResult(transactionModelsList.size() > 0 ?StatusEnums.HAS_DATA : StatusEnums.EMPTY, transactionModelsList);
 	}
 
 	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsAboutById(String transactionId) {
-		return new DatabaseCallsToHover().getTransactionDetailsAbout(transactionId);
+		return new ConvertRawDatabaseDataToModels().getTransactionDetailsAbout(transactionId);
 	}
 	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsDebugInfoById(String transactionId) {
-		return new DatabaseCallsToHover().getTransactionsDetailsDebug(transactionId);
+		return new ConvertRawDatabaseDataToModels().getTransactionsDetailsDebug(transactionId);
 	}
 	public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsDeviceById(String transactionId) {
-		return new DatabaseCallsToHover().getTransactionDetailsDevice(transactionId);
+		return new ConvertRawDatabaseDataToModels().getTransactionDetailsDevice(transactionId);
 	}
 
 	public ArrayList<TransactionDetailsMessagesModel> getMessagesOfTransactionById(String transactionId) {
-		String[][] result = new DatabaseCallsToHover().getTransactionMessagesByIdFromHover(transactionId);
+		String[][] result = new ConvertRawDatabaseDataToModels().getTransactionMessagesByIdFromHover(transactionId);
 		String[] enteredValues = result[0];
 		String[] ussdMessages = result[1];
 		int largestSize = Math.max(enteredValues.length, ussdMessages.length);
