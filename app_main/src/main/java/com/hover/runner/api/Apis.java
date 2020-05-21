@@ -2,6 +2,7 @@ package com.hover.runner.api;
 
 import androidx.core.util.Pair;
 
+import com.hover.runner.R;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.sims.SimInfo;
 import com.hover.runner.ApplicationInstance;
@@ -32,9 +33,6 @@ import java.util.Locale;
 public class Apis {
 	public final static int PROD_ENV = 0, DEBUG_ENV = 1, TEST_ENV = 2;
 	private static final int MAX_SIZE_FHV = 2;
-	private static final String INVALID_EMAIL = "Invalid email format, please enter correct email and try again";
-	private static final String INVALID_PASSWORD = "Invalid password format. Ensure password has a minimum of 5 letters with no space";
-	public static final String NO_NETWORK = "Internet connection not found";
 
 	public static final String ACTION_ID = "action_id";
 	public static final String ACTION_TITLE = "action_title";
@@ -46,8 +44,8 @@ public class Apis {
 
 
 	public LoginModel doLoginWorkManager(String email, String password) {
-		if(!Utils.validateEmail(email)) return new LoginModel(HomeEnums.ERROR_EMAIL, INVALID_EMAIL);
-		if(!Utils.validatePassword(password)) return new LoginModel(HomeEnums.ERROR_PASSWORD, INVALID_PASSWORD);
+		if(!Utils.validateEmail(email)) return new LoginModel(HomeEnums.ERROR_EMAIL, ApplicationInstance.getContext().getString(R.string.INVALID_EMAIL));
+		if(!Utils.validatePassword(password)) return new LoginModel(HomeEnums.ERROR_PASSWORD,  ApplicationInstance.getContext().getString(R.string.INVALID_PASSWORD));
 
 		try {
 			return new LoginAsyncCaller().execute(email, password).get();

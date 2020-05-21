@@ -149,5 +149,9 @@
 	<string name="auth_for_key_stage">https://stage.usehover.com/api/get_token</string>
 	<string name="auth_for_key_live">https://www.usehover.com/api/get_token</string>
 
+	<string name="INVALID_EMAIL">Invalid email format, please enter correct email and try again</string>
+	<string name="INVALID_PASSWORD">Invalid password format. Ensure password has a minimum of 5 letters with no space</string>
+	<string name="NO_NETWORK">Internet connection not found</string>
+
 
 </resources>
