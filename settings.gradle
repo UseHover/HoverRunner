@@ -1,2 +1,2 @@
 rootProject.name='Runner'
-include ':app_main', ':hover.sdk'
+include ':app_main', ':hover.sdk', ':app'

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<color name="colorPrimary">#FF4C00</color>
+	<color name="colorPrimaryForPin">#CC3E02</color>
 	<color name="colorPrimaryFaint">#8AFF4C00</color>
 	<color name="colorPrimaryDark">#1E232A</color>
 	<color name="colorAccent">#FF4C00</color>
