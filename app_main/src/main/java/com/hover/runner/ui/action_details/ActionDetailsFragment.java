@@ -142,6 +142,8 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
             HoverParameters.Builder builder = new HoverParameters.Builder(getContext());
             builder.request(ActionDetailsActivity.actionId);
             builder.setEnvironment(Apis.getTestEnvMode());
+            builder.style(R.style.myHoverTheme);
+            builder.initialProcessingMessage("Transaction coming right up");
 
             assert  actionExtra !=null;
             boolean hasValidVariables = true;
