@@ -127,6 +127,8 @@ public class Utils {
                 if(!TextUtils.isEmpty(value.replace(" ", ""))) filledSize  = filledSize + 1;
             }
         }
+
+        if(!BuildConfig.FLAVOR.equals("pro")) filledSize = filledSize-1;
         if(expectedSize == filledSize) return ActionRunStatus.GOOD;
         if(pair.first != null) { if (pair.first) return  ActionRunStatus.SKIPPED; }
         return ActionRunStatus.BAD;
