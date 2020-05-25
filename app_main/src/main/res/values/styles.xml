@@ -1,0 +1,52 @@
+<resources>
+
+	<!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+
+		<item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+		<item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+		<item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+
+	</style>
+
+
+
+
+	<style name="myHoverTheme" parent="@style/HoverTheme.Base" />
+	<style name="HoverTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+
+		<item name="android:windowActionBar">true</item>
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="hover_primaryColor">@color/colorPrimaryDark</item>
+		<item name="hover_textColor">@color/colorPureWhite</item>
+		<item name="hover_textColorTitle">@color/colorHoverWhite</item>
+		<item name="hover_pinEntryColor">@color/colorPureWhite</item>
+
+		<item name="hover_pinTheme">@style/PinButtonTheme</item>
+		<item name="hover_posTheme">@style/PosButtonTheme</item>
+
+	</style>
+
+
+	<style name="PinButtonTheme" parent="Widget.AppCompat.Button.Colored">
+		<item name="android:textColor">@color/colorPureWhite</item>
+		<item name="android:background">@color/colorPrimaryForPin</item>
+
+		<item name="android:typeface">normal</item>
+		<item name="android:textAllCaps">true</item>
+	</style>
+
+	<style name="PosButtonTheme" parent="Widget.AppCompat.Button.Colored">
+		<item name="android:textColor">@color/colorPureWhite</item>
+		<item name="background">@color/colorPrimary</item>
+		<item name="android:typeface">normal</item>
+		<item name="android:textAllCaps">true</item>
+	</style>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="colorPrimary">#FF4C00</color>
+	<color name="colorPrimaryForPin">#CC3E02</color>
+	<color name="colorPrimaryFaint">#8AFF4C00</color>
+	<color name="colorPrimaryDark">#1E232A</color>
+	<color name="colorAccent">#FF4C00</color>
+	<color name="colorYellow">#FFCA00</color>
+	<color name="colorRed">#F70047</color>
+	<color name="colorGreen">#05EB8F</color>
+	<color name="colorMainGrey">#B1B2B6</color>
+	<color name="colorSecondaryGrey">#F1F1F4</color>
+	<color name="colorTextHint">#54575D</color>
+	<color name="colorHoverWhite">#F1F1F4</color>
+	<color name="colorPureWhite">#FFFFFF</color>
+	<color name="lineColor">#34383F</color>
+
+</resources>

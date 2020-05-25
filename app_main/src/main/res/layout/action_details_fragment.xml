@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/colorPrimaryDark"
+        >
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.action_details.ActionDetailsFragment"
+                android:orientation="vertical">
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorSecondaryGrey"
+                    android:paddingVertical="16dp"
+                    android:id="@+id/actionDetailsTopLayoutId"
+                    android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:drawableStart="@drawable/ic_arrow_back_black_24dp"
+                        android:drawablePadding="@dimen/activity_horizontal_margin"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/actionTextSize"
+                        android:id="@+id/actionDetails_toolbarText"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
+                        android:textSize="@dimen/text_13"
+                        android:id="@+id/actionDetails_subtoolText"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        />
+
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/unrunStatus_title"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_13"
+                        android:id="@+id/actionDetails_statusTitle"
+                        />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/unrunStatus_title"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        android:layout_marginStart="42dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_13"
+                        android:id="@+id/actionDetails_statusTitle2"
+                        />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/actionDetails_statusDesc"
+                        android:text="@string/pendingStatus_desc"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_13"
+                        android:visibility="gone"
+                        android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/actionDetails_statusLink"
+                        android:text="@string/pendingStatus_linkText"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_13"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:drawablePadding="4dp"
+                        android:visibility="gone"
+                        android:drawableEnd="@drawable/ic_open_in_new_black_15dp"
+                        android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
+                        android:layout_marginBottom="8dp"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/colorPrimaryDark"
+                    android:paddingTop="8dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="4dp"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_14"
+                        android:text="@string/operators"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorSecondaryGrey"
+                        android:textSize="@dimen/text_14"
+                        android:id="@+id/operators_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:paddingTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="4dp"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_14"
+                        android:text="@string/steps"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorSecondaryGrey"
+                        android:textSize="@dimen/text_14"
+                        android:id="@+id/steps_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:paddingTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="4dp"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_14"
+                        android:text="@string/parsers"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorSecondaryGrey"
+                        android:textSize="@dimen/text_14"
+                        android:lineSpacingExtra="10dp"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:id="@+id/parsers_content" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:paddingTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_14"
+                        android:text="@string/title_transactions"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorSecondaryGrey"
+                        android:textSize="@dimen/text_14"
+                        android:id="@+id/transactionNo_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:paddingTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="56dp"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorGreen"
+                        android:textSize="@dimen/text_14"
+                        android:text="@string/success_label"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorSecondaryGrey"
+                        android:textSize="@dimen/text_14"
+                        android:id="@+id/successCount_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:paddingTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="56dp"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorYellow"
+                        android:textSize="@dimen/text_14"
+                        android:text="@string/pending_label"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorSecondaryGrey"
+                        android:textSize="@dimen/text_14"
+                        android:id="@+id/pendingCount_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:paddingTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="56dp"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorRed"
+                        android:textSize="@dimen/text_14"
+                        android:text="@string/failed_label"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorSecondaryGrey"
+                        android:textSize="@dimen/text_14"
+                        android:id="@+id/failedCount_content" />
+
+            </LinearLayout>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/colorHoverWhite"
+                    android:textStyle="bold"
+                    android:layout_marginTop="32dp"
+                    android:textSize="@dimen/text_16"
+                    android:text="@string/testing_variables"/>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/testing_variables_desc"
+                    android:textColor="@color/colorHoverWhite"
+                    android:textSize="@dimen/text_14"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:id="@+id/action_variables_recyclerView"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recent_transactions"
+                        android:id="@+id/recentTransa_id"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_16"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/view_all"
+                        android:id="@+id/viewAll_id"
+                        android:visibility="gone"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorHoverWhite"
+                        android:textSize="@dimen/text_14"
+                        />
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    />
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:id="@+id/action_transac_recyclerView"/>
+
+        </LinearLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textAlignment="center"
+            android:paddingVertical="10dp"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_16"
+            android:id="@+id/testSingle_id"
+            android:text="@string/test_single_action"/>
+</LinearLayout>

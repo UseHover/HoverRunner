@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layoutForEmptyStateId"
+        android:visibility="gone"
+        android:layout_centerInParent="false">
+    <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress_state_1"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/empty_info_layout"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:id="@+id/empty_title_text"
+                android:visibility="visible"
+                android:textSize="@dimen/text_14"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/colorHoverWhite"
+                android:text="@string/no_transactions_yet"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_14"
+                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                android:textStyle="bold"
+                android:id="@+id/empty_subtitle_text"
+                android:visibility="visible"
+                android:textColor="@color/colorMainGrey"
+                android:text="@string/no_transactions_desc"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="13dp"
+                android:background="@color/lineColor"
+                />
+
+    </LinearLayout>
+</RelativeLayout>

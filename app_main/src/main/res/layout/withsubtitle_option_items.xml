@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/colorPrimaryDark">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            app:buttonTint="@color/colorPrimary"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:id="@+id/checkbox_filter_option"
+            android:text="@string/sim_checkbox"
+            android:textColor="@color/colorHoverWhite"
+            android:textSize="@dimen/text_16"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:paddingHorizontal="@dimen/activity_horizontal_margin"
+            />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="67dp"
+            android:textColor="@color/colorHoverWhite"
+            android:textSize="@dimen/text_16"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/option_subtitle"
+            />
+
+</LinearLayout>

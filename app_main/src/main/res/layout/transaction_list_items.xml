@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:id="@+id/transaction_date_id"
+            android:textColor="@color/colorHoverWhite"
+            android:paddingHorizontal="@dimen/activity_vertical_margin"
+            android:textSize="@dimen/text_16"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorMainGrey"
+            android:id="@+id/transaction_content_id"
+            android:layout_marginEnd="32dp"
+            android:paddingHorizontal="@dimen/activity_vertical_margin"
+            android:textSize="@dimen/text_16"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/divider"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/lineColor"/>
+
+</LinearLayout>

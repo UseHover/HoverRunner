@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		package="com.hover.runner">
+
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	<uses-permission android:name="android.permission.CALL_PHONE"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-sdk tools:overrideLibrary="com.hover.sdk"/>
+
+	<application
+	    android:allowBackup="true"
+	    android:icon="@mipmap/ic_launcher"
+	    android:label="@string/app_name"
+	    android:name="com.hover.runner.ApplicationInstance"
+	    android:supportsRtl="true"
+	    android:theme="@style/myHoverTheme">
+
+		<activity
+		    android:name="com.hover.runner.MainActivity"
+		    android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.hover.runner.ui.login.LoginActivity" />
+		<activity android:name="com.hover.runner.ui.webview.WebViewActivity" />
+        <activity android:name="com.hover.runner.ui.actions.filter.ActionFilterActivity" android:theme="@style/AppTheme" />
+		<activity android:name="com.hover.runner.ui.transactions.filter.TransactionFilterActivity" android:theme="@style/AppTheme" />
+		<activity android:name="com.hover.runner.ui.action_details.ActionDetailsActivity" />
+		<activity android:name="com.hover.runner.ui.parsers.ParsersActivity" />
+		<activity android:name="com.hover.runner.ui.transactionDetails.TransactionDetailsActivity" />
+        <activity android:name="com.hover.runner.ui.actions.uncompletedVariables.UncompletedVariableActivity" />
+        <activity android:name="com.hover.runner.ui.filter_pages.FilterByCountriesActivity" />
+		<activity android:name="com.hover.runner.ui.filter_pages.FilterByNetworksActivity" />
+		<activity android:name="com.hover.runner.ui.filter_pages.FilterByCategoriesActivity" />
+        <activity android:name="com.hover.runner.ui.filter_pages.FilterByActionsActivity" />
+    </application>
+</manifest>
