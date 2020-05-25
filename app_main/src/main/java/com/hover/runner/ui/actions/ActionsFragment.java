@@ -146,6 +146,8 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         HoverParameters.Builder builder = new HoverParameters.Builder(getContext());
         builder.request(action.getActionId());
         builder.setEnvironment(Apis.getTestEnvMode());
+        builder.style(R.style.myHoverTheme);
+        builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
 
         assert  actionExtra !=null;
         for(String key : actionExtra.keySet()) {

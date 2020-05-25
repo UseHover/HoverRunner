@@ -152,6 +152,7 @@
 	<string name="INVALID_EMAIL">Invalid email format, please enter correct email and try again</string>
 	<string name="INVALID_PASSWORD">Invalid password format. Ensure password has a minimum of 5 letters with no space</string>
 	<string name="NO_NETWORK">Internet connection not found</string>
+	<string name="transaction_coming_up">Transaction coming right up…</string>
 
 
 </resources>
