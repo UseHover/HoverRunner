@@ -79,7 +79,8 @@ public class ConvertRawDatabaseDataToModels {
     }
 
     public boolean doesActionHasParsers(String actionId) {
-        return repo.getParsersByActionId(actionId).size() > 0;
+        if(repo.getParsersByActionId(actionId) !=null) return repo.getParsersByActionId(actionId).size() > 0;
+        else return false;
     }
     public ActionDetailsModels getActionDetailsById(String actionId) {
         //Putting into try and catch to prevent Runtime errors.

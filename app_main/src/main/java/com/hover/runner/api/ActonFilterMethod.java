@@ -60,8 +60,8 @@ class ActonFilterMethod {
                 ActionsModel model = md.next();
                filterThroughCountries(model, md);
                filterThroughNetworks(model, md);
-               filterIfItHasParsers(model, md);
                filterThroughActionSearchText(model, md);
+               filterIfItHasParsers(model, md);
 
             }
             filteredActionList = actionsModelList;
@@ -187,14 +187,14 @@ class ActonFilterMethod {
     private void filterIfItHasParsers(ActionsModel model, Iterator<ActionsModel> md) {
         if(ApplicationInstance.isWithParsers()) {
             if(!new ConvertRawDatabaseDataToModels().doesActionHasParsers(model.getActionId()))
-                md.remove();
+               try{ md.remove();}catch (Exception ignored){}
         }
     }
 
     private void filterThroughActionSearchText(ActionsModel model, Iterator<ActionsModel> md) {
         if(ApplicationInstance.getActionSearchText() !=null) {
             if(TextUtils.getTrimmedLength(ApplicationInstance.getActionSearchText()) > 0) {
-                if(!model.getActionTitle().contains(ApplicationInstance.getActionSearchText())) {
+                if(!model.getActionTitle().toLowerCase().contains(ApplicationInstance.getActionSearchText().toLowerCase())) {
                     md.remove();
                 }
             }
