@@ -77,7 +77,6 @@ public class ActionFilterFragment extends Fragment {
         UIHelper.setTextUnderline(resetText, "Reset");
 
 
-
         actionFilterViewModel = new ViewModelProvider(this).get(ActionFilterViewModel.class);
         actionFilterViewModel.loadAllDataObs().observe(getViewLifecycleOwner(), result-> {
             if(result.getActionEnum() == StatusEnums.HAS_DATA) {
