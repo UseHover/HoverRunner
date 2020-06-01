@@ -71,7 +71,10 @@ public class ActionFilterFragment extends Fragment {
         onlyWithSimPresent = view.findViewById(R.id.checkbox_sim);
         datePickerView = view.findViewById(R.id.dateRangeEditId);
 
-        toolText.setOnClickListener(v -> { if(getActivity() !=null)getActivity().finish(); });
+        toolText.setOnClickListener(v -> { if(getActivity() !=null) {
+            prepareForPreviousActivity();
+            getActivity().finish();
+        } });
         loadingProgressBar.setVisibility(View.VISIBLE);
         loadingProgressBar.setIndeterminate(true);
         UIHelper.setTextUnderline(resetText, "Reset");
@@ -96,15 +99,7 @@ public class ActionFilterFragment extends Fragment {
         showActionsText.setOnClickListener(v -> {
             //We are setting two list of actions, so that if user clicks cancel, it shows the previously filtered actions
             //When users clicks this button, it then adds the latest filtered actions into this bucket.
-            if(Apis.actionFilterIsInNormalState()) {
-                ApplicationInstance.setResultFilter_Actions_LOAD(new ArrayList<>());
-                ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
-            }
-            else {
-                ApplicationInstance.setResultFilter_Actions_LOAD(ApplicationInstance.getResultFilter_Actions());
-                ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
-            }
-
+            prepareForPreviousActivity();
             if(getActivity() !=null)getActivity().finish();
         });
         actionFilterViewModel.loadActionsObs().observe(getViewLifecycleOwner(), filterResult-> {
@@ -197,6 +192,16 @@ public class ActionFilterFragment extends Fragment {
         return view;
     }
 
+    private void prepareForPreviousActivity() {
+        if(Apis.actionFilterIsInNormalState()) {
+            ApplicationInstance.setResultFilter_Actions_LOAD(new ArrayList<>());
+            ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
+        }
+        else {
+            ApplicationInstance.setResultFilter_Actions_LOAD(ApplicationInstance.getResultFilter_Actions());
+            ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
+        }
+    }
 
     private void filterThroughActions() {
         if(filterDataFullModel == null) onCreate(null);

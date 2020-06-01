@@ -68,7 +68,6 @@ class ActonFilterMethod {
                filterThroughNetworks(model, md);
                filterThroughActionSearchText(model, md);
                filterIfItHasParsers(model, md);
-
             }
             filteredActionList = actionsModelList;
             filterListAsBeenVisited = true;

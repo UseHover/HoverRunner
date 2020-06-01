@@ -59,7 +59,10 @@ public class TransactionFilterFragment extends Fragment {
 
         resetText = view.findViewById(R.id.reset_id);
         toolText.setOnClickListener(v -> {
-            if(getActivity() !=null) getActivity().finish();
+            if(getActivity() !=null) {
+                prepareForPreviousActivity();
+                getActivity().finish();
+            }
         });
 
         loadingProgressBar = view.findViewById(R.id.filter_progressBar);
@@ -95,15 +98,8 @@ public class TransactionFilterFragment extends Fragment {
         showTransactionsText.setOnClickListener(v -> {
             //We are setting two list of actions, so that if user clicks cancel, it shows the previously filtered actions
             //When users clicks this button, it then adds the latest filtered actions into this bucket.
-            if(Apis.transactionFilterIsInNormalState()) {
-                ApplicationInstance.setResultFilter_Transactions_LOAD(new ArrayList<>());
-                ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
-            }
-            else {
-                ApplicationInstance.setResultFilter_Transactions_LOAD(ApplicationInstance.getResultFilter_Transactions());
-                ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
-            }
 
+            prepareForPreviousActivity();
             if(getActivity() !=null)getActivity().finish();
         });
 
@@ -194,6 +190,17 @@ public class TransactionFilterFragment extends Fragment {
         setupCheckboxes();
         transactionFilterViewModel.getFullDataFirst();
         return view;
+    }
+
+    private void prepareForPreviousActivity() {
+        if(Apis.transactionFilterIsInNormalState()) {
+            ApplicationInstance.setResultFilter_Transactions_LOAD(new ArrayList<>());
+            ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
+        }
+        else {
+            ApplicationInstance.setResultFilter_Transactions_LOAD(ApplicationInstance.getResultFilter_Transactions());
+            ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
+        }
     }
 
     @Override
