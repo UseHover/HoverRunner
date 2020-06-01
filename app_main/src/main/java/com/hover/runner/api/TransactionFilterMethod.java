@@ -31,6 +31,16 @@ class TransactionFilterMethod {
         if(f0.size() == 0 && !visited) return f1;
         return f0;
     }
+    private void removeTransactionItem(Iterator<TransactionModels> md) {
+        try{
+            md.remove();
+        }catch (Exception ignored){};
+    }
+    private void removeActionItem(Iterator<ActionsModel> md) {
+        try{
+            md.remove();
+        }catch (Exception ignored){};
+    }
 
     List<TransactionModels> startFilterTransaction() {
 
@@ -89,7 +99,7 @@ class TransactionFilterMethod {
         for(Iterator<TransactionModels> mdt= tmList.iterator(); mdt.hasNext(); ) {
             TransactionModels models = mdt.next();
             if(!actionIdList.contains(models.getActionId())) {
-                mdt.remove();
+                removeTransactionItem(mdt);
             }
         }
         ApplicationInstance.setResultFilter_Transactions(tmList);
@@ -105,7 +115,7 @@ class TransactionFilterMethod {
                 if(!ApplicationInstance.getTransactionSearchText().isEmpty()) {
                     String searchValue = ApplicationInstance.getTransactionSearchText();
                     if (!model.getTransaction_id().contains(searchValue) || !model.getCaption().contains(searchValue)) {
-                        md.remove();
+                        removeTransactionItem(md);
                     }
                 }
             }
@@ -115,27 +125,27 @@ class TransactionFilterMethod {
                 long startDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().first);
                 long endDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().second);
                 if (model.getDateTimeStamp() < startDate || model.getDateTimeStamp() > endDate) {
-                    md.remove();
+                    removeTransactionItem(md);
                 }
             }
             // STAGE 3: FILTER THROUGH IF, FAILED IS NOT CHECKED.
             if(!ApplicationInstance.isTransactionStatusFailed()) {
                 if(model.getStatusEnums() == StatusEnums.UNSUCCESSFUL) {
-                    md.remove();
+                    removeTransactionItem(md);
                 }
             }
 
             // STAGE 4: FILTER THROUGH IF, SUCCESS IS NOT CHECKED.
             if(!ApplicationInstance.isTransactionStatusSuccess()) {
                 if(model.getStatusEnums() == StatusEnums.SUCCESS) {
-                    md.remove();
+                    removeTransactionItem(md);
                 }
             }
 
             // STAGE 5: FILTER THROUGH IF, PENDING IS NOT CHECKED.
             if(!ApplicationInstance.isTransactionStatusPending()) {
                 if(model.getStatusEnums() == StatusEnums.PENDING) {
-                    md.remove();
+                    removeTransactionItem(md);
                 }
             }
         }
@@ -145,7 +155,7 @@ class TransactionFilterMethod {
         for(Iterator<ActionsModel> md= actionsModelList.iterator(); md.hasNext();) {
             ActionsModel model = md.next();
             if(!ApplicationInstance.getTransactionActionsSelectedFilter().contains(model.getActionId())) {
-                md.remove();
+                removeActionItem(md);
             }
         }
     }
@@ -160,7 +170,7 @@ class TransactionFilterMethod {
                 }
                 String allSelectedCountries = concatenatedSelectedCountries.toString();
                 if(!allSelectedCountries.contains(model.getCountry())) {
-                    md.remove();
+                    removeActionItem(md);
                 }
             }
 
@@ -175,7 +185,7 @@ class TransactionFilterMethod {
                 }
 
                 if(toRemove) {
-                    md.remove();
+                    removeActionItem(md);
                 }
             }
         }

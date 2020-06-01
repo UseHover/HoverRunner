@@ -35,6 +35,12 @@ class ActonFilterMethod {
         if(f0.size() == 0 && !visited) return f1;
         return f0;
     }
+    
+    private void removeItem(Iterator<ActionsModel> md) {
+        try{
+            md.remove();
+        }catch (Exception ignored){};
+    }
     List<ActionsModel> startFilterAction() {
 
         //Filter overview algo explained->
@@ -125,7 +131,7 @@ class ActonFilterMethod {
                 //If this action is not found in the filtered transaction data, remove it.
                 ActionsModel model = md.next();
                 if(!shortListedTransactionActionId.contains(model.getActionId())) {
-                    md.remove();
+                    removeItem(md);
                 }
             }
             filteredActionList = newTempList;
@@ -162,7 +168,7 @@ class ActonFilterMethod {
             }
             String allSelectedCountries = concatenatedSelectedCountries.toString();
             if(!allSelectedCountries.contains(model.getCountry())) {
-                md.remove();
+                removeItem(md);
             }
         }
     }
@@ -179,7 +185,7 @@ class ActonFilterMethod {
             }
 
             if(toRemove) {
-                md.remove();
+                removeItem(md);
             }
         }
     }
@@ -187,7 +193,7 @@ class ActonFilterMethod {
     private void filterIfItHasParsers(ActionsModel model, Iterator<ActionsModel> md) {
         if(ApplicationInstance.isWithParsers()) {
             if(!new ConvertRawDatabaseDataToModels().doesActionHasParsers(model.getActionId()))
-               try{ md.remove();}catch (Exception ignored){}
+               try{ removeItem(md);}catch (Exception ignored){}
         }
     }
 
@@ -195,7 +201,7 @@ class ActonFilterMethod {
         if(ApplicationInstance.getActionSearchText() !=null) {
             if(TextUtils.getTrimmedLength(ApplicationInstance.getActionSearchText()) > 0) {
                 if(!model.getActionTitle().toLowerCase().contains(ApplicationInstance.getActionSearchText().toLowerCase())) {
-                    md.remove();
+                    removeItem(md);
                 }
             }
         }
@@ -215,7 +221,7 @@ class ActonFilterMethod {
             //If it is found in the transaction list that has been previous run, remove it from action list to be displayed
             ActionsModel model = md.next();
             if(shortListedTransactionActionId.contains(model.getActionId())) {
-                md.remove();
+                removeItem(md);
             }
         }
         return newTempList;
@@ -264,7 +270,7 @@ class ActonFilterMethod {
             for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
                 ActionsModel model = md.next();
                 if(!Hover.isActionSimPresent(model.getActionId(), ApplicationInstance.getContext())) {
-                    md.remove();
+                    removeItem(md);
                 }
             }
             filteredActionList = newTempList;
