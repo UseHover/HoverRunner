@@ -90,13 +90,22 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 pendingText.setText(model.getPendingNo());
                 failureText.setText(model.getFailedNo());
 
-                variablesRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(view.getContext()));
-                variablesRecyclerView.setAdapter(new VariableRecyclerAdapter(
-                        ActionDetailsActivity.actionId,
-                        model.getStreamlinedStepsModel(),
-                        this,
-                        Utils.getInitialVariableData(getContext(), ActionDetailsActivity.actionId).second
-                ));
+                if(model.getStreamlinedStepsModel().getStepVariableLabel().size() == 0) {
+                    view.findViewById(R.id.variableLabel_group1).setVisibility(View.GONE);
+                    view.findViewById(R.id.variableLabel_group2).setVisibility(View.GONE);
+                    view.findViewById(R.id.variableLabel_group3).setVisibility(View.GONE);
+
+                }
+                else {
+                    variablesRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(view.getContext()));
+                    variablesRecyclerView.setAdapter(new VariableRecyclerAdapter(
+                            ActionDetailsActivity.actionId,
+                            model.getStreamlinedStepsModel(),
+                            this,
+                            Utils.getInitialVariableData(getContext(), ActionDetailsActivity.actionId).second
+                    ));
+                }
+
             }
         });
 
