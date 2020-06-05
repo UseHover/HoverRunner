@@ -15,14 +15,13 @@
 			android:transitionName="@string/login_image_transition"
 			android:layout_weight="1"
 			/>
-
 	<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_weight="1"
 			android:background="@color/colorPrimaryDark"
-			android:padding="@dimen/activity_horizontal_margin"
 			android:orientation="vertical"
 			android:layout_gravity="center"
+			android:padding="@dimen/activity_horizontal_margin"
 			android:gravity="center_vertical"
 			android:layout_height="0dp">
 
@@ -34,6 +33,7 @@
 				android:textColor="@color/colorHoverWhite"
 				android:textSize="@dimen/text_16"
 				android:textStyle="bold"/>
+
 
 		<EditText
 				android:layout_width="match_parent"
@@ -48,12 +48,14 @@
 				android:textColorHint="@color/colorTextHint"
 				android:layout_marginTop="8dp"
 				android:maxLines="1"
+				android:imeOptions="actionNext"
 				android:textAllCaps="false"
 				android:id="@+id/emailEditId"
 				android:autofillHints="@string/email_hint"
 				android:inputType="textEmailAddress"
 				android:textColor="@color/colorHoverWhite"
 				android:background="@drawable/edit_text_bg"/>
+
 		<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -87,12 +89,14 @@
 				android:paddingEnd="@dimen/editText_box_margin_horiz"
 				android:paddingRight="@dimen/editText_box_margin_horiz"
 				android:paddingTop="@dimen/editText_box_margin_vert"
+				android:imeOptions="actionDone"
 				android:hint="@string/password_hint"
 				android:textColorHint="@color/colorTextHint"
 				android:layout_marginTop="8dp"
 				android:id="@+id/passwordEditId"
 				android:paddingBottom="@dimen/editText_box_margin_vert"
-				android:background="@drawable/edit_text_bg"/>
+				android:background="@drawable/edit_text_bg"
+				/>
 		<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
