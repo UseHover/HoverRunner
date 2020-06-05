@@ -72,7 +72,7 @@ public class ActionFilterFragment extends Fragment {
         datePickerView = view.findViewById(R.id.dateRangeEditId);
 
         toolText.setOnClickListener(v -> { if(getActivity() !=null) {
-            prepareForPreviousActivity();
+            prepareForPreviousActivity(true);
             getActivity().finish();
         } });
         loadingProgressBar.setVisibility(View.VISIBLE);
@@ -99,7 +99,7 @@ public class ActionFilterFragment extends Fragment {
         showActionsText.setOnClickListener(v -> {
             //We are setting two list of actions, so that if user clicks cancel, it shows the previously filtered actions
             //When users clicks this button, it then adds the latest filtered actions into this bucket.
-            prepareForPreviousActivity();
+            prepareForPreviousActivity(false);
             if(getActivity() !=null)getActivity().finish();
         });
         actionFilterViewModel.loadActionsObs().observe(getViewLifecycleOwner(), filterResult-> {
@@ -192,9 +192,10 @@ public class ActionFilterFragment extends Fragment {
         return view;
     }
 
-    private void prepareForPreviousActivity() {
+    private void prepareForPreviousActivity(boolean isBackButtonPressed) {
         if(Apis.actionFilterIsInNormalState()) {
-            ApplicationInstance.setResultFilter_Actions_LOAD(filterDataFullModel.getActionsModelList());
+            if(isBackButtonPressed) ApplicationInstance.setResultFilter_Actions_LOAD(new ArrayList<>());
+            else  ApplicationInstance.setResultFilter_Actions_LOAD(filterDataFullModel.getActionsModelList());
             ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
         }
         else {

@@ -60,7 +60,7 @@ public class TransactionFilterFragment extends Fragment {
         resetText = view.findViewById(R.id.reset_id);
         toolText.setOnClickListener(v -> {
             if(getActivity() !=null) {
-                prepareForPreviousActivity();
+                prepareForPreviousActivity(true);
                 getActivity().finish();
             }
         });
@@ -99,7 +99,7 @@ public class TransactionFilterFragment extends Fragment {
             //We are setting two list of actions, so that if user clicks cancel, it shows the previously filtered actions
             //When users clicks this button, it then adds the latest filtered actions into this bucket.
 
-            prepareForPreviousActivity();
+            prepareForPreviousActivity(false);
             if(getActivity() !=null)getActivity().finish();
         });
 
@@ -192,9 +192,10 @@ public class TransactionFilterFragment extends Fragment {
         return view;
     }
 
-    private void prepareForPreviousActivity() {
+    private void prepareForPreviousActivity(boolean isBackButtonPressed) {
         if(Apis.transactionFilterIsInNormalState()) {
-            ApplicationInstance.setResultFilter_Transactions_LOAD(filterDataFullModel.getTransactionModelsList());
+            if(isBackButtonPressed) ApplicationInstance.setResultFilter_Transactions_LOAD(new ArrayList<>());
+            else ApplicationInstance.setResultFilter_Transactions_LOAD(filterDataFullModel.getTransactionModelsList());
             ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
         }
         else {
