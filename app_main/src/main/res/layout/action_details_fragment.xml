@@ -368,6 +368,7 @@
             android:paddingVertical="10dp"
             android:textStyle="bold"
             android:textSize="@dimen/text_16"
+            android:textColor="@color/runActionTextColor"
             android:id="@+id/testSingle_id"
             android:text="@string/test_single_action"/>
 </LinearLayout>

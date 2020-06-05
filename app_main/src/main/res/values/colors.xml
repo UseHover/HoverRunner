@@ -14,5 +14,6 @@
 	<color name="colorHoverWhite">#F1F1F4</color>
 	<color name="colorPureWhite">#FFFFFF</color>
 	<color name="lineColor">#34383F</color>
+	<color name="runActionTextColor">#1e232a</color>
 
 </resources>
