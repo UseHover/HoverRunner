@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverParameters;
@@ -73,7 +75,6 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         homeActionsRecyclerView.setLayoutManager(UIHelper.setMainLinearManagers(getContext()));
         homeActionsRecyclerView.setHasFixedSize(true);
 
-
         UIHelper.setTextUnderline(filterText, getResources().getString(R.string.filter_text));
 
         //CALL THE FILTER FUNCTION
@@ -115,7 +116,6 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                 } else {
                     if (withCompletedVariableActionList.size() > 0) runAction(true);
                     else
-
                         UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.noRunnableAction));
                 }
             }

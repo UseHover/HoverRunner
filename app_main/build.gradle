@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.firebase.firebase-perf'
+//apply plugin: 'com.google.gms.google-services'
+if (getGradle().getStartParameter().getTaskRequests().toString().contains("Gateway")) {
+    apply plugin: 'com.google.gms.google-services'
+}
 
 
 android {
@@ -10,8 +15,9 @@ android {
         applicationId "com.usehover.testerv2"
         minSdkVersion 18
         targetSdkVersion 29
-        versionCode 4
-        versionName "1.14"
+        versionCode 5
+        versionName "1.15"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -59,8 +65,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
+    implementation 'com.google.firebase:firebase-perf:19.0.7'
 
-   // implementation 'com.hover:android-sdk:1.5.3-alpha07'
+    //implementation 'com.hover:android-sdk:1.5.4-alpha1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

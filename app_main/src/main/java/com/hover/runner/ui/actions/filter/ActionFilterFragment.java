@@ -194,7 +194,7 @@ public class ActionFilterFragment extends Fragment {
 
     private void prepareForPreviousActivity() {
         if(Apis.actionFilterIsInNormalState()) {
-            ApplicationInstance.setResultFilter_Actions_LOAD(new ArrayList<>());
+            ApplicationInstance.setResultFilter_Actions_LOAD(filterDataFullModel.getActionsModelList());
             ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
         }
         else {

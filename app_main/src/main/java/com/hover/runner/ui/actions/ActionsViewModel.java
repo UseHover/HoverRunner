@@ -23,9 +23,7 @@ public class ActionsViewModel extends ViewModel {
         homeActions.setValue(new FullActionResult(StatusEnums.LOADING, null));
     }
 
-    LiveData<HomeEnums> getText() {
-        return filterStatus;
-    }
+    LiveData<HomeEnums> getText() { return filterStatus; }
     LiveData<FullActionResult> loadActionsObs() {return homeActions;}
 
     void setFilterOn() {

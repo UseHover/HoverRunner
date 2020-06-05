@@ -8,6 +8,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -128,7 +129,6 @@ public class Utils {
             }
         }
 
-        if(!BuildConfig.FLAVOR.equals("pro")) filledSize = filledSize-1;
         if(expectedSize == filledSize) return ActionRunStatus.GOOD;
         if(pair.first != null) { if (pair.first) return  ActionRunStatus.SKIPPED; }
         return ActionRunStatus.BAD;

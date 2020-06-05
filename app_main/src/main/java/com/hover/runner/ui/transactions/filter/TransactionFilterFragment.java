@@ -194,7 +194,7 @@ public class TransactionFilterFragment extends Fragment {
 
     private void prepareForPreviousActivity() {
         if(Apis.transactionFilterIsInNormalState()) {
-            ApplicationInstance.setResultFilter_Transactions_LOAD(new ArrayList<>());
+            ApplicationInstance.setResultFilter_Transactions_LOAD(filterDataFullModel.getTransactionModelsList());
             ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
         }
         else {
