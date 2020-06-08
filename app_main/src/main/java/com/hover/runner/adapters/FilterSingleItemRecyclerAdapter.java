@@ -13,6 +13,7 @@ import com.hover.runner.interfaces.CustomOnClickListener;
 import com.hover.runner.models.SingleFilterInfoModel;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class FilterSingleItemRecyclerAdapter extends RecyclerView.Adapter<FilterSingleItemRecyclerAdapter.FilterSingleViewHolder> {
     private ArrayList<SingleFilterInfoModel> entries;
@@ -39,11 +40,15 @@ public class FilterSingleItemRecyclerAdapter extends RecyclerView.Adapter<Filter
 
     @Override
     public void onBindViewHolder(@NonNull FilterSingleViewHolder holder, int position) {
+
         holder.checkBox.setText(entries.get(position).getTitle());
         holder.checkBox.setChecked(entries.get(position).isCheck());
 
         //Capitalize country code or value that's exactly 2 letter size.
-        if(entries.get(position).getTitle().length() == 2) holder.checkBox.setAllCaps(true);
+        if(entries.get(position).getTitle().length() == 2) {
+            holder.checkBox.setAllCaps(true);
+            holder.checkBox.setText(new Locale("",entries.get(position).getTitle()).getDisplayCountry());
+        }
 
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             clickListener.customClickListener(entries.get(position).getTitle(), isChecked);

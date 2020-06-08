@@ -129,6 +129,8 @@ public class Utils {
             }
         }
 
+        if(!BuildConfig.FLAVOR.equals("pro")) filledSize = filledSize+0;
+        Log.d("VAR_SIZE", "expected size: "+expectedSize + ", while filled size is: "+filledSize);
         if(expectedSize == filledSize) return ActionRunStatus.GOOD;
         if(pair.first != null) { if (pair.first) return  ActionRunStatus.SKIPPED; }
         return ActionRunStatus.BAD;
