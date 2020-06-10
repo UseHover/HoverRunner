@@ -108,7 +108,7 @@ public class ActionFilterFragment extends Fragment {
                 showActionsText.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 String suffixAction ="actions";
                 if(filterResult.getActionsModelList().size() == 1) suffixAction = "action";
-                showActionsText.setText(String.format(Locale.ENGLISH, "Show %d %s", filterResult.getActionsModelList().size(), suffixAction));
+                showActionsText.setText(String.format(Locale.getDefault(), "Show %d %s", filterResult.getActionsModelList().size(), suffixAction));
             }
             else if(filterResult.getActionEnum() == StatusEnums.LOADING) {
                 showActionsText.setClickable(false);
@@ -329,7 +329,7 @@ public class ActionFilterFragment extends Fragment {
     private void setOrReloadDateRange() {
         if(ApplicationInstance.getDateRange() != null) {
             Pair<Long, Long> dateRange = ApplicationInstance.getDateRange();
-            datePickerView.setText(String.format(Locale.ENGLISH, "%s - %s",
+            datePickerView.setText(String.format(Locale.getDefault(), "%s - %s",
                     Utils.formatDateV2((long) Utils.nonNullDateRange(dateRange.first)),
                     Utils.formatDateV3((long) Utils.nonNullDateRange(dateRange.second))));
             activateReset();

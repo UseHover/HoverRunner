@@ -11,9 +11,11 @@ import com.hover.runner.models.ActionsModel;
 import com.hover.runner.models.TransactionModels;
 import com.hover.runner.utils.Utils;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 class ActonFilterMethod {
     private List<TransactionModels> transactionModelList;
@@ -280,7 +282,10 @@ class ActonFilterMethod {
     private void filterThroughDateRange(ArrayList<TransactionModels> shortListedTransactions, ArrayList<String> shortListedTransactionActionId) {
         if (ApplicationInstance.getDateRange() !=null) {
             long startDate = (long) Utils.nonNullDateRange(ApplicationInstance.getDateRange().first);
-            long endDate = (long) Utils.nonNullDateRange(ApplicationInstance.getDateRange().second);
+            long end = (long) Utils.nonNullDateRange(ApplicationInstance.getDateRange().second);
+            Timestamp endTime = new Timestamp(end + TimeUnit.HOURS.toMillis(24));
+            long endDate = endTime.getTime();
+
             for(Iterator<TransactionModels> ts= shortListedTransactions.iterator(); ts.hasNext();) {
                 TransactionModels transaction = ts.next();
                 if (transaction.getDateTimeStamp() < startDate || transaction.getDateTimeStamp() > endDate) {

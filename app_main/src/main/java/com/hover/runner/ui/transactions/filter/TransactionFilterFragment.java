@@ -109,7 +109,7 @@ public class TransactionFilterFragment extends Fragment {
                 showTransactionsText.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 String suffixAction ="transactions";
                 if(filterResult.getTransactionModelsList().size() == 1) suffixAction = "transaction";
-                showTransactionsText.setText(String.format(Locale.ENGLISH, "Show %d %s", filterResult.getTransactionModelsList().size(), suffixAction));
+                showTransactionsText.setText(String.format(Locale.getDefault(), "Show %d %s", filterResult.getTransactionModelsList().size(), suffixAction));
             }
             else if(filterResult.getEnums() == StatusEnums.LOADING) {
                 showTransactionsText.setClickable(false);
@@ -310,7 +310,7 @@ public class TransactionFilterFragment extends Fragment {
     private void setOrReloadDateRange() {
         if(ApplicationInstance.getTransactionDateRange() != null) {
             Pair<Long, Long> dateRange = ApplicationInstance.getTransactionDateRange();
-            datePickerView.setText(String.format(Locale.ENGLISH,
+            datePickerView.setText(String.format(Locale.getDefault(),
                     "%s - %s", Utils.formatDateV2((long) Utils.nonNullDateRange(dateRange.first)),
                     Utils.formatDateV3((long) Utils.nonNullDateRange(dateRange.second))));
             activateReset();
