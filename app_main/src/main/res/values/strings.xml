@@ -54,6 +54,7 @@
 	<string name="sim_tooltip">Don’t see the correct SIM? Try removing it and re-inserting it. If that doesn\’t work, contact support.</string>
 	<string name="contact_support">Contact support</string>
 	<string name="refresh">Refresh</string>
+	<string name="signout">Sign out</string>
 	<string name="sim1">SIM 1</string>
 	<string name="sim2">SIM 2</string>
 	<string name="refresh_app_data">Refresh app data</string>

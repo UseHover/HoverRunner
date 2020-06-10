@@ -7,9 +7,11 @@ import com.hover.runner.models.ActionsModel;
 import com.hover.runner.models.TransactionModels;
 import com.hover.runner.utils.Utils;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 class TransactionFilterMethod {
     private List<ActionsModel> actionsModelList;
@@ -123,7 +125,10 @@ class TransactionFilterMethod {
             // STAGE 2: FILTER THROUGH DATE RANGE
             if(ApplicationInstance.getTransactionDateRange() != null) {
                 long startDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().first);
-                long endDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().second);
+                long end = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().second);
+                Timestamp endTime = new Timestamp(end + TimeUnit.HOURS.toMillis(24));
+                long endDate = endTime.getTime();
+
                 if (model.getDateTimeStamp() < startDate || model.getDateTimeStamp() > endDate) {
                     removeTransactionItem(md);
                 }

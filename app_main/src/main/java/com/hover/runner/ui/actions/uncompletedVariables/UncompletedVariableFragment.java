@@ -101,8 +101,7 @@ public class UncompletedVariableFragment extends Fragment implements  VariableEd
                     this,
                     Utils.getInitialVariableData(getContext(), actionsModel.getActionId()).second
             );
-            if(variablesRecyclerView.getAdapter()!=null) { variablesRecyclerView.swapAdapter(variableRecyclerAdapter, true); }
-            else variablesRecyclerView.setAdapter(variableRecyclerAdapter);
+            variablesRecyclerView.setAdapter(variableRecyclerAdapter);
         }catch (Exception e) {
             UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), getResources().getString(R.string.bad_steps_config));
         }

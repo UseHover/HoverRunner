@@ -3,9 +3,11 @@ package com.hover.runner.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -30,7 +32,10 @@ import java.util.Objects;
 
 public class LoginFragment extends Fragment {
     private LoginViewModel loginViewModel;
-
+    private ProgressBar loginProgressBar;
+    private EditText emailEdit,passwordEdit;
+    private  TextView errorEmailText, errorPasswordText,emailLabel, passwordLabel;
+    private  Button signInButton;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,17 +52,23 @@ public class LoginFragment extends Fragment {
             startActivity(intent);
         });
 
-        ProgressBar loginProgressBar = view.findViewById(R.id.login_progress);
-        Button signInButton = view.findViewById(R.id.signinButton);
-        EditText emailEdit = view.findViewById(R.id.emailEditId);
-        EditText passwordEdit = view.findViewById(R.id.passwordEditId);
-        TextView errorEmailText = view.findViewById(R.id.errorText_email);
-        TextView errorPasswordText = view.findViewById(R.id.errorText_password);
-        TextView emailLabel = view.findViewById(R.id.email_label_id);
-        TextView passwordLabel = view.findViewById(R.id.password_label_id);
+         loginProgressBar = view.findViewById(R.id.login_progress);
+        signInButton = view.findViewById(R.id.signinButton);
+         emailEdit = view.findViewById(R.id.emailEditId);
+        passwordEdit = view.findViewById(R.id.passwordEditId);
+        errorEmailText = view.findViewById(R.id.errorText_email);
+        errorPasswordText = view.findViewById(R.id.errorText_password);
+        emailLabel = view.findViewById(R.id.email_label_id);
+        passwordLabel = view.findViewById(R.id.password_label_id);
 
         emailEdit.setOnClickListener(v -> undoErrorView(emailEdit, errorEmailText, emailLabel));
         passwordEdit.setOnClickListener(v -> undoErrorView(passwordEdit, errorPasswordText, passwordLabel));
+        passwordEdit.setOnEditorActionListener((v, actionId, event) -> {
+            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                signInActionMethod(null);
+            }
+            return false;
+        });
 
         loginProgressBar.setIndeterminate(true);
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
@@ -97,25 +108,29 @@ public class LoginFragment extends Fragment {
         });
 
 
-        signInButton.setOnClickListener(v -> {
-            if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
-                loginProgressBar.setVisibility(View.VISIBLE);
-                signInButton.setText(getResources().getString(R.string.loggin_in_text));
-                v.setClickable(false);
-                undoErrorView(emailEdit, errorEmailText, emailLabel);
-                undoErrorView(passwordEdit, errorPasswordText, passwordLabel);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString());
-                    }
-                }, 500);
-            }
-            else UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null,
-                    ApplicationInstance.getContext().getString(R.string.NO_NETWORK));
-        });
+        signInButton.setOnClickListener(this::signInActionMethod);
 
         return view;
+    }
+
+    private void signInActionMethod(View v) {
+        if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
+            loginProgressBar.setVisibility(View.VISIBLE);
+            signInButton.setText(getResources().getString(R.string.loggin_in_text));
+
+            if(v!=null) v.setClickable(false);
+
+            undoErrorView(emailEdit, errorEmailText, emailLabel);
+            undoErrorView(passwordEdit, errorPasswordText, passwordLabel);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString());
+                }
+            }, 500);
+        }
+        else UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null,
+                ApplicationInstance.getContext().getString(R.string.NO_NETWORK));
     }
     private void setErrorView(EditText editText, TextView errorText, TextView label) {
         editText.setActivated(true);

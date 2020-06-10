@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/login_frame"
@@ -7,9 +7,16 @@
 	<ImageView
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:src="@drawable/simon_bg"
+	    android:src="@drawable/simon"
 	    android:id="@+id/hover_bg1"
 	    android:transitionName="@string/login_image_transition"
 	    android:contentDescription="@string/simon_content_desc"
 	    android:scaleType="centerCrop"/>
-</FrameLayout>
+	<ImageView
+			android:contentDescription="@string/simon_content_desc"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/hoverlogo_svg"
+			android:layout_centerInParent="true"
+			/>
+</RelativeLayout>

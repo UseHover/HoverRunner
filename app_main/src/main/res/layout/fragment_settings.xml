@@ -82,6 +82,16 @@
 					android:layout_marginBottom="@dimen/activity_vertical_margin"
 					android:text="@string/debug_toolTip"/>
 
+			<TextView
+					android:id="@+id/contact_support"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/activity_vertical_margin"
+					android:layout_marginEnd="32dp"
+					android:text="@string/contactUs"
+					android:textColor="@color/colorSecondaryGrey"
+					android:textSize="@dimen/text_14" />
+
 			<androidx.appcompat.widget.AppCompatRadioButton
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -163,17 +173,6 @@
 					android:id="@+id/sim2_content" />
 		</LinearLayout>
 
-		<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/activity_vertical_margin"
-				android:textColor="@color/colorSecondaryGrey"
-				android:layout_marginEnd="32dp"
-				android:textSize="@dimen/text_14"
-				android:id="@+id/contact_support"
-				android:text="@string/contactUs"/>
-
-
 
 		<TextView
 				android:layout_width="wrap_content"
@@ -197,6 +196,31 @@
 				android:textAllCaps="false"
 				android:paddingHorizontal="14dp"
 				android:id="@+id/refreshButton"
+				android:layout_height="38dp"/>
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="32dp"
+				android:textSize="@dimen/text_16"
+				android:textStyle="bold"
+				android:text="@string/signout"
+				android:textColor="@color/colorHoverWhite"
+				android:layout_marginBottom="@dimen/activity_vertical_margin"
+				/>
+
+		<Button
+				android:layout_width="wrap_content"
+				android:gravity="center"
+				android:layout_gravity="start"
+				android:background="@drawable/edit_text_bg"
+				android:text="@string/signout"
+				android:textSize="@dimen/text_14"
+				android:textStyle="bold"
+				android:textColor="@color/colorPureWhite"
+				android:textAllCaps="false"
+				android:paddingHorizontal="14dp"
+				android:id="@+id/signOutButton"
 				android:layout_height="38dp"/>
 
 	</LinearLayout>
