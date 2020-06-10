@@ -52,6 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                 ft.commitAllowingStateLoss();
             }catch (Exception ignored){}
 
-        }, 1500);
+        }, 11500);
     }
 }
