@@ -5,8 +5,8 @@
     <item>
         <shape android:shape="rectangle" android:padding="10dp">
 
-            <solid android:color="?attr/hover_primaryColor"/>
-            <stroke android:width="3dp" android:color="?attr/hover_textColor"/>
+            <solid android:color="?attr/colorPrimary"/>
+            <stroke android:width="3dp" android:color="?attr/colorAccent"/>
             <corners android:radius="2dp" />
 
         </shape>

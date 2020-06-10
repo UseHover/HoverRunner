@@ -1,18 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.firebase.firebase-perf'
-//apply plugin: 'com.google.gms.google-services'
-if (getGradle().getStartParameter().getTaskRequests().toString().contains("Gateway")) {
-    apply plugin: 'com.google.gms.google-services'
-}
-
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "com.usehover.testerv2"
+        applicationId "com.hover.runner"
         minSdkVersion 18
         targetSdkVersion 29
         versionCode 5
@@ -21,18 +17,22 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
 
-    flavorDimensions 'version'
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions 'version', 'use'
     productFlavors {
         normal {
             dimension "version"
@@ -45,7 +45,20 @@ android {
             dimension "version"
             versionNameSuffix "-pro"
         }
+
+        internal {
+            dimension "use"
+            applicationIdSuffix ".internal"
+        }
+        dashboard {
+            dimension "use"
+            applicationIdSuffix ".BUILD_PLACEHOLDER_SUFFIX"
+        }
     }
+}
+
+configurations {
+    normalDashboardImplementation {}
 }
 
 dependencies {
@@ -57,23 +70,28 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation'com.google.android.material:material:1.2.0-alpha06'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.firebase:firebase-perf:19.0.7'
-
-    //implementation 'com.hover:android-sdk:1.5.4-alpha1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation project(path: ':app')
-    //implementation project(":hover.sdk")
 
+    def sdk_version = "1.5.3-alpha07"
+    normalDashboardImplementation "com.hover:android-sdk:$sdk_version"
+    noSMSImplementation "com.hover:android-sdk:$sdk_version-noSMS"
+    proImplementation "com.hover:android-sdk:$sdk_version-pro"
+    internalImplementation project(":hover.sdk")
+    internalImplementation 'com.android.volley:volley:1.1.1'
+    internalImplementation "androidx.work:work-runtime:2.2.0"
+    internalImplementation 'com.google.android.gms:play-services-analytics:17.0.0'
+    internalImplementation 'io.sentry:sentry-android:1.7.21'
 
 }

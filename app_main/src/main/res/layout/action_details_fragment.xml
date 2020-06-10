@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_14"
-                        android:text="@string/steps"/>
+                        android:text="@string/longcode"/>
 
                 <TextView
                         android:layout_width="match_parent"
