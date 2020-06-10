@@ -225,8 +225,11 @@ public class TransactionFilterFragment extends Fragment {
 
     private void activateReset() {
         if(!Apis.transactionFilterIsInNormalState()) {
-            resetText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
-            resetActivated = true;
+           try{
+               resetText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
+               resetActivated = true;
+           } catch (Exception ignored){}
+
         }
 
     }
