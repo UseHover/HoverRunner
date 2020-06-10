@@ -31,8 +31,6 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private Fragment frag;
-    private static final long MOVE_DEFAULT_TIME = 300;
-    private static final long FADE_DEFAULT_TIME = 300;
 
     private LoginViewModel loginViewModel;
     private ProgressBar loginProgressBar;
@@ -131,7 +129,11 @@ public class LoginActivity extends AppCompatActivity {
 
         }, 1500);
 
-        new Handler().postDelayed(() -> fadeIn(findViewById(R.id.divider)), 2000);
+        new Handler().postDelayed(() -> {
+          //  fadeIn(findViewById(R.id.hover_bg1));
+           // logo.setScaleType(ImageView.ScaleType.FIT_XY);
+            fadeIn(findViewById(R.id.divider));
+        }, 2000);
 
     }
 
@@ -143,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void fade(AlphaAnimation fade, View view) {
-        fade.setDuration(300);
+        fade.setDuration(200);
         fade.setFillAfter(true);
         view.startAnimation(fade);
     }
