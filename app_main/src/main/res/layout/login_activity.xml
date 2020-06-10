@@ -3,20 +3,164 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/login_frame"
+		android:background="#1E232A"
     android:layout_height="match_parent">
 	<ImageView
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:src="@drawable/simon"
 	    android:id="@+id/hover_bg1"
-	    android:transitionName="@string/login_image_transition"
 	    android:contentDescription="@string/simon_content_desc"
-	    android:scaleType="centerCrop"/>
+	    android:scaleType="fitXY"/>
 	<ImageView
 			android:contentDescription="@string/simon_content_desc"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:src="@drawable/hoverlogo_svg"
+			android:id="@+id/iv1"
 			android:layout_centerInParent="true"
 			/>
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+		<ImageView
+				android:contentDescription="@string/simon_content_desc"
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				android:layout_weight="1"
+				android:id="@+id/iv2"
+				android:visibility="invisible"
+				android:layout_gravity="center"
+				android:src="@drawable/hoverlogo_svg"
+				/>
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_weight="1"
+				android:background="@color/colorPrimaryDark"
+				android:orientation="vertical"
+				android:layout_gravity="center"
+				android:padding="@dimen/activity_horizontal_margin"
+				android:gravity="center_vertical"
+				android:id="@+id/divider"
+				android:visibility="invisible"
+				android:layout_height="0dp">
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/email_string"
+					android:id="@+id/email_label_id"
+					android:textColor="@color/colorHoverWhite"
+					android:textSize="@dimen/text_16"
+					android:textStyle="bold"/>
+
+
+			<EditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingLeft="@dimen/editText_box_margin_horiz"
+					android:paddingStart="@dimen/editText_box_margin_horiz"
+					android:paddingEnd="@dimen/editText_box_margin_horiz"
+					android:paddingRight="@dimen/editText_box_margin_horiz"
+					android:paddingTop="@dimen/editText_box_margin_vert"
+					android:paddingBottom="@dimen/editText_box_margin_vert"
+					android:hint="@string/email_hint"
+					android:textColorHint="@color/colorTextHint"
+					android:layout_marginTop="8dp"
+					android:maxLines="1"
+					android:imeOptions="actionNext"
+					android:textAllCaps="false"
+					android:id="@+id/emailEditId"
+					android:autofillHints="@string/email_hint"
+					android:inputType="textEmailAddress"
+					android:textColor="@color/colorHoverWhite"
+					android:background="@drawable/edit_text_bg"/>
+
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:drawableStart="@drawable/ic_error_red_24dp"
+					android:drawablePadding="5dp"
+					android:visibility="gone"
+					android:textSize="@dimen/text_16"
+					android:id="@+id/errorText_email"
+					android:textColor="@color/colorRed" />
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/password"
+					android:layout_marginTop="@dimen/editText_inter_spacing"
+					android:textColor="@color/colorHoverWhite"
+					android:textSize="@dimen/text_16"
+					android:id="@+id/password_label_id"
+					android:textStyle="bold"/>
+
+			<EditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:inputType="textPassword"
+					android:maxLines="1"
+					android:autofillHints="@string/email_hint"
+					android:textColor="@color/colorHoverWhite"
+					android:paddingLeft="@dimen/editText_box_margin_horiz"
+					android:paddingStart="@dimen/editText_box_margin_horiz"
+					android:paddingEnd="@dimen/editText_box_margin_horiz"
+					android:paddingRight="@dimen/editText_box_margin_horiz"
+					android:paddingTop="@dimen/editText_box_margin_vert"
+					android:imeOptions="actionDone"
+					android:hint="@string/password_hint"
+					android:textColorHint="@color/colorTextHint"
+					android:layout_marginTop="8dp"
+					android:id="@+id/passwordEditId"
+					android:paddingBottom="@dimen/editText_box_margin_vert"
+					android:background="@drawable/edit_text_bg"
+					/>
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:drawableStart="@drawable/ic_error_red_24dp"
+					android:drawablePadding="5dp"
+					android:visibility="gone"
+					android:textSize="@dimen/text_16"
+					android:id="@+id/errorText_password"
+					android:textColor="@color/colorRed" />
+
+			<Button
+					android:layout_width="wrap_content"
+					android:gravity="center"
+					android:layout_marginTop="@dimen/activity_vertical_margin"
+					android:layout_gravity="end"
+					android:background="@drawable/primary_button_bg"
+					android:text="@string/signIn"
+					android:textSize="18sp"
+					android:textStyle="bold"
+					android:textAllCaps="false"
+					android:paddingHorizontal="14dp"
+					android:id="@+id/signinButton"
+					android:layout_height="38dp"/>
+			<ProgressBar
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/login_progress"
+					android:visibility="gone"
+					style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+					/>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="19dp"
+					android:textColor="@color/colorHoverWhite"
+					android:textStyle="bold"
+					android:textSize="@dimen/text_16"
+					android:id="@+id/forgotPassword_text"
+					android:text="@string/forgot_password"/>
+
+		</LinearLayout>
+	</LinearLayout>
+
 </RelativeLayout>

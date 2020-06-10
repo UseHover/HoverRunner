@@ -46,7 +46,7 @@ public class RetrofitCalls {
         return new Retrofit.Builder()
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl( auth_for_key_stage)
+                .baseUrl(auth_for_key_stage)
                 .build();
     }
 
