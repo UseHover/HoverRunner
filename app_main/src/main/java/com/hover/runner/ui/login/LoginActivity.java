@@ -1,7 +1,6 @@
 package com.hover.runner.ui.login;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -13,19 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.transition.Explode;
-import androidx.transition.Fade;
-import androidx.transition.Slide;
-import androidx.transition.TransitionInflater;
-import androidx.transition.TransitionSet;
 
 import com.hover.runner.ApplicationInstance;
 import com.hover.runner.MainActivity;
@@ -165,12 +157,7 @@ public class LoginActivity extends AppCompatActivity {
 
             undoErrorView(emailEdit, errorEmailText, emailLabel);
             undoErrorView(passwordEdit, errorPasswordText, passwordLabel);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString());
-                }
-            }, 500);
+            new Handler().postDelayed(() -> loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString()), 500);
         } else
             UIHelper.showHoverToast(this, getCurrentFocus(), this.getString(R.string.NO_NETWORK));
     }
