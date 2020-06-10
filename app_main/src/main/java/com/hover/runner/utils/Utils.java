@@ -83,10 +83,12 @@ public class Utils {
     public static String getAppApiKey(Context c) {
         return getStringFromSharedPref(c, API_KEY_LABEL);
     }
-    public static void clearData(Context c) {
-        getSharedPrefs(c).edit().clear().apply();
+    public static void clearData() {
+        getSharedPrefs(ApplicationInstance.getContext()).edit().clear().apply();
     }
-
+    public static void clearAPIKey() {
+        saveString(API_KEY_LABEL, "", ApplicationInstance.getContext());
+    }
     public static StreamlinedStepsModel getStreamlinedStepsStepsFromRaw(@NonNull String rootCode, @NonNull  JSONArray jsonArray) {
         Gson gson = new Gson();
         RawStepsModel[] rawStepsModel = gson.fromJson(String.valueOf(jsonArray), RawStepsModel[].class);
