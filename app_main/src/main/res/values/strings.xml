@@ -22,7 +22,7 @@
 	<string name="categories_hint">Select categories</string>
 	<string name="parsers_checkbox">Only show actions with parsers</string>
 	<string name="sim_checkbox">Only show actions with SIM present</string>
-
+	<string name="somethingWentWrong">Something went wrong, please try again</string>
 	<string name="url_forgot_password">https://www.usehover.com/u/password/new</string>
 
 	<string name="simon_content_desc">Hover_background</string>
