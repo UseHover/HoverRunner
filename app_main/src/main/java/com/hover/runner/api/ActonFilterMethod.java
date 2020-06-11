@@ -109,7 +109,6 @@ class ActonFilterMethod {
             }
 
 
-
             // MID STAGE NOTICE: START USING THE STRING ARRAY LIST initialized at the main top most THAT HOLDS ACTION ID
             // VERY IMPORTANT TO NOTE: Since we're only only getting actions from a specific date (If date is in parameter)
             // We need to filter through date, and remove from the shortlisted those that are not within the date range.
@@ -137,7 +136,6 @@ class ActonFilterMethod {
             }
             filteredActionList = newTempList;
             filterListAsBeenVisited = true;
-            Log.d("FILTER_THROUGH", "PASSED STAGE 11");
         }
 
         if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
@@ -210,7 +208,6 @@ class ActonFilterMethod {
 
     private List<ActionsModel> shortListedTransactionsNonDuplicate() {
         ArrayList<String> shortListedTransactionActionId = new ArrayList<>();
-
         for(TransactionModels transactionModels : transactionModelList) {
             if(!shortListedTransactionActionId.contains(transactionModels.getActionId())) {
                 shortListedTransactionActionId.add(transactionModels.getActionId());

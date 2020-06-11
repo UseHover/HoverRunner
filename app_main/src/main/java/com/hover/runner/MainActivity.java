@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		if(LoginYes == 0) {
 			if (new Apis().allowIntoMainActivity() == PassageEnum.REJECT) {
-			//	startActivity(new Intent(this, LoginActivity.class));
-			//	finish();
+				startActivity(new Intent(this, LoginActivity.class));
+				finish();
 				return;
 			}
 		}
