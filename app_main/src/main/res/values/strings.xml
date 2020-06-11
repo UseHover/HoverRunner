@@ -116,7 +116,7 @@
 	<string name="tranac_details_category">Category</string>
 	<string name="transac_details_operator">Operator</string>
 	<string name="from_account_creation_to_today"><![CDATA[From <account creation> to <today>]]></string>
-	<string name="contactUs"><![CDATA[Don’t see the correct SIM? Try removing it and re-inserting it. If that doesn\’t work, <a href="mailto:support@usehover.com">contact support.</a>]]></string>
+	<string name="contactUs"><![CDATA[Don’t see the correct SIM?<br/> Try removing it and re-inserting it. If that doesn\’t work, <a href="mailto:support@usehover.com">contact support.</a>]]></string>
 	<string name="hint_choose_actions">Choose actions</string>
 	<string name="selected_range">Selected range</string>
 

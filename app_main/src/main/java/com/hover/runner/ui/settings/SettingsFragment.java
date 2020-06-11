@@ -87,11 +87,29 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 		});
 
 		root.findViewById(R.id.signOutButton).setOnClickListener(v-> {
-			MainActivity.LoginYes = 0;
-			Utils.clearAPIKey();
-			Utils.clearData();
-			startActivity(new Intent(getContext(), LoginActivity.class));
-			if(getActivity() !=null) getActivity().finishAffinity();
+
+
+			try{
+				AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+				builder.setTitle("Sign out");
+				builder.setMessage("Are you sure you want to sign out of Runner app?");
+				builder.setPositiveButton("Yes", (dialog, which) -> {
+					MainActivity.LoginYes = 0;
+					Utils.clearAPIKey();
+					Utils.clearData();
+					startActivity(new Intent(getContext(), LoginActivity.class));
+					if(getActivity() !=null) getActivity().finishAffinity();
+				});
+				builder.setNegativeButton("No", (dialog, which)-> {
+					dialog.dismiss();
+					dialog.cancel();
+				});
+				builder.show();
+			}catch (Exception ignored){}
+
+
+
+
 
 		});
 		settingsViewModel.getSims();
