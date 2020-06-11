@@ -75,8 +75,6 @@ public class ActionFilterFragment extends Fragment {
             prepareForPreviousActivity(true);
             getActivity().finish();
         } });
-
-
         loadingProgressBar.setVisibility(View.VISIBLE);
         loadingProgressBar.setIndeterminate(true);
         UIHelper.setTextUnderline(resetText, "Reset");
@@ -197,7 +195,6 @@ public class ActionFilterFragment extends Fragment {
     private void prepareForPreviousActivity(boolean isBackButtonPressed) {
         if(Apis.actionFilterIsInNormalState()) {
             if(isBackButtonPressed) ApplicationInstance.setResultFilter_Actions_LOAD(new ArrayList<>());
-
             else  ApplicationInstance.setResultFilter_Actions_LOAD(filterDataFullModel.getActionsModelList());
             ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
         }
