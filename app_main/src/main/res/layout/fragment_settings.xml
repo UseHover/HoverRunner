@@ -221,6 +221,7 @@
 				android:textAllCaps="false"
 				android:paddingHorizontal="14dp"
 				android:id="@+id/signOutButton"
+				android:layout_marginBottom="100dp"
 				android:layout_height="38dp"/>
 
 	</LinearLayout>

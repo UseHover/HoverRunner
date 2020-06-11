@@ -32,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		if(LoginYes == 0) {
 			if (new Apis().allowIntoMainActivity() == PassageEnum.REJECT) {
-				startActivity(new Intent(this, LoginActivity.class));
-				finish();
+			//	startActivity(new Intent(this, LoginActivity.class));
+			//	finish();
 				return;
 			}
 		}
 		//Test keys
 		Hover.initialize(this, Utils.getAppApiKey(this));
-		Hover.setBranding("SendyNow", R.drawable.ic_runner_logo, this);
+		Hover.setBranding("Runner by Hover", R.drawable.ic_runner_logo, this);
 		if(!new PermissionHelper(this, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE}).hasPermissions()) {
 			startActivityForResult(new Intent(this, PermissionActivity.class), PERMISSION_REQ_CODE);
 		}
