@@ -27,6 +27,7 @@
 
 	<string name="simon_content_desc">Hover_background</string>
 	<string name="login_image_transition">image_transition</string>
+	<string name="login_image_transition_2">image_transition2</string>
 	<string name="action_trans_icon">action_trans_icon</string>
 	<string name="custom_font_error">Cannot set custom font</string>
 	<string name="custom_font_err_msg">At least one default font must be set</string>

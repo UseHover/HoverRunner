@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,6 +59,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     private RelativeLayout emptyStateView;
     private SwipeRefreshLayout pullToRefresh;
     private TextView emptyTitle, emptySubtitle;
+    HomeActionRecyclerAdapter homeActionRecyclerAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         actionsViewModel = new ViewModelProvider(this).get(ActionsViewModel.class);
@@ -207,8 +210,8 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                     if(progressBar.getVisibility() == View.VISIBLE) progressBar.setVisibility(View.GONE);
                     if(homeActionsRecyclerView.getVisibility() != View.VISIBLE) homeActionsRecyclerView.setVisibility(View.VISIBLE);
                     rawRunnableModelList = fullActionResult.getActionsModelList();
-                    homeActionsRecyclerView.setAdapter(new HomeActionRecyclerAdapter(fullActionResult.getActionsModelList(), true,
-                            this));
+                    homeActionRecyclerAdapter = new HomeActionRecyclerAdapter(fullActionResult.getActionsModelList(), true, this);
+                    homeActionsRecyclerView.setAdapter(homeActionRecyclerAdapter);
                     break;
             }
         });
@@ -240,10 +243,12 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     public void customClickListener(Object... data) {
         assert data!=null;
         Intent i = new Intent(getActivity(), ActionDetailsActivity.class);
+        View titleView = homeActionRecyclerAdapter.getTitleView();
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), titleView, "action_title");
         i.putExtra(Apis.ACTION_ID, (String) data[0]);
         i.putExtra(Apis.ACTION_TITLE, (String) data[1]);
         i.putExtra(Apis.ACTION_STATUS, (StatusEnums) data[2]);
-        startActivity(i);
+        startActivity(i, activityOptionsCompat.toBundle());
     }
 
     @Override

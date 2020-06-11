@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import androidx.core.view.ViewCompat;
 import android.transition.Fade;
 import android.widget.ProgressBar;
@@ -46,7 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity2.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             loginProgress.setVisibility(View.GONE);
-            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, imageView, Objects.requireNonNull(ViewCompat.getTransitionName(imageView)));
+            ImageView imageView2 = findViewById(R.id.iv1);
+            Pair<View, String> sharedElement1= new Pair<>(imageView, Objects.requireNonNull(ViewCompat.getTransitionName(imageView)));
+            Pair<View, String> sharedElement2= new Pair<>(imageView2, Objects.requireNonNull(ViewCompat.getTransitionName(imageView2)));
+
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, sharedElement1, sharedElement2);
             startActivityForResult(intent, 200, activityOptionsCompat.toBundle());
         }
         else startActivityForResult(intent, 200);
@@ -59,28 +64,25 @@ public class LoginActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 loginProgress.setIndeterminate(true);
                 loginProgress.setVisibility(View.VISIBLE);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        String[] result = data.getStringArrayExtra("login_data");
-                        if(result !=null && result.length ==2) {
-                            LoginModel loginModel = new Apis().doLoginWorkManager(result[0], result[1]);
+                new Handler().postDelayed(() -> {
+                    String[] result = data.getStringArrayExtra("login_data");
+                    if(result !=null && result.length ==2) {
+                        LoginModel loginModel = new Apis().doLoginWorkManager(result[0], result[1]);
 
-                            switch (loginModel.getStatus()) {
-                                case ERROR:
-                                    UIHelper.showHoverToast(LoginActivity.this, getCurrentFocus(), loginModel.getMessage());
-                                    moveToLoginActivity2();
-                                    break;
-                                case SUCCESS:
-                                    MainActivity.LoginYes = 1;
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    finishAffinity();
-                            }
+                        switch (loginModel.getStatus()) {
+                            case ERROR:
+                                UIHelper.showHoverToast(LoginActivity.this, getCurrentFocus(), loginModel.getMessage());
+                                moveToLoginActivity2();
+                                break;
+                            case SUCCESS:
+                                MainActivity.LoginYes = 1;
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finishAffinity();
                         }
-                        else {
-                            UIHelper.showHoverToast(LoginActivity.this, getCurrentFocus(), getResources().getString(R.string.somethingWentWrong));
-                            moveToLoginActivity2();
-                        }
+                    }
+                    else {
+                        UIHelper.showHoverToast(LoginActivity.this, getCurrentFocus(), getResources().getString(R.string.somethingWentWrong));
+                        moveToLoginActivity2();
                     }
                 }, 500);
 

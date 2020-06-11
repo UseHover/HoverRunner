@@ -35,6 +35,7 @@
                         android:drawablePadding="@dimen/activity_horizontal_margin"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/actionTextSize"
+                        android:transitionName="action_title"
                         android:id="@+id/actionDetails_toolbarText"/>
 
                 <TextView
