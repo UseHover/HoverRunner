@@ -19,7 +19,7 @@ public class ApplicationInstance extends Application {
 	@SuppressLint("StaticFieldLeak")
 	private static Context context;
 
-	//For ActionFilters
+	//For ActionFilters state
 	private static ArrayList<String> countriesFilter;
 	private static ArrayList<String> networksFilter;
 	private static ArrayList<String> categoryFilter;
@@ -32,7 +32,7 @@ public class ApplicationInstance extends Application {
 	private static boolean withParsers;
 	private static boolean onlyWithSimPresent;
 
-	//For transactionFilters
+	//For transactionFilters state
 	private static ArrayList<String> transactionCountriesFilter;
 	private static ArrayList<String> transactionNetworksFilter;
 	private static ArrayList<String> transactionActionsSelectedFilter;
@@ -47,6 +47,11 @@ public class ApplicationInstance extends Application {
 	private static List<ActionsModel> resultFilter_Actions_LOAD;
 	private static List<TransactionModels> resultFilter_Transactions;
 	private static List<TransactionModels> resultFilter_Transactions_LOAD;
+
+	//Skipped state
+	private static boolean allowSkippedActionsToRun;
+
+
 
 	private static int COLOR_RED, COLOR_YELLOW, COLOR_GREEN;
 
@@ -85,6 +90,10 @@ public class ApplicationInstance extends Application {
 		resultFilter_Actions_LOAD = new ArrayList<>();
 		resultFilter_Transactions = new ArrayList<>();
 		resultFilter_Transactions_LOAD = new ArrayList<>();
+
+		allowSkippedActionsToRun = false;
+
+
 
 		COLOR_RED = getResources().getColor(R.color.colorRed);
 				COLOR_YELLOW = getResources().getColor(R.color.colorYellow);
@@ -285,6 +294,14 @@ public class ApplicationInstance extends Application {
 
 	public static int getColorGreen() {
 		return COLOR_GREEN;
+	}
+
+	public static boolean isAllowSkippedActionsToRun() {
+		return allowSkippedActionsToRun;
+	}
+
+	public static void setAllowSkippedActionsToRun(boolean allowSkippedActionsToRun) {
+		ApplicationInstance.allowSkippedActionsToRun = allowSkippedActionsToRun;
 	}
 
 	public static Context getContext() {

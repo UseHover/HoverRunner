@@ -59,7 +59,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     private RelativeLayout emptyStateView;
     private SwipeRefreshLayout pullToRefresh;
     private TextView emptyTitle, emptySubtitle;
-    HomeActionRecyclerAdapter homeActionRecyclerAdapter;
+    private HomeActionRecyclerAdapter homeActionRecyclerAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         actionsViewModel = new ViewModelProvider(this).get(ActionsViewModel.class);
@@ -105,9 +105,13 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                             runnableModel.setJsonArrayToString(jsonArrayToString);
                             withUncompletedVariablesActionList.add(runnableModel);
                             break;
-                        //SKIPPING DOES NOT REQUIRE A CASE
-                        //case SKIPPED:
-                        //  break;
+                        case SKIPPED:
+                            if(!ApplicationInstance.isAllowSkippedActionsToRun()) {
+                                String jsonArrayToString2 = runnableModel.getSteps().toString();
+                                runnableModel.setJsonArrayToString(jsonArrayToString2);
+                                withUncompletedVariablesActionList.add(runnableModel);
+                            }
+                          break;
                     }
                 }
 
@@ -159,6 +163,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         if(firstTime) actionRunCounter = actionRunCounter + 1;
         Intent i = builder.buildIntent();
         startActivityForResult(i, TEST_ALL_RESULT);
+        ApplicationInstance.setAllowSkippedActionsToRun(false);
     }
 
 
