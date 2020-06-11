@@ -1,27 +1,26 @@
 package com.hover.runner.ui.login;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.transition.Fade;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hover.runner.ApplicationInstance;
 import com.hover.runner.MainActivity;
 import com.hover.runner.R;
-import com.hover.runner.api.Apis;
 import com.hover.runner.enums.PassageEnum;
 import com.hover.runner.ui.webview.WebViewActivity;
 import com.hover.runner.utils.network.NetworkUtil;
@@ -30,36 +29,35 @@ import com.hover.runner.utils.UIHelper;
 import java.util.Objects;
 
 
-public class LoginFragment extends Fragment {
-    private LoginViewModel loginViewModel;
-    private ProgressBar loginProgressBar;
+public class LoginActivity2 extends AppCompatActivity {
     private EditText emailEdit,passwordEdit;
     private  TextView errorEmailText, errorPasswordText,emailLabel, passwordLabel;
     private  Button signInButton;
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login_fragment, container, false);
-        TextView forgotPassword = view.findViewById(R.id.forgotPassword_text);
+
+   
+
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_activity2);
+        TextView forgotPassword = findViewById(R.id.forgotPassword_text);
 
 
-        UIHelper.setTextUnderline(forgotPassword, Objects.requireNonNull(getContext()).getString(R.string.forgot_password));
+        UIHelper.setTextUnderline(forgotPassword, Objects.requireNonNull(this).getString(R.string.forgot_password));
 
         forgotPassword.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), WebViewActivity.class);
-            intent.putExtra("title", Objects.requireNonNull(getContext()).getString(R.string.forgot_password));
-            intent.putExtra("url", Objects.requireNonNull(getContext()).getString(R.string.url_forgot_password));
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra("title", Objects.requireNonNull(this).getString(R.string.forgot_password));
+            intent.putExtra("url", Objects.requireNonNull(this).getString(R.string.url_forgot_password));
             startActivity(intent);
         });
 
-         loginProgressBar = view.findViewById(R.id.login_progress);
-        signInButton = view.findViewById(R.id.signinButton);
-         emailEdit = view.findViewById(R.id.emailEditId);
-        passwordEdit = view.findViewById(R.id.passwordEditId);
-        errorEmailText = view.findViewById(R.id.errorText_email);
-        errorPasswordText = view.findViewById(R.id.errorText_password);
-        emailLabel = view.findViewById(R.id.email_label_id);
-        passwordLabel = view.findViewById(R.id.password_label_id);
+        signInButton = findViewById(R.id.signinButton);
+         emailEdit = findViewById(R.id.emailEditId);
+        passwordEdit = findViewById(R.id.passwordEditId);
+        errorEmailText = findViewById(R.id.errorText_email);
+        errorPasswordText = findViewById(R.id.errorText_password);
+        emailLabel = findViewById(R.id.email_label_id);
+        passwordLabel = findViewById(R.id.password_label_id);
 
         emailEdit.setOnClickListener(v -> undoErrorView(emailEdit, errorEmailText, emailLabel));
         passwordEdit.setOnClickListener(v -> undoErrorView(passwordEdit, errorPasswordText, passwordLabel));
@@ -70,11 +68,9 @@ public class LoginFragment extends Fragment {
             return false;
         });
 
-        loginProgressBar.setIndeterminate(true);
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-        loginViewModel.getModelResult().observe(getViewLifecycleOwner(), modelResult -> {
+        LoginViewModel loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        loginViewModel.getModelResult().observe(this, modelResult -> {
             signInButton.setText(getResources().getString(R.string.signIn));
-            loginProgressBar.setVisibility(View.GONE);
             switch (modelResult.getStatus()) {
                 case ERROR_EMAIL:
                     signInButton.setClickable(true);
@@ -94,43 +90,40 @@ public class LoginFragment extends Fragment {
                     errorPasswordText.setText(modelResult.getMessage());
 
                     break;
-                case ERROR:
-                    signInButton.setClickable(true);
-                    UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null , modelResult.getMessage());
-                    break;
-                case SUCCESS:
-                    MainActivity.LoginYes = 1;
-                    startActivity(new Intent(getActivity(), MainActivity.class));
-                    if (getActivity() != null)
-                        getActivity().finishAffinity();
-                    break;
             }
         });
 
 
         signInButton.setOnClickListener(this::signInActionMethod);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Fade fade = new Fade();
+            fade.excludeTarget(android.R.id.statusBarBackground, true);
+            fade.excludeTarget(android.R.id.navigationBarBackground, true);
 
-        return view;
+            getWindow().setEnterTransition(fade);
+            getWindow().setExitTransition(fade);
+        }
+
     }
 
     private void signInActionMethod(View v) {
-        if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
-            loginProgressBar.setVisibility(View.VISIBLE);
-            signInButton.setText(getResources().getString(R.string.loggin_in_text));
+        undoErrorView(emailEdit, errorEmailText, emailLabel);
+        undoErrorView(passwordEdit, errorPasswordText, passwordLabel);
 
-            if(v!=null) v.setClickable(false);
-
-            undoErrorView(emailEdit, errorEmailText, emailLabel);
-            undoErrorView(passwordEdit, errorPasswordText, passwordLabel);
+        if(new NetworkUtil(this).isNetworkAvailable() == PassageEnum.ACCEPT) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    loginViewModel.doLogin(emailEdit.getText().toString(), passwordEdit.getText().toString());
+                    Intent returnIntent = new Intent();
+                    String[] result = new String[] {emailEdit.getText().toString(), passwordEdit.getText().toString()};
+                    returnIntent.putExtra("login_data",result);
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
                 }
             }, 500);
+
         }
-        else UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null,
-                ApplicationInstance.getContext().getString(R.string.NO_NETWORK));
+        else UIHelper.showHoverToast(this, getCurrentFocus(), ApplicationInstance.getContext().getString(R.string.NO_NETWORK));
     }
     private void setErrorView(EditText editText, TextView errorText, TextView label) {
         editText.setActivated(true);

@@ -72,7 +72,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         toolText.setText(ActionDetailsActivity.actionId);
         subtoolText.setText(ActionDetailsActivity.actionTitle);
         toolText.setOnClickListener(v -> {
-            if(getActivity() !=null) getActivity().finish();
+            if(getActivity() !=null) getActivity().onBackPressed();
         });
         mostRecentStatus = ActionDetailsActivity.statusEnums;
         setupTopDetailsInfo(mostRecentStatus);

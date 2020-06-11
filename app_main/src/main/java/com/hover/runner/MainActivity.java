@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 		//Test keys
 		Hover.initialize(this, Utils.getAppApiKey(this));
-		Hover.setBranding("SendyNow", R.drawable.ic_runner_logo, this);
+		Hover.setBranding("Runner by Hover", R.drawable.ic_runner_logo, this);
 		if(!new PermissionHelper(this, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE}).hasPermissions()) {
 			startActivityForResult(new Intent(this, PermissionActivity.class), PERMISSION_REQ_CODE);
 		}

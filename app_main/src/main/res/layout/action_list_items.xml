@@ -19,6 +19,7 @@
                 android:textSize="@dimen/text_16"
                 android:paddingHorizontal="@dimen/activity_vertical_margin"
                 android:layout_marginEnd="38dp"
+                android:transitionName="action_title"
                 android:textColor="@color/colorHoverWhite"
                 android:textStyle="bold"/>
 

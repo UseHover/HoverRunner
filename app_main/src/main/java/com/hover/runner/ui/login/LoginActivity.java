@@ -1,57 +1,96 @@
 package com.hover.runner.ui.login;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-
+import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.transition.Fade;
-import androidx.transition.TransitionInflater;
-import androidx.transition.TransitionSet;
-
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
+import android.transition.Fade;
+import android.widget.ProgressBar;
+import com.hover.runner.MainActivity;
 import com.hover.runner.R;
+import com.hover.runner.api.Apis;
+import com.hover.runner.models.LoginModel;
+import com.hover.runner.utils.UIHelper;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
-    private Fragment frag;
-    private static final long MOVE_DEFAULT_TIME = 1000;
-    private static final long FADE_DEFAULT_TIME = 300;
-
+    private ProgressBar loginProgress;
+    private ImageView imageView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+        imageView = findViewById(R.id.hover_bg1);
+        loginProgress = findViewById(R.id.login_progress);
 
-        frag = new LoginFragment();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        Fade fade = new Fade();
+        fade.excludeTarget(android.R.id.statusBarBackground, true);
+        fade.excludeTarget(android.R.id.navigationBarBackground, true);
 
-        TransitionSet enterTransitionSet = new TransitionSet();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            enterTransitionSet.addTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.move));
-        enterTransitionSet.setDuration(MOVE_DEFAULT_TIME);
-        enterTransitionSet.setStartDelay(FADE_DEFAULT_TIME);
-        frag.setSharedElementEnterTransition(enterTransitionSet);
+            getWindow().setEnterTransition(fade);
+            getWindow().setExitTransition(fade);
+        }
 
-        Fade enterFade = new Fade();
-        enterFade.setStartDelay(MOVE_DEFAULT_TIME + FADE_DEFAULT_TIME);
-        enterFade.setDuration(FADE_DEFAULT_TIME);
-        frag.setEnterTransition(enterFade);
+        new Handler().postDelayed(this::moveToLoginActivity2, 1500);
 
-        new Handler().postDelayed(() -> {
-            try{
-                View logo = findViewById(R.id.hover_bg1);
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    }
+    void moveToLoginActivity2() {
+        Intent intent = new Intent(this, LoginActivity2.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            loginProgress.setVisibility(View.GONE);
+            ImageView imageView2 = findViewById(R.id.iv1);
+            Pair<View, String> sharedElement1= new Pair<>(imageView, Objects.requireNonNull(ViewCompat.getTransitionName(imageView)));
+            Pair<View, String> sharedElement2= new Pair<>(imageView2, Objects.requireNonNull(ViewCompat.getTransitionName(imageView2)));
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    ft.addSharedElement(logo, logo.getTransitionName());
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, sharedElement1, sharedElement2);
+            startActivityForResult(intent, 200, activityOptionsCompat.toBundle());
+        }
+        else startActivityForResult(intent, 200);
+    }
 
-                ft.replace(R.id.login_frame, frag);
-                ft.disallowAddToBackStack();
-                ft.commitAllowingStateLoss();
-            }catch (Exception ignored){}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 200) {
+            if(resultCode == Activity.RESULT_OK){
+                loginProgress.setIndeterminate(true);
+                loginProgress.setVisibility(View.VISIBLE);
+                new Handler().postDelayed(() -> {
+                    String[] result = data.getStringArrayExtra("login_data");
+                    if(result !=null && result.length ==2) {
+                        LoginModel loginModel = new Apis().doLoginWorkManager(result[0], result[1]);
 
-        }, 1500);
+                        switch (loginModel.getStatus()) {
+                            case ERROR:
+                                UIHelper.showHoverToast(LoginActivity.this, getCurrentFocus(), loginModel.getMessage());
+                                moveToLoginActivity2();
+                                break;
+                            case SUCCESS:
+                                MainActivity.LoginYes = 1;
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finishAffinity();
+                        }
+                    }
+                    else {
+                        UIHelper.showHoverToast(LoginActivity.this, getCurrentFocus(), getResources().getString(R.string.somethingWentWrong));
+                        moveToLoginActivity2();
+                    }
+                }, 500);
+
+
+            }
+            else {
+                moveToLoginActivity2();
+            }
+        }
     }
 }

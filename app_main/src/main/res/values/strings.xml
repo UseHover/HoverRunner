@@ -22,11 +22,12 @@
 	<string name="categories_hint">Select categories</string>
 	<string name="parsers_checkbox">Only show actions with parsers</string>
 	<string name="sim_checkbox">Only show actions with SIM present</string>
-
+	<string name="somethingWentWrong">Something went wrong, please try again</string>
 	<string name="url_forgot_password">https://www.usehover.com/u/password/new</string>
 
 	<string name="simon_content_desc">Hover_background</string>
 	<string name="login_image_transition">image_transition</string>
+	<string name="login_image_transition_2">image_transition2</string>
 	<string name="action_trans_icon">action_trans_icon</string>
 	<string name="custom_font_error">Cannot set custom font</string>
 	<string name="custom_font_err_msg">At least one default font must be set</string>
@@ -115,7 +116,7 @@
 	<string name="tranac_details_category">Category</string>
 	<string name="transac_details_operator">Operator</string>
 	<string name="from_account_creation_to_today"><![CDATA[From <account creation> to <today>]]></string>
-	<string name="contactUs"><![CDATA[Don’t see the correct SIM? Try removing it and re-inserting it. If that doesn\’t work, <a href="mailto:support@usehover.com">contact support.</a>]]></string>
+	<string name="contactUs"><![CDATA[Don’t see the correct SIM?<br/> Try removing it and re-inserting it. If that doesn\’t work, <a href="mailto:support@usehover.com">contact support.</a>]]></string>
 	<string name="hint_choose_actions">Choose actions</string>
 	<string name="selected_range">Selected range</string>
 

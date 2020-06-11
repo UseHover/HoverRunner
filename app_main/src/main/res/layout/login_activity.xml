@@ -18,5 +18,19 @@
 			android:layout_height="wrap_content"
 			android:src="@drawable/hoverlogo_svg"
 			android:layout_centerInParent="true"
+			android:transitionName="@string/login_image_transition_2"
+			android:id="@+id/iv1"
+			/>
+	<ProgressBar
+			android:layout_width="200dp"
+			android:layout_height="wrap_content"
+			android:id="@+id/login_progress"
+			android:visibility="visible"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="32dp"
+			android:layout_marginStart="32dp"
+			android:layout_below="@id/iv1"
+			style="@style/Widget.AppCompat.ProgressBar.Horizontal"
 			/>
 </RelativeLayout>

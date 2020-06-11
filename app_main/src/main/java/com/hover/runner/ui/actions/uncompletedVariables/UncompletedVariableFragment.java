@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.adapters.VariableRecyclerAdapter;
 import com.hover.runner.interfaces.VariableEditinterface;
@@ -53,6 +54,7 @@ public class UncompletedVariableFragment extends Fragment implements  VariableEd
             int unCompleted = UncompletedVariableActivity.uncompletedVariableActionList.size();
             if(currentViewPosition == unCompleted - 1) {
                 //If it's in the last pos and time to save
+                ApplicationInstance.setAllowSkippedActionsToRun(true);
                 if(getActivity() !=null)getActivity().finish();
             }
             else {
@@ -67,6 +69,7 @@ public class UncompletedVariableFragment extends Fragment implements  VariableEd
             int unCompleted = UncompletedVariableActivity.uncompletedVariableActionList.size();
             if(currentViewPosition == unCompleted - 1) {
                 //If it's in the last pos, skip and close activity
+                ApplicationInstance.setAllowSkippedActionsToRun(true);
                 if(getActivity() !=null) getActivity().finish();
             }
             else {

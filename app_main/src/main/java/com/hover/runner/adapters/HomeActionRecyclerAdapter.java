@@ -23,11 +23,16 @@ public  class HomeActionRecyclerAdapter extends RecyclerView.Adapter<HomeActionR
     private List<ActionsModel> actionsModel;
     private boolean showStatus;
     private CustomOnClickListener customOnClickListener;
+    private View currentTextView;
 
     public HomeActionRecyclerAdapter(List<ActionsModel> actionsModel, boolean showStatus, CustomOnClickListener customOnClickListener) {
         this.actionsModel = actionsModel;
         this.showStatus = showStatus;
         this.customOnClickListener = customOnClickListener;
+    }
+
+    public View getTitleView() {
+        return currentTextView;
     }
 
 
@@ -55,11 +60,14 @@ public  class HomeActionRecyclerAdapter extends RecyclerView.Adapter<HomeActionR
             if (model.getActionEnum() != StatusEnums.NOT_YET_RUN)
                 holder.iconImage.setImageResource(UIHelper.getActionIconDrawable(model.getActionEnum()));
         }
-        holder.itemView.setOnClickListener(v -> customOnClickListener.customClickListener(
-                model.getActionId(),
-                model.getActionTitle(),
-                model.getActionEnum()
-        ));
+        holder.itemView.setOnClickListener(v ->  {
+            currentTextView = v;
+            customOnClickListener.customClickListener(
+                    model.getActionId(),
+                    model.getActionTitle(),
+                    model.getActionEnum()
+            );
+        });
 
     }
     @Override

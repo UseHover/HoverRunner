@@ -109,7 +109,6 @@ class ActonFilterMethod {
             }
 
 
-
             // MID STAGE NOTICE: START USING THE STRING ARRAY LIST initialized at the main top most THAT HOLDS ACTION ID
             // VERY IMPORTANT TO NOTE: Since we're only only getting actions from a specific date (If date is in parameter)
             // We need to filter through date, and remove from the shortlisted those that are not within the date range.
@@ -121,23 +120,24 @@ class ActonFilterMethod {
             //FILTER THROUGH CATEGORIES, PENDING, FAILED AND SUCCESSFUL STATUS
             filterTransactionsBasedOnCategoryAndRanStatus(shortListedTransactions, shortListedTransactionActionId);
 
-
             // STAGE 10: NO TRANSACTION IS THIS CASE: MEANS IT HAS NOT YET BE RUN.
             // THEREFORE, IF THIS CHECKBOX IS UNTICKED: IT MEANS TO SHOW ACTIONS THAT MUST HAVE BEEN RAN
             // NO NEED TO PUT (No trans in an if statement, since if it does not exists, it wont be part of the data anyway)
             // TIME COMPLEXITY: O(n)
 
-            List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
-            for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
-                //If this action is not found in the filtered transaction data, remove it.
-                ActionsModel model = md.next();
-                if(!shortListedTransactionActionId.contains(model.getActionId())) {
-                    removeItem(md);
+            if(!ApplicationInstance.isStatusNoTrans()) {
+                List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
+                for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
+                    //If this action is not found in the filtered transaction data, remove it.
+                    ActionsModel model = md.next();
+                    if(shortListedTransactionActionId.contains(model.getActionId())) {
+                        removeItem(md);
+                    }
                 }
+                filteredActionList = newTempList;
+                filterListAsBeenVisited = true;
             }
-            filteredActionList = newTempList;
-            filterListAsBeenVisited = true;
-            Log.d("FILTER_THROUGH", "PASSED STAGE 11");
+
         }
 
         if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
@@ -210,7 +210,6 @@ class ActonFilterMethod {
 
     private List<ActionsModel> shortListedTransactionsNonDuplicate() {
         ArrayList<String> shortListedTransactionActionId = new ArrayList<>();
-
         for(TransactionModels transactionModels : transactionModelList) {
             if(!shortListedTransactionActionId.contains(transactionModels.getActionId())) {
                 shortListedTransactionActionId.add(transactionModels.getActionId());
@@ -218,13 +217,16 @@ class ActonFilterMethod {
         }
 
         List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
-        for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
-            //If it is found in the transaction list that has been previous run, remove it from action list to be displayed
-            ActionsModel model = md.next();
-            if(shortListedTransactionActionId.contains(model.getActionId())) {
-                removeItem(md);
+
+            for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
+                //If it is found in the transaction list that has been previous run, remove it from action list to be displayed
+                ActionsModel model = md.next();
+                if(shortListedTransactionActionId.contains(model.getActionId())) {
+                    removeItem(md);
+                }
             }
-        }
+
+
         return newTempList;
     }
 
