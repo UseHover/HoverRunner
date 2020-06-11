@@ -120,22 +120,24 @@ class ActonFilterMethod {
             //FILTER THROUGH CATEGORIES, PENDING, FAILED AND SUCCESSFUL STATUS
             filterTransactionsBasedOnCategoryAndRanStatus(shortListedTransactions, shortListedTransactionActionId);
 
-
             // STAGE 10: NO TRANSACTION IS THIS CASE: MEANS IT HAS NOT YET BE RUN.
             // THEREFORE, IF THIS CHECKBOX IS UNTICKED: IT MEANS TO SHOW ACTIONS THAT MUST HAVE BEEN RAN
             // NO NEED TO PUT (No trans in an if statement, since if it does not exists, it wont be part of the data anyway)
             // TIME COMPLEXITY: O(n)
 
-            List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
-            for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
-                //If this action is not found in the filtered transaction data, remove it.
-                ActionsModel model = md.next();
-                if(!shortListedTransactionActionId.contains(model.getActionId())) {
-                    removeItem(md);
+            if(!ApplicationInstance.isStatusNoTrans()) {
+                List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
+                for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
+                    //If this action is not found in the filtered transaction data, remove it.
+                    ActionsModel model = md.next();
+                    if(shortListedTransactionActionId.contains(model.getActionId())) {
+                        removeItem(md);
+                    }
                 }
+                filteredActionList = newTempList;
+                filterListAsBeenVisited = true;
             }
-            filteredActionList = newTempList;
-            filterListAsBeenVisited = true;
+
         }
 
         if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
@@ -215,13 +217,16 @@ class ActonFilterMethod {
         }
 
         List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
-        for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
-            //If it is found in the transaction list that has been previous run, remove it from action list to be displayed
-            ActionsModel model = md.next();
-            if(shortListedTransactionActionId.contains(model.getActionId())) {
-                removeItem(md);
+
+            for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
+                //If it is found in the transaction list that has been previous run, remove it from action list to be displayed
+                ActionsModel model = md.next();
+                if(shortListedTransactionActionId.contains(model.getActionId())) {
+                    removeItem(md);
+                }
             }
-        }
+
+
         return newTempList;
     }
 
