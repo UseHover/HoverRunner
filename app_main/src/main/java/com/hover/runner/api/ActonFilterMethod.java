@@ -128,11 +128,12 @@ class ActonFilterMethod {
             // TIME COMPLEXITY: O(n)
 
             if(!ActionState.isStatusNoTrans()) {
+                Log.d("RUNNER APP","No transaction visited");
                 List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
                 for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
                     //If this action is not found in the filtered transaction data, remove it.
                     ActionsModel model = md.next();
-                    if(shortListedTransactionActionId.contains(model.getActionId())) {
+                    if(!shortListedTransactionActionId.contains(model.getActionId())) {
                         removeItem(md);
                     }
                 }
