@@ -3,8 +3,9 @@ package com.hover.runner.api;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.hover.sdk.api.Hover;
 import com.hover.runner.ApplicationInstance;
+import com.hover.runner.states.ActionState;
+import com.hover.sdk.api.Hover;
 import com.hover.runner.database.ConvertRawDatabaseDataToModels;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.models.ActionsModel;
@@ -61,8 +62,8 @@ class ActonFilterMethod {
         // STAGE 1: FILTER THROUGH COUNTRIES IF IT'S INCLUDED IN THE FILTERING PARAMETERS.
         // TIME COMPLEXITY: O(n)
 
-        if(ApplicationInstance.getCountriesFilter().size() > 0 || ApplicationInstance.getNetworksFilter().size() > 0 ||
-                ApplicationInstance.isWithParsers() || ApplicationInstance.getActionSearchText() !=null) {
+        if(ActionState.getCountriesFilter().size() > 0 || ActionState.getNetworksFilter().size() > 0 ||
+                ActionState.isWithParsers() || ActionState.getActionSearchText() !=null) {
 
             for(Iterator<ActionsModel> md= actionsModelList.iterator(); md.hasNext();) {
                 ActionsModel model = md.next();
@@ -85,16 +86,16 @@ class ActonFilterMethod {
         //STEP 5:
         // TIME COMPLEXITY: O(n)
         if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
-        if(ApplicationInstance.isStatusNoTrans() && !ApplicationInstance.isStatusFailed() &&
-                !ApplicationInstance.isStatusPending() && !ApplicationInstance.isStatusSuccess()) {
+        if(ActionState.isStatusNoTrans() && !ActionState.isStatusFailed() &&
+                !ActionState.isStatusPending() && !ActionState.isStatusSuccess()) {
             // STEP 1: CREATE A SHORTLIST  OF ONLY MOST RECENT TRANSACTION AND SAVE IN NON-DUPLICATE ACTION IDS
             filteredActionList = shortListedTransactionsNonDuplicate();
             filterListAsBeenVisited = true;
         }
 
-        else if(ApplicationInstance.getDateRange() !=null || ApplicationInstance.getCategoryFilter().size() > 0
-                || !ApplicationInstance.isStatusFailed() || !ApplicationInstance.isStatusNoTrans()
-                || !ApplicationInstance.isStatusPending() || !ApplicationInstance.isStatusSuccess()) {
+        else if(ActionState.getDateRange() !=null || ActionState.getCategoryFilter().size() > 0
+                || !ActionState.isStatusFailed() || !ActionState.isStatusNoTrans()
+                || !ActionState.isStatusPending() || !ActionState.isStatusSuccess()) {
 
             // STEP 1: CREATE A SHORTLIST  OF ONLY MOST RECENT TRANSACTION
             // TIME COMPLEXITY: O(n)
@@ -125,7 +126,7 @@ class ActonFilterMethod {
             // NO NEED TO PUT (No trans in an if statement, since if it does not exists, it wont be part of the data anyway)
             // TIME COMPLEXITY: O(n)
 
-            if(!ApplicationInstance.isStatusNoTrans()) {
+            if(!ActionState.isStatusNoTrans()) {
                 List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
                 for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
                     //If this action is not found in the filtered transaction data, remove it.
@@ -150,7 +151,7 @@ class ActonFilterMethod {
         if(filterListAsBeenVisited && filteredActionList.size() == 0) return filteredActionList;
         if(filterListAsBeenVisited) {
             Log.d("FILTER_THROUGH", "FILTER HAS "+filteredActionList.size());
-            ApplicationInstance.setResultFilter_Actions(filteredActionList);
+            ActionState.setResultFilter_Actions(filteredActionList);
             return filteredActionList;
         }
         else {
@@ -162,9 +163,9 @@ class ActonFilterMethod {
 
 
     private void filterThroughCountries(ActionsModel model, Iterator<ActionsModel> md) {
-        if(ApplicationInstance.getCountriesFilter().size() > 0) {
+        if(ActionState.getCountriesFilter().size() > 0) {
             StringBuilder concatenatedSelectedCountries = new StringBuilder();
-            for(String countryCode : ApplicationInstance.getCountriesFilter()) {
+            for(String countryCode : ActionState.getCountriesFilter()) {
                 concatenatedSelectedCountries = concatenatedSelectedCountries.append(concatenatedSelectedCountries).append(countryCode);
             }
             String allSelectedCountries = concatenatedSelectedCountries.toString();
@@ -175,11 +176,11 @@ class ActonFilterMethod {
     }
 
     private void filterThroughNetworks(ActionsModel model, Iterator<ActionsModel> md) {
-        if(ApplicationInstance.getNetworksFilter().size() > 0) {
+        if(ActionState.getNetworksFilter().size() > 0) {
             String[] networkNames = new Apis().convertNetworkNamesToStringArray(model.getNetwork_name());
             boolean toRemove = true;
             for(String network: networkNames) {
-                if (ApplicationInstance.getNetworksFilter().contains(network)) {
+                if (ActionState.getNetworksFilter().contains(network)) {
                     toRemove = false;
                     break;
                 }
@@ -192,16 +193,16 @@ class ActonFilterMethod {
     }
 
     private void filterIfItHasParsers(ActionsModel model, Iterator<ActionsModel> md) {
-        if(ApplicationInstance.isWithParsers()) {
+        if(ActionState.isWithParsers()) {
             if(!new ConvertRawDatabaseDataToModels().doesActionHasParsers(model.getActionId()))
                try{ removeItem(md);}catch (Exception ignored){}
         }
     }
 
     private void filterThroughActionSearchText(ActionsModel model, Iterator<ActionsModel> md) {
-        if(ApplicationInstance.getActionSearchText() !=null) {
-            if(TextUtils.getTrimmedLength(ApplicationInstance.getActionSearchText()) > 0) {
-                if(!model.getActionTitle().toLowerCase().contains(ApplicationInstance.getActionSearchText().toLowerCase())) {
+        if(ActionState.getActionSearchText() !=null) {
+            if(TextUtils.getTrimmedLength(ActionState.getActionSearchText()) > 0) {
+                if(!model.getActionTitle().toLowerCase().contains(ActionState.getActionSearchText().toLowerCase())) {
                     removeItem(md);
                 }
             }
@@ -234,15 +235,15 @@ class ActonFilterMethod {
         for (Iterator<TransactionModels> ts = shortListedTransactions.iterator(); ts.hasNext(); ) {
             // STAGE 7: FILTER THROUGH CATEGORIES, IF ITS IN THE PARAMETER
             TransactionModels transaction = ts.next();
-            if (ApplicationInstance.getCategoryFilter().size() > 0) {
-                if (!ApplicationInstance.getCategoryFilter().contains(transaction.getCategory())) {
+            if (ActionState.getCategoryFilter().size() > 0) {
+                if (!ActionState.getCategoryFilter().contains(transaction.getCategory())) {
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
                 }
             }
 
             // STAGE 8: REMOVE ACTION ID IF IT WAS SUCCESSFUL
-            if (!ApplicationInstance.isStatusSuccess()) {
+            if (!ActionState.isStatusSuccess()) {
                 if (transaction.getStatusEnums() == StatusEnums.SUCCESS) {
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
@@ -250,7 +251,7 @@ class ActonFilterMethod {
             }
 
             //STAGE 9: REMOVE ACTION ID IF IT IS PENDING
-            if (!ApplicationInstance.isStatusPending()) {
+            if (!ActionState.isStatusPending()) {
                 if (transaction.getStatusEnums() == StatusEnums.PENDING) {
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
@@ -258,7 +259,7 @@ class ActonFilterMethod {
             }
 
             //STAGE 9: REMOVE ACTION ID IF IT WAS UNSUCCESSFUL
-            if (!ApplicationInstance.isStatusFailed()) {
+            if (!ActionState.isStatusFailed()) {
                 if (transaction.getStatusEnums() == StatusEnums.UNSUCCESSFUL) {
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
@@ -268,7 +269,7 @@ class ActonFilterMethod {
     }
 
     private void filterThroughIfSimIsPresent(){
-        if(ApplicationInstance.isOnlyWithSimPresent()) {
+        if(ActionState.isOnlyWithSimPresent()) {
             List<ActionsModel> newTempList = filteredActions(filteredActionList, actionsModelList, filterListAsBeenVisited);
             for(Iterator<ActionsModel> md= newTempList.iterator(); md.hasNext();) {
                 ActionsModel model = md.next();
@@ -282,9 +283,9 @@ class ActonFilterMethod {
     }
 
     private void filterThroughDateRange(ArrayList<TransactionModels> shortListedTransactions, ArrayList<String> shortListedTransactionActionId) {
-        if (ApplicationInstance.getDateRange() !=null) {
-            long startDate = (long) Utils.nonNullDateRange(ApplicationInstance.getDateRange().first);
-            long end = (long) Utils.nonNullDateRange(ApplicationInstance.getDateRange().second);
+        if (ActionState.getDateRange() !=null) {
+            long startDate = (long) Utils.nonNullDateRange(ActionState.getDateRange().first);
+            long end = (long) Utils.nonNullDateRange(ActionState.getDateRange().second);
             Timestamp endTime = new Timestamp(end + TimeUnit.HOURS.toMillis(24));
             long endDate = endTime.getTime();
 

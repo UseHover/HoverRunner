@@ -22,11 +22,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.api.Apis;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.models.FilterDataFullModel;
+import com.hover.runner.states.TransactionState;
 import com.hover.runner.ui.filter_pages.FilterByActionsActivity;
 import com.hover.runner.ui.filter_pages.FilterByCountriesActivity;
 import com.hover.runner.ui.filter_pages.FilterByNetworksActivity;
@@ -134,7 +134,7 @@ public class TransactionFilterFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ApplicationInstance.setTransactionSearchText(s.toString());
+                TransactionState.setTransactionSearchText(s.toString());
                 timer.cancel();
                 timer = new Timer();
                 long DELAY = 1500;
@@ -157,8 +157,8 @@ public class TransactionFilterFragment extends Fragment {
             if(resetActivated) {
                 new Apis().resetTransactionFilterDataset();
                 reloadAllMajorViews();
-                ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
-                ApplicationInstance.setResultFilter_Transactions_LOAD(new ArrayList<>());
+                TransactionState.setResultFilter_Transactions(new ArrayList<>());
+                TransactionState.setResultFilter_Transactions_LOAD(new ArrayList<>());
 
                 deactivateReset();
                 UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.reset_successful));
@@ -179,7 +179,7 @@ public class TransactionFilterFragment extends Fragment {
             if(hasLoaded()) picker.show(getParentFragmentManager(), picker.toString());
         });
         picker.addOnPositiveButtonClickListener(selection -> {
-            ApplicationInstance.setTransactionDateRange(selection);
+            TransactionState.setTransactionDateRange(selection);
             setOrReloadDateRange();
             filterThroughTransactions();
 
@@ -194,13 +194,13 @@ public class TransactionFilterFragment extends Fragment {
 
     private void prepareForPreviousActivity(boolean isBackButtonPressed) {
         if(Apis.transactionFilterIsInNormalState()) {
-            if(isBackButtonPressed && ApplicationInstance.getResultFilter_Transactions_LOAD().isEmpty()) ApplicationInstance.setResultFilter_Transactions_LOAD(new ArrayList<>());
-            else ApplicationInstance.setResultFilter_Transactions_LOAD(filterDataFullModel.getTransactionModelsList());
-            ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
+            if(isBackButtonPressed && TransactionState.getResultFilter_Transactions_LOAD().isEmpty()) TransactionState.setResultFilter_Transactions_LOAD(new ArrayList<>());
+            else TransactionState.setResultFilter_Transactions_LOAD(filterDataFullModel.getTransactionModelsList());
+            TransactionState.setResultFilter_Transactions(new ArrayList<>());
         }
         else {
-            ApplicationInstance.setResultFilter_Transactions_LOAD(ApplicationInstance.getResultFilter_Transactions());
-            ApplicationInstance.setResultFilter_Transactions(new ArrayList<>());
+            TransactionState.setResultFilter_Transactions_LOAD(TransactionState.getResultFilter_Transactions());
+            TransactionState.setResultFilter_Transactions(new ArrayList<>());
         }
     }
 
@@ -235,19 +235,19 @@ public class TransactionFilterFragment extends Fragment {
     }
     private void setupCheckboxes() {
         status_success.setOnCheckedChangeListener((v, status)-> {
-            ApplicationInstance.setTransactionStatusSuccess(status);
+            TransactionState.setTransactionStatusSuccess(status);
             activateReset();
             filterThroughTransactions();
         });
 
         status_fail.setOnCheckedChangeListener((v, status)-> {
-            ApplicationInstance.setTransactionStatusFailed(status);
+            TransactionState.setTransactionStatusFailed(status);
             activateReset();
             filterThroughTransactions();
         });
 
         status_pending.setOnCheckedChangeListener((v, status)-> {
-            ApplicationInstance.setTransactionStatusPending(status);
+            TransactionState.setTransactionStatusPending(status);
             activateReset();
             filterThroughTransactions();
         });
@@ -277,14 +277,14 @@ public class TransactionFilterFragment extends Fragment {
     }
 
     private void setOrReloadSearchEdit() {
-        if(ApplicationInstance.getTransactionSearchText() !=null) {
-            if(!ApplicationInstance.getTransactionSearchText().isEmpty()) {
-                searchTransactionEdit.setText(ApplicationInstance.getTransactionSearchText());
+        if(TransactionState.getTransactionSearchText() !=null) {
+            if(!TransactionState.getTransactionSearchText().isEmpty()) {
+                searchTransactionEdit.setText(TransactionState.getTransactionSearchText());
             }else searchTransactionEdit.setText("");
         } else searchTransactionEdit.setText("");
     }
     private void setOrReloadCountriesText() {
-        if(ApplicationInstance.getTransactionCountriesFilter().size()>0) {
+        if(TransactionState.getTransactionCountriesFilter().size()>0) {
             countryEntry.setText(new Apis().getSelectedTransactionCountriesAsText());
             activateReset();
         }
@@ -292,7 +292,7 @@ public class TransactionFilterFragment extends Fragment {
     }
 
     private void setOrReloadActionsText() {
-        if(ApplicationInstance.getTransactionActionsSelectedFilter().size()>0) {
+        if(TransactionState.getTransactionActionsSelectedFilter().size()>0) {
             actionEntry.setText(new Apis().getSelectedActionsForTransactionAsText());
             activateReset();
         }
@@ -300,7 +300,7 @@ public class TransactionFilterFragment extends Fragment {
     }
 
     private void setOrReloadNetworkText() {
-        if(ApplicationInstance.getTransactionNetworksFilter().size()>0) {
+        if(TransactionState.getTransactionNetworksFilter().size()>0) {
             networkEntry.setText(new Apis().getSelectedTransactionNetworksAsText());
             activateReset();
         }
@@ -308,8 +308,8 @@ public class TransactionFilterFragment extends Fragment {
     }
 
     private void setOrReloadDateRange() {
-        if(ApplicationInstance.getTransactionDateRange() != null) {
-            Pair<Long, Long> dateRange = ApplicationInstance.getTransactionDateRange();
+        if(TransactionState.getTransactionDateRange() != null) {
+            Pair<Long, Long> dateRange = TransactionState.getTransactionDateRange();
             datePickerView.setText(String.format(Locale.getDefault(),
                     "%s - %s", Utils.formatDateV2((long) Utils.nonNullDateRange(dateRange.first)),
                     Utils.formatDateV3((long) Utils.nonNullDateRange(dateRange.second))));
@@ -319,9 +319,9 @@ public class TransactionFilterFragment extends Fragment {
     }
 
     private void setOrReloadCheckboxes() {
-        status_success.setChecked(ApplicationInstance.isTransactionStatusSuccess());
-        status_pending.setChecked(ApplicationInstance.isTransactionStatusPending());
-        status_fail.setChecked(ApplicationInstance.isTransactionStatusFailed());
+        status_success.setChecked(TransactionState.isTransactionStatusSuccess());
+        status_pending.setChecked(TransactionState.isTransactionStatusPending());
+        status_fail.setChecked(TransactionState.isTransactionStatusFailed());
     }
 
     private void filterThroughTransactions() {

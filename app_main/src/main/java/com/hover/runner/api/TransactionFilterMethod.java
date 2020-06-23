@@ -5,6 +5,7 @@ import com.hover.runner.ApplicationInstance;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.models.ActionsModel;
 import com.hover.runner.models.TransactionModels;
+import com.hover.runner.states.TransactionState;
 import com.hover.runner.utils.Utils;
 
 import java.sql.Timestamp;
@@ -59,9 +60,9 @@ class TransactionFilterMethod {
         //Else just load filtered transactions.
 
 
-        if(ApplicationInstance.getTransactionSearchText() !=null || ApplicationInstance.getTransactionDateRange() != null ||
-                !ApplicationInstance.isTransactionStatusFailed() || !ApplicationInstance.isTransactionStatusSuccess() ||
-                !ApplicationInstance.isTransactionStatusPending()) {
+        if(TransactionState.getTransactionSearchText() !=null || TransactionState.getTransactionDateRange() != null ||
+                !TransactionState.isTransactionStatusFailed() || !TransactionState.isTransactionStatusSuccess() ||
+                !TransactionState.isTransactionStatusPending()) {
 
             filterThroughTextsearchDateRangeAndRanStatus();
             filteredTransactionList = transactionModelList;
@@ -70,12 +71,12 @@ class TransactionFilterMethod {
 
 
         if(filterListHasBeenVisited && filteredTransactionList.size() == 0) return filteredTransactionList;
-        if(ApplicationInstance.getTransactionActionsSelectedFilter().size() > 0) {
+        if(TransactionState.getTransactionActionsSelectedFilter().size() > 0) {
             filterThroughTransactionsBySelectedActions();
             List<TransactionModels> toFilterWithTransaction = filteredTrans(filteredTransactionList, transactionModelList, filterListHasBeenVisited);
             return getQualifiedTransactionList(actionsModelList, toFilterWithTransaction);
         }
-        else if(ApplicationInstance.getTransactionCountriesFilter().size() > 0 || ApplicationInstance.getTransactionNetworksFilter().size() > 0) {
+        else if(TransactionState.getTransactionCountriesFilter().size() > 0 || TransactionState.getTransactionNetworksFilter().size() > 0) {
 
             filterThroughTransactionsByCountriesAndNetworks();
             List<TransactionModels> toFilterWithTransaction = filteredTrans(filteredTransactionList, transactionModelList, filterListHasBeenVisited);
@@ -84,7 +85,7 @@ class TransactionFilterMethod {
 
         else {
             if(filterListHasBeenVisited) {
-                ApplicationInstance.setResultFilter_Transactions(filteredTransactionList);
+                TransactionState.setResultFilter_Transactions(filteredTransactionList);
                 return filteredTransactionList;
             }
             else return transactionModelList;
@@ -104,7 +105,7 @@ class TransactionFilterMethod {
                 removeTransactionItem(mdt);
             }
         }
-        ApplicationInstance.setResultFilter_Transactions(tmList);
+        TransactionState.setResultFilter_Transactions(tmList);
         return tmList;
     }
 
@@ -113,9 +114,9 @@ class TransactionFilterMethod {
             TransactionModels model = md.next();
 
             // STAGE 1: FILTER THROUGH KEYWORDS.
-            if(ApplicationInstance.getTransactionSearchText() !=null) {
-                if(!ApplicationInstance.getTransactionSearchText().isEmpty()) {
-                    String searchValue = ApplicationInstance.getTransactionSearchText();
+            if(TransactionState.getTransactionSearchText() !=null) {
+                if(!TransactionState.getTransactionSearchText().isEmpty()) {
+                    String searchValue = TransactionState.getTransactionSearchText();
                     if (!model.getTransaction_id().contains(searchValue) || !model.getCaption().contains(searchValue)) {
                         removeTransactionItem(md);
                     }
@@ -123,9 +124,9 @@ class TransactionFilterMethod {
             }
 
             // STAGE 2: FILTER THROUGH DATE RANGE
-            if(ApplicationInstance.getTransactionDateRange() != null) {
-                long startDate = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().first);
-                long end = (long) Utils.nonNullDateRange(ApplicationInstance.getTransactionDateRange().second);
+            if(TransactionState.getTransactionDateRange() != null) {
+                long startDate = (long) Utils.nonNullDateRange(TransactionState.getTransactionDateRange().first);
+                long end = (long) Utils.nonNullDateRange(TransactionState.getTransactionDateRange().second);
                 Timestamp endTime = new Timestamp(end + TimeUnit.HOURS.toMillis(24));
                 long endDate = endTime.getTime();
 
@@ -134,21 +135,21 @@ class TransactionFilterMethod {
                 }
             }
             // STAGE 3: FILTER THROUGH IF, FAILED IS NOT CHECKED.
-            if(!ApplicationInstance.isTransactionStatusFailed()) {
+            if(!TransactionState.isTransactionStatusFailed()) {
                 if(model.getStatusEnums() == StatusEnums.UNSUCCESSFUL) {
                     removeTransactionItem(md);
                 }
             }
 
             // STAGE 4: FILTER THROUGH IF, SUCCESS IS NOT CHECKED.
-            if(!ApplicationInstance.isTransactionStatusSuccess()) {
+            if(!TransactionState.isTransactionStatusSuccess()) {
                 if(model.getStatusEnums() == StatusEnums.SUCCESS) {
                     removeTransactionItem(md);
                 }
             }
 
             // STAGE 5: FILTER THROUGH IF, PENDING IS NOT CHECKED.
-            if(!ApplicationInstance.isTransactionStatusPending()) {
+            if(!TransactionState.isTransactionStatusPending()) {
                 if(model.getStatusEnums() == StatusEnums.PENDING) {
                     removeTransactionItem(md);
                 }
@@ -159,7 +160,7 @@ class TransactionFilterMethod {
     private void filterThroughTransactionsBySelectedActions() {
         for(Iterator<ActionsModel> md= actionsModelList.iterator(); md.hasNext();) {
             ActionsModel model = md.next();
-            if(!ApplicationInstance.getTransactionActionsSelectedFilter().contains(model.getActionId())) {
+            if(!TransactionState.getTransactionActionsSelectedFilter().contains(model.getActionId())) {
                 removeActionItem(md);
             }
         }
@@ -168,9 +169,9 @@ class TransactionFilterMethod {
     private void filterThroughTransactionsByCountriesAndNetworks() {
         for(Iterator<ActionsModel> md= actionsModelList.iterator(); md.hasNext(); ) {
             ActionsModel model = md.next();
-            if(ApplicationInstance.getTransactionCountriesFilter().size() > 0) {
+            if(TransactionState.getTransactionCountriesFilter().size() > 0) {
                 StringBuilder concatenatedSelectedCountries = new StringBuilder();
-                for(String countryCode : ApplicationInstance.getTransactionCountriesFilter()) {
+                for(String countryCode : TransactionState.getTransactionCountriesFilter()) {
                     concatenatedSelectedCountries = concatenatedSelectedCountries.append(concatenatedSelectedCountries).append(countryCode);
                 }
                 String allSelectedCountries = concatenatedSelectedCountries.toString();
@@ -179,11 +180,11 @@ class TransactionFilterMethod {
                 }
             }
 
-            if(ApplicationInstance.getTransactionNetworksFilter().size() > 0) {
+            if(TransactionState.getTransactionNetworksFilter().size() > 0) {
                 String[] networkNames = new Apis().convertNetworkNamesToStringArray(model.getNetwork_name());
                 boolean toRemove = true;
                 for(String network: networkNames) {
-                    if (ApplicationInstance.getTransactionNetworksFilter().contains(network)) {
+                    if (TransactionState.getTransactionNetworksFilter().contains(network)) {
                         toRemove = false;
                         break;
                     }

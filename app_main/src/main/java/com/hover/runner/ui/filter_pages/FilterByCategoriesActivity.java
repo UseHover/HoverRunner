@@ -12,6 +12,7 @@ import com.hover.runner.R;
 import com.hover.runner.adapters.FilterSingleItemRecyclerAdapter;
 import com.hover.runner.interfaces.CustomOnClickListener;
 import com.hover.runner.models.SingleFilterInfoModel;
+import com.hover.runner.states.ActionState;
 import com.hover.runner.utils.UIHelper;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class FilterByCategoriesActivity extends AppCompatActivity implements Cus
 
             */
             if(saveStateChanged) {
-                ApplicationInstance.setCategoryFilter(selectedCategories);
+                ActionState.setCategoryFilter(selectedCategories);
                 finish();
             }
         });

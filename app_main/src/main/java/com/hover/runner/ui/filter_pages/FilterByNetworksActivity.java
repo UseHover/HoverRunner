@@ -13,6 +13,8 @@ import com.hover.runner.R;
 import com.hover.runner.adapters.FilterSingleItemRecyclerAdapter;
 import com.hover.runner.interfaces.CustomOnClickListener;
 import com.hover.runner.models.SingleFilterInfoModel;
+import com.hover.runner.states.ActionState;
+import com.hover.runner.states.TransactionState;
 import com.hover.runner.utils.UIHelper;
 
 import java.text.MessageFormat;
@@ -38,9 +40,9 @@ public class FilterByNetworksActivity extends AppCompatActivity implements Custo
                 if(networkList.get(i).isCheck()) selectedNetworks.add(networkList.get(i).getTitle());
             }
 
-            if(ApplicationInstance.getCountriesFilter().size() > 0) {
+            if(ActionState.getCountriesFilter().size() > 0) {
                 for(SingleFilterInfoModel infoModel : networkList) {
-                    if(ApplicationInstance.getCountriesFilter().contains(infoModel.getCountry())) {
+                    if(ActionState.getCountriesFilter().contains(infoModel.getCountry())) {
                         networkInselectedCountriesList.add(infoModel);
                     }
                     else networkOutsideSelectedCountriesList.add(infoModel);
@@ -53,8 +55,8 @@ public class FilterByNetworksActivity extends AppCompatActivity implements Custo
         saveText.setOnClickListener(v->{
             if(saveStateChanged) {
                 int filterType = getIntent().getExtras().getInt("filter_type", 0);
-                if(filterType == 0) ApplicationInstance.setNetworksFilter(selectedNetworks);
-                else ApplicationInstance.setTransactionNetworksFilter(selectedNetworks);
+                if(filterType == 0) ActionState.setNetworksFilter(selectedNetworks);
+                else TransactionState.setTransactionNetworksFilter(selectedNetworks);
                 finish();
             }
         });
@@ -71,13 +73,13 @@ public class FilterByNetworksActivity extends AppCompatActivity implements Custo
         networksInOtherCountryRecyclerView.setHasFixedSize(true);
 
 
-        int countryListSize = ApplicationInstance.getCountriesFilter().size();
+        int countryListSize = ActionState.getCountriesFilter().size();
         if(countryListSize>0) {
             for(int i=0; i <countryListSize; i++) {
                 if(i == countryListSize-1) {
-                    networksInCountries.append(ApplicationInstance.getCountriesFilter().get(i));
+                    networksInCountries.append(ActionState.getCountriesFilter().get(i));
                 }
-                else networksInCountries.append(ApplicationInstance.getCountriesFilter().get(i)+", ");
+                else networksInCountries.append(ActionState.getCountriesFilter().get(i)+", ");
             }
             FilterSingleItemRecyclerAdapter filterSingleItemRecyclerAdapter = new FilterSingleItemRecyclerAdapter(networkInselectedCountriesList, this);
             networksInCountryRecyclerView.setAdapter(filterSingleItemRecyclerAdapter);
