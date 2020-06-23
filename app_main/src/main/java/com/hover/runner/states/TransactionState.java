@@ -17,7 +17,16 @@ public class TransactionState {
     private static boolean transactionStatusPending = true;
     private static boolean transactionStatusFailed = true;
     private static Pair<Long, Long> transactionDateRange;
+    private static List<TransactionModels> resultFilter_Transactions = new ArrayList<>();
     private static List<TransactionModels> resultFilter_Transactions_LOAD = new ArrayList<>();
+
+    public static List<TransactionModels> getResultFilter_Transactions() {
+        return resultFilter_Transactions;
+    }
+
+    public static void setResultFilter_Transactions(List<TransactionModels> resultFilter_Transactions) {
+        TransactionState.resultFilter_Transactions = resultFilter_Transactions;
+    }
 
     public static List<TransactionModels> getResultFilter_Transactions_LOAD() {
         return resultFilter_Transactions_LOAD;

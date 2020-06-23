@@ -19,7 +19,17 @@ public class ActionState {
     private static boolean statusSuccess = true;
     private static boolean withParsers = false;
     private static boolean onlyWithSimPresent = false;
+
+    private static List<ActionsModel> resultFilter_Actions = new ArrayList<>();
     private static List<ActionsModel> resultFilter_Actions_LOAD = new ArrayList<>();
+
+    public static List<ActionsModel> getResultFilter_Actions() {
+        return resultFilter_Actions;
+    }
+
+    public static void setResultFilter_Actions(List<ActionsModel> resultFilter_Actions) {
+        ActionState.resultFilter_Actions = resultFilter_Actions;
+    }
 
     public static List<ActionsModel> getResultFilter_Actions_LOAD() {
         return resultFilter_Actions_LOAD;
