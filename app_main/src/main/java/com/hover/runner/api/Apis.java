@@ -215,13 +215,16 @@ public class Apis {
 		if(ActionState.getCountriesFilter().size() < maxSize) maxSize = ActionState.getCountriesFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
-				text = new StringBuilder(ActionState.getCountriesFilter().get(0));
+				text = new StringBuilder( countryNameFromCountryCode(ActionState.getCountriesFilter().get(0)));
 			else
-				text.append(", ").append(ActionState.getCountriesFilter().get(i));
+				text.append(", ").append(countryNameFromCountryCode(ActionState.getCountriesFilter().get(i)));
 		}
 		return text.toString()+addSuffixToEntryValue(ActionState.getCountriesFilter());
 	}
 
+	private String countryNameFromCountryCode(String code) {
+		return  new Locale("",code).getDisplayCountry();
+	}
 	public String getSelectedNetworksAsText() {
 		StringBuilder text = new StringBuilder();
 		int maxSize = MAX_SIZE_FHV;
@@ -254,9 +257,9 @@ public class Apis {
 		if(TransactionState.getTransactionCountriesFilter().size() < maxSize) maxSize = TransactionState.getTransactionCountriesFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
-				text = new StringBuilder(TransactionState.getTransactionCountriesFilter().get(0));
+				text = new StringBuilder(countryNameFromCountryCode(TransactionState.getTransactionCountriesFilter().get(0)));
 			else
-				text.append(", ").append(TransactionState.getTransactionCountriesFilter().get(i));
+				text.append(", ").append(countryNameFromCountryCode(TransactionState.getTransactionCountriesFilter().get(i)));
 		}
 
 

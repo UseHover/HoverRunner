@@ -46,8 +46,10 @@ public class FilterSingleItemRecyclerAdapter extends RecyclerView.Adapter<Filter
 
         //Capitalize country code or value that's exactly 2 letter size.
         if(entries.get(position).getTitle().length() == 2) {
-            holder.checkBox.setAllCaps(true);
-            holder.checkBox.setText(new Locale("",entries.get(position).getTitle()).getDisplayCountry());
+            holder.checkBox.setAllCaps(false);
+            String countryString = new Locale("",entries.get(position).getTitle()).getDisplayCountry();
+            holder.checkBox.setText(countryString);
+            if(countryString.length() == 2) holder.checkBox.setAllCaps(true);
         }
 
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
