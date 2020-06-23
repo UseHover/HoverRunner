@@ -23,6 +23,13 @@ public class ActionState {
     private static List<ActionsModel> resultFilter_Actions = new ArrayList<>();
     private static List<ActionsModel> resultFilter_Actions_LOAD = new ArrayList<>();
 
+
+    public boolean isActionsInDefaultState() {
+        return countriesFilter.isEmpty() && networksFilter.isEmpty() && categoryFilter.isEmpty() && dateRange == null
+                && actionSearchText.isEmpty() && statusFailed && statusNoTrans && statusPending && statusSuccess
+                && !withParsers && !onlyWithSimPresent;
+    }
+
     public static List<ActionsModel> getResultFilter_Actions() {
         return resultFilter_Actions;
     }

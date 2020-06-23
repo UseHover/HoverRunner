@@ -31,7 +31,7 @@ public class ActionsViewModel extends ViewModel {
         filterStatus.postValue(HomeEnums.FILTER_ON);
     }
     void getAllActions() {
-        if(ActionState.getResultFilter_Actions_LOAD().size() == 0) {
+        if(new ActionState().isActionsInDefaultState()) {
             filterStatus.postValue(HomeEnums.FILTER_OFF);
             homeActions.postValue(new Apis().doGetAllActionsWorkManager(false));
         }

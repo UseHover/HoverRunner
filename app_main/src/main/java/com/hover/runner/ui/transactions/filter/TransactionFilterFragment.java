@@ -194,9 +194,10 @@ public class TransactionFilterFragment extends Fragment {
 
     private void prepareForPreviousActivity(boolean isBackButtonPressed) {
         if(Apis.transactionFilterIsInNormalState()) {
-            if(isBackButtonPressed && TransactionState.getResultFilter_Transactions_LOAD().isEmpty()) TransactionState.setResultFilter_Transactions_LOAD(new ArrayList<>());
-            else TransactionState.setResultFilter_Transactions_LOAD(filterDataFullModel.getTransactionModelsList());
-            TransactionState.setResultFilter_Transactions(new ArrayList<>());
+            if(!isBackButtonPressed) {
+                TransactionState.setResultFilter_Transactions_LOAD(filterDataFullModel.getTransactionModelsList());
+                TransactionState.setResultFilter_Transactions(new ArrayList<>());
+            }
         }
         else {
             TransactionState.setResultFilter_Transactions_LOAD(TransactionState.getResultFilter_Transactions());

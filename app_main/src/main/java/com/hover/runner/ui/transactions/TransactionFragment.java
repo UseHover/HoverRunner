@@ -111,13 +111,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(MainActivity.initialActionFilter !=null) {
-			String tempActionFilter = MainActivity.initialActionFilter;
-			transactionViewModel.setFilterOn();
-			transactionViewModel.getTransactionByActionId(tempActionFilter);
-			MainActivity.initialActionFilter = null;
-		}
-		else transactionViewModel.getAllTransactions();
+		transactionViewModel.getAllTransactions();
 	}
 
 

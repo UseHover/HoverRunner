@@ -195,10 +195,10 @@ public class ActionFilterFragment extends Fragment {
     private void prepareForPreviousActivity(boolean isBackButtonPressed) {
         if(Apis.actionFilterIsInNormalState()) {
 
-            if(isBackButtonPressed && ActionState.getResultFilter_Actions_LOAD().isEmpty()) {
-                ActionState.setResultFilter_Actions_LOAD(new ArrayList<>());
-            }
-            else  ActionState.setResultFilter_Actions_LOAD(filterDataFullModel.getActionsModelList());
+            if (!isBackButtonPressed) {
+                ActionState.setResultFilter_Actions_LOAD(filterDataFullModel.getActionsModelList());
+            }  //ActionState.setResultFilter_Actions_LOAD(new ArrayList<>());
+
             ActionState.setResultFilter_Actions(new ArrayList<>());
         }
         else {

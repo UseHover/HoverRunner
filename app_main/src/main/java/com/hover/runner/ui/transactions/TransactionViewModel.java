@@ -38,8 +38,9 @@ public class TransactionViewModel extends ViewModel {
 		filterStatus.postValue(HomeEnums.FILTER_ON);
 	}
 	void getAllTransactions() {
-		if(TransactionState.getResultFilter_Transactions_LOAD().size() == 0) {
+		if(new TransactionState().isTransactionInDefaultState()) {
 			Log.d("HOMER", "empty filter final result");
+
 			filterStatus.postValue(HomeEnums.FILTER_OFF);
 			homeTransactions.postValue(new Apis().doGetAllTransactionsWorkManager());
 		}

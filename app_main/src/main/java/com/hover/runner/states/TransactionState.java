@@ -20,6 +20,13 @@ public class TransactionState {
     private static List<TransactionModels> resultFilter_Transactions = new ArrayList<>();
     private static List<TransactionModels> resultFilter_Transactions_LOAD = new ArrayList<>();
 
+    public boolean isTransactionInDefaultState() {
+        return transactionActionsSelectedFilter.isEmpty() && transactionNetworksFilter.isEmpty() && transactionCountriesFilter.isEmpty()
+                && transactionSearchText.isEmpty() && transactionStatusSuccess && transactionStatusPending && transactionStatusFailed
+                && transactionDateRange == null && resultFilter_Transactions_LOAD.isEmpty();
+    }
+
+
     public static List<TransactionModels> getResultFilter_Transactions() {
         return resultFilter_Transactions;
     }
