@@ -14,8 +14,10 @@ import com.hover.runner.utils.Utils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 class ActonFilterMethod {
@@ -241,9 +243,9 @@ class ActonFilterMethod {
     }
 
     private void filterTransactionsBasedOnCategoryAndRanStatus(ArrayList<TransactionModels> shortListedTransactions, ArrayList<String> shortListedTransactionActionId, List<ActionsModel> actionsModelList) {
-        ArrayList<String> actionIds = new ArrayList<>();
-        for(ActionsModel actionsModel : actionsModelList) {
-            actionIds.add(actionsModel.getActionId());
+        Map<String, Integer> actionIdMap = new HashMap<>();
+        for(int i=0; i<actionsModelList.size(); i++) {
+            actionIdMap.put(actionsModelList.get(i).getActionId(), i);
         }
         for (Iterator<TransactionModels> ts = shortListedTransactions.iterator(); ts.hasNext(); ) {
             // STAGE 7: FILTER THROUGH CATEGORIES, IF ITS IN THE PARAMETER
@@ -252,8 +254,11 @@ class ActonFilterMethod {
                 if (!ActionState.getCategoryFilter().contains(transaction.getCategory())) {
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
-                    int indexOfAction = actionIds.indexOf(transaction.getActionId());
-                    actionsModelList.remove(indexOfAction);
+                    try{
+                        int indexOfAction = actionIdMap.get(transaction.getActionId());
+                        actionsModelList.remove(indexOfAction);
+                    }catch (Exception ignored) {};
+
                 }
             }
 
@@ -263,8 +268,10 @@ class ActonFilterMethod {
                     Log.d("FILTER_TEST", "success is removed");
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
-                    int indexOfAction = actionIds.indexOf(transaction.getActionId());
-                    actionsModelList.remove(indexOfAction);
+                    try{
+                        int indexOfAction = actionIdMap.get(transaction.getActionId());
+                        actionsModelList.remove(indexOfAction);
+                    }catch (Exception ignored) {};
                 }
             }
 
@@ -274,8 +281,10 @@ class ActonFilterMethod {
                     Log.d("FILTER_TEST", "pending is removed");
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
-                    int indexOfAction = actionIds.indexOf(transaction.getActionId());
-                    actionsModelList.remove(indexOfAction);
+                    try{
+                        int indexOfAction = actionIdMap.get(transaction.getActionId());
+                        actionsModelList.remove(indexOfAction);
+                    }catch (Exception ignored) {};
                 }
             }
 
@@ -285,8 +294,10 @@ class ActonFilterMethod {
                     Log.d("FILTER_TEST", "failed is removed");
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
-                    int indexOfAction = actionIds.indexOf(transaction.getActionId());
-                    actionsModelList.remove(indexOfAction);
+                    try{
+                        int indexOfAction = actionIdMap.get(transaction.getActionId());
+                        actionsModelList.remove(indexOfAction);
+                    }catch (Exception ignored) {};
                 }
             }
         }
