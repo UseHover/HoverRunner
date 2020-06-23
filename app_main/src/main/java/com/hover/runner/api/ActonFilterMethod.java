@@ -120,12 +120,15 @@ class ActonFilterMethod {
             filterThroughDateRange(shortListedTransactions, shortListedTransactionActionId);
 
             //FILTER THROUGH CATEGORIES, PENDING, FAILED AND SUCCESSFUL STATUS
-            filterTransactionsBasedOnCategoryAndRanStatus(shortListedTransactions, shortListedTransactionActionId);
+
+
 
             // STAGE 10: NO TRANSACTION IS THIS CASE: MEANS IT HAS NOT YET BE RUN.
             // THEREFORE, IF THIS CHECKBOX IS UNTICKED: IT MEANS TO SHOW ACTIONS THAT MUST HAVE BEEN RAN
             // NO NEED TO PUT (No trans in an if statement, since if it does not exists, it wont be part of the data anyway)
             // TIME COMPLEXITY: O(n)
+
+
 
             if(!ActionState.isStatusNoTrans()) {
                 Log.d("RUNNER APP","No transaction visited");
@@ -140,6 +143,10 @@ class ActonFilterMethod {
                 filteredActionList = newTempList;
                 filterListAsBeenVisited = true;
             }
+
+            filterTransactionsBasedOnCategoryAndRanStatus(shortListedTransactions, shortListedTransactionActionId, filteredActionList);
+
+
 
         }
 
@@ -233,7 +240,11 @@ class ActonFilterMethod {
         return newTempList;
     }
 
-    private void filterTransactionsBasedOnCategoryAndRanStatus(ArrayList<TransactionModels> shortListedTransactions, ArrayList<String> shortListedTransactionActionId) {
+    private void filterTransactionsBasedOnCategoryAndRanStatus(ArrayList<TransactionModels> shortListedTransactions, ArrayList<String> shortListedTransactionActionId, List<ActionsModel> actionsModelList) {
+        ArrayList<String> actionIds = new ArrayList<>();
+        for(ActionsModel actionsModel : actionsModelList) {
+            actionIds.add(actionsModel.getActionId());
+        }
         for (Iterator<TransactionModels> ts = shortListedTransactions.iterator(); ts.hasNext(); ) {
             // STAGE 7: FILTER THROUGH CATEGORIES, IF ITS IN THE PARAMETER
             TransactionModels transaction = ts.next();
@@ -241,33 +252,47 @@ class ActonFilterMethod {
                 if (!ActionState.getCategoryFilter().contains(transaction.getCategory())) {
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
+                    int indexOfAction = actionIds.indexOf(transaction.getActionId());
+                    actionsModelList.remove(indexOfAction);
                 }
             }
 
             // STAGE 8: REMOVE ACTION ID IF IT WAS SUCCESSFUL
             if (!ActionState.isStatusSuccess()) {
                 if (transaction.getStatusEnums() == StatusEnums.SUCCESS) {
+                    Log.d("FILTER_TEST", "success is removed");
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
+                    int indexOfAction = actionIds.indexOf(transaction.getActionId());
+                    actionsModelList.remove(indexOfAction);
                 }
             }
 
             //STAGE 9: REMOVE ACTION ID IF IT IS PENDING
             if (!ActionState.isStatusPending()) {
                 if (transaction.getStatusEnums() == StatusEnums.PENDING) {
+                    Log.d("FILTER_TEST", "pending is removed");
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
+                    int indexOfAction = actionIds.indexOf(transaction.getActionId());
+                    actionsModelList.remove(indexOfAction);
                 }
             }
 
             //STAGE 9: REMOVE ACTION ID IF IT WAS UNSUCCESSFUL
             if (!ActionState.isStatusFailed()) {
                 if (transaction.getStatusEnums() == StatusEnums.UNSUCCESSFUL) {
+                    Log.d("FILTER_TEST", "failed is removed");
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
+                    int indexOfAction = actionIds.indexOf(transaction.getActionId());
+                    actionsModelList.remove(indexOfAction);
                 }
             }
         }
+        filteredActionList = actionsModelList;
+        filterListAsBeenVisited = true;
+
     }
 
     private void filterThroughIfSimIsPresent(){
