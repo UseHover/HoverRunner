@@ -1,5 +1,8 @@
 package com.hover.runner.ui.actions.filter;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -34,9 +37,11 @@ public class ActionFilterViewModel extends ViewModel {
     void getFullDataFirst() { initialFullData.postValue(new Apis().doGetDataForActionFilter());}
     void getOrReloadFilterActions(List<ActionsModel> actionsModels, List<TransactionModels> transactionModels) {
         filteredActions.postValue(new FullActionResult(StatusEnums.LOADING, null));
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            FullActionResult actionResult =new Apis().filterThroughActions(actionsModels, transactionModels);
+            filteredActions.postValue(actionResult);
+        }, 300);
 
-        FullActionResult actionResult =new Apis().filterThroughActions(actionsModels, transactionModels);
-        filteredActions.postValue(actionResult);
     }
 
 }

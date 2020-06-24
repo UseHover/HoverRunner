@@ -237,36 +237,31 @@ class ActonFilterMethod {
                     removeItem(md);
                 }
             }
-
-
         return newTempList;
     }
 
     private void filterByCategory(ArrayList<TransactionModels> shortListedTransactions, ArrayList<String> shortListedTransactionActionId, List<ActionsModel> actionsModelList) {
-        for (Iterator<TransactionModels> ts = shortListedTransactions.iterator(); ts.hasNext(); ) {
-            TransactionModels transaction = ts.next();
-            if (ActionState.getCategoryFilter().size() > 0) {
 
+        if (ActionState.getCategoryFilter().size() > 0) {
+            for (Iterator<TransactionModels> ts = shortListedTransactions.iterator(); ts.hasNext(); ) {
+                TransactionModels transaction = ts.next();
                 if (!ActionState.getCategoryFilter().contains(transaction.getCategory())) {
-                    Log.d("CATEGORY ACTION", "REMOVED "+transaction.getCategory());
+                    Log.d("CATEGORY ACTION", "REMOVED " + transaction.getCategory());
                     ts.remove();
                     shortListedTransactionActionId.remove(transaction.getActionId());
-
+                } else {
+                    Log.d("CATEGORY ACTION", "RETAINED " + transaction.getCategory());
                 }
-                else {
-                    Log.d("CATEGORY ACTION", "RETAINED "+transaction.getCategory());
-                }
-            }
         }
 
-        for(Iterator<ActionsModel> md = actionsModelList.iterator(); md.hasNext();) {
+        for (Iterator<ActionsModel> md = actionsModelList.iterator(); md.hasNext(); ) {
             ActionsModel model = md.next();
-            if(!shortListedTransactionActionId.contains(model.getActionId())) removeItem(md);
+            if (!shortListedTransactionActionId.contains(model.getActionId())) removeItem(md);
         }
 
         filteredActionList = actionsModelList;
         filterListAsBeenVisited = true;
-
+    }
     }
 
     private void filterTransactionsBasedOnCategoryAndRanStatus(ArrayList<TransactionModels> shortListedTransactions, ArrayList<String> shortListedTransactionActionId, List<ActionsModel> actionsModelList) {

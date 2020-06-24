@@ -300,8 +300,6 @@ public class ActionFilterFragment extends Fragment {
             i.putExtra("data", new Apis().getCategoriesForActionFilter(filterDataFullModel.getAllCategories()));
             startActivity(i);
         });
-
-
     }
 
     private void setOrReloadSearchEdit() {
