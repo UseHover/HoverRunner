@@ -242,6 +242,33 @@ class ActonFilterMethod {
         return newTempList;
     }
 
+    private void filterByCategory(ArrayList<TransactionModels> shortListedTransactions, ArrayList<String> shortListedTransactionActionId, List<ActionsModel> actionsModelList) {
+        for (Iterator<TransactionModels> ts = shortListedTransactions.iterator(); ts.hasNext(); ) {
+            TransactionModels transaction = ts.next();
+            if (ActionState.getCategoryFilter().size() > 0) {
+
+                if (!ActionState.getCategoryFilter().contains(transaction.getCategory())) {
+                    Log.d("CATEGORY ACTION", "REMOVED "+transaction.getCategory());
+                    ts.remove();
+                    shortListedTransactionActionId.remove(transaction.getActionId());
+
+                }
+                else {
+                    Log.d("CATEGORY ACTION", "RETAINED "+transaction.getCategory());
+                }
+            }
+        }
+
+        for(Iterator<ActionsModel> md = actionsModelList.iterator(); md.hasNext();) {
+            ActionsModel model = md.next();
+            if(!shortListedTransactionActionId.contains(model.getActionId())) removeItem(md);
+        }
+
+        filteredActionList = actionsModelList;
+        filterListAsBeenVisited = true;
+
+    }
+
     private void filterTransactionsBasedOnCategoryAndRanStatus(ArrayList<TransactionModels> shortListedTransactions, ArrayList<String> shortListedTransactionActionId, List<ActionsModel> actionsModelList) {
         Map<String, Integer> actionIdMap = new HashMap<>();
         for(int i=0; i<actionsModelList.size(); i++) {
@@ -250,17 +277,6 @@ class ActonFilterMethod {
         for (Iterator<TransactionModels> ts = shortListedTransactions.iterator(); ts.hasNext(); ) {
             // STAGE 7: FILTER THROUGH CATEGORIES, IF ITS IN THE PARAMETER
             TransactionModels transaction = ts.next();
-            if (ActionState.getCategoryFilter().size() > 0) {
-                if (!ActionState.getCategoryFilter().contains(transaction.getCategory())) {
-                    ts.remove();
-                    shortListedTransactionActionId.remove(transaction.getActionId());
-                    try{
-                        int indexOfAction = actionIdMap.get(transaction.getActionId());
-                        actionsModelList.remove(indexOfAction);
-                    }catch (Exception ignored) {};
-
-                }
-            }
 
             // STAGE 8: REMOVE ACTION ID IF IT WAS SUCCESSFUL
             if (!ActionState.isStatusSuccess()) {
@@ -303,6 +319,8 @@ class ActonFilterMethod {
         }
         filteredActionList = actionsModelList;
         filterListAsBeenVisited = true;
+
+        filterByCategory(shortListedTransactions, shortListedTransactionActionId, actionsModelList);
 
     }
 
