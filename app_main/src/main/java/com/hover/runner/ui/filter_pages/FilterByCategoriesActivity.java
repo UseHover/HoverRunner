@@ -39,16 +39,6 @@ public class FilterByCategoriesActivity extends AppCompatActivity implements Cus
         findViewById(R.id.category_title).setOnClickListener(v-> finish());
         saveText = findViewById(R.id.filter_save_id);
         saveText.setOnClickListener(v->{
-           /* StringBuilder args = new StringBuilder();
-
-            for(int i=0; i<selectedCategories.size(); i++) {
-                if(i==0) {
-                    args = new StringBuilder(COLUMN_COUNTRY + " = '" + selectedCategories.get(i) + "'");
-                }
-                else args.append(" OR ").append(COLUMN_COUNTRY).append(" = '").append(selectedCategories.get(i)).append("'");
-            }
-
-            */
             if(saveStateChanged) {
                 ActionState.setCategoryFilter(selectedCategories);
                 finish();

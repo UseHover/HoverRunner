@@ -3,10 +3,12 @@ package com.hover.runner.database;
 import android.os.Build;
 import android.util.Log;
 
+import com.google.android.gms.common.util.ArrayUtils;
 import com.hover.runner.BuildConfig;
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.parsers.HoverParser;
+import com.hover.sdk.sms.MessageLog;
 import com.hover.sdk.transactions.Transaction;
 
 import com.hover.runner.ApplicationInstance;
@@ -229,6 +231,25 @@ public class ConvertRawDatabaseDataToModels {
     public String[][] getTransactionMessagesByIdFromHover(String transactionId) {
         Transaction transaction = repo.getTransactionByTransId(transactionId);
         HoverAction action = repo.getSingleActionByIdActionId(transaction.actionId);
+        List<MessageLog> smsMessages = new ArrayList<>();
+        try {
+            String[] smsUUIDS = Utils.convertNormalJSONArrayToStringArray(transaction.smsHits);
+            for(String uuid : smsUUIDS) {
+                MessageLog log = repo.getSMSMessageByUUID(uuid);
+                smsMessages.add(log);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        String[] smsSenderList = new String[smsMessages.size()];
+        String[] smsContentList = new String[smsMessages.size()];
+        for(int i=0; i<smsMessages.size(); i++) {
+            smsSenderList[i] = smsMessages.get(i).sender;
+            smsContentList[i] = smsMessages.get(i).msg;
+        }
         String[] rootCode = {action.rootCode};
         String[] tempEnteredValues = {};
         try {
@@ -240,11 +261,13 @@ public class ConvertRawDatabaseDataToModels {
         String[] enteredValues = new String[aLen + bLen];
         System.arraycopy(rootCode, 0, enteredValues , 0, aLen);
         System.arraycopy(tempEnteredValues, 0, enteredValues , aLen, bLen);
+        enteredValues = ArrayUtils.concat(enteredValues, smsSenderList);
 
         String[] ussdMessages = {};
         try {
             ussdMessages = Utils.convertNormalJSONArrayToStringArray(transaction.ussdMessages);
-        } catch (JSONException ignored) {}
+            ussdMessages = ArrayUtils.concat(ussdMessages, smsContentList);
+        } catch (Exception ignored) {}
         return new String[][]{enteredValues, ussdMessages};
     }
 

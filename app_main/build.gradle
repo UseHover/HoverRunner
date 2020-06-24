@@ -71,7 +71,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //implementation project(path: ':app')
-    implementation 'com.hover:android-sdk:1.5.4-alpha2'
+    implementation 'com.hover:android-sdk:1.5.4-alpha6'
     //implementation project(":hover.sdk")
 
 
