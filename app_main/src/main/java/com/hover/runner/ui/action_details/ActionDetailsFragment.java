@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hover.runner.ApplicationInstance;
+import com.hover.runner.models.TransactionModels;
+import com.hover.runner.states.TransactionState;
 import com.hover.sdk.api.HoverParameters;
 import com.hover.runner.MainActivity;
 import com.hover.runner.R;
@@ -33,6 +35,8 @@ import com.hover.runner.ui.webview.WebViewActivity;
 import com.hover.runner.utils.UIHelper;
 import com.hover.runner.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,10 +46,21 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
     private Timer timer= new Timer();
     private ActionDetailsViewModel actionDetailsViewModel;
     private static final int TEST_SINGLE = 305;
-    private TextView toolText, subtoolText, descTitle,descContent,descLink,operatorsText,stepsText,parsersText,
-            transacText,successText,pendingText,failureText, testSingleActiontext;
+    private TextView toolText;
+    private TextView subtoolText;
+    private TextView descTitle;
+    private TextView descContent;
+    private TextView descLink;
+    private TextView operatorsText;
+    private TextView stepsText;
+    private TextView parsersText;
+    private TextView transacText;
+    private TextView successText;
+    private TextView pendingText;
+    private TextView failureText;
     private LinearLayout topLayout;
     private StatusEnums mostRecentStatus;
+    private List<TransactionModels> transactionModelsListHolder;
 
     @Nullable
     @Override
@@ -67,7 +82,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         successText = view.findViewById(R.id.successCount_content);
         pendingText = view.findViewById(R.id.pendingCount_content);
         failureText = view.findViewById(R.id.failedCount_content);
-        testSingleActiontext = view.findViewById(R.id.testSingle_id);
+        TextView testSingleActiontext = view.findViewById(R.id.testSingle_id);
 
         toolText.setText(ActionDetailsActivity.actionId);
         subtoolText.setText(ActionDetailsActivity.actionTitle);
@@ -113,6 +128,12 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         TextView viewAllText = view.findViewById(R.id.viewAll_id);
         viewAllText.setOnClickListener(v -> {
             if(getActivity() !=null) {
+                ArrayList<String> actionIdInList = new ArrayList<>();
+                actionIdInList.add(ActionDetailsActivity.actionId);
+                TransactionState.setTransactionActionsSelectedFilter(actionIdInList);
+                TransactionState.setResultFilter_Transactions_LOAD(transactionModelsListHolder);
+
+
                 Intent i = new Intent(getContext(), MainActivity.class);
                 i.putExtra("navigate", ActionDetailsActivity.actionId);
                 startActivity(i);
@@ -138,6 +159,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                             setupTopDetailsInfo(mostRecentStatus);
                         }
                     }
+                    transactionModelsListHolder = transactions.getTransactionModelsList();
                     transacRecyclerView.setAdapter(new TransactionRecyclerAdapter(transactions.getTransactionModelsList(),
                             this));
                     break;

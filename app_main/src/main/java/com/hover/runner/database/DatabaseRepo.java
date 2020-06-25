@@ -4,6 +4,7 @@ import com.hover.runner.ApplicationInstance;
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.parsers.HoverParser;
+import com.hover.sdk.sms.MessageLog;
 import com.hover.sdk.transactions.Transaction;
 
 import java.util.List;
@@ -19,5 +20,6 @@ class DatabaseRepo {
 
      List<HoverParser> getParsersByActionId(String actionId){ return Hover.getParsersByActionId(actionId, ApplicationInstance.getContext()); }
      HoverParser getSingleParserByParserId(int parserId) {return Hover.getParser(parserId, ApplicationInstance.getContext());}
+     MessageLog getSMSMessageByUUID(String uuid) {return Hover.getSMSMessageByUUID(uuid, ApplicationInstance.getContext());}
 
 }

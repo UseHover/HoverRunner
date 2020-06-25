@@ -2,10 +2,12 @@ package com.hover.runner.api;
 
 import androidx.core.util.Pair;
 
+import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
+import com.hover.runner.states.ActionState;
+import com.hover.runner.states.TransactionState;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.sims.SimInfo;
-import com.hover.runner.ApplicationInstance;
 import com.hover.runner.database.ConvertRawDatabaseDataToModels;
 import com.hover.runner.enums.PassageEnum;
 import com.hover.runner.enums.StatusEnums;
@@ -116,7 +118,7 @@ public class Apis {
 
 	public ArrayList<SingleFilterInfoModel> getCategoriesForActionFilter(ArrayList<String> categories) {
 		ArrayList<SingleFilterInfoModel> filterInfoModels = new ArrayList<>();
-		ArrayList<String> mySelectedCategories = ApplicationInstance.getCategoryFilter();
+		ArrayList<String> mySelectedCategories = ActionState.getCategoryFilter();
 		for(String category : categories) {
 			SingleFilterInfoModel singleFilterInfoModel = new SingleFilterInfoModel(category, false);
 			if(mySelectedCategories.contains(category)) {
@@ -131,7 +133,7 @@ public class Apis {
 
 	public ArrayList<SingleFilterInfoModel> getCountriesForActionFilter(ArrayList<String> countries) {
 		ArrayList<SingleFilterInfoModel> filterInfoModels = new ArrayList<>();
-		ArrayList<String> mySelectedCountries = ApplicationInstance.getCountriesFilter();
+		ArrayList<String> mySelectedCountries = ActionState.getCountriesFilter();
 		for(String country : countries) {
 			SingleFilterInfoModel singleFilterInfoModel = new SingleFilterInfoModel(country, false);
 			if(mySelectedCountries.contains(country)) {
@@ -145,7 +147,7 @@ public class Apis {
 
 	public ArrayList<SingleFilterInfoModel> getNetworksForActionFilter(ArrayList<Pair<String, String>> networkPairList) {
 		ArrayList<SingleFilterInfoModel> filterInfoModels = new ArrayList<>();
-		ArrayList<String> mySelectedNetworks = ApplicationInstance.getNetworksFilter();
+		ArrayList<String> mySelectedNetworks = ActionState.getNetworksFilter();
 
 		for(Pair networkPair: networkPairList) {
 			assert networkPair.first != null;
@@ -163,7 +165,7 @@ public class Apis {
 
 	public ArrayList<SingleFilterInfoModel> getCountriesForTransactionFilter(ArrayList<String> countries) {
 		ArrayList<SingleFilterInfoModel> filterInfoModels = new ArrayList<>();
-		ArrayList<String> mySelectedCountries = ApplicationInstance.getTransactionCountriesFilter();
+		ArrayList<String> mySelectedCountries = TransactionState.getTransactionCountriesFilter();
 		for(String country : countries) {
 			SingleFilterInfoModel singleFilterInfoModel = new SingleFilterInfoModel(country, false);
 			if(mySelectedCountries.contains(country)) {
@@ -177,7 +179,7 @@ public class Apis {
 
 	public ArrayList<SingleFilterInfoModel> getNetworksForTransactionFilter(ArrayList<Pair<String, String>> networkPairList) {
 		ArrayList<SingleFilterInfoModel> filterInfoModels = new ArrayList<>();
-		ArrayList<String> mySelectedNetworks = ApplicationInstance.getTransactionNetworksFilter();
+		ArrayList<String> mySelectedNetworks = TransactionState.getTransactionNetworksFilter();
 
 		for(Pair networkPair: networkPairList) {
 			assert networkPair.first != null;
@@ -194,7 +196,7 @@ public class Apis {
 
 	public ArrayList<WithSubtitleFilterInfoModel> getTransactionSelectedActionsFilter(List<ActionsModel> actionModelList) {
 		ArrayList<WithSubtitleFilterInfoModel> filterInfoModels = new ArrayList<>();
-		ArrayList<String> mySelectedActions = ApplicationInstance.getTransactionActionsSelectedFilter();
+		ArrayList<String> mySelectedActions = TransactionState.getTransactionActionsSelectedFilter();
 
 		for(ActionsModel actionPair: actionModelList) {
 			WithSubtitleFilterInfoModel withSubtitleFilterInfoModel = new WithSubtitleFilterInfoModel(actionPair.getActionId(), actionPair.getActionTitle(), false);
@@ -210,82 +212,85 @@ public class Apis {
 	public String getSelectedCountriesAsText() {
 		StringBuilder text = new StringBuilder();
 		int maxSize = MAX_SIZE_FHV;
-		if(ApplicationInstance.getCountriesFilter().size() < maxSize) maxSize = ApplicationInstance.getCountriesFilter().size();
+		if(ActionState.getCountriesFilter().size() < maxSize) maxSize = ActionState.getCountriesFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
-				text = new StringBuilder(ApplicationInstance.getCountriesFilter().get(0));
+				text = new StringBuilder( countryNameFromCountryCode(ActionState.getCountriesFilter().get(0)));
 			else
-				text.append(", ").append(ApplicationInstance.getCountriesFilter().get(i));
+				text.append(", ").append(countryNameFromCountryCode(ActionState.getCountriesFilter().get(i)));
 		}
-		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getCountriesFilter());
+		return text.toString()+addSuffixToEntryValue(ActionState.getCountriesFilter());
 	}
 
+	private String countryNameFromCountryCode(String code) {
+		return  new Locale("",code).getDisplayCountry();
+	}
 	public String getSelectedNetworksAsText() {
 		StringBuilder text = new StringBuilder();
 		int maxSize = MAX_SIZE_FHV;
-		if(ApplicationInstance.getNetworksFilter().size() < maxSize) maxSize = ApplicationInstance.getNetworksFilter().size();
+		if(ActionState.getNetworksFilter().size() < maxSize) maxSize = ActionState.getNetworksFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
-				text = new StringBuilder(ApplicationInstance.getNetworksFilter().get(0));
+				text = new StringBuilder(ActionState.getNetworksFilter().get(0));
 			else
-				text.append(", ").append(ApplicationInstance.getNetworksFilter().get(i));
+				text.append(", ").append(ActionState.getNetworksFilter().get(i));
 		}
-		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getNetworksFilter());
+		return text.toString()+addSuffixToEntryValue(ActionState.getNetworksFilter());
 	}
 
 	public String getSelectedCategoriesAsText() {
 		StringBuilder text = new StringBuilder();
 		int maxSize = MAX_SIZE_FHV;
-		if(ApplicationInstance.getCategoryFilter().size() < maxSize) maxSize = ApplicationInstance.getCategoryFilter().size();
+		if(ActionState.getCategoryFilter().size() < maxSize) maxSize = ActionState.getCategoryFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
-				text = new StringBuilder(ApplicationInstance.getCategoryFilter().get(0));
+				text = new StringBuilder(ActionState.getCategoryFilter().get(0));
 			else
-				text.append(", ").append(ApplicationInstance.getCategoryFilter().get(i));
+				text.append(", ").append(ActionState.getCategoryFilter().get(i));
 		}
-		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getCategoryFilter());
+		return text.toString()+addSuffixToEntryValue(ActionState.getCategoryFilter());
 	}
 
 	public String getSelectedTransactionCountriesAsText() {
 		StringBuilder text = new StringBuilder();
 		int maxSize = MAX_SIZE_FHV;
-		if(ApplicationInstance.getTransactionCountriesFilter().size() < maxSize) maxSize = ApplicationInstance.getTransactionCountriesFilter().size();
+		if(TransactionState.getTransactionCountriesFilter().size() < maxSize) maxSize = TransactionState.getTransactionCountriesFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
-				text = new StringBuilder(ApplicationInstance.getTransactionCountriesFilter().get(0));
+				text = new StringBuilder(countryNameFromCountryCode(TransactionState.getTransactionCountriesFilter().get(0)));
 			else
-				text.append(", ").append(ApplicationInstance.getTransactionCountriesFilter().get(i));
+				text.append(", ").append(countryNameFromCountryCode(TransactionState.getTransactionCountriesFilter().get(i)));
 		}
 
 
-		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getTransactionCountriesFilter());
+		return text.toString()+addSuffixToEntryValue(TransactionState.getTransactionCountriesFilter());
 	}
 
 	public String getSelectedTransactionNetworksAsText() {
 		StringBuilder text = new StringBuilder();
 		int maxSize = MAX_SIZE_FHV;
-		if(ApplicationInstance.getTransactionNetworksFilter().size() < maxSize) maxSize = ApplicationInstance.getTransactionNetworksFilter().size();
+		if(TransactionState.getTransactionNetworksFilter().size() < maxSize) maxSize = TransactionState.getTransactionNetworksFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
-				text = new StringBuilder(ApplicationInstance.getTransactionNetworksFilter().get(0));
+				text = new StringBuilder(TransactionState.getTransactionNetworksFilter().get(0));
 			else
-				text.append(", ").append(ApplicationInstance.getTransactionNetworksFilter().get(i));
+				text.append(", ").append(TransactionState.getTransactionNetworksFilter().get(i));
 		}
 
-		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getTransactionNetworksFilter());
+		return text.toString()+addSuffixToEntryValue(TransactionState.getTransactionNetworksFilter());
 	}
 
 	public String getSelectedActionsForTransactionAsText() {
 		StringBuilder text = new StringBuilder();
 		int maxSize = MAX_SIZE_FHV;
-		if(ApplicationInstance.getTransactionActionsSelectedFilter().size() < maxSize) maxSize = ApplicationInstance.getTransactionActionsSelectedFilter().size();
+		if(TransactionState.getTransactionActionsSelectedFilter().size() < maxSize) maxSize = TransactionState.getTransactionActionsSelectedFilter().size();
 		for(int i=0; i< maxSize; i++) {
 			if(i==0)
-				text = new StringBuilder(ApplicationInstance.getTransactionActionsSelectedFilter().get(0));
+				text = new StringBuilder(TransactionState.getTransactionActionsSelectedFilter().get(0));
 			else
-				text.append(", ").append(ApplicationInstance.getTransactionActionsSelectedFilter().get(i));
+				text.append(", ").append(TransactionState.getTransactionActionsSelectedFilter().get(i));
 		}
-		return text.toString()+addSuffixToEntryValue(ApplicationInstance.getTransactionActionsSelectedFilter());
+		return text.toString()+addSuffixToEntryValue(TransactionState.getTransactionActionsSelectedFilter());
 	}
 
 	private String addSuffixToEntryValue(ArrayList<?> list) {
@@ -298,42 +303,42 @@ public class Apis {
 		return suffix;
 	}
 	public void resetActionFilterDataset() {
-		ApplicationInstance.setOnlyWithSimPresent(false);
-		ApplicationInstance.setWithParsers(false);
-		ApplicationInstance.setStatusPending(true);
-		ApplicationInstance.setStatusFailed(true);
-		ApplicationInstance.setStatusNoTrans(true);
-		ApplicationInstance.setStatusSuccess(true);
-		ApplicationInstance.setActionSearchText("");
-		ApplicationInstance.setDateRange(null);
-		ApplicationInstance.setCountriesFilter(new ArrayList<>());
-		ApplicationInstance.setCategoryFilter(new ArrayList<>());
-		ApplicationInstance.setNetworksFilter(new ArrayList<>());
+		ActionState.setOnlyWithSimPresent(false);
+		ActionState.setWithParsers(false);
+		ActionState.setStatusPending(true);
+		ActionState.setStatusFailed(true);
+		ActionState.setStatusNoTrans(true);
+		ActionState.setStatusSuccess(true);
+		ActionState.setActionSearchText("");
+		ActionState.setDateRange(null);
+		ActionState.setCountriesFilter(new ArrayList<>());
+		ActionState.setCategoryFilter(new ArrayList<>());
+		ActionState.setNetworksFilter(new ArrayList<>());
 	}
 
 	public static boolean actionFilterIsInNormalState() {
-		return !ApplicationInstance.isOnlyWithSimPresent() && !ApplicationInstance.isWithParsers() && ApplicationInstance.isStatusPending() &&
-				ApplicationInstance.isStatusFailed() && ApplicationInstance.isStatusSuccess() && ApplicationInstance.isStatusNoTrans() &&
-				ApplicationInstance.getActionSearchText().isEmpty() && ApplicationInstance.getDateRange() == null &&
-				ApplicationInstance.getCategoryFilter().isEmpty() && ApplicationInstance.getCountriesFilter().isEmpty() && ApplicationInstance.getNetworksFilter().isEmpty();
+		return !ActionState.isOnlyWithSimPresent() && !ActionState.isWithParsers() && ActionState.isStatusPending() &&
+				ActionState.isStatusFailed() && ActionState.isStatusSuccess() && ActionState.isStatusNoTrans() &&
+				ActionState.getActionSearchText().isEmpty() && ActionState.getDateRange() == null &&
+				ActionState.getCategoryFilter().isEmpty() && ActionState.getCountriesFilter().isEmpty() && ActionState.getNetworksFilter().isEmpty();
 	}
 
 	public static boolean transactionFilterIsInNormalState() {
-		return ApplicationInstance.getTransactionActionsSelectedFilter().isEmpty() && ApplicationInstance.getTransactionNetworksFilter().isEmpty() &&
-				ApplicationInstance.getTransactionCountriesFilter().isEmpty() && ApplicationInstance.getTransactionDateRange() == null &&
-				ApplicationInstance.getTransactionSearchText().isEmpty() && ApplicationInstance.isTransactionStatusFailed() &&
-				ApplicationInstance.isTransactionStatusPending() && ApplicationInstance.isTransactionStatusSuccess();
+		return TransactionState.getTransactionActionsSelectedFilter().isEmpty() && TransactionState.getTransactionNetworksFilter().isEmpty() &&
+				TransactionState.getTransactionCountriesFilter().isEmpty() && TransactionState.getTransactionDateRange() == null &&
+				TransactionState.getTransactionSearchText().isEmpty() && TransactionState.isTransactionStatusFailed() &&
+				TransactionState.isTransactionStatusPending() && TransactionState.isTransactionStatusSuccess();
 	}
 
 	public void resetTransactionFilterDataset() {
-		ApplicationInstance.setTransactionNetworksFilter(new ArrayList<>());
-		ApplicationInstance.setTransactionCountriesFilter(new ArrayList<>());
-		ApplicationInstance.setTransactionActionsSelectedFilter(new ArrayList<>());
-		ApplicationInstance.setTransactionDateRange(null);
-		ApplicationInstance.setTransactionSearchText("");
-		ApplicationInstance.setTransactionStatusFailed(true);
-		ApplicationInstance.setTransactionStatusPending(true);
-		ApplicationInstance.setTransactionStatusSuccess(true);
+		TransactionState.setTransactionNetworksFilter(new ArrayList<>());
+		TransactionState.setTransactionCountriesFilter(new ArrayList<>());
+		TransactionState.setTransactionActionsSelectedFilter(new ArrayList<>());
+		TransactionState.setTransactionDateRange(null);
+		TransactionState.setTransactionSearchText("");
+		TransactionState.setTransactionStatusFailed(true);
+		TransactionState.setTransactionStatusPending(true);
+		TransactionState.setTransactionStatusSuccess(true);
 	}
 	public FullTransactionResult doGetAllTransactionsWorkManager() {
 		List<TransactionModels> transactionModelsList = new ConvertRawDatabaseDataToModels().getAllTransactionsFromHover(null);

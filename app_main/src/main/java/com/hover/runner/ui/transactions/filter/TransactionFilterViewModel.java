@@ -1,5 +1,8 @@
 package com.hover.runner.ui.transactions.filter;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -34,9 +37,14 @@ public class TransactionFilterViewModel extends ViewModel {
     void getFullDataFirst() { initialFullData.postValue(new Apis().doGetDataForActionFilter());}
     void getOrReloadFilterTransactions(List<ActionsModel> actionsModels, List<TransactionModels> transactionModels) {
 
+
         filteredTransactions.postValue(new FullTransactionResult(StatusEnums.LOADING, null));
 
-        FullTransactionResult actionResult =new Apis().filterThroughTransactions(actionsModels, transactionModels);
-        filteredTransactions.postValue(actionResult);
+        new Handler().postDelayed(() -> {
+            FullTransactionResult actionResult =new Apis().filterThroughTransactions(actionsModels, transactionModels);
+            filteredTransactions.postValue(actionResult);
+        }, 300);
+
+
     }
 }

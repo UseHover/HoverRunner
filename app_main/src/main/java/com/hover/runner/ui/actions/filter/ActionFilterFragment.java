@@ -22,11 +22,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.api.Apis;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.models.FilterDataFullModel;
+import com.hover.runner.states.ActionState;
 import com.hover.runner.ui.filter_pages.FilterByCategoriesActivity;
 import com.hover.runner.ui.filter_pages.FilterByCountriesActivity;
 import com.hover.runner.ui.filter_pages.FilterByNetworksActivity;
@@ -133,7 +133,7 @@ public class ActionFilterFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ApplicationInstance.setActionSearchText(s.toString());
+                ActionState.setActionSearchText(s.toString());
                 timer.cancel();
                 timer = new Timer();
                 long DELAY = 1500;
@@ -152,15 +152,15 @@ public class ActionFilterFragment extends Fragment {
             }
         });
 
-        if(ApplicationInstance.getResultFilter_Actions_LOAD().size() > 0) {
+        if(ActionState.getResultFilter_Actions_LOAD().size() > 0) {
             activateReset();
         }
         resetText.setOnClickListener(v->{
             if(resetActivated) {
                 new Apis().resetActionFilterDataset();
                 reloadAllMajorViews();
-                ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
-                ApplicationInstance.setResultFilter_Actions_LOAD(new ArrayList<>());
+                ActionState.setResultFilter_Actions(new ArrayList<>());
+                ActionState.setResultFilter_Actions_LOAD(new ArrayList<>());
                 deactivateReset();
 
                 UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.reset_successful));
@@ -179,7 +179,7 @@ public class ActionFilterFragment extends Fragment {
             if(hasLoaded()) picker.show(getParentFragmentManager(), picker.toString());
         });
         picker.addOnPositiveButtonClickListener(selection -> {
-            ApplicationInstance.setDateRange(selection);
+            ActionState.setDateRange(selection);
             setOrReloadDateRange();
             filterThroughActions();
 
@@ -195,15 +195,15 @@ public class ActionFilterFragment extends Fragment {
     private void prepareForPreviousActivity(boolean isBackButtonPressed) {
         if(Apis.actionFilterIsInNormalState()) {
 
-            if(isBackButtonPressed && ApplicationInstance.getResultFilter_Actions_LOAD().isEmpty()) {
-                ApplicationInstance.setResultFilter_Actions_LOAD(new ArrayList<>());
-            }
-            else  ApplicationInstance.setResultFilter_Actions_LOAD(filterDataFullModel.getActionsModelList());
-            ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
+            if (!isBackButtonPressed) {
+                ActionState.setResultFilter_Actions_LOAD(filterDataFullModel.getActionsModelList());
+            }  //ActionState.setResultFilter_Actions_LOAD(new ArrayList<>());
+
+            ActionState.setResultFilter_Actions(new ArrayList<>());
         }
         else {
-            ApplicationInstance.setResultFilter_Actions_LOAD(ApplicationInstance.getResultFilter_Actions());
-            ApplicationInstance.setResultFilter_Actions(new ArrayList<>());
+            ActionState.setResultFilter_Actions_LOAD(ActionState.getResultFilter_Actions());
+            ActionState.setResultFilter_Actions(new ArrayList<>());
         }
     }
 
@@ -227,37 +227,37 @@ public class ActionFilterFragment extends Fragment {
     }
     private void setupCheckboxes() {
         status_success.setOnCheckedChangeListener((v, status)-> {
-            ApplicationInstance.setStatusSuccess(status);
+            ActionState.setStatusSuccess(status);
             activateReset();
             filterThroughActions();
         });
 
         status_noTrans.setOnCheckedChangeListener((v, status)-> {
-            ApplicationInstance.setStatusNoTrans(status);
+            ActionState.setStatusNoTrans(status);
             activateReset();
             filterThroughActions();
         });
 
         status_fail.setOnCheckedChangeListener((v, status)-> {
-            ApplicationInstance.setStatusFailed(status);
+            ActionState.setStatusFailed(status);
             activateReset();
             filterThroughActions();
         });
 
         status_pending.setOnCheckedChangeListener((v, status)-> {
-            ApplicationInstance.setStatusPending(status);
+            ActionState.setStatusPending(status);
             activateReset();
             filterThroughActions();
         });
 
         withParser.setOnCheckedChangeListener((v, status) -> {
-            ApplicationInstance.setWithParsers(status);
+            ActionState.setWithParsers(status);
             activateReset();
             filterThroughActions();
         });
 
         onlyWithSimPresent.setOnCheckedChangeListener((v, status)-> {
-            ApplicationInstance.setOnlyWithSimPresent(status);
+            ActionState.setOnlyWithSimPresent(status);
             activateReset();
             filterThroughActions();
         });
@@ -300,19 +300,17 @@ public class ActionFilterFragment extends Fragment {
             i.putExtra("data", new Apis().getCategoriesForActionFilter(filterDataFullModel.getAllCategories()));
             startActivity(i);
         });
-
-
     }
 
     private void setOrReloadSearchEdit() {
-        if(ApplicationInstance.getActionSearchText() !=null) {
-            if(!ApplicationInstance.getActionSearchText().isEmpty()) {
-                searchActionEdit.setText(ApplicationInstance.getActionSearchText());
+        if(ActionState.getActionSearchText() !=null) {
+            if(!ActionState.getActionSearchText().isEmpty()) {
+                searchActionEdit.setText(ActionState.getActionSearchText());
             }else searchActionEdit.setText("");
         } else searchActionEdit.setText("");
     }
     private void setOrReloadCountriesText() {
-        if(ApplicationInstance.getCountriesFilter().size()>0) {
+        if(ActionState.getCountriesFilter().size()>0) {
             countryEntry.setText(new Apis().getSelectedCountriesAsText());
             activateReset();
         }
@@ -322,7 +320,7 @@ public class ActionFilterFragment extends Fragment {
 
 
     private void setOrReloadNetworkText() {
-        if(ApplicationInstance.getNetworksFilter().size()>0) {
+        if(ActionState.getNetworksFilter().size()>0) {
             networkEntry.setText(new Apis().getSelectedNetworksAsText());
             activateReset();
         }
@@ -330,8 +328,8 @@ public class ActionFilterFragment extends Fragment {
     }
 
     private void setOrReloadDateRange() {
-        if(ApplicationInstance.getDateRange() != null) {
-            Pair<Long, Long> dateRange = ApplicationInstance.getDateRange();
+        if(ActionState.getDateRange() != null) {
+            Pair<Long, Long> dateRange = ActionState.getDateRange();
             datePickerView.setText(String.format(Locale.getDefault(), "%s - %s",
                     Utils.formatDateV2((long) Utils.nonNullDateRange(dateRange.first)),
                     Utils.formatDateV3((long) Utils.nonNullDateRange(dateRange.second))));
@@ -341,7 +339,7 @@ public class ActionFilterFragment extends Fragment {
     }
 
     private void setOrReloadCategoryText() {
-        if(ApplicationInstance.getCategoryFilter().size() > 0) {
+        if(ActionState.getCategoryFilter().size() > 0) {
             categoryEntry.setText(new Apis().getSelectedCategoriesAsText());
             activateReset();
         }
@@ -349,12 +347,12 @@ public class ActionFilterFragment extends Fragment {
     }
 
     private void setOrReloadCheckboxes() {
-        status_success.setChecked(ApplicationInstance.isStatusSuccess());
-        status_pending.setChecked(ApplicationInstance.isStatusPending());
-        status_fail.setChecked(ApplicationInstance.isStatusFailed());
-        status_noTrans.setChecked(ApplicationInstance.isStatusNoTrans());
-        withParser.setChecked(ApplicationInstance.isWithParsers());
-        onlyWithSimPresent.setChecked(ApplicationInstance.isOnlyWithSimPresent());
+        status_success.setChecked(ActionState.isStatusSuccess());
+        status_pending.setChecked(ActionState.isStatusPending());
+        status_fail.setChecked(ActionState.isStatusFailed());
+        status_noTrans.setChecked(ActionState.isStatusNoTrans());
+        withParser.setChecked(ActionState.isWithParsers());
+        onlyWithSimPresent.setChecked(ActionState.isOnlyWithSimPresent());
     }
 
     private boolean hasLoaded() {

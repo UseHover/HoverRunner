@@ -12,6 +12,7 @@ import com.hover.runner.R;
 import com.hover.runner.adapters.WithSubtitleRecyclerAdapter;
 import com.hover.runner.interfaces.CustomOnClickListener;
 import com.hover.runner.models.WithSubtitleFilterInfoModel;
+import com.hover.runner.states.TransactionState;
 import com.hover.runner.utils.UIHelper;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class FilterByActionsActivity extends AppCompatActivity implements Custom
         saveText = findViewById(R.id.filter_save_id);
         saveText.setOnClickListener(v->{
             if(saveStateChanged) {
-                ApplicationInstance.setTransactionActionsSelectedFilter(selectedActions);
+                TransactionState.setTransactionActionsSelectedFilter(selectedActions);
                 finish();
             }
 

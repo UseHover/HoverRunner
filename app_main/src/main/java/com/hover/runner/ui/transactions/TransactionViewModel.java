@@ -11,6 +11,8 @@ import com.hover.runner.api.Apis;
 import com.hover.runner.enums.HomeEnums;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.models.FullTransactionResult;
+import com.hover.runner.states.ActionState;
+import com.hover.runner.states.TransactionState;
 
 
 public class TransactionViewModel extends ViewModel {
@@ -36,15 +38,16 @@ public class TransactionViewModel extends ViewModel {
 		filterStatus.postValue(HomeEnums.FILTER_ON);
 	}
 	void getAllTransactions() {
-		if(ApplicationInstance.getResultFilter_Transactions_LOAD().size() == 0) {
+		if(new TransactionState().isTransactionInDefaultState()) {
 			Log.d("HOMER", "empty filter final result");
+
 			filterStatus.postValue(HomeEnums.FILTER_OFF);
 			homeTransactions.postValue(new Apis().doGetAllTransactionsWorkManager());
 		}
 		else {
 			Log.d("HOMER", "has good filter results");
 			filterStatus.postValue(HomeEnums.FILTER_ON);
-			homeTransactions.postValue(new FullTransactionResult(StatusEnums.HAS_DATA, ApplicationInstance.getResultFilter_Transactions_LOAD()));
+			homeTransactions.postValue(new FullTransactionResult(StatusEnums.HAS_DATA, TransactionState.getResultFilter_Transactions_LOAD()));
 		}
 
 	}
