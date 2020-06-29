@@ -111,15 +111,12 @@ public class LoginActivity2 extends AppCompatActivity {
         undoErrorView(passwordEdit, errorPasswordText, passwordLabel);
 
         if(new NetworkUtil(this).isNetworkAvailable() == PassageEnum.ACCEPT) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent returnIntent = new Intent();
-                    String[] result = new String[] {emailEdit.getText().toString(), passwordEdit.getText().toString()};
-                    returnIntent.putExtra("login_data",result);
-                    setResult(Activity.RESULT_OK,returnIntent);
-                    finish();
-                }
+            new Handler().postDelayed(() -> {
+                Intent returnIntent = new Intent();
+                String[] result = new String[] {emailEdit.getText().toString(), passwordEdit.getText().toString()};
+                returnIntent.putExtra("login_data",result);
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }, 500);
 
         }
@@ -136,5 +133,14 @@ public class LoginActivity2 extends AppCompatActivity {
         editText.setTextColor(getResources().getColor(R.color.colorHoverWhite));
         errorText.setVisibility(View.GONE);
         label.setTextColor(getResources().getColor(R.color.colorHoverWhite));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED,returnIntent);
+        finish();
+
     }
 }

@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
             else {
-                moveToLoginActivity2();
+                new Handler().postDelayed(this::moveToLoginActivity2, 1500);
             }
         }
     }
