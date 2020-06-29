@@ -26,8 +26,8 @@ public class RetrofitCalls {
     public Retrofit getRetrofitToken() {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                //.baseUrl(BuildConfig.BUILD_TYPE == "debug" ? auth_for_token_stage : auth_for_token_live)
-                .baseUrl(auth_for_token_live)
+                .baseUrl(BuildConfig.BUILD_TYPE == "debug" ? auth_for_token_stage : auth_for_token_live)
+               // .baseUrl(auth_for_token_live)
                 .build();
     }
 
@@ -48,8 +48,8 @@ public class RetrofitCalls {
         return new Retrofit.Builder()
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                //.baseUrl(BuildConfig.BUILD_TYPE == "debug" ?  auth_for_key_stage: auth_for_key_live)
-                .baseUrl(auth_for_key_live)
+                .baseUrl(BuildConfig.BUILD_TYPE == "debug" ?  auth_for_key_stage: auth_for_key_live)
+                //.baseUrl(auth_for_key_live)
                 .build();
     }
 

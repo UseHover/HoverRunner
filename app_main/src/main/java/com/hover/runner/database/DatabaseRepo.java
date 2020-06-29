@@ -22,4 +22,6 @@ class DatabaseRepo {
      HoverParser getSingleParserByParserId(int parserId) {return Hover.getParser(parserId, ApplicationInstance.getContext());}
      MessageLog getSMSMessageByUUID(String uuid) {return Hover.getSMSMessageByUUID(uuid, ApplicationInstance.getContext());}
 
+
+
 }

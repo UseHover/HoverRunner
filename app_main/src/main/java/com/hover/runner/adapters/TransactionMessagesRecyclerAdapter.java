@@ -32,11 +32,14 @@ public class TransactionMessagesRecyclerAdapter extends RecyclerView.Adapter<Tra
     public void onBindViewHolder(@NonNull TransactionMessageViewHolder holder, int position) {
         TransactionDetailsMessagesModel model = messagesModelArrayList.get(position);
 
-        if(model.getEnteredValue().equals("(pin)")) {
-            holder.enteredValueText.setText("....");
-            holder.enteredValueText.setTextSize(60);
+        if(!model.getEnteredValue().isEmpty()) {
+            if(model.getEnteredValue().equals("(pin)")) {
+                holder.enteredValueText.setText("....");
+                holder.enteredValueText.setTextSize(60);
+            }
+            else holder.enteredValueText.setText(model.getEnteredValue());
         }
-        else holder.enteredValueText.setText(model.getEnteredValue());
+        else holder.enteredValueText.setVisibility(View.GONE);
         holder.messageContentText.setText(model.getMessageContent());
     }
 
