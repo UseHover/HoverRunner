@@ -40,7 +40,7 @@ public class TransactionFilterViewModel extends ViewModel {
 
         filteredTransactions.postValue(new FullTransactionResult(StatusEnums.LOADING, null));
 
-        new Handler().postDelayed(() -> {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
             FullTransactionResult actionResult =new Apis().filterThroughTransactions(actionsModels, transactionModels);
             filteredTransactions.postValue(actionResult);
         }, 300);
