@@ -27,8 +27,8 @@ android {
             minifyEnabled false
         }
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -52,7 +52,7 @@ android {
         }
         dashboard {
             dimension "use"
-            applicationIdSuffix ".BUILD_PLACEHOLDER_SUFFIX"
+            applicationIdSuffix ".internal"
         }
     }
 }
@@ -67,25 +67,28 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.navigation:navigation-fragment:2.0.0'
-    implementation 'androidx.navigation:navigation-ui:2.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
-    implementation 'com.google.android.material:material:1.2.0-alpha06'
+    implementation 'com.google.android.material:material:1.3.0-alpha01'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.google.firebase:firebase-perf:19.0.7'
 
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    def sdk_version = "1.5.3-alpha07"
+    def sdk_version = "1.6.1"
     normalDashboardImplementation "com.hover:android-sdk:$sdk_version"
     noSMSImplementation "com.hover:android-sdk:$sdk_version-noSMS"
-    proImplementation "com.hover:android-sdk:$sdk_version-pro"
+//    proImplementation "com.hover:android-sdk:$sdk_version-pro"
     internalImplementation project(":hover.sdk")
     internalImplementation 'com.android.volley:volley:1.1.1'
     internalImplementation "androidx.work:work-runtime:2.2.0"

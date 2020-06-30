@@ -21,6 +21,7 @@ import com.hover.runner.models.TransactionDetailsInfoModels;
 import com.hover.runner.models.TransactionModels;
 import com.hover.runner.utils.Utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -65,9 +66,18 @@ public class ConvertRawDatabaseDataToModels {
 
         for(Transaction transaction : transactionList) {
             String lastUSSDMessage = "empty";
-            try {
-                lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
-            } catch (JSONException ignored) {}
+            String smsMessage = getLastSMSMessage(transaction.smsHits);
+            if(smsMessage != null) {
+                lastUSSDMessage = smsMessage;
+            }
+            else {
+                try {
+                    lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
+
+                } catch (JSONException ignored) {}
+            }
+
+
             TransactionModels transactionModels = new TransactionModels(transaction.id, transaction.uuid,
                     Utils.formatDate(transaction.updatedTimestamp),
                     lastUSSDMessage,
@@ -138,9 +148,16 @@ public class ConvertRawDatabaseDataToModels {
         List<TransactionModels> transactionModelsList = new ArrayList<>(transactionListByActionId.size());
         for(Transaction transaction : transactionListByActionId) {
             String lastUSSDMessage = "empty";
-            try {
-                lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
-            } catch (JSONException ignored) {}
+            String smsMessage = getLastSMSMessage(transaction.smsHits);
+            if(smsMessage != null) {
+                lastUSSDMessage = smsMessage;
+            }
+            else {
+                try {
+                    lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
+
+                } catch (JSONException ignored) {}
+            }
             TransactionModels transactionModels = new TransactionModels(transaction.id, transaction.uuid,
                     Utils.formatDate(transaction.updatedTimestamp),
                     lastUSSDMessage,
@@ -156,10 +173,18 @@ public class ConvertRawDatabaseDataToModels {
     public ArrayList<TransactionDetailsInfoModels> getTransactionDetailsAbout(String transactionId) {
         Transaction transaction = repo.getTransactionByTransId(transactionId);
         HoverAction action = repo.getSingleActionByIdActionId(transaction.actionId);
+
         String lastUSSDMessage = "empty";
-        try {
-            lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
-        } catch (JSONException ignored) {}
+        String smsMessage = getLastSMSMessage(transaction.smsHits);
+        if(smsMessage != null) {
+            lastUSSDMessage = smsMessage;
+        }
+        else {
+            try {
+                lastUSSDMessage = transaction.ussdMessages.getString(transaction.ussdMessages.length()-1);
+
+            } catch (JSONException ignored) {}
+        }
         ArrayList<TransactionDetailsInfoModels> dataTransacArrayList = new ArrayList<>();
         dataTransacArrayList.add(new TransactionDetailsInfoModels("Status", transaction.status,
                 Utils.getStatusByString(transaction.status), false));
@@ -247,7 +272,7 @@ public class ConvertRawDatabaseDataToModels {
         String[] smsSenderList = new String[smsMessages.size()];
         String[] smsContentList = new String[smsMessages.size()];
         for(int i=0; i<smsMessages.size(); i++) {
-            smsSenderList[i] = smsMessages.get(i).sender;
+            smsSenderList[i] = "";
             smsContentList[i] = smsMessages.get(i).msg;
         }
         String[] rootCode = {action.rootCode};
@@ -305,5 +330,33 @@ public class ConvertRawDatabaseDataToModels {
 
         }
         return transactionModelsList;
+    }
+
+    private List<String> getLastSMSMessages(JSONArray smsHits) {
+        List<String> smsMessages = new ArrayList<>();
+        try {
+            String[] smsUUIDS = Utils.convertNormalJSONArrayToStringArray(smsHits);
+            for(String uuid : smsUUIDS) {
+                smsMessages.add(repo.getSMSMessageByUUID(uuid).msg);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return smsMessages;
+    }
+
+    private String getLastSMSMessage(JSONArray smsHits) {
+        String smsMessage = null;
+        try {
+            String[] smsUUIDS = Utils.convertNormalJSONArrayToStringArray(smsHits);
+            if(smsUUIDS.length > 0) {
+                String lastUUID = smsUUIDS[smsUUIDS.length-1];
+                smsMessage = repo.getSMSMessageByUUID(lastUUID).msg;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return smsMessage;
     }
 }
