@@ -219,6 +219,23 @@ public class Utils {
         return simpleDateFormat.format(timestamp);
     }
 
+    public static boolean isActionHasCompletedVariables(final String actionId, final Context c) {
+        Map<String, String> actionExtra = Utils.getInitialVariableData(c,  actionId).second;
+        assert  actionExtra !=null;
+        boolean hasValidVariables = true;
+        for(String key : actionExtra.values()) {
+            if(key == null || key.replace(" ","").isEmpty()) {
+                hasValidVariables = false;
+                break;
+            }
+            else {
+
+            }
+
+        }
+        return hasValidVariables;
+    }
+
 
     public static String envValueToString(int env) {
         String string = "";

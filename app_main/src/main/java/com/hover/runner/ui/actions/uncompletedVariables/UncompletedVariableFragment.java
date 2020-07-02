@@ -17,12 +17,14 @@ import com.hover.runner.R;
 import com.hover.runner.adapters.VariableRecyclerAdapter;
 import com.hover.runner.interfaces.VariableEditinterface;
 import com.hover.runner.models.ActionsModel;
+import com.hover.runner.ui.action_details.ActionDetailsActivity;
 import com.hover.runner.utils.UIHelper;
 import com.hover.runner.utils.Utils;
 
 import org.json.JSONArray;
 
 import java.util.Locale;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,15 +54,19 @@ public class UncompletedVariableFragment extends Fragment implements  VariableEd
         });
         nextSave.setOnClickListener(v-> {
             int unCompleted = UncompletedVariableActivity.uncompletedVariableActionList.size();
-            if(currentViewPosition == unCompleted - 1) {
-                //If it's in the last pos and time to save
-                ApplicationInstance.setAllowSkippedActionsToRun(true);
-                if(getActivity() !=null)getActivity().finish();
+            if(Utils.isActionHasCompletedVariables(actionsModel.getActionId(), getContext())) {
+                if (currentViewPosition == unCompleted - 1) {
+                    //If it's in the last pos and time to save
+                    ApplicationInstance.setAllowSkippedActionsToRun(true);
+                    if (getActivity() != null) getActivity().finish();
+                } else {
+                    //do next action
+                    currentViewPosition = currentViewPosition + 1;
+                    updateTopNoticeLayoutInfo();
+                }
             }
             else {
-                //do next action
-                currentViewPosition = currentViewPosition +1;
-                updateTopNoticeLayoutInfo();
+                UIHelper.showHoverToastV2(getContext(), getContext().getResources().getString(R.string.uncompleted_variable_unfilled));
             }
         });
 
