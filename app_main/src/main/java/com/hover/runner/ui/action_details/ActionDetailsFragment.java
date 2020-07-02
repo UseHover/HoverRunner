@@ -174,12 +174,8 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
             builder.request(ActionDetailsActivity.actionId);
             builder.setEnvironment(Apis.getTestEnvMode());
             builder.style(R.style.myHoverTheme);
-<<<<<<< HEAD
-            builder.setAutoClose(false);
-            builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
-=======
+            builder.finalMsgDisplayTime(0);
 //            builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
->>>>>>> 0186b82bc4591e63b58642a0bf3e5863542639e9
 
             assert  actionExtra !=null;
             boolean hasValidVariables = true;
