@@ -81,7 +81,7 @@
 	<string name="sim_filter">SIM</string>
 	
 	<string name="operators">Operators</string>
-	<string name="steps">Steps</string>
+	<string name="longcode">Longcode</string>
 	<string name="parsers">Parsers</string>
 	<string name="success_label">Success</string>
 	<string name="pending_label">Pending</string>

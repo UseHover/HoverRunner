@@ -318,9 +318,7 @@ public class TransactionFilterFragment extends Fragment {
             activateReset();
         }
         else {
-            datePickerView.setText(String.format(Locale.getDefault(), "From %s - %s",
-                    "<account creation>",
-                    Utils.formatDateV3((long) Utils.nonNullDateRange(new Date().getTime()))));
+
         }
     }
 
