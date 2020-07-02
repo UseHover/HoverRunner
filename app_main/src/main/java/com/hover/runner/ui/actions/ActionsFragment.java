@@ -156,6 +156,11 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         builder.style(R.style.myHoverTheme);
         builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
 
+        if(actionRunCounter == withCompletedVariableActionList.size()) {
+            builder.setAutoClose(false);
+        }
+        else builder.setAutoClose(true);
+
         assert  actionExtra !=null;
         for(String key : actionExtra.keySet()) {
             builder.extra(key, actionExtra.get(key));
@@ -163,7 +168,8 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         if(firstTime) actionRunCounter = actionRunCounter + 1;
         Intent i = builder.buildIntent();
         startActivityForResult(i, TEST_ALL_RESULT);
-        ApplicationInstance.setAllowSkippedActionsToRun(false);
+
+        if(firstTime) ApplicationInstance.setAllowSkippedActionsToRun(false);
     }
 
 

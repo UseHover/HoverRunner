@@ -34,6 +34,7 @@ import com.hover.runner.utils.UIHelper;
 import com.hover.runner.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -316,7 +317,11 @@ public class TransactionFilterFragment extends Fragment {
                     Utils.formatDateV3((long) Utils.nonNullDateRange(dateRange.second))));
             activateReset();
         }
-        else datePickerView.setText(getResources().getString(R.string.from_account_creation_to_today));
+        else {
+            datePickerView.setText(String.format(Locale.getDefault(), "From %s - %s",
+                    "<account creation>",
+                    Utils.formatDateV3((long) Utils.nonNullDateRange(new Date().getTime()))));
+        }
     }
 
     private void setOrReloadCheckboxes() {

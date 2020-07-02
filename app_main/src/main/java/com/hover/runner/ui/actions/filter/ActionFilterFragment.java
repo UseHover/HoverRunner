@@ -34,6 +34,7 @@ import com.hover.runner.utils.UIHelper;
 import com.hover.runner.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -70,6 +71,8 @@ public class ActionFilterFragment extends Fragment {
         withParser = view.findViewById(R.id.checkbox_parsers);
         onlyWithSimPresent = view.findViewById(R.id.checkbox_sim);
         datePickerView = view.findViewById(R.id.dateRangeEditId);
+
+        ;
 
         toolText.setOnClickListener(v -> { if(getActivity() !=null) {
             prepareForPreviousActivity(true);
@@ -335,7 +338,11 @@ public class ActionFilterFragment extends Fragment {
                     Utils.formatDateV3((long) Utils.nonNullDateRange(dateRange.second))));
             activateReset();
         }
-        else datePickerView.setText(getResources().getString(R.string.from_account_creation_to_today));
+        else {
+            datePickerView.setText(String.format(Locale.getDefault(), "From %s - %s",
+                    "<account creation>",
+                    Utils.formatDateV3((long) Utils.nonNullDateRange(new Date().getTime()))));
+        }
     }
 
     private void setOrReloadCategoryText() {
