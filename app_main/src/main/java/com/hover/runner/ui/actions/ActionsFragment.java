@@ -157,7 +157,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
 
         if(actionRunCounter != withCompletedVariableActionList.size()) {
-            builder.finalMsgDisplayTime(0);
+            builder.finalMsgDisplayTime(5000);
         }
 
         assert  actionExtra !=null;

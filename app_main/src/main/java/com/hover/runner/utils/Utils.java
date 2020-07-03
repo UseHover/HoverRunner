@@ -220,6 +220,7 @@ public class Utils {
     }
 
     public static boolean isActionHasCompletedVariables(final String actionId, final Context c) {
+        Log.d("LOGGER", "Next action id is : "+actionId);
         Map<String, String> actionExtra = Utils.getInitialVariableData(c,  actionId).second;
         assert  actionExtra !=null;
         boolean hasValidVariables = true;
@@ -229,7 +230,7 @@ public class Utils {
                 break;
             }
             else {
-
+                Log.d("LOGGER", "key here is : "+key);
             }
 
         }
