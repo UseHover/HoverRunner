@@ -202,20 +202,20 @@ public class Utils {
 
     public static String formatDate(long timestamp) {
         String pattern = "HH:mm:ss (z) MMM dd, yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return simpleDateFormat.format(timestamp);
     }
 
     public static String formatDateV2(@Nullable long timestamp) {
 
         String pattern = "MMM dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return simpleDateFormat.format(timestamp);
     }
 
     public static String formatDateV3(long timestamp) {
         String pattern = "MMM dd, yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return simpleDateFormat.format(timestamp);
     }
 
