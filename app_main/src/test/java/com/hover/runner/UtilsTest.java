@@ -1,6 +1,5 @@
 package com.hover.runner;
 
-import com.hover.runner.api.AlgorithmsPlay;
 import com.hover.runner.utils.Utils;
 
 import org.junit.Assert;
@@ -62,6 +61,15 @@ public class UtilsTest {
 	public void test_findSingleAppearance() {
 		int[] sampleList = new int[] {1,3,5,5,3,1,3,6,5,1,7,2,9,9,2,7,2,7,9};
 		Assert.assertEquals(6, AlgorithmsPlay.findSingleAppearanceV2(sampleList));
+	}
+
+	@Test
+	public void test_MediaFinder() {
+		MedianFinder finder = new MedianFinder();
+		finder.addNum(7);
+		finder.addNum(8);
+
+		assertEquals("7.5", String.valueOf(finder.findMedian()));
 	}
 
 }
