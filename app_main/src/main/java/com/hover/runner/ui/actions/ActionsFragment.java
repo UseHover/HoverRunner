@@ -156,9 +156,10 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         builder.style(R.style.myHoverTheme);
         builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
 
-        if(actionRunCounter != withCompletedVariableActionList.size()) {
-            builder.finalMsgDisplayTime(5000);
+        if(actionRunCounter != withCompletedVariableActionList.size()-1) {
+            builder.finalMsgDisplayTime(0);
         }
+        else builder.finalMsgDisplayTime(30000);
 
         assert  actionExtra !=null;
         for(String key : actionExtra.keySet()) {
