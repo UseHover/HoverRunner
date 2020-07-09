@@ -1,0 +1,19 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - echo Nothing to do in the install phase...
+  pre_build:
+    commands:
+      - echo Nothing to do in the pre_build phase...
+  build:
+    commands:
+      - echo Build started on `date`
+      - ./gradlew clean assembleRelease --stacktrace
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - app_main/build/outputs/apk/normalDashboard/release/app_main-normal-dashboard-release.apk
