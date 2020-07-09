@@ -1,6 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.firebase.crashlytics'
-apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'com.google.gms.google-services'
 
 android {
@@ -46,11 +44,11 @@ android {
             versionNameSuffix "-pro"
         }
 
-        internal {
+        dashboard {
             dimension "use"
             applicationIdSuffix ".internal"
         }
-        dashboard {
+        internal {
             dimension "use"
             applicationIdSuffix ".internal"
         }
@@ -59,6 +57,8 @@ android {
 
 configurations {
     normalDashboardImplementation {}
+    noSMSDashboardImplementation {}
+    proDashboardImplementation {}
 }
 
 dependencies {
@@ -85,19 +85,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-
-    //implementation project(path: ':app')
-    //implementation 'com.hover:android-sdk:1.6.1-alpha1'
-    //implementation project(":hover.sdk")
-
-    def sdk_version = "1.6.1"
+    def sdk_version = "1.6.2"
     normalDashboardImplementation "com.hover:android-sdk:$sdk_version"
-    noSMSImplementation "com.hover:android-sdk:$sdk_version-noSMS"
-//    proImplementation "com.hover:android-sdk:$sdk_version-pro"
+    noSMSDashboardImplementation "com.hover:android-sdk:$sdk_version-noSMS"
+    proDashboardImplementation "com.hover:android-sdk:$sdk_version-pro"
     internalImplementation project(":hover.sdk")
     internalImplementation 'com.android.volley:volley:1.1.1'
     internalImplementation "androidx.work:work-runtime:2.2.0"
     internalImplementation 'com.google.android.gms:play-services-analytics:17.0.0'
     internalImplementation 'io.sentry:sentry-android:1.7.21'
-
 }

@@ -170,12 +170,12 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
 
             Map<String, String> actionExtra = Utils.getInitialVariableData(getContext(),  ActionDetailsActivity.actionId).second;
 
-            HoverParameters.Builder builder = new HoverParameters.Builder(getContext());
+            HoverParameters.Builder builder = new HoverParameters.Builder(getActivity());
             builder.request(ActionDetailsActivity.actionId);
             builder.setEnvironment(Apis.getTestEnvMode());
             builder.style(R.style.myHoverTheme);
-            builder.finalMsgDisplayTime(0);
-            //builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
+//            builder.finalMsgDisplayTime(0);
+//            builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
 
             assert  actionExtra !=null;
             boolean hasValidVariables = true;

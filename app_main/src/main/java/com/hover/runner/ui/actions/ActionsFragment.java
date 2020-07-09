@@ -150,11 +150,12 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         ActionsModel action = withCompletedVariableActionList.get(actionRunCounter);
         Map<String, String> actionExtra = Utils.getInitialVariableData(getContext(), action.getActionId()).second;
 
-        HoverParameters.Builder builder = new HoverParameters.Builder(getContext());
+        HoverParameters.Builder builder = new HoverParameters.Builder(getActivity());
         builder.request(action.getActionId());
         builder.setEnvironment(Apis.getTestEnvMode());
         builder.style(R.style.myHoverTheme);
-        builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
+//        builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
+//        builder.finalMsgDisplayTime(0);
 
         if(actionRunCounter != withCompletedVariableActionList.size()) {
             builder.finalMsgDisplayTime(5000);
