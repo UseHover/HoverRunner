@@ -174,8 +174,6 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
             builder.request(ActionDetailsActivity.actionId);
             builder.setEnvironment(Apis.getTestEnvMode());
             builder.style(R.style.myHoverTheme);
-//            builder.finalMsgDisplayTime(0);
-//            builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
 
             assert  actionExtra !=null;
             boolean hasValidVariables = true;
@@ -301,3 +299,5 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         }}, DELAY);
     }
 }
+
+

@@ -54,7 +54,7 @@ public class UncompletedVariableFragment extends Fragment implements  VariableEd
         });
         nextSave.setOnClickListener(v-> {
             int unCompleted = UncompletedVariableActivity.uncompletedVariableActionList.size();
-            if(actionsModel!=null && Utils.isActionHasCompletedVariables(actionsModel.getActionId(), getContext())) {
+            if(actionsModel!=null && Utils.isActionHasCompletedVariables(actionsModel, getContext())) {
                 if (currentViewPosition == unCompleted - 1) {
                     //If it's in the last pos and time to save
                     ApplicationInstance.setAllowSkippedActionsToRun(true);

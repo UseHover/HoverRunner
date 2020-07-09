@@ -12,15 +12,18 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import com.hover.runner.ApplicationInstance;
 import com.hover.runner.BuildConfig;
 import com.hover.runner.R;
 import com.hover.runner.enums.ActionRunStatus;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.models.ActionVariablesDBModel;
+import com.hover.runner.models.ActionsModel;
 import com.hover.runner.models.RawStepsModel;
 import com.hover.runner.models.StreamlinedStepsModel;
 
@@ -202,39 +205,35 @@ public class Utils {
 
     public static String formatDate(long timestamp) {
         String pattern = "HH:mm:ss (z) MMM dd, yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return simpleDateFormat.format(timestamp);
     }
 
     public static String formatDateV2(@Nullable long timestamp) {
 
         String pattern = "MMM dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return simpleDateFormat.format(timestamp);
     }
 
     public static String formatDateV3(long timestamp) {
         String pattern = "MMM dd, yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return simpleDateFormat.format(timestamp);
     }
 
-    public static boolean isActionHasCompletedVariables(final String actionId, final Context c) {
-        Log.d("LOGGER", "Next action id is : "+actionId);
-        Map<String, String> actionExtra = Utils.getInitialVariableData(c,  actionId).second;
-        assert  actionExtra !=null;
-        boolean hasValidVariables = true;
-        for(String key : actionExtra.values()) {
-            if(key == null || key.replace(" ","").isEmpty()) {
-                hasValidVariables = false;
-                break;
-            }
-            else {
-                Log.d("LOGGER", "key here is : "+key);
-            }
 
+
+    public static boolean isActionHasCompletedVariables(final ActionsModel runnableModel, final Context c) {
+        JSONArray jsonArray = new JSONArray();
+        try {
+            jsonArray = new JSONArray(runnableModel.getJsonArrayToString());
         }
-        return hasValidVariables;
+        catch (Exception ignored) { }
+
+        int variableSize = Utils.getStreamlinedStepsStepsFromRaw(runnableModel.getRootCode(), jsonArray).getStepVariableLabel().size();
+        ActionRunStatus status = Utils.actionHasAllVariablesFilled(c, runnableModel.getActionId(), variableSize);
+        return status == ActionRunStatus.GOOD;
     }
 
 
