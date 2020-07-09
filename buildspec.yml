@@ -7,6 +7,8 @@ phases:
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
+      - sed -i "s/BUILD_PLACEHOLDER_SUFFIX/$SUFFIX/g" app_main/build.gradle
+      - sed -i "s/BUILD_PLACEHOLDER_SUFFIX/$SUFFIX/g" app_main/google-services.json
   build:
     commands:
       - echo Build started on `date`
