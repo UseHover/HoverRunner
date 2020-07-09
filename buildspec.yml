@@ -3,10 +3,12 @@ version: 0.1
 phases:
   install:
     commands:
-      - echo Nothing to do in the install phase...
+      - echo Nothing to do in the install phase.
   pre_build:
     commands:
-      - echo Nothing to do in the pre_build phase...
+      - echo Transforming files for automated build...
+      - sed -i "s/normalInternalDebugImplementation.*$//g" app_main/build.gradle
+      - sed -i "s/, ':hover\.sdk'//g" settings.gradle
       - sed -i "s/BUILD_PLACEHOLDER_SUFFIX/$SUFFIX/g" app_main/build.gradle
       - sed -i "s/BUILD_PLACEHOLDER_SUFFIX/$SUFFIX/g" app_main/google-services.json
   build:
