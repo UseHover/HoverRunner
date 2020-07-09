@@ -6,7 +6,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "com.usehover.testerv2"
+        applicationId "com.hover.runner"
         minSdkVersion 18
         targetSdkVersion 29
         versionCode 5
@@ -46,19 +46,20 @@ android {
 
         dashboard {
             dimension "use"
-            applicationIdSuffix ".internal"
+            applicationIdSuffix ".BUILD_PLACEHOLDER_SUFFIX"
         }
         internal {
             dimension "use"
-            applicationIdSuffix ".internal"
+            applicationIdSuffix ".BUILD_PLACEHOLDER_SUFFIX"
         }
     }
 }
 
 configurations {
+    normalInternalReleaseImplementation {}
     normalDashboardImplementation {}
-    noSMSDashboardImplementation {}
-    proDashboardImplementation {}
+    normalInternalDebugImplementation {}
+    dashboardReleaseImplementation {}
 }
 
 dependencies {
@@ -86,12 +87,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     def sdk_version = "1.6.2"
+    normalInternalReleaseImplementation "com.hover:android-sdk:$sdk_version"
     normalDashboardImplementation "com.hover:android-sdk:$sdk_version"
-    noSMSDashboardImplementation "com.hover:android-sdk:$sdk_version-noSMS"
-    proDashboardImplementation "com.hover:android-sdk:$sdk_version-pro"
-    internalImplementation project(":hover.sdk")
-    internalImplementation 'com.android.volley:volley:1.1.1'
-    internalImplementation "androidx.work:work-runtime:2.2.0"
-    internalImplementation 'com.google.android.gms:play-services-analytics:17.0.0'
-    internalImplementation 'io.sentry:sentry-android:1.7.21'
+    noSMSImplementation "com.hover:android-sdk:$sdk_version-noSMS"
+    proImplementation "com.hover:android-sdk:$sdk_version-pro"
+    normalInternalDebugImplementation project(":hover.sdk")
+    normalInternalDebugImplementation 'com.android.volley:volley:1.1.1'
+    normalInternalDebugImplementation "androidx.work:work-runtime:2.2.0"
+    normalInternalDebugImplementation 'com.google.android.gms:play-services-analytics:17.0.0'
+    normalInternalDebugImplementation 'io.sentry:sentry-android:1.7.21'
 }
