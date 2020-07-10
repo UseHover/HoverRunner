@@ -38,6 +38,6 @@
 		<activity android:name="com.hover.runner.ui.filter_pages.FilterByNetworksActivity" />
 		<activity android:name="com.hover.runner.ui.filter_pages.FilterByCategoriesActivity" />
         <activity android:name="com.hover.runner.ui.filter_pages.FilterByActionsActivity" />
-        <activity android:name=".ui.login.LoginActivity2" />
+        <activity android:name="com.hover.runner.ui.login.LoginActivity2" />
     </application>
 </manifest>
