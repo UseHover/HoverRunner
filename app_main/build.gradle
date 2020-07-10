@@ -6,7 +6,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "com.hover.runners"
+        applicationId "com.hover.runnerBUILD_PLACEHOLDER_SUFFIX"
         minSdkVersion 18
         targetSdkVersion 29
         versionCode 5
@@ -48,11 +48,11 @@ android {
 
         dashboard {
             dimension "use"
-            applicationIdSuffix "BUILD_PLACEHOLDER_SUFFIX"
+//            applicationIdSuffix "BUILD_PLACEHOLDER_SUFFIX"
         }
         internal {
             dimension "use"
-            applicationIdSuffix "internal"
+//            applicationIdSuffix "internal"
         }
     }
 }
