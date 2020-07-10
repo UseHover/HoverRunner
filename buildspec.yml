@@ -21,4 +21,4 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - app_main/build/outputs/apk/normalDashboard/release/app_main-normal-dashboard-release.apk
+    - app_main/build/outputs/apk/normalDashboard/release/hover-runner-normal-dashboard-release.apk
