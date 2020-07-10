@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:945219848853:android:ef4d36d9c84791ce28699c",
         "android_client_info": {
-          "package_name": "com.hover.runner"
+          "package_name": "com.hover.runner.BUILD_PLACEHOLDER_SUFFIX"
         }
       },
       "oauth_client": [
