@@ -48,11 +48,11 @@ android {
 
         dashboard {
             dimension "use"
-            applicationIdSuffix ".BUILD_PLACEHOLDER_SUFFIX"
+//            applicationIdSuffix ".BUILD_PLACEHOLDER_SUFFIX"
         }
         internal {
             dimension "use"
-            applicationIdSuffix ".internal"
+//            applicationIdSuffix ".internal"
         }
     }
 }
