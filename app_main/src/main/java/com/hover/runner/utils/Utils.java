@@ -45,7 +45,7 @@ public class Utils {
     private final static String HOVER_TRANSAC_FAILED = "failed";
     public final static String HOVER_TRANSAC_PENDING = "pending";
     public final static String HOVER_TRANSAC_SUCCEEDED = "succeeded";
-    private static final String SHARED_PREFS = "_testerV2";
+    private static final String SHARED_PREFS = "_runner";
     public final static String TESTER_ENV = "testerEnv";
     private final static String API_KEY_LABEL = "apiKey";
 

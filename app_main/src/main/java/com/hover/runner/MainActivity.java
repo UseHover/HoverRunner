@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hover.runner.R;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.permissions.PermissionActivity;
 import com.hover.runner.api.Apis;

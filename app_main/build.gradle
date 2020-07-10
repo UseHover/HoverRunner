@@ -10,7 +10,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 29
         versionCode 5
-        versionName "1.15"
+        versionName "1.0.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,7 +50,7 @@ android {
         }
         internal {
             dimension "use"
-            applicationIdSuffix ".BUILD_PLACEHOLDER_SUFFIX"
+            applicationIdSuffix ".internal"
         }
     }
 }
