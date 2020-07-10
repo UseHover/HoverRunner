@@ -10,6 +10,7 @@ phases:
       - sed -i "s/normalInternalDebugImplementation.*$//g" app_main/build.gradle
       - sed -i "s/, ':hover\.sdk'//g" settings.gradle
       - sed -i "s/BUILD_PLACEHOLDER_SUFFIX/$SUFFIX/g" app_main/build.gradle
+      - sed -i "s/BUILD_PLACEHOLDER_SUFFIX/$SUFFIX/g" app_main/src/main/AndroidManifest.xml
       - sed -i "s/BUILD_PLACEHOLDER_SUFFIX/$SUFFIX/g" app_main/google-services.json
   build:
     commands:
