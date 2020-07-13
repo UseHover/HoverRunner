@@ -23,3 +23,4 @@ phases:
 artifacts:
   files:
     - app_main/build/outputs/apk/normalDashboard/release/hover-runner-normal-dashboard-release.apk
+    - app_main/build/outputs/apk/normalDashboard/debug/hover-runner-normal-dashboard-debug.apk
