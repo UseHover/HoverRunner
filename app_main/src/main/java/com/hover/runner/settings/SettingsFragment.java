@@ -35,24 +35,11 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 	private boolean refreshButtonIdle = false;
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 		View root = inflater.inflate(R.layout.settings_fragment, container, false);
+
+		initEnvRadio(root);
+		loadSims(root);
 		colorHelpText(root.findViewById(R.id.contact_support));
-
-		radioGroup = root.findViewById(R.id.envRadioGroup);
-		radioGroup.setOnCheckedChangeListener((group, checkedId) -> SettingsHelper.chooseEnv(checkedId));
-		settingsViewModel.loadCurrentModeObs().observe(getViewLifecycleOwner(), mode -> {
-			if (mode == Apis.PROD_ENV) radioGroup.check(R.id.mode_normal);
-			else if(mode == Apis.DEBUG_ENV) radioGroup.check(R.id.mode_debug);
-			else radioGroup.check(R.id.mode_noSim);
-		});
-
-		settingsViewModel.loadSimsObs().observe(getViewLifecycleOwner(), simData-> {
-			String emptySim = getResources().getString(R.string.no_sim_found);
-			((TextView) root.findViewById(R.id.sim1_content)).setText(simData.getSim1Name() !=null ? simData.getSim1Name() : emptySim);
-			((TextView) root.findViewById(R.id.sim2_content)).setText(simData.getSim2Name() !=null ? simData.getSim2Name() : emptySim);
-		});
-
 		root.findViewById(R.id.refreshButton).setOnClickListener(v -> confirmRefresh());
 
 		((TextView) root.findViewById(R.id.email)).setText(SettingsHelper.getEmail(getActivity()));
@@ -60,9 +47,25 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 		((TextView) root.findViewById(R.id.apiKey)).setText(SettingsHelper.getApiKey(getActivity()));
 		root.findViewById(R.id.signOutButton).setOnClickListener(v -> confirmSignOut());
 
-		settingsViewModel.getSims();
-
 		return root;
+	}
+
+	private void loadSims(View root) {
+		settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+		settingsViewModel.loadSimsObs().observe(getViewLifecycleOwner(), simData-> {
+			String emptySim = getResources().getString(R.string.no_sim_found);
+			((TextView) root.findViewById(R.id.sim1_content)).setText(simData.getSim1Name() !=null ? simData.getSim1Name() : emptySim);
+			((TextView) root.findViewById(R.id.sim2_content)).setText(simData.getSim2Name() !=null ? simData.getSim2Name() : emptySim);
+		});
+		settingsViewModel.getSims();
+	}
+
+	private void initEnvRadio(View root) {
+		radioGroup = root.findViewById(R.id.envRadioGroup);
+		if (SettingsHelper.getCurrentEnv() == Apis.PROD_ENV) radioGroup.check(R.id.mode_normal);
+		else if(SettingsHelper.getCurrentEnv() == Apis.DEBUG_ENV) radioGroup.check(R.id.mode_debug);
+		else radioGroup.check(R.id.mode_noSim);
+		radioGroup.setOnCheckedChangeListener((group, checkedId) -> SettingsHelper.chooseEnv(checkedId));
 	}
 
 	private void colorHelpText(TextView contactSupport) {
