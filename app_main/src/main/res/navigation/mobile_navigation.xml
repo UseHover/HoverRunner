@@ -19,7 +19,7 @@
 
 	<fragment
 	    android:id="@+id/navigation_settings"
-	    android:name="com.hover.runner.ui.settings.SettingsFragment"
+	    android:name="com.hover.runner.settings.SettingsFragment"
 	    android:label="@string/title_settings"
-	    tools:layout="@layout/fragment_settings" />
+	    tools:layout="@layout/settings_fragment" />
 </navigation>

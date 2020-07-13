@@ -172,7 +172,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
 
             HoverParameters.Builder builder = new HoverParameters.Builder(getActivity());
             builder.request(ActionDetailsActivity.actionId);
-            builder.setEnvironment(Apis.getTestEnvMode());
+            builder.setEnvironment(Apis.getCurrentEnv());
             builder.style(R.style.myHoverTheme);
 
             assert  actionExtra !=null;
@@ -190,11 +190,11 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                     Intent i = builder.buildIntent();
                     startActivityForResult(i, TEST_SINGLE);
                 }catch (Exception e){
-                    UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.one_or_more_empty_variable));
+                    UIHelper.flashMessage(getContext(), getResources().getString(R.string.one_or_more_empty_variable));
                 }
             }
             else {
-                UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.one_or_more_empty_variable));
+                UIHelper.flashMessage(getContext(), getResources().getString(R.string.one_or_more_empty_variable));
             }
         });
 

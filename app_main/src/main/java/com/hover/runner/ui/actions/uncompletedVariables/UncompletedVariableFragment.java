@@ -17,14 +17,12 @@ import com.hover.runner.R;
 import com.hover.runner.adapters.VariableRecyclerAdapter;
 import com.hover.runner.interfaces.VariableEditinterface;
 import com.hover.runner.models.ActionsModel;
-import com.hover.runner.ui.action_details.ActionDetailsActivity;
 import com.hover.runner.utils.UIHelper;
 import com.hover.runner.utils.Utils;
 
 import org.json.JSONArray;
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -66,7 +64,7 @@ public class UncompletedVariableFragment extends Fragment implements  VariableEd
                 }
             }
             else {
-                UIHelper.showHoverToastV2(getContext(), getContext().getResources().getString(R.string.uncompleted_variable_unfilled));
+                UIHelper.flashMessage(getContext(), getContext().getResources().getString(R.string.uncompleted_variable_unfilled));
             }
         });
 
@@ -112,7 +110,7 @@ public class UncompletedVariableFragment extends Fragment implements  VariableEd
             );
             variablesRecyclerView.setAdapter(variableRecyclerAdapter);
         }catch (Exception e) {
-            UIHelper.showHoverToast(getContext(), getActivity().getCurrentFocus(), getResources().getString(R.string.bad_steps_config));
+            UIHelper.flashMessage(getContext(), getActivity().getCurrentFocus(), getResources().getString(R.string.bad_steps_config));
         }
 
     }

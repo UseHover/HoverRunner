@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,10 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hover.runner.ApplicationInstance;
-import com.hover.runner.MainActivity;
 import com.hover.runner.R;
 import com.hover.runner.enums.PassageEnum;
 import com.hover.runner.ui.webview.WebViewActivity;
+import com.hover.runner.settings.SettingsHelper;
 import com.hover.runner.utils.network.NetworkUtil;
 import com.hover.runner.utils.UIHelper;
 
@@ -112,6 +111,7 @@ public class LoginActivity2 extends AppCompatActivity {
 
         if(new NetworkUtil(this).isNetworkAvailable() == PassageEnum.ACCEPT) {
             new Handler().postDelayed(() -> {
+                SettingsHelper.saveEmail(emailEdit.getText().toString(), this);
                 Intent returnIntent = new Intent();
                 String[] result = new String[] {emailEdit.getText().toString(), passwordEdit.getText().toString()};
                 returnIntent.putExtra("login_data",result);
@@ -120,7 +120,7 @@ public class LoginActivity2 extends AppCompatActivity {
             }, 500);
 
         }
-        else UIHelper.showHoverToast(this, getCurrentFocus(), ApplicationInstance.getContext().getString(R.string.NO_NETWORK));
+        else UIHelper.flashMessage(this, getCurrentFocus(), ApplicationInstance.getContext().getString(R.string.NO_NETWORK));
     }
     private void setErrorView(EditText editText, TextView errorText, TextView label) {
         editText.setActivated(true);

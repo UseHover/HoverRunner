@@ -7,6 +7,7 @@ phases:
   pre_build:
     commands:
       - echo Transforming files for automated build...
+      - sed -i "s/www/stage/g" app_main/src/normalDashboardDebug/res/values/strings.xml
       - sed -i "s/normalInternalDebugImplementation.*$//g" app_main/build.gradle
       - sed -i "s/, ':hover\.sdk'//g" settings.gradle
       - sed -i "s/BUILD_PLACEHOLDER_SUFFIX/$SUFFIX/g" app_main/build.gradle

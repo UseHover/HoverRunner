@@ -93,7 +93,7 @@ public class ActionFilterFragment extends Fragment {
             }
             else if(result.getActionEnum() == StatusEnums.EMPTY) {
                 filterDataFullModel = null;
-                UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.no_actions_yet));
+                UIHelper.flashMessage(getContext(), getResources().getString(R.string.no_actions_yet));
                 if(getActivity()!=null)getActivity().finish();
             }
         });
@@ -166,7 +166,7 @@ public class ActionFilterFragment extends Fragment {
                 ActionState.setResultFilter_Actions_LOAD(new ArrayList<>());
                 deactivateReset();
 
-                UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.reset_successful));
+                UIHelper.flashMessage(getContext(), getResources().getString(R.string.reset_successful));
                 new Handler().postDelayed(this::deactivateReset, 800);
             }
         });

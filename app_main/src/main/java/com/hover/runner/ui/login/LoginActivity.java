@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         switch (loginModel.getStatus()) {
                             case ERROR:
-                                UIHelper.showHoverToast(LoginActivity.this, getCurrentFocus(), loginModel.getMessage());
+                                UIHelper.flashMessage(LoginActivity.this, getCurrentFocus(), loginModel.getMessage());
                                 moveToLoginActivity2();
                                 break;
                             case SUCCESS:
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                     else {
-                        UIHelper.showHoverToast(LoginActivity.this, getCurrentFocus(), getResources().getString(R.string.somethingWentWrong));
+                        UIHelper.flashMessage(LoginActivity.this, getCurrentFocus(), getResources().getString(R.string.somethingWentWrong));
                         moveToLoginActivity2();
                     }
                 }, 500);

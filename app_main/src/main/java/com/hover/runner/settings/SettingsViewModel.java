@@ -1,4 +1,4 @@
-package com.hover.runner.ui.settings;
+package com.hover.runner.settings;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.hover.runner.R;
 import com.hover.runner.api.Apis;
 import com.hover.runner.models.LoadSimModel;
+import com.hover.runner.settings.SettingsHelper;
 
 public class SettingsViewModel extends ViewModel {
 
@@ -17,7 +18,7 @@ public class SettingsViewModel extends ViewModel {
 		modeType = new MutableLiveData<>();
 		loadSimModel = new MutableLiveData<>();
 
-		modeType.setValue(new Apis().getCurrentTestMode());
+		modeType.setValue(SettingsHelper.getCurrentEnv());
 		loadSimModel.setValue(new LoadSimModel("Loading...", "Loading..."));
 
 	}
@@ -27,15 +28,4 @@ public class SettingsViewModel extends ViewModel {
 	void getSims() {
 		loadSimModel.postValue(new Apis().getSimsOnDevice());
 	}
-	void updateMode(int pos) {
-		switch (pos) {
-			case R.id.mode_normal: new Apis().updateTestMode(Apis.PROD_ENV);
-				break;
-			case R.id.mode_debug: new Apis().updateTestMode(Apis.DEBUG_ENV);
-				break;
-			case R.id.mode_noSim: new Apis().updateTestMode(Apis.TEST_ENV);
-				break;
-		}
-	}
-
 }

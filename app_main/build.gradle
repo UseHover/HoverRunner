@@ -49,7 +49,7 @@ android {
 
         dashboard {
             dimension "use"
-//            applicationIdSuffix "BUILD_PLACEHOLDER_SUFFIX"
+//            applicationIdSuffix "BUILD_PLACEHOLDER_SUFFIX" adds a dot automatically. Google services doesn't like dots
         }
         internal {
             dimension "use"

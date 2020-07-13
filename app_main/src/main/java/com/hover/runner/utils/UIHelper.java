@@ -110,11 +110,11 @@ public class UIHelper {
 
 
 
-	public static void showHoverToast(Context context, @Nullable View view, String message) {
-		if(view == null) showHoverToastV2(context, message);
+	public static void flashMessage(Context context, @Nullable View view, String message) {
+		if (view == null) flashMessage(context, message);
 		else Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
 	}
-	public static void showHoverToastV2(Context context, String message) {
+	public static void flashMessage(Context context, String message) {
 		if(context == null) context = ApplicationInstance.getContext();
 		Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 	}

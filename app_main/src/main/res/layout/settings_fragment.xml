@@ -7,7 +7,7 @@
 		android:background="@color/colorPrimaryDark"
 		android:padding="@dimen/activity_vertical_margin"
 		android:orientation="vertical"
-		tools:context=".ui.settings.SettingsFragment">
+		tools:context=".settings.SettingsFragment">
 
 	<LinearLayout
 			android:layout_width="match_parent"
@@ -39,7 +39,7 @@
 		<RadioGroup
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:id="@+id/myRadioGroup"
+				android:id="@+id/envRadioGroup"
 				>
 
 			<androidx.appcompat.widget.AppCompatRadioButton
@@ -207,9 +207,36 @@
 				android:layout_marginTop="32dp"
 				android:textSize="@dimen/text_16"
 				android:textStyle="bold"
-				android:text="@string/signout"
+				android:text="@string/profile"
 				android:textColor="@color/colorHoverWhite"
 				android:layout_marginBottom="@dimen/activity_vertical_margin"
+				/>
+
+		<TextView android:id="@+id/email"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/text_14"
+				android:text="@string/email_hint"
+				android:textColor="@color/colorSecondaryGrey"
+				/>
+
+		<TextView android:id="@+id/packageName"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="16dp"
+				android:textSize="@dimen/text_14"
+				android:text="@string/package_hint"
+				android:textColor="@color/colorSecondaryGrey"
+				/>
+
+		<TextView android:id="@+id/apiKey"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="16dp"
+				android:textSize="@dimen/text_14"
+				android:text="@string/api_key_hint"
+				android:textColor="@color/colorSecondaryGrey"
+				android:layout_marginBottom="32dp"
 				/>
 
 		<Button

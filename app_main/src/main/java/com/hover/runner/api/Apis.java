@@ -6,6 +6,7 @@ import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.states.ActionState;
 import com.hover.runner.states.TransactionState;
+import com.hover.runner.settings.SettingsHelper;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.sims.SimInfo;
 import com.hover.runner.database.ConvertRawDatabaseDataToModels;
@@ -426,13 +427,12 @@ public class Apis {
 
 		return new LoadSimModel(sim1, sim2);
 	}
-	public int getCurrentTestMode() { return Utils.getIntFromSharedPref(ApplicationInstance.getContext(), Utils.TESTER_ENV); }
-	public void updateTestMode(int mode) { Utils.saveInt(Utils.TESTER_ENV, mode, ApplicationInstance.getContext()); }
-	public static int getTestEnvMode() { return  Utils.getIntFromSharedPref(ApplicationInstance.getContext(), Utils.TESTER_ENV);}
+	public static int getCurrentEnv() { return Utils.getSavedInt(SettingsHelper.ENV, ApplicationInstance.getContext()); }
+	public static void setEnv(int mode) { Utils.saveInt(SettingsHelper.ENV, mode, ApplicationInstance.getContext()); }
 
 
 	public PassageEnum allowIntoMainActivity() {
-		return Utils.getAppApiKey(ApplicationInstance.getContext()).isEmpty()? PassageEnum.REJECT : PassageEnum.ACCEPT;
+		return SettingsHelper.getApiKey(ApplicationInstance.getContext()).isEmpty()? PassageEnum.REJECT : PassageEnum.ACCEPT;
 	}
 
 

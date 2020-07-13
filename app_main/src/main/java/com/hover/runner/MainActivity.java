@@ -5,15 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.hover.runner.R;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.permissions.PermissionActivity;
 import com.hover.runner.api.Apis;
 import com.hover.runner.enums.PassageEnum;
 import com.hover.runner.ui.login.LoginActivity;
-import com.hover.runner.utils.PermissionHelper;
+import com.hover.runner.settings.SettingsHelper;
 import com.hover.runner.utils.UIHelper;
-import com.hover.runner.utils.Utils;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
 			}
 		}
 		//Test keys
-		Hover.initialize(this, Utils.getAppApiKey(this));
+		Hover.initialize(this, SettingsHelper.getApiKey(this));
 		Hover.setBranding("Runner by Hover", R.drawable.ic_runner_logo, this);
-		if(!new PermissionHelper(this, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE}).hasPermissions()) {
+		if(!SettingsHelper.hasPermissions(this, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE})) {
 			startActivityForResult(new Intent(this, PermissionActivity.class), PERMISSION_REQ_CODE);
 		}
 
@@ -65,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		if(requestCode == PERMISSION_REQ_CODE) {
 			if(resultCode != RESULT_OK) {
-				UIHelper.showHoverToast(this, getCurrentFocus(), permission_acceptance_incomplete);
+				UIHelper.flashMessage(this, getCurrentFocus(), permission_acceptance_incomplete);
 			}
 		}
 	}

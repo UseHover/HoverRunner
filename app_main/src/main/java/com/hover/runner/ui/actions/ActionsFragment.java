@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -19,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverParameters;
@@ -123,7 +120,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
                 } else {
                     if (withCompletedVariableActionList.size() > 0) runAction(true);
                     else
-                        UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.noRunnableAction));
+                        UIHelper.flashMessage(getContext(), getResources().getString(R.string.noRunnableAction));
                 }
             }
 
@@ -137,7 +134,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
             }
             else {
                 pullToRefresh.setRefreshing(false);
-                UIHelper.showHoverToast(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null,
+                UIHelper.flashMessage(getContext(), getActivity()!=null ? getActivity().getCurrentFocus() : null,
                         ApplicationInstance.getContext().getString(R.string.NO_NETWORK));
             }
 
@@ -152,7 +149,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
 
         HoverParameters.Builder builder = new HoverParameters.Builder(getActivity());
         builder.request(action.getActionId());
-        builder.setEnvironment(Apis.getTestEnvMode());
+        builder.setEnvironment(Apis.getCurrentEnv());
         builder.style(R.style.myHoverTheme);
 //        builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
 //        builder.finalMsgDisplayTime(0);
@@ -266,13 +263,13 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     @Override
     public void onError(String message) {
         pullToRefresh.setRefreshing(false);
-        UIHelper.showHoverToastV2(getContext(), message);
+        UIHelper.flashMessage(getContext(), message);
     }
 
     @Override
     public void onSuccess(ArrayList<HoverAction> actions) {
         pullToRefresh.setRefreshing(false);
         actionsViewModel.getAllActions();
-        UIHelper.showHoverToastV2(getContext(), getResources().getString(R.string.refreshed_successfully));
+        UIHelper.flashMessage(getContext(), getResources().getString(R.string.refreshed_successfully));
     }
 }

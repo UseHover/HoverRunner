@@ -33,12 +33,17 @@
 	<string name="custom_font_err_msg">At least one default font must be set</string>
 	<string name="email_string">Email</string>
 	<string name="email_hint">e.g. email@ilovehover.com</string>
+	<string name="package_hint">e.g. com.hover.internal</string>
+	<string name="api_key_hint">e.g. 1234567890ABCDEFGHIJKLMNOPQSTUVXYZ</string>
 	<string name="password">Password</string>
 	<string name="password_hint">Enter your password</string>
 	<string name="signIn">Sign in</string>
 	<string name="forgot_password">Forgot password</string>
 	<string name="loadingText">Loading…</string>
 	<string name="loggin_in_text">Logging in, please wait…</string>
+	<string name="package_name_err">Unable to get package name, please check app settings.</string>
+	<string name="sign_in_err">Unable to sign in, please check your email and password.</string>
+	<string name="sign_in_success">Signed in successfully</string>
 	<string name="one_or_more_empty_variable">This action has one or more empty variables. Please check.</string>
 	<string name="filter_text">Filter</string>
 	<string name="testAllActions">Test all actions</string>
@@ -55,6 +60,7 @@
 	<string name="sim_tooltip">Don’t see the correct SIM? Try removing it and re-inserting it. If that doesn\’t work, contact support.</string>
 	<string name="contact_support">Contact support</string>
 	<string name="refresh">Refresh</string>
+	<string name="profile">Profile</string>
 	<string name="signout">Sign out</string>
 	<string name="sim1">SIM 1</string>
 	<string name="sim2">SIM 2</string>
@@ -145,17 +151,14 @@
 	<string name="no_transactions_filter_result">0 Transactions</string>
 	<string name="next_label">Next</string>
 
-	<string name="auth_for_token_stage">https://stage.usehover.com/api/authenticate</string>
-	<string name="auth_for_token_live">https://www.usehover.com/api/authenticate</string>
-
-	<string name="auth_for_key_stage">https://stage.usehover.com/api/get_token</string>
-	<string name="auth_for_key_live">https://www.usehover.com/api/get_token</string>
+	<string name="api_url">https://www.usehover.com/api/</string>
+	<string name="hsdk_base_url" translatable="false">https://www.usehover.com/sdk/</string>
+	<string name="auth_endpoint">authenticate</string>
+	<string name="token_endpoint">get_token</string>
 
 	<string name="INVALID_EMAIL">Invalid email format, please enter correct email and try again</string>
 	<string name="INVALID_PASSWORD">Invalid password format. Ensure password has a minimum of 5 letters with no space</string>
 	<string name="NO_NETWORK">Internet connection not found</string>
 	<string name="transaction_coming_up">Transaction coming right up…</string>
 	<string name="uncompleted_variable_unfilled">Please fill in empty variable</string>
-
-
 </resources>

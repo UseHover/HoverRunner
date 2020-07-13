@@ -1,8 +1,10 @@
 package com.hover.runner.api;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hover.runner.BuildConfig;
+import com.hover.runner.R;
 
 
 import okhttp3.OkHttpClient;
@@ -11,45 +13,35 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitCalls {
-    private final static String auth_for_token_stage = "https://stage.usehover.com/api/";
-    private final static String auth_for_token_live = "https://www.usehover.com/api/";
-
-    private final static String auth_for_key_stage = "https://stage.usehover.com/api/";
-    private final static String auth_for_key_live = "https://www.usehover.com/api/";
-
     private Gson gson ;
 
     public RetrofitCalls() {
         this.gson = new GsonBuilder().setLenient().create();
     }
 
-    public Retrofit getRetrofitToken() {
+    public Retrofit getRetrofitToken(Context c) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-              // .baseUrl(BuildConfig.BUILD_TYPE == "debug" ? auth_for_token_stage : auth_for_token_live)
-                .baseUrl(auth_for_token_stage)
+                .baseUrl(c.getString(R.string.api_url))
                 .build();
     }
 
-    public Retrofit getRetrofitApi(String token) {
+    public Retrofit getRetrofitApi(String token, Context c) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(chain -> {
             Request original = chain.request();
-
-            // Request customization: add request headers
             Request.Builder requestBuilder = original.newBuilder()
                     .header("Content-Type", "application/json")
                     .header("Authorization", token);
             Request request = requestBuilder.build();
-
             return chain.proceed(request);
         });
+
         OkHttpClient client = httpClient.build();
         return new Retrofit.Builder()
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-               // .baseUrl(BuildConfig.BUILD_TYPE == "debug" ?  auth_for_key_stage: auth_for_key_live)
-                .baseUrl(auth_for_key_stage)
+                .baseUrl(c.getString(R.string.api_url))
                 .build();
     }
 

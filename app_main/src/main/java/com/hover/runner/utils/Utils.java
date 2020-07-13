@@ -12,12 +12,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
-import com.hover.runner.ApplicationInstance;
 import com.hover.runner.BuildConfig;
 import com.hover.runner.R;
 import com.hover.runner.enums.ActionRunStatus;
@@ -26,6 +23,7 @@ import com.hover.runner.models.ActionVariablesDBModel;
 import com.hover.runner.models.ActionsModel;
 import com.hover.runner.models.RawStepsModel;
 import com.hover.runner.models.StreamlinedStepsModel;
+import com.hover.runner.settings.SettingsHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,14 +44,12 @@ public class Utils {
     public final static String HOVER_TRANSAC_PENDING = "pending";
     public final static String HOVER_TRANSAC_SUCCEEDED = "succeeded";
     private static final String SHARED_PREFS = "_runner";
-    public final static String TESTER_ENV = "testerEnv";
-    private final static String API_KEY_LABEL = "apiKey";
 
-    private static SharedPreferences getSharedPrefs(Context context) {
-        return context.getSharedPreferences(getPackage(context) + SHARED_PREFS, Context.MODE_PRIVATE);
+    public static SharedPreferences getSharedPrefs(Context context) {
+        return context.getSharedPreferences(SettingsHelper.getPackage(context) + SHARED_PREFS, Context.MODE_PRIVATE);
     }
 
-    private static void saveString(String key, String value, Context c) {
+    public static void saveString(String key, String value, Context c) {
         SharedPreferences.Editor editor = Utils.getSharedPrefs(c).edit();
         editor.putString(key, value);
         editor.apply();
@@ -64,34 +60,14 @@ public class Utils {
         editor.apply();
     }
 
-    private static String getStringFromSharedPref(Context c, String key) {
+    public static String getSavedString(String key, Context c) {
         return getSharedPrefs(c).getString(key, "");
     }
 
-    public static int getIntFromSharedPref(Context c, String key) {
+    public static int getSavedInt(String key, Context c) {
         return getSharedPrefs(c).getInt(key, 0);
     }
 
-    private static String getPackage(Context c) {
-        try {
-            return c.getApplicationContext().getPackageName();
-        } catch (NullPointerException e) {
-            return "fail";
-        }
-    }
-
-    public static void saveApiKey(String value) {
-        saveString(API_KEY_LABEL, value, ApplicationInstance.getContext());
-    }
-    public static String getAppApiKey(Context c) {
-        return getStringFromSharedPref(c, API_KEY_LABEL);
-    }
-    public static void clearData() {
-        getSharedPrefs(ApplicationInstance.getContext()).edit().clear().apply();
-    }
-    public static void clearAPIKey() {
-        saveString(API_KEY_LABEL, "", ApplicationInstance.getContext());
-    }
     public static StreamlinedStepsModel getStreamlinedStepsStepsFromRaw(@NonNull String rootCode, @NonNull  JSONArray jsonArray) {
         Gson gson = new Gson();
         RawStepsModel[] rawStepsModel = gson.fromJson(String.valueOf(jsonArray), RawStepsModel[].class);
@@ -142,7 +118,7 @@ public class Utils {
     }
 
     public static void saveActionVariable(Context c,  String label, String value, String actionId) {
-        ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, actionId));
+        ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getSavedString(actionId, c));
         Map<String, String> mapper;
         if(dbModel == null) mapper = new HashMap<>();
         else {
@@ -154,7 +130,7 @@ public class Utils {
         Utils.saveString(actionId, new ActionVariablesDBModel(mapper, false).serialize(), c);
     }
     public static void saveSkippedVariable(Context c, String actionId) {
-        ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, actionId));
+        ActionVariablesDBModel dbModel = ActionVariablesDBModel.create(Utils.getSavedString(actionId, c));
         Map<String, String> mapper;
         if(dbModel == null) mapper = new HashMap<>();
         else {
@@ -167,7 +143,7 @@ public class Utils {
     }
 
     public static Pair<Boolean, Map<String, String>> getInitialVariableData(Context c, String actionId) {
-        ActionVariablesDBModel model = ActionVariablesDBModel.create(Utils.getStringFromSharedPref(c, actionId));
+        ActionVariablesDBModel model = ActionVariablesDBModel.create(Utils.getSavedString(actionId, c));
         if(model == null) return new Pair<>(false,  new HashMap<>());
         return new Pair<>(model.isSkipped(), model.getVarMap());
     }
@@ -272,7 +248,7 @@ public class Utils {
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public static String getDeviceId(Context c) {
         try {
-            if (new PermissionHelper(c, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE}).hasPermissions()) {
+            if (SettingsHelper.hasPermissions(c, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE})) {
                 String id = null;
                 if (Build.VERSION.SDK_INT < 29) {
                     try {

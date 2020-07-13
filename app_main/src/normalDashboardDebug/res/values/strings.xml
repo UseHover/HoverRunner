@@ -1,0 +1,4 @@
+<resources>
+    <string name="hsdk_base_url" translatable="false">https://www.usehover.com/sdk/</string>
+    <string name="api_url" translatable="false">https://www.usehover.com/api/</string>
+</resources>
