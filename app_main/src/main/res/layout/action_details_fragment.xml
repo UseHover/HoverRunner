@@ -372,4 +372,8 @@
             android:textColor="@color/runActionTextColor"
             android:id="@+id/testSingle_id"
             android:text="@string/test_single_action"/>
+
+    <include layout="@layout/global_nav"/>
+
+
 </LinearLayout>

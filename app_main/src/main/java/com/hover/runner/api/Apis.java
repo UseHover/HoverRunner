@@ -44,6 +44,7 @@ public class Apis {
 	public static final String TRANS_ID = "trans_id";
 	public static final String TRANS_DATE = "trans_date";
 	public static final String TRANS_STATUS = "trans_status";
+	public static final String GLOBAL_NAV = "globalNav";
 
 
 	public LoginModel doLoginWorkManager(String email, String password) {

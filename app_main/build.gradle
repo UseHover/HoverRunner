@@ -7,7 +7,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "com.hover.runnerBUILD_PLACEHOLDER_SUFFIX"
+        applicationId "com.usehover.testerv2"
         minSdkVersion 18
         targetSdkVersion 29
         versionCode 5
@@ -47,7 +47,7 @@ android {
 //            versionNameSuffix "-pro"
 //        }
 
-        dashboard {
+       dashboard {
             dimension "use"
 //            applicationIdSuffix "BUILD_PLACEHOLDER_SUFFIX" adds a dot automatically. Google services doesn't like dots
         }
@@ -99,4 +99,5 @@ dependencies {
     normalInternalDebugImplementation "androidx.work:work-runtime:2.2.0"
     normalInternalDebugImplementation 'com.google.android.gms:play-services-analytics:17.0.0'
     normalInternalDebugImplementation 'io.sentry:sentry-android:1.7.21'
+
 }

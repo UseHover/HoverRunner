@@ -2,6 +2,7 @@ package com.hover.runner.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -22,12 +23,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.snackbar.Snackbar;
 
 import com.hover.runner.ApplicationInstance;
+import com.hover.runner.MainActivity;
 import com.hover.runner.R;
+import com.hover.runner.api.Apis;
+import com.hover.runner.enums.GlobalNav;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.interfaces.ParserClickListener;
 
 public class UIHelper {
 	private static final int INITIAL_ITEMS_FETCH = 30;
+
+	public static void doGlobalNavigation(GlobalNav nav, Activity activity) {
+		Intent intent = new Intent(activity, MainActivity.class);
+		intent.putExtra(Apis.GLOBAL_NAV, nav);
+		activity.startActivity(intent);
+		activity.finishAffinity();
+	}
 
 	public static LinearLayoutManager setMainLinearManagers(Context context) {
 		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -133,6 +144,8 @@ public class UIHelper {
 			return "fail";
 		}
 	}
+
+
 
 
 
