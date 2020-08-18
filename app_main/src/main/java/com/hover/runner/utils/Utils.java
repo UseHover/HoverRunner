@@ -72,6 +72,8 @@ public class Utils {
         Gson gson = new Gson();
         RawStepsModel[] rawStepsModel = gson.fromJson(String.valueOf(jsonArray), RawStepsModel[].class);
 
+        if(rootCode.contains("null")) rootCode = "STK#";
+
         StringBuilder stepSuffix = new StringBuilder();
         ArrayList<String> stepsVariableLabels = new ArrayList<>();
         ArrayList<String> stepsVariableDesc = new ArrayList<>();
