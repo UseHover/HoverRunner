@@ -54,8 +54,8 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 		settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 		settingsViewModel.loadSimsObs().observe(getViewLifecycleOwner(), simData-> {
 			String emptySim = getResources().getString(R.string.no_sim_found);
-			((TextView) root.findViewById(R.id.sim1_content)).setText(simData.getSim1Name() !=null ? simData.getSim1Name() : emptySim);
-			((TextView) root.findViewById(R.id.sim2_content)).setText(simData.getSim2Name() !=null ? simData.getSim2Name() : emptySim);
+			((TextView) root.findViewById(R.id.sim1_content)).setText(simData.getSim1Name() != null ? simData.getSim1Name() : emptySim);
+			((TextView) root.findViewById(R.id.sim2_content)).setText(simData.getSim2Name() != null ? simData.getSim2Name() : emptySim);
 		});
 		settingsViewModel.getSims();
 	}

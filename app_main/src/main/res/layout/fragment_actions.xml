@@ -9,6 +9,7 @@
 		xmlns:tools="http://schemas.android.com/tools"
 		tools:context=".ui.actions.ActionsFragment"
 		xmlns:android="http://schemas.android.com/apk/res/android">
+
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:id="@+id/pullToRefresh"
 			android:layout_width="match_parent"
@@ -34,10 +35,10 @@
 						android:layout_height="wrap_content"
 						android:textAlignment="textStart"
 						android:textStyle="bold"
-						android:textSize="@dimen/actionTextSize"
+						android:textSize="@dimen/text22"
 						android:textColor="@color/colorHoverWhite"
 						android:text="@string/title_actions"
-						android:paddingHorizontal="@dimen/activity_vertical_margin"
+						android:paddingHorizontal="@dimen/margin16"
 						android:layout_weight="1"
 						/>
 
@@ -45,11 +46,11 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:textColor="@color/colorHoverWhite"
-						android:textSize="@dimen/actionRightSideTextSize"
+						android:textSize="@dimen/margin15"
 						android:textStyle="bold"
 						android:layout_gravity="center"
 						android:gravity="center"
-						android:paddingHorizontal="@dimen/activity_vertical_margin"
+						android:paddingHorizontal="@dimen/margin16"
 						android:paddingVertical="16dp"
 						android:id="@+id/actionFilter_id"
 						android:text="@string/filter_text"/>
@@ -71,7 +72,7 @@
 			android:paddingVertical="10dp"
 			android:textStyle="bold"
 			android:textColor="@color/runActionTextColor"
-			android:textSize="@dimen/text_16"
+			android:textSize="@dimen/text_17"
 			android:id="@+id/testAllActions_id"
 			android:text="@string/testAllActions"/>
 

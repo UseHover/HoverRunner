@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hover.runner.MainActivity;
@@ -50,11 +52,13 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 
 		UIHelper.setTextUnderline(filterText, getResources().getString(R.string.filter_text));
 
-		//CALL THE FILTER FUNCTION
 		filterText.setOnClickListener(v -> {
 			Intent i = new Intent(getActivity(), TransactionFilterActivity.class);
 			startActivityForResult(i, FILTER_RESULT_TRANSACTION);
 		});
+
+
+		root.findViewById(R.id.record_new).setOnClickListener(view ->  NavHostFragment.findNavController(TransactionFragment.this).navigate(R.id.navigation_new));
 
 		setupViews();
 		return root;

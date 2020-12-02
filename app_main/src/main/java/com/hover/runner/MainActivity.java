@@ -1,8 +1,10 @@
 package com.hover.runner;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hover.sdk.api.Hover;
@@ -49,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 		NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 		NavigationUI.setupWithNavController(navView, navController);
 
-		if(getIntent().getExtras() !=null) {
-			if(getIntent().getExtras().getString("navigate") !=null) {
+		if (getIntent().getExtras() !=null) {
+			if(getIntent().getExtras().getString("navigate") != null) {
 				initialActionFilter = getIntent().getExtras().getString("navigate");
 				navController.navigate(R.id.navigation_transactions);
 			}

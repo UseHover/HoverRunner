@@ -12,13 +12,13 @@
             android:layout_height="wrap_content"
             android:checked="false"
             app:buttonTint="@color/colorPrimary"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/margin16"
             android:id="@+id/checkbox_filter_option"
             android:text="@string/sim_checkbox"
             android:textColor="@color/colorHoverWhite"
-            android:textSize="@dimen/text_16"
-            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-            android:paddingHorizontal="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/text_17"
+            android:layout_marginHorizontal="@dimen/margin16"
+            android:paddingHorizontal="@dimen/margin16"
             />
 
     <TextView
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="67dp"
             android:textColor="@color/colorHoverWhite"
-            android:textSize="@dimen/text_16"
+            android:textSize="@dimen/text_17"
             android:layout_marginEnd="16dp"
             android:id="@+id/option_subtitle"
             />

@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:paddingHorizontal="@dimen/activity_horizontal_margin"
+            android:paddingHorizontal="@dimen/margin16"
             >
 
         <LinearLayout
@@ -25,7 +25,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:paddingVertical="@dimen/activity_vertical_margin"
+                    android:paddingVertical="@dimen/margin16"
                     android:orientation="horizontal">
 
                 <TextView
@@ -33,7 +33,7 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
-                        android:textSize="@dimen/actionTextSize"
+                        android:textSize="@dimen/text22"
                         android:textColor="@color/colorHoverWhite"
                         android:text="@string/title_filter_trans"
                         android:layout_weight="1"
@@ -46,11 +46,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorMainGrey"
-                        android:textSize="@dimen/actionRightSideTextSize"
+                        android:textSize="@dimen/margin15"
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:paddingStart="@dimen/activity_vertical_margin"
+                        android:paddingStart="@dimen/margin16"
                         android:paddingEnd="0dp"
                         android:paddingVertical="6dp"
                         android:id="@+id/reset_id"
@@ -73,19 +73,19 @@
                         android:text="@string/search"
                         android:id="@+id/search_label_id"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_16"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:textSize="@dimen/text_17"
+                        android:layout_marginTop="@dimen/margin16"
                         android:textStyle="bold"/>
 
                 <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/editText_box_margin_horiz"
-                        android:paddingStart="@dimen/editText_box_margin_horiz"
-                        android:paddingEnd="@dimen/editText_box_margin_horiz"
-                        android:paddingRight="@dimen/editText_box_margin_horiz"
-                        android:paddingTop="@dimen/editText_box_margin_vert"
-                        android:paddingBottom="@dimen/editText_box_margin_vert"
+                        android:paddingLeft="@dimen/margin21"
+                        android:paddingStart="@dimen/margin21"
+                        android:paddingEnd="@dimen/margin21"
+                        android:paddingRight="@dimen/margin21"
+                        android:paddingTop="@dimen/margin13"
+                        android:paddingBottom="@dimen/margin13"
                         android:hint="@string/search_hint_transaction"
                         android:textColorHint="@color/colorTextHint"
                         android:layout_marginTop="8dp"
@@ -105,7 +105,7 @@
                         android:text="@string/title_actions"
                         android:id="@+id/actionsRange_label_id"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:labelFor="@+id/dateRangeEditId"
                         android:layout_marginTop="32dp"
                         android:textStyle="bold"/>
@@ -113,17 +113,17 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/editText_box_margin_horiz"
-                        android:paddingStart="@dimen/editText_box_margin_horiz"
-                        android:paddingEnd="@dimen/editText_box_margin_horiz"
-                        android:paddingRight="@dimen/editText_box_margin_horiz"
-                        android:paddingTop="@dimen/editText_box_margin_vert"
-                        android:paddingBottom="@dimen/editText_box_margin_vert"
+                        android:paddingLeft="@dimen/margin21"
+                        android:paddingStart="@dimen/margin21"
+                        android:paddingEnd="@dimen/margin21"
+                        android:paddingRight="@dimen/margin21"
+                        android:paddingTop="@dimen/margin13"
+                        android:paddingBottom="@dimen/margin13"
                         android:hint="@string/hint_choose_actions"
                         android:textColorHint="@color/colorTextHint"
                         android:layout_marginTop="8dp"
                         android:maxLines="1"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:textAllCaps="false"
                         android:id="@+id/actionsSelectEntryId"
                         android:autofillHints="@string/search_hint_transaction"
@@ -136,7 +136,7 @@
                         android:text="@string/date_range"
                         android:id="@+id/dateRange_label_id"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:labelFor="@+id/dateRangeEditId"
                         android:layout_marginTop="32dp"
                         android:textStyle="bold"/>
@@ -146,17 +146,17 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/editText_box_margin_horiz"
-                        android:paddingStart="@dimen/editText_box_margin_horiz"
-                        android:paddingEnd="@dimen/editText_box_margin_horiz"
-                        android:paddingRight="@dimen/editText_box_margin_horiz"
-                        android:paddingTop="@dimen/editText_box_margin_vert"
-                        android:paddingBottom="@dimen/editText_box_margin_vert"
+                        android:paddingLeft="@dimen/margin21"
+                        android:paddingStart="@dimen/margin21"
+                        android:paddingEnd="@dimen/margin21"
+                        android:paddingRight="@dimen/margin21"
+                        android:paddingTop="@dimen/margin13"
+                        android:paddingBottom="@dimen/margin13"
                         android:text="@string/from_account_creation_to_today"
                         android:textColorHint="@color/colorTextHint"
                         android:layout_marginTop="8dp"
                         android:maxLines="1"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:textAllCaps="false"
                         android:id="@+id/dateRangeEntryId"
                         android:autofillHints="@string/search_hint_transaction"
@@ -170,19 +170,19 @@
                         android:text="@string/countries"
                         android:id="@+id/countries_label_id"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:layout_marginTop="32dp"
                         android:textStyle="bold"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/editText_box_margin_horiz"
-                        android:paddingStart="@dimen/editText_box_margin_horiz"
-                        android:paddingEnd="@dimen/editText_box_margin_horiz"
-                        android:paddingRight="@dimen/editText_box_margin_horiz"
-                        android:paddingTop="@dimen/editText_box_margin_vert"
-                        android:paddingBottom="@dimen/editText_box_margin_vert"
+                        android:paddingLeft="@dimen/margin21"
+                        android:paddingStart="@dimen/margin21"
+                        android:paddingEnd="@dimen/margin21"
+                        android:paddingRight="@dimen/margin21"
+                        android:paddingTop="@dimen/margin13"
+                        android:paddingBottom="@dimen/margin13"
                         android:hint="@string/countries_hint"
                         android:textColorHint="@color/colorTextHint"
                         android:layout_marginTop="8dp"
@@ -190,7 +190,7 @@
                         android:textAllCaps="false"
                         android:id="@+id/countryEntryId"
                         android:autofillHints="@string/search_hint_transaction"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:textColor="@color/colorHoverWhite"
                         android:background="@drawable/edit_text_bg"/>
 
@@ -201,19 +201,19 @@
                         android:text="@string/network"
                         android:id="@+id/network_label_id"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:layout_marginTop="32dp"
                         android:textStyle="bold"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/editText_box_margin_horiz"
-                        android:paddingStart="@dimen/editText_box_margin_horiz"
-                        android:paddingEnd="@dimen/editText_box_margin_horiz"
-                        android:paddingRight="@dimen/editText_box_margin_horiz"
-                        android:paddingTop="@dimen/editText_box_margin_vert"
-                        android:paddingBottom="@dimen/editText_box_margin_vert"
+                        android:paddingLeft="@dimen/margin21"
+                        android:paddingStart="@dimen/margin21"
+                        android:paddingEnd="@dimen/margin21"
+                        android:paddingRight="@dimen/margin21"
+                        android:paddingTop="@dimen/margin13"
+                        android:paddingBottom="@dimen/margin13"
                         android:hint="@string/countries_hint"
                         android:textColorHint="@color/colorTextHint"
                         android:layout_marginTop="8dp"
@@ -221,7 +221,7 @@
                         android:textAllCaps="false"
                         android:id="@+id/networkEntryId"
                         android:autofillHints="@string/search_hint_transaction"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:textColor="@color/colorHoverWhite"
                         android:background="@drawable/edit_text_bg"/>
 
@@ -231,7 +231,7 @@
                         android:text="@string/status"
                         android:id="@+id/status_label_id"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:layout_marginTop="32dp"
                         android:textStyle="bold"/>
 
@@ -240,12 +240,12 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         app:buttonTint="@color/colorPrimary"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/margin16"
                         android:id="@+id/checkbox_success"
                         android:text="@string/success_label"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_16"
-                        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                        android:textSize="@dimen/text_17"
+                        android:paddingHorizontal="@dimen/margin16"
                         />
 
                 <androidx.appcompat.widget.AppCompatCheckBox
@@ -257,8 +257,8 @@
                         android:id="@+id/checkbox_pending"
                         android:text="@string/pending_label"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_16"
-                        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                        android:textSize="@dimen/text_17"
+                        android:paddingHorizontal="@dimen/margin16"
                         />
 
                 <androidx.appcompat.widget.AppCompatCheckBox
@@ -270,9 +270,9 @@
                         android:id="@+id/checkbox_fail"
                         android:text="@string/failed_label"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:layout_marginBottom="42dp"
-                        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                        android:paddingHorizontal="@dimen/margin16"
                         />
 
 
@@ -291,7 +291,7 @@
             android:textAlignment="center"
             android:paddingVertical="10dp"
             android:textStyle="bold"
-            android:textSize="@dimen/text_16"
+            android:textSize="@dimen/text_17"
             android:textColor="@color/colorPrimaryDark"
             android:id="@+id/showActions_id"
             />

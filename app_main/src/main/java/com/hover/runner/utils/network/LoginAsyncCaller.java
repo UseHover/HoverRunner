@@ -39,6 +39,8 @@ public class LoginAsyncCaller extends AsyncTask<String, Void, LoginModel> {
         try {
             retrofit2.Response<TokenModel> tokenModel = callerToken.execute();
             if (tokenModel.code() == 200 && tokenModel.body() != null && tokenModel.body().getAuth_token() != null) {
+                SettingsHelper.saveOrgId(tokenModel.body().getOrgId(), c);
+                SettingsHelper.saveToken(tokenModel.body().getAuth_token(), c);
                 Endpoints retrofitApi = retrofitCalls.getRetrofitApi(tokenModel.body().getAuth_token(), c).create(Endpoints.class);
                 PackageInfo packageInfo = UIHelper.getPackageInfo(c);
                 if (packageInfo != null) {

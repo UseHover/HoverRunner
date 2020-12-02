@@ -415,14 +415,15 @@ public class Apis {
 		String sim1 = "None"; String sim2 = "None";
 		if(sims.size() == 0) {
 			Hover.updateSimInfo(ApplicationInstance.getContext());
+			// FIXME: updateSimInfo is async, so this wont work. There is an intent that is fired when SIMs update which the caller should listen for instead.
 			sims = Hover.getPresentSims(ApplicationInstance.getContext());
 		}
 
 		if(sims.size() > 0) {
-			sim1 = sims.get(0).getNetworkOperatorName();
+			sim1 = sims.get(0).getOperatorName();
 		}
 		if(sims.size() > 1) {
-			sim2 = sims.get(1).getNetworkOperatorName();
+			sim2 = sims.get(1).getOperatorName();
 		}
 
 		return new LoadSimModel(sim1, sim2);

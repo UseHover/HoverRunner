@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingTop="@dimen/margin16"
             android:orientation="horizontal">
 
         <TextView
@@ -20,12 +20,12 @@
                 android:textAlignment="textStart"
                 android:textStyle="bold"
                 android:id="@+id/category_title"
-                android:textSize= "@dimen/actionTextSize"
+                android:textSize= "@dimen/text22"
                 android:textColor="@color/colorHoverWhite"
                 android:text="@string/title_categories"
                 android:drawableStart="@drawable/ic_close_white_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:paddingHorizontal="@dimen/activity_vertical_margin"
+                android:drawablePadding="@dimen/margin16"
+                android:paddingHorizontal="@dimen/margin16"
                 android:layout_weight="1"
                 />
 
@@ -33,11 +33,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorMainGrey"
-                android:textSize="@dimen/actionRightSideTextSize"
+                android:textSize="@dimen/margin15"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:paddingHorizontal="@dimen/activity_vertical_margin"
+                android:paddingHorizontal="@dimen/margin16"
                 android:id="@+id/filter_save_id"
                 android:text="@string/save_text"/>
 
