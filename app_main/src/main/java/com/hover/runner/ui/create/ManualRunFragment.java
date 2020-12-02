@@ -4,9 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,15 +28,16 @@ import com.hover.runner.models.HoverAction;
 import com.hover.runner.utils.UIHelper;
 import com.hover.runner.utils.network.NetworkUtil;
 import com.hover.runner.utils.network.VolleyRunner;
-import com.hover.sdk.api.ActionHelper;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverParameters;
 import com.hover.sdk.requests.TransactionSequenceService;
 import com.hover.sdk.sims.SimInfo;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManualRunFragment extends Fragment {
@@ -110,14 +109,15 @@ public class ManualRunFragment extends Fragment {
     }
 
     private Response.Listener listener = (Response.Listener<JSONObject>) response -> {
-        ActionHelper.updateActionConfigs(getContext());
         Log.d(TAG, response.toString());
         try {
-            String actionId = response.getJSONObject("data").getJSONObject("attributes").getString("public_id");
-            if (actionId != null) {
-                new Handler().postDelayed(() -> runSession(actionId), 5000);
-            }
-        } catch (JSONException e) { Log.e(TAG, "Json fail", e); }
+            com.hover.sdk.actions.HoverAction ha = new com.hover.sdk.actions.HoverAction(response.getJSONObject("data").getJSONObject("attributes"));
+            ha.save(getContext());
+            if (ha != null && ha.id != null)
+                runSession(ha.id);
+            else
+                Log.e(TAG, "Error, couldn't run action");
+        } catch (JSONException | NullPointerException e) {  Log.e(TAG, "Error, couldn't update action", e); }
     };
 
     private void runSession(String actionId) {
@@ -150,7 +150,7 @@ public class ManualRunFragment extends Fragment {
     private PendingIntent createStopIntent() {
         Intent i = new Intent(getContext(), TransactionSequenceService.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.setAction(TransactionSequenceService.MENU_FINISH);
+        i.setAction("menu_finish");
         return PendingIntent.getActivity(getContext(), 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 

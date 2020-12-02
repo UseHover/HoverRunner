@@ -19,7 +19,7 @@ allprojects {
         maven { url "http://maven.usehover.com/releases" }
         maven { url "http://maven.usehover.com/snapshots" }
         maven {
-            url 'https://pro.maven.usehover.com/releases'
+            url 'https://pro.maven.usehover.com/snapshots'
             credentials {
                 username project.HoverUsername
                 password project.HoverPassword
