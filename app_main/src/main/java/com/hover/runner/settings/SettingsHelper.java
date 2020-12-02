@@ -14,6 +14,7 @@ import com.hover.runner.utils.Utils;
 public class SettingsHelper {
     public final static String ENV = "hoverEnv";
     public final static String EMAIL = "hoverEmail";
+    public final static String PWD = "encryptedPwd";
     private final static String API_KEY_LABEL = "apiKey";
     private final static String TOKEN = "token";
     private final static String ORG = "org_id";
@@ -45,6 +46,9 @@ public class SettingsHelper {
 
     public static void saveEmail(String value, Context c) { Utils.saveString(EMAIL, value, c); }
     public static String getEmail(Context c) { return Utils.getSavedString(EMAIL, c); }
+
+    public static void savePwd(String value, Context c) { Utils.saveString(PWD, KeyStoreExecutor.createNewKey(value, c), c); }
+    public static String getPwd(Context c) { return KeyStoreExecutor.decrypt(Utils.getSavedString(PWD, c), c); }
 
     public static String getPackage(Context c) {
         try {

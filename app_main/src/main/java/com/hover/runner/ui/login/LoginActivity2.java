@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.enums.PassageEnum;
+import com.hover.runner.settings.KeyStoreExecutor;
 import com.hover.runner.ui.webview.WebViewActivity;
 import com.hover.runner.settings.SettingsHelper;
 import com.hover.runner.utils.network.NetworkUtil;
@@ -112,6 +113,7 @@ public class LoginActivity2 extends AppCompatActivity {
         if(new NetworkUtil(this).isNetworkAvailable() == PassageEnum.ACCEPT) {
             new Handler().postDelayed(() -> {
                 SettingsHelper.saveEmail(emailEdit.getText().toString(), this);
+                SettingsHelper.savePwd(passwordEdit.getText().toString(), this);
                 Intent returnIntent = new Intent();
                 String[] result = new String[] {emailEdit.getText().toString(), passwordEdit.getText().toString()};
                 returnIntent.putExtra("login_data",result);

@@ -1,5 +1,8 @@
 package com.hover.runner.ui.create;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +18,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Response;
@@ -122,13 +127,37 @@ public class ManualRunFragment extends Fragment {
         builder.request(actionId);
         builder.setSim(sims.get(selectedSlot).getOSReportedHni());
         builder.setEnvironment(HoverParameters.MANUAL_ENV);
+
+        showStopNotification();
         startActivityForResult(builder.buildIntent(), 0);
     }
 
-    private void stop() {
+    private void showStopNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "DEFAULT")
+                .setSmallIcon(R.drawable.hoverlogo_svg)
+                .setContentTitle("Recording USSD Session")
+                .setContentText("Tap this notification to end session")
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("Tap this notification to end session"))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_TRANSPORT)
+                .setContentIntent(createStopIntent())
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
+        notificationManager.notify(0, builder.build());
+    }
+
+    private PendingIntent createStopIntent() {
         Intent i = new Intent(getContext(), TransactionSequenceService.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.setAction(TransactionSequenceService.MENU_FINISH);
-        getContext().startService(i);
+        return PendingIntent.getActivity(getContext(), 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(0);
     }
 }

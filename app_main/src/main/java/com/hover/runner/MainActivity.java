@@ -1,12 +1,16 @@
 package com.hover.runner;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hover.runner.utils.network.LoginAsyncCaller;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.permissions.PermissionActivity;
 import com.hover.runner.api.Apis;
@@ -36,9 +40,16 @@ public class MainActivity extends AppCompatActivity {
 				startActivity(new Intent(this, LoginActivity.class));
 				finish();
 				return;
+			} else {
+				try {
+					new LoginAsyncCaller().execute(SettingsHelper.getEmail(this), SettingsHelper.getPwd(this)).get();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		//Test keys
+
+		createNotificationChannel();
 		Hover.initialize(this, SettingsHelper.getApiKey(this));
 		Hover.setBranding("Runner by Hover", R.drawable.ic_runner_logo, this);
 		if(!SettingsHelper.hasPermissions(this, new String[]{ Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE})) {
@@ -67,6 +78,16 @@ public class MainActivity extends AppCompatActivity {
 			if(resultCode != RESULT_OK) {
 				UIHelper.flashMessage(this, getCurrentFocus(), permission_acceptance_incomplete);
 			}
+		}
+	}
+
+	private void createNotificationChannel() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			int importance = NotificationManager.IMPORTANCE_DEFAULT;
+			NotificationChannel channel = new NotificationChannel("DEFAULT", "NotificationChannel", importance);
+			channel.setDescription("For stopping a USSD recording");
+			NotificationManager notificationManager = getSystemService(NotificationManager.class);
+			notificationManager.createNotificationChannel(channel);
 		}
 	}
 
