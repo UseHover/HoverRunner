@@ -1,5 +1,6 @@
 package com.hover.runner.settings;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -10,6 +11,8 @@ import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.api.Apis;
 import com.hover.runner.utils.Utils;
+
+import static android.content.Context.ACTIVITY_SERVICE;
 
 public class SettingsHelper {
     public final static String ENV = "hoverEnv";
@@ -67,7 +70,9 @@ public class SettingsHelper {
     public static void saveApiKey(String value, Context c) { Utils.saveString(API_KEY_LABEL, value, c); }
     public static String getApiKey(Context c) { return Utils.getSavedString(API_KEY_LABEL, c); }
 
-    public static void clearData() {
+    public static void clearData(Context c) {
         Utils.getSharedPrefs(ApplicationInstance.getContext()).edit().clear().apply();
+        if (Build.VERSION.SDK_INT >= 19)
+            ((ActivityManager) c.getSystemService(ACTIVITY_SERVICE)).clearApplicationUserData();
     }
 }

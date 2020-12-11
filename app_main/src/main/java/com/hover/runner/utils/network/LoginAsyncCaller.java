@@ -3,6 +3,7 @@ package com.hover.runner.utils.network;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
@@ -41,17 +42,9 @@ public class LoginAsyncCaller extends AsyncTask<String, Void, LoginModel> {
             if (tokenModel.code() == 200 && tokenModel.body() != null && tokenModel.body().getAuth_token() != null) {
                 SettingsHelper.saveOrgId(tokenModel.body().getOrgId(), c);
                 SettingsHelper.saveToken(tokenModel.body().getAuth_token(), c);
+                SettingsHelper.saveApiKey(tokenModel.body().getApiKey(), c);
                 Endpoints retrofitApi = retrofitCalls.getRetrofitApi(tokenModel.body().getAuth_token(), c).create(Endpoints.class);
-                PackageInfo packageInfo = UIHelper.getPackageInfo(c);
-                if (packageInfo != null) {
-                    String packageName = packageInfo.packageName;
-                    Call<ApiKeyModel> apiCaller = retrofitApi.getApiFromHover(packageName);
-                    Response<ApiKeyModel> callerApi = apiCaller.execute();
-                    if(callerApi.code() == 200 && callerApi.body() != null && callerApi.body().getApi_key() != null) {
-                        SettingsHelper.saveApiKey(callerApi.body().getApi_key(), c);
-                        return new LoginModel(HomeEnums.SUCCESS, c.getString(R.string.sign_in_success));
-                    }
-                } else return new LoginModel(HomeEnums.ERROR, c.getString(R.string.package_name_err));
+                return new LoginModel(HomeEnums.SUCCESS, c.getString(R.string.sign_in_success));
             }
         } catch (IOException e) { e.printStackTrace(); }
 
