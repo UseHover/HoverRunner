@@ -1,5 +1,6 @@
 package com.hover.runner.settings;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -10,11 +11,18 @@ import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.api.Apis;
 import com.hover.runner.utils.Utils;
+import com.hover.sdk.database.DbHelper;
+import com.hover.sdk.database.HoverDataSource;
+
+import static android.content.Context.ACTIVITY_SERVICE;
 
 public class SettingsHelper {
     public final static String ENV = "hoverEnv";
     public final static String EMAIL = "hoverEmail";
+    public final static String PWD = "encryptedPwd";
     private final static String API_KEY_LABEL = "apiKey";
+    private final static String TOKEN = "token";
+    private final static String ORG = "org_id";
 
     public static boolean hasPermissions(Context context, String[] permissions) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
@@ -52,10 +60,18 @@ public class SettingsHelper {
         }
     }
 
+    public static void saveToken(String value, Context c) { Utils.saveString(TOKEN, value, c); }
+    public static String getToken(Context c) { return Utils.getSavedString(TOKEN, c); }
+
+    public static void saveOrgId(int value, Context c) { Utils.saveInt(ORG, value, c); }
+    public static int getOrgId(Context c) { return Utils.getSavedInt(ORG, c); }
+
     public static void saveApiKey(String value, Context c) { Utils.saveString(API_KEY_LABEL, value, c); }
     public static String getApiKey(Context c) { return Utils.getSavedString(API_KEY_LABEL, c); }
 
-    public static void clearData() {
+    public static void clearData(Context c) {
         Utils.getSharedPrefs(ApplicationInstance.getContext()).edit().clear().apply();
+        if (Build.VERSION.SDK_INT >= 19)
+            ((ActivityManager) c.getSystemService(ACTIVITY_SERVICE)).clearApplicationUserData();
     }
 }

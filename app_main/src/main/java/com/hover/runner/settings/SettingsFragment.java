@@ -95,7 +95,6 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 
 			refreshButtonIdle = true;
 			Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext()) ;
-			SettingsHelper.clearData();
 			UIHelper.flashMessage(getContext(), getResources().getString(R.string.app_data_refreshed));
 		}
 	}
@@ -118,7 +117,7 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 
 	private void signOut() {
 		MainActivity.LoginYes = 0;
-		SettingsHelper.clearData();
+		SettingsHelper.clearData(getContext());
 		startActivity(new Intent(getContext(), LoginActivity.class));
 		if (getActivity() !=null) getActivity().finishAffinity();
 	}
