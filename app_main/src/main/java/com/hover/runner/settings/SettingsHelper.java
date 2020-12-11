@@ -11,8 +11,7 @@ import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.api.Apis;
 import com.hover.runner.utils.Utils;
-import com.hover.sdk.database.DbHelper;
-import com.hover.sdk.database.HoverDataSource;
+
 
 import static android.content.Context.ACTIVITY_SERVICE;
 
