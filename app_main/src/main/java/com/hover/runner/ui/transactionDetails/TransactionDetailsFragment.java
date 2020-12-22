@@ -20,6 +20,7 @@ import com.hover.runner.adapters.TransactionDetailsRecyclerAdapter;
 import com.hover.runner.adapters.TransactionMessagesRecyclerAdapter;
 import com.hover.runner.api.Apis;
 import com.hover.runner.enums.ClickTypeEnum;
+import com.hover.runner.enums.GlobalNav;
 import com.hover.runner.interfaces.CustomOnClickListener;
 import com.hover.runner.ui.action_details.ActionDetailsActivity;
 import com.hover.runner.ui.parsers.ParsersActivity;
@@ -138,9 +139,15 @@ public class TransactionDetailsFragment extends Fragment implements CustomOnClic
         transactionDetailsViewModel.getDeviceModels(TransactionDetailsActivity.transactionId);
         transactionDetailsViewModel.getMessagesModels(TransactionDetailsActivity.transactionId);
 
+        setupGlobalNav(view);
         return view;
     }
 
+    private void setupGlobalNav(View view) {
+        view.findViewById(R.id.global_nav_Actions).setOnClickListener(v ->UIHelper.doGlobalNavigation(GlobalNav.NAV_ACTION, getActivity()));
+        view.findViewById(R.id.global_nav_Transactions).setOnClickListener(v -> UIHelper.doGlobalNavigation(GlobalNav.NAV_TRANSACTION, getActivity()));
+        view.findViewById(R.id.global_nav_Settings).setOnClickListener(v->UIHelper.doGlobalNavigation(GlobalNav.NAV_SETTINGS, getActivity()));
+    }
     @Override
     public void customClickListener(Object... data) {
         if (data[0] == ClickTypeEnum.CLICK_ACTION) {

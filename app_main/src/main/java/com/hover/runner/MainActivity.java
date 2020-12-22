@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hover.runner.enums.GlobalNav;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.permissions.PermissionActivity;
 import com.hover.runner.api.Apis;
@@ -54,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
 				initialActionFilter = getIntent().getExtras().getString("navigate");
 				navController.navigate(R.id.navigation_transactions);
 			}
+			GlobalNav globalNavPos = (GlobalNav) getIntent().getExtras().get(Apis.GLOBAL_NAV);
+			 if(globalNavPos !=null) {
+				switch (globalNavPos) {
+					case NAV_ACTION: navController.navigate(R.id.navigation_actions);
+						break;
+					case NAV_TRANSACTION: navController.navigate(R.id.navigation_transactions);
+						break;
+					case NAV_SETTINGS: navController.navigate(R.id.navigation_settings);
+						break;
+					}
+				}
 		}
 
 	}

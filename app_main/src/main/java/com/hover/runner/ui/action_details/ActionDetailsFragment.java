@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hover.runner.ApplicationInstance;
+import com.hover.runner.enums.GlobalNav;
 import com.hover.runner.models.TransactionModels;
 import com.hover.runner.states.TransactionState;
 import com.hover.sdk.api.HoverParameters;
@@ -91,6 +92,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         });
         mostRecentStatus = ActionDetailsActivity.statusEnums;
         setupTopDetailsInfo(mostRecentStatus);
+        setupGlobalNav(view);
 
         RecyclerView variablesRecyclerView = view.findViewById(R.id.action_variables_recyclerView);
         actionDetailsViewModel = new ViewModelProvider(this).get(ActionDetailsViewModel.class);
@@ -271,6 +273,12 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
         actionDetailsViewModel.getActionTrans(ActionDetailsActivity.actionId);
 
     }
+    private void setupGlobalNav(View view) {
+        view.findViewById(R.id.global_nav_Actions).setOnClickListener(v ->UIHelper.doGlobalNavigation(GlobalNav.NAV_ACTION, getActivity()));
+        view.findViewById(R.id.global_nav_Transactions).setOnClickListener(v -> UIHelper.doGlobalNavigation(GlobalNav.NAV_TRANSACTION, getActivity()));
+        view.findViewById(R.id.global_nav_Settings).setOnClickListener(v->UIHelper.doGlobalNavigation(GlobalNav.NAV_SETTINGS, getActivity()));
+    }
+
 
     @Override
     public void customClickListener(Object... data) {

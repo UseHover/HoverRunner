@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.hover.runner.enums.GlobalNav;
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverParameters;
@@ -76,6 +77,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         homeActionsRecyclerView.setHasFixedSize(true);
 
         UIHelper.setTextUnderline(filterText, getResources().getString(R.string.filter_text));
+
 
         //CALL THE FILTER FUNCTION
         filterText.setOnClickListener(v -> {
@@ -246,6 +248,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
             }
         }
     }
+
 
 
     @Override

@@ -5,7 +5,6 @@
 		android:layout_height="match_parent"
 		android:background="@color/colorPrimaryDark"
 		android:orientation="vertical"
-		android:layout_marginBottom="55dp"
 		tools:context=".ui.transactions.TransactionFragment">
 
 	<LinearLayout

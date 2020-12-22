@@ -17,6 +17,7 @@ import com.hover.runner.ApplicationInstance;
 import com.hover.runner.R;
 import com.hover.runner.adapters.TransactionRecyclerAdapter;
 import com.hover.runner.api.Apis;
+import com.hover.runner.enums.GlobalNav;
 import com.hover.runner.enums.StatusEnums;
 import com.hover.runner.interfaces.CustomOnClickListener;
 import com.hover.runner.ui.action_details.ActionDetailsActivity;
@@ -111,9 +112,14 @@ public class ParsersFragment extends Fragment implements CustomOnClickListener {
 
         parsersViewModel.getParsersInfo(ParsersActivity.parserId);
         parsersViewModel.getParserTransactions(ParsersActivity.parserId);
-
+        setupGlobalNav(view);
 
         return view;
+    }
+    private void setupGlobalNav(View view) {
+        view.findViewById(R.id.global_nav_Actions).setOnClickListener(v ->UIHelper.doGlobalNavigation(GlobalNav.NAV_ACTION, getActivity()));
+        view.findViewById(R.id.global_nav_Transactions).setOnClickListener(v -> UIHelper.doGlobalNavigation(GlobalNav.NAV_TRANSACTION, getActivity()));
+        view.findViewById(R.id.global_nav_Settings).setOnClickListener(v->UIHelper.doGlobalNavigation(GlobalNav.NAV_SETTINGS, getActivity()));
     }
 
     private void startActionActivity(String actionId, String actionTitle, StatusEnums statusEnums) {
