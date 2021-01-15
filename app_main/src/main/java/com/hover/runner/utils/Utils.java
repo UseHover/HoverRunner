@@ -44,6 +44,7 @@ public class Utils {
     public final static String HOVER_TRANSAC_PENDING = "pending";
     public final static String HOVER_TRANSAC_SUCCEEDED = "succeeded";
     private static final String SHARED_PREFS = "_runner";
+    private static final String PRO_VARIANT = "pro";
 
     public static SharedPreferences getSharedPrefs(Context context) {
         return context.getSharedPreferences(SettingsHelper.getPackage(context) + SHARED_PREFS, Context.MODE_PRIVATE);
@@ -80,7 +81,7 @@ public class Utils {
 
         for(RawStepsModel model : rawStepsModel) {
             stepSuffix.append("*").append(model.getValue());
-            if(BuildConfig.FLAVOR.equals("pro")) {
+            if(BuildConfig.FLAVOR.contains(PRO_VARIANT)) {
                 if(model.isIs_param() || model.getValue().equals("pin")) {
                     stepsVariableLabels.add(model.getValue());
                     stepsVariableDesc.add(model.getDescription());
@@ -112,7 +113,7 @@ public class Utils {
             }
         }
 
-        if(!BuildConfig.FLAVOR.equals("pro")) filledSize = filledSize+0;
+        if(!BuildConfig.FLAVOR.contains(PRO_VARIANT)) filledSize = filledSize+0;
         Log.d("VAR_SIZE", "expected size: "+expectedSize + ", while filled size is: "+filledSize);
         if(expectedSize == filledSize) return ActionRunStatus.GOOD;
         if(pair.first != null) { if (pair.first) return  ActionRunStatus.SKIPPED; }
