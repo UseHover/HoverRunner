@@ -58,7 +58,7 @@ public class TransactionFragment extends Fragment implements CustomOnClickListen
 		});
 
 
-		root.findViewById(R.id.record_new).setOnClickListener(view ->  NavHostFragment.findNavController(TransactionFragment.this).navigate(R.id.navigation_new));
+//		root.findViewById(R.id.record_new).setOnClickListener(view ->  NavHostFragment.findNavController(TransactionFragment.this).navigate(R.id.navigation_new));
 
 		setupViews();
 		return root;

@@ -54,15 +54,15 @@
 				android:visibility="gone"/>
 
 	</LinearLayout>
-	<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@color/colorPrimary"
-			android:textAlignment="center"
-			android:paddingVertical="10dp"
-			android:textStyle="bold"
-			android:textColor="@color/runActionTextColor"
-			android:textSize="@dimen/text_17"
-			android:id="@+id/record_new"
-			android:text="Record a transaction"/>
+<!--	<TextView-->
+<!--			android:layout_width="match_parent"-->
+<!--			android:layout_height="wrap_content"-->
+<!--			android:background="@color/colorPrimary"-->
+<!--			android:textAlignment="center"-->
+<!--			android:paddingVertical="10dp"-->
+<!--			android:textStyle="bold"-->
+<!--			android:textColor="@color/runActionTextColor"-->
+<!--			android:textSize="@dimen/text_17"-->
+<!--			android:id="@+id/record_new"-->
+<!--			android:text="Record a transaction"/>-->
 </LinearLayout>
