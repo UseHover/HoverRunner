@@ -106,6 +106,26 @@
 
 		</RadioGroup>
 
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAlignment="textStart"
+				android:textStyle="bold"
+				android:textSize="@dimen/text_16"
+				android:textColor="@color/colorHoverWhite"
+				android:text="@string/delay_hint"
+				android:layout_marginTop="32dp"
+				android:layout_marginBottom="@dimen/activity_vertical_margin"
+				/>
+
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:fontFamily="font-normal"
+			android:textColor="@color/colorHoverWhite"
+			android:textCursorDrawable="@null"
+			android:inputType="number"
+			android:id="@+id/delayInput" />
 
 		<TextView
 				android:layout_width="wrap_content"

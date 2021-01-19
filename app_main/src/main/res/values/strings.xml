@@ -54,6 +54,7 @@
 	<string name="Debug">Debug</string>
 	<string name="debug_toolTip">Watch USSD sessions as they happen</string>
 	<string name="no_sim">No SIM</string>
+	<string name="delay_hint">Set ms delay between sessions</string>
 	<string name="no_sim_toolTip">When you do not have the correct SIM for the service you want to test</string>
 	<string name="sim_cards">SIM cards</string>
 	<string name="action_icon_status_description">Action status after it was ran</string>

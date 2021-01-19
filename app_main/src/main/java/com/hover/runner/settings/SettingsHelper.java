@@ -20,6 +20,7 @@ public class SettingsHelper {
     public final static String EMAIL = "hoverEmail";
     public final static String PWD = "encryptedPwd";
     private final static String API_KEY_LABEL = "apiKey";
+    private final static String DELAY = "delay";
     private final static String TOKEN = "token";
     private final static String ORG = "org_id";
 
@@ -67,6 +68,9 @@ public class SettingsHelper {
 
     public static void saveApiKey(String value, Context c) { Utils.saveString(API_KEY_LABEL, value, c); }
     public static String getApiKey(Context c) { return Utils.getSavedString(API_KEY_LABEL, c); }
+
+    public static void setDelay(int value, Context c) { Utils.saveInt(DELAY, value, c); }
+    public static int getDelay(Context c) { return Utils.getSavedInt(DELAY, c); }
 
     public static void clearData(Context c) {
         Utils.getSharedPrefs(ApplicationInstance.getContext()).edit().clear().apply();

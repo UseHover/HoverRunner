@@ -1,7 +1,11 @@
 package com.hover.runner.ui.actions;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +18,12 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.hover.runner.settings.SettingsHelper;
+import com.hover.sdk.actions.ActionsUpdateWorker;
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverParameters;
@@ -84,52 +91,50 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         });
 
         root.findViewById(R.id.testAllActions_id).setOnClickListener(v -> {
-            //Ensure action is not refreshing and running at same time to prevent errors.
-            if(!pullToRefresh.isRefreshing()) {
-                pullToRefresh.setRefreshing(true);
+            root.findViewById(R.id.testAllActions_id).setEnabled(false);
 
-                ArrayList<ActionsModel> withUncompletedVariablesActionList = new ArrayList<>();
-                withCompletedVariableActionList = new ArrayList<>();
+            ArrayList<ActionsModel> withUncompletedVariablesActionList = new ArrayList<>();
+            withCompletedVariableActionList = new ArrayList<>();
 
-                for (ActionsModel runnableModel : rawRunnableModelList) {
-                    int variableSize = Utils.getStreamlinedStepsStepsFromRaw(runnableModel.getRootCode(), runnableModel.getSteps()).getStepVariableLabel().size();
-                    switch (Utils.actionHasAllVariablesFilled(getContext(), runnableModel.getActionId(), variableSize)) {
-                        case GOOD:
-                            withCompletedVariableActionList.add(runnableModel);
-                            break;
-                        case BAD:
-                            String jsonArrayToString = runnableModel.getSteps().toString();
-                            runnableModel.setJsonArrayToString(jsonArrayToString);
+            for (ActionsModel runnableModel : rawRunnableModelList) {
+                int variableSize = Utils.getStreamlinedStepsStepsFromRaw(runnableModel.getRootCode(), runnableModel.getSteps()).getStepVariableLabel().size();
+                switch (Utils.actionHasAllVariablesFilled(getContext(), runnableModel.getActionId(), variableSize)) {
+                    case GOOD:
+                        withCompletedVariableActionList.add(runnableModel);
+                        break;
+                    case BAD:
+                        String jsonArrayToString = runnableModel.getSteps().toString();
+                        runnableModel.setJsonArrayToString(jsonArrayToString);
+                        withUncompletedVariablesActionList.add(runnableModel);
+                        break;
+                    case SKIPPED:
+                        if(!ApplicationInstance.isAllowSkippedActionsToRun()) {
+                            String jsonArrayToString2 = runnableModel.getSteps().toString();
+                            runnableModel.setJsonArrayToString(jsonArrayToString2);
                             withUncompletedVariablesActionList.add(runnableModel);
-                            break;
-                        case SKIPPED:
-                            if(!ApplicationInstance.isAllowSkippedActionsToRun()) {
-                                String jsonArrayToString2 = runnableModel.getSteps().toString();
-                                runnableModel.setJsonArrayToString(jsonArrayToString2);
-                                withUncompletedVariablesActionList.add(runnableModel);
-                            }
-                          break;
-                    }
-                }
-
-                pullToRefresh.setRefreshing(false);
-                if (withUncompletedVariablesActionList.size() > 0) {
-                    Intent i = new Intent(getActivity(), UncompletedVariableActivity.class);
-                    i.putParcelableArrayListExtra("data", withUncompletedVariablesActionList);
-                    startActivityForResult(i, FILL_IN_UNCOMPLETED_VARIABLES);
-                } else {
-                    if (withCompletedVariableActionList.size() > 0) runAction(true);
-                    else
-                        UIHelper.flashMessage(getContext(), getResources().getString(R.string.noRunnableAction));
+                        }
+                      break;
                 }
             }
 
+            pullToRefresh.setRefreshing(false);
+            if (withUncompletedVariablesActionList.size() > 0) {
+                Intent i = new Intent(getActivity(), UncompletedVariableActivity.class);
+                i.putParcelableArrayListExtra("data", withUncompletedVariablesActionList);
+                startActivityForResult(i, FILL_IN_UNCOMPLETED_VARIABLES);
+            } else {
+                if (withCompletedVariableActionList.size() > 0) runMultiple(true);
+                else
+                    UIHelper.flashMessage(getContext(), getResources().getString(R.string.noRunnableAction));
+                root.findViewById(R.id.testAllActions_id).setEnabled(true);
+            }
         });
 
         setupViews();
 
         pullToRefresh.setOnRefreshListener(() -> {
             if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
+                LocalBroadcastManager.getInstance(getContext()).registerReceiver(actionUpdateReceiver, new IntentFilter(ActionsUpdateWorker.getAction(getContext())));
                 Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext());
             }
             else {
@@ -143,6 +148,12 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         return root;
     }
 
+    private void runMultiple(boolean firstTime) {
+        if (!firstTime)
+            new Handler().postDelayed(() -> runAction(firstTime), SettingsHelper.getDelay(getContext()));
+        else runAction(firstTime);
+    }
+
     private void runAction(boolean firstTime) {
         ActionsModel action = withCompletedVariableActionList.get(actionRunCounter);
         Map<String, String> actionExtra = Utils.getInitialVariableData(getContext(), action.getActionId()).second;
@@ -151,23 +162,23 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         builder.request(action.getActionId());
         builder.setEnvironment(Apis.getCurrentEnv());
         builder.style(R.style.myHoverTheme);
-//        builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
-//        builder.finalMsgDisplayTime(0);
+        //        builder.initialProcessingMessage(getResources().getString(R.string.transaction_coming_up));
+        //        builder.finalMsgDisplayTime(0);
 
-        if(actionRunCounter != withCompletedVariableActionList.size()-1) {
+        if (actionRunCounter != withCompletedVariableActionList.size() - 1) {
             builder.finalMsgDisplayTime(0);
         }
-        else builder.finalMsgDisplayTime(30000);
 
-        assert  actionExtra !=null;
-        for(String key : actionExtra.keySet()) {
+        assert actionExtra != null;
+        for (String key : actionExtra.keySet()) {
             builder.extra(key, actionExtra.get(key));
         }
-        if(firstTime) actionRunCounter = actionRunCounter + 1;
+        if (firstTime) actionRunCounter = actionRunCounter + 1;
         Intent i = builder.buildIntent();
+
         startActivityForResult(i, TEST_ALL_RESULT);
 
-        if(firstTime) ApplicationInstance.setAllowSkippedActionsToRun(false);
+        if (firstTime) ApplicationInstance.setAllowSkippedActionsToRun(false);
     }
 
 
@@ -261,6 +272,12 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregister();
+    }
+
+    @Override
     public void onError(String message) {
         pullToRefresh.setRefreshing(false);
         UIHelper.flashMessage(getContext(), message);
@@ -271,5 +288,19 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
         pullToRefresh.setRefreshing(false);
         actionsViewModel.getAllActions();
         UIHelper.flashMessage(getContext(), getResources().getString(R.string.refreshed_successfully));
+    }
+
+    BroadcastReceiver actionUpdateReceiver = new BroadcastReceiver() {
+        @Override public void onReceive(Context context, Intent intent) {
+            unregister();
+            if (pullToRefresh != null) pullToRefresh.setRefreshing(false);
+        }
+    };
+
+    private void unregister() {
+        try {
+            if (actionUpdateReceiver != null)
+                LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(actionUpdateReceiver);
+        } catch (Exception ignored) { }
     }
 }

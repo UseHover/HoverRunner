@@ -3,7 +3,9 @@ package com.hover.runner.settings;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,10 +47,22 @@ public class SettingsFragment extends Fragment implements Hover.DownloadListener
 		((TextView) root.findViewById(R.id.email)).setText(SettingsHelper.getEmail(getActivity()));
 		((TextView) root.findViewById(R.id.packageName)).setText(SettingsHelper.getPackage(getActivity()));
 		((TextView) root.findViewById(R.id.apiKey)).setText(SettingsHelper.getApiKey(getActivity()));
+		((TextView) root.findViewById(R.id.delayInput)).setText(String.valueOf(SettingsHelper.getDelay(getActivity())));
+
+		((TextView) root.findViewById(R.id.delayInput)).addTextChangedListener(delayWatcher);
 		root.findViewById(R.id.signOutButton).setOnClickListener(v -> confirmSignOut());
 
 		return root;
 	}
+
+	private TextWatcher delayWatcher = new TextWatcher() {
+		@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+		@Override public void afterTextChanged(Editable editable) { }
+		@Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+			if (charSequence != null && charSequence.length() > 0)
+				SettingsHelper.setDelay(Integer.parseInt(charSequence.toString()), getContext());
+		}
+	};
 
 	private void loadSims(View root) {
 		settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
