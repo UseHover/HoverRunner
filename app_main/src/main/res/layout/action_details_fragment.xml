@@ -25,27 +25,27 @@
                     android:background="@color/colorSecondaryGrey"
                     android:paddingVertical="16dp"
                     android:id="@+id/actionDetailsTopLayoutId"
-                    android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                    android:paddingHorizontal="@dimen/margin16"
                     android:orientation="vertical">
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:drawableStart="@drawable/ic_arrow_back_black_24dp"
-                        android:drawablePadding="@dimen/activity_horizontal_margin"
+                        android:drawablePadding="@dimen/margin16"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/actionTextSize"
+                        android:textSize="@dimen/text22"
                         android:transitionName="action_title"
                         android:id="@+id/actionDetails_toolbarText"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
-                        android:textSize="@dimen/text_13"
+                        android:layout_marginStart="@dimen/margin42"
+                        android:textSize="@dimen/text_14"
                         android:id="@+id/actionDetails_subtoolText"
                         android:textColor="@color/colorPrimaryDark"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/margin16"
                         />
 
 
@@ -55,7 +55,7 @@
                         android:text="@string/unrunStatus_title"
                         android:textStyle="bold"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/text_13"
+                        android:textSize="@dimen/text_14"
                         android:id="@+id/actionDetails_statusTitle"
                         />
 
@@ -67,7 +67,7 @@
                         android:visibility="gone"
                         android:layout_marginStart="42dp"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/text_13"
+                        android:textSize="@dimen/text_14"
                         android:id="@+id/actionDetails_statusTitle2"
                         />
 
@@ -77,10 +77,10 @@
                         android:id="@+id/actionDetails_statusDesc"
                         android:text="@string/pendingStatus_desc"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/text_13"
+                        android:textSize="@dimen/text_14"
                         android:visibility="gone"
-                        android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginStart="@dimen/margin42"
+                        android:layout_marginBottom="@dimen/margin16"
                         />
 
                 <TextView
@@ -89,12 +89,12 @@
                         android:id="@+id/actionDetails_statusLink"
                         android:text="@string/pendingStatus_linkText"
                         android:textStyle="bold"
-                        android:textSize="@dimen/text_13"
+                        android:textSize="@dimen/text_14"
                         android:textColor="@color/colorPrimaryDark"
                         android:drawablePadding="4dp"
                         android:visibility="gone"
                         android:drawableEnd="@drawable/ic_open_in_new_black_15dp"
-                        android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
+                        android:layout_marginStart="@dimen/margin42"
                         android:layout_marginBottom="8dp"
                         />
             </LinearLayout>
@@ -113,14 +113,14 @@
                         android:layout_width="105dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:text="@string/operators"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondaryGrey"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:id="@+id/operators_content" />
 
             </LinearLayout>
@@ -137,14 +137,14 @@
                         android:layout_width="105dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:text="@string/longcode"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondaryGrey"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:id="@+id/steps_content" />
 
             </LinearLayout>
@@ -161,14 +161,14 @@
                         android:layout_width="105dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:text="@string/parsers"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondaryGrey"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:lineSpacingExtra="10dp"
                         android:textStyle="bold"
                         android:clickable="true"
@@ -190,14 +190,14 @@
                         android:layout_width="105dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:text="@string/title_transactions"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondaryGrey"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:id="@+id/transactionNo_content" />
 
             </LinearLayout>
@@ -214,14 +214,14 @@
                         android:layout_width="105dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorGreen"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:text="@string/success_label"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondaryGrey"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:id="@+id/successCount_content" />
 
             </LinearLayout>
@@ -238,14 +238,14 @@
                         android:layout_width="105dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorYellow"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:text="@string/pending_label"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondaryGrey"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:id="@+id/pendingCount_content" />
 
             </LinearLayout>
@@ -262,14 +262,14 @@
                         android:layout_width="105dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorRed"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:text="@string/failed_label"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondaryGrey"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         android:id="@+id/failedCount_content" />
 
             </LinearLayout>
@@ -277,11 +277,11 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginHorizontal="@dimen/margin16"
                     android:textColor="@color/colorHoverWhite"
                     android:textStyle="bold"
                     android:layout_marginTop="32dp"
-                    android:textSize="@dimen/text_16"
+                    android:textSize="@dimen/text_17"
                     android:id="@+id/variableLabel_group1"
                     android:text="@string/testing_variables"/>
 
@@ -291,22 +291,22 @@
                     android:background="@color/colorPrimary"
                     android:layout_marginVertical="8dp"
                     android:id="@+id/variableLabel_group2"
-                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginHorizontal="@dimen/margin16"
                     />
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/testing_variables_desc"
                     android:textColor="@color/colorHoverWhite"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:id="@+id/variableLabel_group3"
-                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginHorizontal="@dimen/margin16"
                     />
 
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginHorizontal="@dimen/margin16"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:id="@+id/action_variables_recyclerView"/>
 
@@ -315,14 +315,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="48dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
+                    android:layout_marginHorizontal="@dimen/margin16">
                 <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/recent_transactions"
                         android:id="@+id/recentTransa_id"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_17"
                         android:textStyle="bold"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
@@ -338,7 +338,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:textColor="@color/colorHoverWhite"
-                        android:textSize="@dimen/text_14"
+                        android:textSize="@dimen/text_15"
                         />
             </LinearLayout>
 
@@ -347,10 +347,10 @@
                     android:layout_height="1dp"
                     android:background="@color/colorPrimary"
                     android:layout_marginVertical="8dp"
-                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginHorizontal="@dimen/margin16"
                     />
             <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/margin16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -368,7 +368,7 @@
             android:textAlignment="center"
             android:paddingVertical="10dp"
             android:textStyle="bold"
-            android:textSize="@dimen/text_16"
+            android:textSize="@dimen/text_17"
             android:textColor="@color/runActionTextColor"
             android:id="@+id/testSingle_id"
             android:text="@string/test_single_action"/>

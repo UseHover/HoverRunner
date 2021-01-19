@@ -20,26 +20,26 @@
                 android:background="@color/colorSecondaryGrey"
                 android:paddingVertical="16dp"
                 android:id="@+id/transactionDetailsTopLayoutId"
-                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                android:paddingHorizontal="@dimen/margin16"
                 android:orientation="vertical">
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:drawableStart="@drawable/ic_arrow_back_black_24dp"
-                    android:drawablePadding="@dimen/activity_horizontal_margin"
+                    android:drawablePadding="@dimen/margin16"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/actionTextSize"
+                    android:textSize="@dimen/text22"
                     android:id="@+id/transactionDetails_toolbarText"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
-                    android:textSize="@dimen/text_13"
+                    android:layout_marginStart="@dimen/margin42"
+                    android:textSize="@dimen/text_14"
                     android:id="@+id/transactionDetails_subtoolText"
                     android:textColor="@color/colorPrimaryDark"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/margin16"
                     />
 
 
@@ -49,7 +49,7 @@
                     android:text="@string/unrunStatus_title"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/text_13"
+                    android:textSize="@dimen/text_14"
                     android:id="@+id/transactionDetails_statusTitle"
                     />
 
@@ -61,7 +61,7 @@
                     android:visibility="gone"
                     android:layout_marginStart="42dp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/text_13"
+                    android:textSize="@dimen/text_14"
                     android:id="@+id/transactionDetails_statusTitle2"
                     />
 
@@ -71,10 +71,10 @@
                     android:id="@+id/transactionDetails_statusDesc"
                     android:text="@string/pendingStatus_desc"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/text_13"
+                    android:textSize="@dimen/text_14"
                     android:visibility="gone"
-                    android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginStart="@dimen/margin42"
+                    android:layout_marginBottom="@dimen/margin16"
                     />
 
             <TextView
@@ -83,19 +83,19 @@
                     android:id="@+id/transactionDetails_statusLink"
                     android:text="@string/pendingStatus_linkText"
                     android:textStyle="bold"
-                    android:textSize="@dimen/text_13"
+                    android:textSize="@dimen/text_14"
                     android:textColor="@color/colorPrimaryDark"
                     android:drawablePadding="4dp"
                     android:visibility="gone"
                     android:drawableEnd="@drawable/ic_open_in_new_black_15dp"
-                    android:layout_marginStart="@dimen/actDetailsStatusMarginLeft"
+                    android:layout_marginStart="@dimen/margin42"
                     android:layout_marginBottom="8dp"
                     />
         </LinearLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/margin16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -107,10 +107,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/messages"
                 android:textColor="@color/colorHoverWhite"
-                android:textSize="@dimen/text_16"
+                android:textSize="@dimen/text_17"
                 android:textStyle="bold"
                 android:layout_marginTop="48dp"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:layout_marginHorizontal="@dimen/margin16"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 />
@@ -120,10 +120,10 @@
                 android:layout_height="1dp"
                 android:background="@color/colorPrimary"
                 android:layout_marginVertical="8dp"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:layout_marginHorizontal="@dimen/margin16"
                 />
         <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/margin16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -133,11 +133,11 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:layout_marginHorizontal="@dimen/margin16"
                 android:textColor="@color/colorHoverWhite"
                 android:textStyle="bold"
                 android:layout_marginTop="32dp"
-                android:textSize="@dimen/text_16"
+                android:textSize="@dimen/text_17"
                 android:text="@string/device"/>
 
         <View
@@ -145,7 +145,7 @@
                 android:layout_height="1dp"
                 android:background="@color/colorPrimary"
                 android:layout_marginVertical="8dp"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:layout_marginHorizontal="@dimen/margin16"
                 />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -160,10 +160,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/debug_info"
                 android:textColor="@color/colorHoverWhite"
-                android:textSize="@dimen/text_16"
+                android:textSize="@dimen/text_17"
                 android:textStyle="bold"
                 android:layout_marginTop="48dp"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:layout_marginHorizontal="@dimen/margin16"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 />
@@ -173,10 +173,10 @@
                 android:layout_height="1dp"
                 android:background="@color/colorPrimary"
                 android:layout_marginVertical="8dp"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:layout_marginHorizontal="@dimen/margin16"
                 />
         <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/margin16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"

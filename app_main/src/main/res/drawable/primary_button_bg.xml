@@ -4,6 +4,6 @@
     android:shape="rectangle" android:padding="10dp">
 	<solid android:color="@color/colorPrimary"/>
 	<corners
-	    android:radius="@dimen/editText_corner" />
+	    android:radius="@dimen/corner_radius" />
 
 </shape>

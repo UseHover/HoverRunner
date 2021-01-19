@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginBottom="55dp"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="@dimen/margin16"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin16"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/text22"
+                android:textColor="@color/colorHoverWhite"
+                android:text="Record your session to create a new action"
+                android:paddingBottom="@dimen/margin16" />
+        </LinearLayout>
+
+        <EditText android:id="@+id/name"
+            android:hint="Name it"
+            android:textStyle="bold"
+            android:textSize="@dimen/text22"
+            android:textColor="@color/colorHoverWhite"
+            app:hintTextColor="@color/colorMainGrey"
+            android:textColorHint="@color/colorTextHint"
+            app:backgroundTint="@color/colorHoverWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin21"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin21"
+            android:textStyle="bold"
+            android:textSize="@dimen/text22"
+            android:textColor="@color/colorHoverWhite"
+            android:text="Choose SIM"/>
+        <RadioGroup android:id="@+id/chooseSim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText android:id="@+id/root_code"
+            android:textStyle="bold"
+            android:textSize="@dimen/text22"
+            android:textColor="@color/colorHoverWhite"
+            android:textColorHint="@color/colorTextHint"
+            app:backgroundTint="@color/colorHoverWhite"
+            android:hint="Enter root code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin21"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:textAlignment="center"
+        android:paddingVertical="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/runActionTextColor"
+        android:textSize="@dimen/text_17"
+        android:id="@+id/startSession"
+        android:text="Dial and record"/>
+
+</LinearLayout>

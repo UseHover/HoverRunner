@@ -10,7 +10,7 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingVertical="@dimen/activity_vertical_margin"
+            android:paddingVertical="@dimen/margin16"
             android:orientation="vertical">
 
         <TextView
@@ -18,10 +18,10 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:drawableStart="@drawable/ic_arrow_back_white_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:drawablePadding="@dimen/margin16"
                 android:textColor="@color/colorHoverWhite"
-                android:textSize="@dimen/actionTextSize"
-                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                android:textSize="@dimen/text22"
+                android:paddingHorizontal="@dimen/margin16"
                 android:id="@+id/parserDetails_toolbarText"/>
 
         <LinearLayout
@@ -38,14 +38,14 @@
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:text="@string/parser_type"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondaryGrey"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:textAllCaps="true"
                     android:id="@+id/parser_type_content" />
 
@@ -63,14 +63,14 @@
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:text="@string/parser_action"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondaryGrey"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:textStyle="bold"
                     android:id="@+id/parser_action_content" />
 
@@ -88,14 +88,14 @@
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:text="@string/parser_actionID"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondaryGrey"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:textStyle="bold"
                     android:id="@+id/parser_actionId_content" />
 
@@ -113,14 +113,14 @@
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:text="@string/parser_category"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondaryGrey"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:id="@+id/parser_category_content" />
 
         </LinearLayout>
@@ -137,14 +137,14 @@
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:text="@string/parser_status"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondaryGrey"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:id="@+id/parser_status_content" />
 
         </LinearLayout>
@@ -161,14 +161,14 @@
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:text="@string/parser_created"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondaryGrey"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:id="@+id/parser_createdAt_content" />
 
         </LinearLayout>
@@ -185,14 +185,14 @@
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:text="@string/parser_sender"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondaryGrey"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:id="@+id/parser_sender_content" />
 
         </LinearLayout>
@@ -209,14 +209,14 @@
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:text="@string/parser_regex"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondaryGrey"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_15"
                     android:id="@+id/parser_regex_content" />
 
         </LinearLayout>
@@ -226,11 +226,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:layout_marginHorizontal="@dimen/margin16"
                 android:text="@string/recent_transactions"
                 android:id="@+id/recentTransa_id"
                 android:textColor="@color/colorHoverWhite"
-                android:textSize="@dimen/text_16"
+                android:textSize="@dimen/text_17"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
@@ -241,10 +241,10 @@
                 android:layout_height="1dp"
                 android:background="@color/colorPrimary"
                 android:layout_marginVertical="8dp"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:layout_marginHorizontal="@dimen/margin16"
                 />
         <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/margin16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"

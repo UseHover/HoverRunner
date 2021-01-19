@@ -40,7 +40,7 @@ public class LoginAsyncCaller extends AsyncTask<String, Void, LoginModel> {
         try {
             retrofit2.Response<TokenModel> tokenModel = callerToken.execute();
             if (tokenModel.code() == 200 && tokenModel.body() != null && tokenModel.body().getAuth_token() != null) {
-                Log.e("LOGIN", "key: " + tokenModel.body().getApiKey());
+                Log.v("LOGIN", "key: " + tokenModel.body().getApiKey());
                 SettingsHelper.saveOrgId(tokenModel.body().getOrgId(), c);
                 SettingsHelper.saveToken(tokenModel.body().getAuth_token(), c);
                 SettingsHelper.saveApiKey(tokenModel.body().getApiKey(), c);

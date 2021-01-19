@@ -5,7 +5,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="@color/colorPrimaryDark"
-		android:padding="@dimen/activity_vertical_margin"
+		android:padding="@dimen/margin16"
 		android:orientation="vertical"
 		tools:context=".settings.SettingsFragment">
 
@@ -19,7 +19,7 @@
 				android:layout_height="wrap_content"
 				android:textAlignment="textStart"
 				android:textStyle="bold"
-				android:textSize="@dimen/actionTextSize"
+				android:textSize="@dimen/text22"
 				android:textColor="@color/colorHoverWhite"
 				android:text="@string/title_settings"
 				/>
@@ -29,11 +29,11 @@
 				android:layout_height="wrap_content"
 				android:textAlignment="textStart"
 				android:textStyle="bold"
-				android:textSize="@dimen/text_16"
+				android:textSize="@dimen/text_17"
 				android:textColor="@color/colorHoverWhite"
 				android:text="@string/testing_mode"
 				android:layout_marginTop="32dp"
-				android:layout_marginBottom="@dimen/activity_vertical_margin"
+				android:layout_marginBottom="@dimen/margin16"
 				/>
 
 		<RadioGroup
@@ -50,23 +50,23 @@
 					app:buttonTint="@color/colorPrimary"
 					android:paddingStart="12dp"
 					android:paddingEnd="0dp"
-					android:textSize="@dimen/text_16"
+					android:textSize="@dimen/text_17"
 					android:textColor="@color/colorSecondaryGrey"
 					android:text="@string/normal" />
 			<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="44dp"
-					android:textSize="@dimen/text_16"
+					android:textSize="@dimen/text_17"
 					android:textColor="@color/colorMainGrey"
-					android:layout_marginBottom="@dimen/activity_vertical_margin"
+					android:layout_marginBottom="@dimen/margin16"
 					android:text="@string/normal_toolTip"/>
 
 			<androidx.appcompat.widget.AppCompatRadioButton
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:id="@+id/mode_debug"
-					android:textSize="@dimen/text_16"
+					android:textSize="@dimen/text_17"
 					android:paddingStart="12dp"
 					android:paddingEnd="0dp"
 					app:buttonTint="@color/colorPrimary"
@@ -77,9 +77,9 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="44dp"
-					android:textSize="@dimen/text_16"
+					android:textSize="@dimen/text_17"
 					android:textColor="@color/colorMainGrey"
-					android:layout_marginBottom="@dimen/activity_vertical_margin"
+					android:layout_marginBottom="@dimen/margin16"
 					android:text="@string/debug_toolTip"/>
 
 
@@ -87,7 +87,7 @@
 			<androidx.appcompat.widget.AppCompatRadioButton
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="@dimen/text_16"
+					android:textSize="@dimen/text_17"
 					android:textColor="@color/colorSecondaryGrey"
 					android:id="@+id/mode_noSim"
 					android:paddingStart="12dp"
@@ -99,9 +99,9 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="44dp"
-					android:textSize="@dimen/text_16"
+					android:textSize="@dimen/text_17"
 					android:textColor="@color/colorMainGrey"
-					android:layout_marginBottom="@dimen/activity_vertical_margin"
+					android:layout_marginBottom="@dimen/margin16"
 					android:text="@string/no_sim_toolTip"/>
 
 		</RadioGroup>
@@ -132,11 +132,11 @@
 				android:layout_height="wrap_content"
 				android:textAlignment="textStart"
 				android:textStyle="bold"
-				android:textSize="@dimen/text_16"
+				android:textSize="@dimen/text_17"
 				android:textColor="@color/colorHoverWhite"
 				android:text="@string/sim_cards"
 				android:layout_marginTop="32dp"
-				android:layout_marginBottom="@dimen/activity_vertical_margin"
+				android:layout_marginBottom="@dimen/margin16"
 				/>
 
 		<LinearLayout
@@ -151,14 +151,14 @@
 					android:layout_width="105dp"
 					android:layout_height="wrap_content"
 					android:textColor="@color/colorPrimary"
-					android:textSize="@dimen/text_14"
+					android:textSize="@dimen/text_15"
 					android:text="@string/sim1"/>
 
 			<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:textColor="@color/colorSecondaryGrey"
-					android:textSize="@dimen/text_14"
+					android:textSize="@dimen/text_15"
 					android:id="@+id/sim1_content" />
 
 		</LinearLayout>
@@ -175,14 +175,14 @@
 					android:layout_width="105dp"
 					android:layout_height="wrap_content"
 					android:textColor="@color/colorPrimary"
-					android:textSize="@dimen/text_14"
+					android:textSize="@dimen/text_15"
 					android:text="@string/sim2"/>
 
 			<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:textColor="@color/colorSecondaryGrey"
-					android:textSize="@dimen/text_14"
+					android:textSize="@dimen/text_15"
 					android:id="@+id/sim2_content" />
 		</LinearLayout>
 
@@ -190,22 +190,22 @@
 				android:id="@+id/contact_support"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/activity_vertical_margin"
+				android:layout_marginTop="@dimen/margin16"
 				android:layout_marginEnd="32dp"
 				android:text="@string/contactUs"
 				android:textColor="@color/colorSecondaryGrey"
-				android:textSize="@dimen/text_14" />
+				android:textSize="@dimen/text_15" />
 
 
 		<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="32dp"
-				android:textSize="@dimen/text_16"
+				android:textSize="@dimen/text_17"
 				android:textStyle="bold"
 				android:text="@string/refresh"
 				android:textColor="@color/colorHoverWhite"
-				android:layout_marginBottom="@dimen/activity_vertical_margin"
+				android:layout_marginBottom="@dimen/margin16"
 				/>
 
 		<Button
@@ -214,7 +214,7 @@
 				android:layout_gravity="start"
 				android:background="@drawable/primary_button_bg"
 				android:text="@string/refresh_app_data"
-				android:textSize="@dimen/text_14"
+				android:textSize="@dimen/text_15"
 				android:textStyle="bold"
 				android:textAllCaps="false"
 				android:paddingHorizontal="14dp"
@@ -225,17 +225,17 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="32dp"
-				android:textSize="@dimen/text_16"
+				android:textSize="@dimen/text_17"
 				android:textStyle="bold"
 				android:text="@string/profile"
 				android:textColor="@color/colorHoverWhite"
-				android:layout_marginBottom="@dimen/activity_vertical_margin"
+				android:layout_marginBottom="@dimen/margin16"
 				/>
 
 		<TextView android:id="@+id/email"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textSize="@dimen/text_14"
+				android:textSize="@dimen/text_15"
 				android:text="@string/email_hint"
 				android:textColor="@color/colorSecondaryGrey"
 				/>
@@ -244,7 +244,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="16dp"
-				android:textSize="@dimen/text_14"
+				android:textSize="@dimen/text_15"
 				android:text="@string/package_hint"
 				android:textColor="@color/colorSecondaryGrey"
 				/>
@@ -253,7 +253,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="16dp"
-				android:textSize="@dimen/text_14"
+				android:textSize="@dimen/text_15"
 				android:text="@string/api_key_hint"
 				android:textColor="@color/colorSecondaryGrey"
 				android:layout_marginBottom="32dp"
@@ -265,7 +265,7 @@
 				android:layout_gravity="start"
 				android:background="@drawable/edit_text_bg"
 				android:text="@string/signout"
-				android:textSize="@dimen/text_14"
+				android:textSize="@dimen/text_15"
 				android:textStyle="bold"
 				android:textColor="@color/colorPureWhite"
 				android:textAllCaps="false"

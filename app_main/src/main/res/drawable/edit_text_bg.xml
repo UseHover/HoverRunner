@@ -6,8 +6,8 @@
 		<shape android:shape="rectangle" android:padding="10dp">
 
 			<solid android:color="@color/colorPrimaryDark"/>
-			<stroke android:width="@dimen/editText_stroke_size" android:color="@color/colorPureWhite"/>
-			<corners android:radius="@dimen/editText_corner" />
+			<stroke android:width="@dimen/stroke_bold" android:color="@color/colorPureWhite"/>
+			<corners android:radius="@dimen/corner_radius" />
 
 		</shape>
 
@@ -17,8 +17,8 @@
 		<shape android:shape="rectangle" android:padding="10dp">
 
 			<solid android:color="@color/colorPrimaryDark"/>
-			<stroke android:width="@dimen/editText_stroke_size" android:color="@color/colorRed"/>
-			<corners android:radius="@dimen/editText_corner" />
+			<stroke android:width="@dimen/stroke_bold" android:color="@color/colorRed"/>
+			<corners android:radius="@dimen/corner_radius" />
 
 		</shape>
 	</item>
@@ -28,8 +28,8 @@
 		<shape android:shape="rectangle" android:padding="10dp">
 
 			<solid android:color="@color/colorPrimaryDark"/>
-			<stroke android:width="@dimen/editText_stroke_size" android:color="@color/colorPureWhite"/>
-			<corners android:radius="@dimen/editText_corner" />
+			<stroke android:width="@dimen/stroke_bold" android:color="@color/colorPureWhite"/>
+			<corners android:radius="@dimen/corner_radius" />
 
 		</shape>
 	</item> <!-- focused -->
@@ -38,10 +38,10 @@
 		<shape android:shape="rectangle" android:padding="10dp">
 
 			<solid android:color="@color/colorPrimaryDark"/>
-			<stroke android:width="@dimen/editText_initial_stroke"
+			<stroke android:width="@dimen/stroke"
 					android:dashGap="3dp"
 					android:color="@color/colorMainGrey"/>
-			<corners android:radius="@dimen/editText_corner" />
+			<corners android:radius="@dimen/corner_radius" />
 
 		</shape>
 	</item>
@@ -50,10 +50,10 @@
 		<shape android:shape="rectangle" android:padding="10dp">
 
 			<solid android:color="@color/colorPrimaryDark"/>
-			<stroke android:width="@dimen/editText_initial_stroke"
+			<stroke android:width="@dimen/stroke"
 					android:dashGap="3dp"
 					android:color="@color/colorMainGrey"/>
-			<corners android:radius="@dimen/editText_corner" />
+			<corners android:radius="@dimen/corner_radius" />
 
 		</shape>
 	</item> <!-- default -->

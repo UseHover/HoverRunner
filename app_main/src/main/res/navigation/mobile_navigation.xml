@@ -22,4 +22,10 @@
 	    android:name="com.hover.runner.settings.SettingsFragment"
 	    android:label="@string/title_settings"
 	    tools:layout="@layout/settings_fragment" />
+
+	<fragment
+			android:id="@+id/navigation_new"
+			android:name="com.hover.runner.ui.create.ManualRunFragment"
+			android:label="@string/title_settings"
+			tools:layout="@layout/fragment_create" />
 </navigation>
