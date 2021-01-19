@@ -42,10 +42,10 @@ android {
             dimension "version"
             versionNameSuffix "-no-sms"
         }
-        pro {
-            dimension "version"
-            versionNameSuffix "-pro"
-       }
+//        pro {
+//            dimension "version"
+//            versionNameSuffix "-pro"
+//       }
 
         dashboard {
             dimension "use"
@@ -94,7 +94,7 @@ dependencies {
     normalInternalReleaseImplementation "com.hover:android-sdk:$sdk_version"
     normalDashboardImplementation "com.hover:android-sdk:$sdk_version"
     noSMSImplementation "com.hover:android-sdk:$sdk_version-noSMS"
-    proImplementation "com.hover:android-sdk:$sdk_version-pro"
+//    proImplementation "com.hover:android-sdk:$sdk_version-pro"
     normalInternalDebugImplementation project(":hover.sdk")
     normalInternalDebugImplementation 'com.android.volley:volley:1.1.1'
     normalInternalDebugImplementation "androidx.work:work-runtime:2.2.0"
