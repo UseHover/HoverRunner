@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.hover.runner.settings.SettingsHelper;
-import com.hover.sdk.actions.ActionsUpdateWorker;
 import com.hover.sdk.actions.HoverAction;
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.api.HoverParameters;
@@ -134,7 +133,7 @@ public class ActionsFragment extends Fragment implements CustomOnClickListener, 
 
         pullToRefresh.setOnRefreshListener(() -> {
             if(new NetworkUtil(getContext()).isNetworkAvailable() == PassageEnum.ACCEPT) {
-                LocalBroadcastManager.getInstance(getContext()).registerReceiver(actionUpdateReceiver, new IntentFilter(ActionsUpdateWorker.getAction(getContext())));
+                LocalBroadcastManager.getInstance(getContext()).registerReceiver(actionUpdateReceiver, new IntentFilter(SettingsHelper.getPackage(getContext()) + ".ACTIONS_DOWNLOADED"));
                 Hover.updateActionConfigs(this, (getContext() != null) ? getContext() : ApplicationInstance.getContext());
             }
             else {
