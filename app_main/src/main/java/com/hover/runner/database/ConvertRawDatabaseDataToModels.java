@@ -78,10 +78,7 @@ public class ConvertRawDatabaseDataToModels {
             }
 
 
-            TransactionModels transactionModels = new TransactionModels(transaction.id, transaction.uuid,
-                    Utils.formatDate(transaction.updatedTimestamp),
-                    lastUSSDMessage,
-                    Utils.getStatusByString(transaction.status));
+            TransactionModels transactionModels = new TransactionModels(transaction.id, transaction.uuid, Utils.formatDate(transaction.updatedTimestamp), lastUSSDMessage, Utils.getStatusByString(transaction.status));
             transactionModels.setDateTimeStamp(transaction.updatedTimestamp);
             transactionModels.setActionId(transaction.actionId);
             transactionModels.setCategory(transaction.category);

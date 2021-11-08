@@ -250,6 +250,7 @@ public class ActionDetailsFragment extends Fragment implements ParserClickListen
                 descTitle.setText(getResources().getString(R.string.successStatus_title));
                 descTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_circle_black_24dp, 0,0,0);
                 descTitle.setCompoundDrawablePadding(32);
+
                 descContent.setVisibility(View.GONE);
                 descLink.setVisibility(View.GONE);
 
